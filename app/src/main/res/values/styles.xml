@@ -1,0 +1,135 @@
+<resources>
+
+    <style name="AppThemeBlue" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorBlue</item>
+        <item name="colorPrimaryDark">@color/colorBlueDark</item>
+        <item name="windowNoTitle">true</item>
+        <!--<item name="android:background">@color/colorBlue</item>-->
+        <item name="windowActionBar">false</item>
+        <item name="buttonStyle">@style/btnStyleBlue</item>
+        <item name="splashLogo">@drawable/avtar_blue</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="editTextStyle">@style/et_style_blue</item>
+    </style>
+
+    <style name="AppThemeWhite" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorWhite</item>
+        <item name="colorPrimaryDark">@color/colorWhite</item>
+        <item name="windowNoTitle">true</item>
+        <!--<item name="android:background">@color/colorWhite</item>-->
+        <item name="windowActionBar">false</item>
+        <item name="buttonStyle">@style/btnStyleWhite</item>
+        <item name="splashLogo">@drawable/avtar_white</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="editTextStyle">@style/et_style_white</item>
+        <!--<item name="drawerArrowStyle">@style/MyDrawerArrowToggle</item>-->
+
+    </style>
+
+    <style name="AppThemeGray" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorGray</item>
+        <item name="colorPrimaryDark">@color/colorGrayDark</item>
+        <!--<item name="android:background">@color/colorGray</item>-->
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="buttonStyle">@style/btnStyleGray</item>
+        <item name="splashLogo">@drawable/avtar_gray</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="editTextStyle">@style/et_style_gray</item>
+    </style>
+
+    <style name="MyDrawerArrowToggle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/blue_light</item>
+    </style>
+
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="btnStyleWhite" parent="Base.Widget.AppCompat.Button">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/btn_color_blue</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="btnStyleBlue" parent="Base.Widget.AppCompat.Button">
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorWhite</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="btnStyleGray" parent="Base.Widget.AppCompat.Button">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorWhite</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="tv_normal">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+
+    </style>
+
+    <style name="tv_red">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:textColor">#AB2323</item>
+    </style>
+
+    <style name="et_style_blue" parent="Base.Widget.AppCompat.EditText">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:padding">7dp</item>
+        <item name="android:textColor">#AB2323</item>
+        <item name="android:background">#96bcba</item>
+    </style>
+
+    <style name="et_style_gray" parent="Base.Widget.AppCompat.EditText">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:padding">7dp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:background">#b5f4f0</item>
+    </style>
+
+    <style name="et_style_white" parent="Base.Widget.AppCompat.EditText">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:padding">7dp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:background">#c4bcbc</item>
+    </style>
+
+    <style name="AppThemeWhite.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppThemeWhite.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="et_login_style">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/et_bg</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+</resources>
