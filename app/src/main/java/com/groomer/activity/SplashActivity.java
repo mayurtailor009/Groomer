@@ -28,7 +28,7 @@ public class SplashActivity extends BaseActivity {
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
             case R.id.tv_signup:
-
+                startActivity(new Intent(this, SignupActivity.class));
                 break;
         }
     }

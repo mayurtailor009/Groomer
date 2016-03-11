@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    tools:context="com.groomer.activity.LoginActivity">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="GROOMER"
+                android:textColor="@color/btn_color_blue"
+                android:textSize="@dimen/logo_size"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/divider_color" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="15dp"
+                android:weightSum="7">
+
+                <TextView
+                    android:id="@+id/tv_signin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center_horizontal"
+                    android:text="SIGN IN"
+                    android:textColor="#90D0F6"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="/"
+                    android:textColor="@color/blue_light"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_signup"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center_horizontal"
+                    android:text="SIGN UP"
+                    android:textColor="@color/blue_light"
+
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/et_name"
+                    style="@style/et_login_style"
+                    android:layout_marginTop="5dp"
+                    android:drawableRight="@drawable/email_field_icon"
+                    android:hint="Enter Here"
+                    android:inputType="textCapWords" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Phone No"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/et_phone"
+                    style="@style/et_login_style"
+                    android:layout_marginTop="5dp"
+                    android:drawableRight="@drawable/email_field_icon"
+                    android:hint="Enter Here"
+                    android:inputType="number" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Email Id"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/et_emailid"
+                    style="@style/et_login_style"
+                    android:layout_marginTop="5dp"
+                    android:drawableRight="@drawable/email_field_icon"
+                    android:hint="Enter Here" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Password"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/et_passowrd"
+                    style="@style/et_login_style"
+                    android:layout_marginTop="5dp"
+                    android:drawableRight="@drawable/lock_field_icon"
+                    android:hint="Enter here"
+                    android:inputType="textPassword"
+                    android:typeface="monospace" />
+
+                <Button
+                    android:id="@+id/btn_signup"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="SIGNUP" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
