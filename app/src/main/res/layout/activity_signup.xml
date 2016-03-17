@@ -15,7 +15,7 @@
             android:layout_height="fill_parent"
             android:orientation="vertical">
 
-            <TextView
+            <com.groomer.customviews.CustomTextViewMarkNovaBold
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -27,7 +27,7 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/divider_color" />
 
             <LinearLayout
@@ -37,17 +37,17 @@
                 android:padding="15dp"
                 android:weightSum="7">
 
-                <TextView
+                <com.groomer.customviews.CustomTextViewMarkNovaThin
                     android:id="@+id/tv_signin"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_horizontal"
                     android:text="SIGN IN"
-                    android:textColor="#90D0F6"
+                    android:textColor="@color/blue_light"
                     android:textSize="20sp" />
 
-                <TextView
+                <com.groomer.customviews.CustomTextViewMarkNovaBold
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -56,7 +56,7 @@
                     android:textColor="@color/blue_light"
                     android:textSize="20sp" />
 
-                <TextView
+                <com.groomer.customviews.CustomTextViewMarkNovaBold
                     android:id="@+id/tv_signup"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
                 android:orientation="vertical"
                 android:padding="15dp">
 
-                <TextView
+                <com.groomer.customviews.CustomTextViewMarkNovaSemibold
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Name"
@@ -89,7 +89,7 @@
                     android:hint="Enter Here"
                     android:inputType="textCapWords" />
 
-                <TextView
+                <com.groomer.customviews.CustomTextViewMarkNovaSemibold
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -104,7 +104,7 @@
                     android:hint="Enter Here"
                     android:inputType="number" />
 
-                <TextView
+                <com.groomer.customviews.CustomTextViewMarkNovaSemibold
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -118,7 +118,7 @@
                     android:drawableRight="@drawable/email_field_icon"
                     android:hint="Enter Here" />
 
-                <TextView
+                <com.groomer.customviews.CustomTextViewMarkNovaSemibold
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"

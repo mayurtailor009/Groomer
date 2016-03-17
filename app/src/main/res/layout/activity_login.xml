@@ -15,19 +15,18 @@
             android:layout_height="fill_parent"
             android:orientation="vertical">
 
-            <TextView
+            <com.groomer.customviews.CustomTextViewMarkNovaBold
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="GROOMER"
                 android:textColor="@color/btn_color_blue"
-                android:textSize="@dimen/logo_size"
-                android:textStyle="bold" />
+                android:textSize="@dimen/logo_size" />
 
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/divider_color" />
 
             <LinearLayout
@@ -37,7 +36,7 @@
                 android:padding="15dp"
                 android:weightSum="7">
 
-                <TextView
+                <com.groomer.customviews.CustomTextViewMarkNovaBold
                     android:id="@+id/tv_signin"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -47,7 +46,7 @@
                     android:textColor="@color/blue_light"
                     android:textSize="20sp" />
 
-                <TextView
+                <com.groomer.customviews.CustomTextViewMarkNovaBold
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -56,14 +55,14 @@
                     android:textColor="@color/blue_light"
                     android:textSize="20sp" />
 
-                <TextView
+                <com.groomer.customviews.CustomTextViewMarkNovaThin
                     android:id="@+id/tv_signup"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_horizontal"
                     android:text="SIGN UP"
-                    android:textColor="#90D0F6"
+                    android:textColor="@color/blue_light"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -74,10 +73,10 @@
                 android:orientation="vertical"
                 android:padding="15dp">
 
-                <TextView
+                <com.groomer.customviews.CustomTextViewMarkNovaSemibold
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Email Id"
+                    android:text="Email ID"
                     android:textSize="20sp" />
 
                 <EditText
@@ -87,7 +86,7 @@
                     android:drawableRight="@drawable/email_field_icon"
                     android:hint="Enter Here" />
 
-                <TextView
+                <com.groomer.customviews.CustomTextViewMarkNovaSemibold
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -98,10 +97,10 @@
                     android:id="@+id/et_passowrd"
                     style="@style/et_login_style"
                     android:layout_marginTop="5dp"
-                    android:hint="Enter here"
-                    android:typeface="monospace"
                     android:drawableRight="@drawable/lock_field_icon"
-                    android:inputType="textPassword" />
+                    android:hint="Enter here"
+                    android:inputType="textPassword"
+                    android:typeface="monospace" />
 
                 <Button
                     android:id="@+id/btn_login"
@@ -111,7 +110,7 @@
                     android:text="LOGIN" />
             </LinearLayout>
 
-            <TextView
+            <com.groomer.customviews.CustomTextViewMarkNovaRegular
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
