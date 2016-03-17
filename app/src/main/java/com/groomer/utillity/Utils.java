@@ -149,6 +149,19 @@ public class Utils {
         return false;
     }
 
+
+    public static int getWebServiceStatusByInt(JSONObject json) {
+
+        try {
+
+            return json.getInt("status");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+
     public static String getWebServiceMessage(JSONObject json) {
 
         try {
@@ -238,7 +251,6 @@ public class Utils {
 
         return url;
     }
-
 
 
 }

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.groomer.R;
+import com.groomer.login.LoginActivity;
+import com.groomer.signup.SignupActivity;
 
 public class SplashActivity extends BaseActivity {
 

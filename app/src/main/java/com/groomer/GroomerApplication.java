@@ -21,6 +21,7 @@ public class GroomerApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        mInstance = this;
     }
 
     public RequestQueue getRequestQueue() {

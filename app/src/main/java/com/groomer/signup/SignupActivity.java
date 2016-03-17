@@ -1,4 +1,4 @@
-package com.groomer.activity;
+package com.groomer.signup;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
+import com.groomer.activity.BaseActivity;
+import com.groomer.activity.HomeActivity;
 import com.groomer.model.UserDTO;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.Utils;
@@ -31,28 +33,38 @@ public class SignupActivity extends BaseActivity {
         init();
     }
 
-    private void init(){
+    private void init() {
         setTouchNClick(R.id.btn_signup);
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn_signup:
-                startActivity(new Intent(this, HomeActivity.class));
+                performSignUp();
                 break;
         }
     }
 
-    public void performLogin() {
+    public void performSignUp() {
 
         Utils.hideKeyboard(SignupActivity.this);
         if (Utils.isOnline(SignupActivity.this)) {
             if (validateForm()) {
                 Map<String, String> params = new HashMap<>();
-                params.put("action", Constants.LOGIN_METHOD);
+                params.put("action", Constants.SIGN_UP_METHOD);
+                params.put("name", getEditTextText(R.id.et_name));
                 params.put("email", getEditTextText(R.id.et_emailid));
                 params.put("password", getEditTextText(R.id.et_passowrd));
+                params.put("mobile", getEditTextText(R.id.et_phone));
+                params.put("mobie_countrycode", "+91");
+                params.put("gender", "M");
+                params.put("dob", "08/21/1989");
+                params.put("confirm_password", getEditTextText(R.id.et_passowrd));
+                params.put("device_id", "dsbsbdbsnbnksxkj");
+                params.put("lat", "24.333333");
+                params.put("lng", "75.333333");
+                params.put("image", "");
                 params.put("device", "android");
 
                 final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
@@ -63,12 +75,13 @@ public class SignupActivity extends BaseActivity {
                                 Utils.ShowLog(Constants.TAG, "Response -> " + response.toString());
                                 pdialog.dismiss();
                                 try {
-                                    if (Utils.getWebServiceStatus(response)) {
+                                    if (Utils.getWebServiceStatusByInt(response) == 1) {
 
                                         UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
 
+                                        startActivity(new Intent(SignupActivity.this, HomeActivity.class));
                                     } else {
-                                         Utils.showDialog(SignupActivity.this, "Error", Utils.getWebServiceMessage(response));
+                                        Utils.showDialog(SignupActivity.this, "Error", Utils.getWebServiceMessage(response));
                                     }
 
 

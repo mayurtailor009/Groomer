@@ -5,11 +5,11 @@
     android:background="@color/grid_color">
 
     <LinearLayout
-        android:padding="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="20dp">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -17,6 +17,7 @@
             android:src="@drawable/icon_9" />
 
         <com.groomer.customviews.CustomTextViewMarkNovaRegular
+            android:id="@+id/txt_category_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

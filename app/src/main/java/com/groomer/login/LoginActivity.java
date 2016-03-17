@@ -1,9 +1,10 @@
-package com.groomer.activity;
+package com.groomer.login;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -11,6 +12,9 @@ import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
+import com.groomer.activity.BaseActivity;
+import com.groomer.activity.HomeActivity;
+import com.groomer.forgetpassword.ForgetpasswordActivity;
 import com.groomer.model.UserDTO;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.Utils;
@@ -31,15 +35,20 @@ public class LoginActivity extends BaseActivity {
         init();
     }
 
-    private void init(){
+    private void init() {
+
         setTouchNClick(R.id.btn_login);
+        setClick(R.id.tv_forgotpassword);
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn_login:
-                startActivity(new Intent(this, HomeActivity.class));
+                performLogin();
+                break;
+            case R.id.tv_forgotpassword:
+                startActivity(new Intent(LoginActivity.this, ForgetpasswordActivity.class));
                 break;
         }
     }
@@ -54,6 +63,10 @@ public class LoginActivity extends BaseActivity {
                 params.put("email", getEditTextText(R.id.et_emailid));
                 params.put("password", getEditTextText(R.id.et_passowrd));
                 params.put("device", "android");
+                params.put("device_id", "asdfasdfsdfsdfsdfgdfgdfg");
+                params.put("lat", "23.444444");
+                params.put("lng", "76.555555");
+                params.put("address", "");
 
                 final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
                 CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constants.SERVICE_URL, params,
@@ -67,8 +80,9 @@ public class LoginActivity extends BaseActivity {
 
                                         UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
 
+                                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                                     } else {
-                                         Utils.showDialog(LoginActivity.this, "Error", Utils.getWebServiceMessage(response));
+                                        Utils.showDialog(LoginActivity.this, "Error", Utils.getWebServiceMessage(response));
                                     }
 
 

@@ -27,6 +27,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:text="Hair Cut"
+            android:id="@+id/txt_category_name"
             android:textColor="@color/black"
             android:textSize="18sp" />
     </LinearLayout>

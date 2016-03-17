@@ -1,4 +1,4 @@
-package com.groomer.fragments;
+package com.groomer.category;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,25 +8,33 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
+import com.groomer.fragments.BaseFragment;
+import com.groomer.model.CategoryDTO;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.Utils;
 import com.groomer.volley.CustomJsonRequest;
 
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by Mayur on 09-03-2016.
  */
-public class SaloonListFragment extends BaseFragment{
+public class SaloonListFragment extends BaseFragment {
 
     View view;
     ListView listView;
@@ -35,38 +43,32 @@ public class SaloonListFragment extends BaseFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_saloon_list, container, false);
-
         init();
-
-        GridAdapter gridAdapter = new GridAdapter(getActivity());
-        gridView.setAdapter(gridAdapter);
-
-        ListAdapter listAdapter = new ListAdapter(getActivity());
-        listView.setAdapter(listAdapter);
-
         return view;
     }
 
-    private void init(){
+    private void init() {
         listView = (ListView) view.findViewById(R.id.listview);
         gridView = (GridView) view.findViewById(R.id.gridview);
+        getCategoryList();
     }
 
-    public void swapeView(){
-        if(gridView.getVisibility() == View.VISIBLE){
+    public void swapeView() {
+        if (gridView.getVisibility() == View.VISIBLE) {
             gridView.setVisibility(View.GONE);
             listView.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             gridView.setVisibility(View.VISIBLE);
             listView.setVisibility(View.GONE);
         }
     }
 
-    private void getSaloonList() {
+    private void getCategoryList() {
 
         if (Utils.isOnline(getActivity())) {
             Map<String, String> params = new HashMap<>();
             params.put("action", Constants.SALOON_LIST_METHOD);
+            params.put("lang", "eng");
 
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constants.SERVICE_URL, params,
                     new Response.Listener<JSONObject>() {
@@ -74,9 +76,11 @@ public class SaloonListFragment extends BaseFragment{
                         public void onResponse(JSONObject response) {
                             try {
                                 Utils.ShowLog(Constants.TAG, "Response=>" + response.toString());
-                                /*Type type = new TypeToken<ArrayList<TripDTO>>() {
+                                Type type = new TypeToken<ArrayList<CategoryDTO>>() {
                                 }.getType();
-                                List<TripDTO> tripList = new Gson().fromJson(response.getJSONArray("trip_list").toString(), type);*/
+                                List<CategoryDTO> categoryList = new Gson().fromJson(response.getJSONArray("category").toString(), type);
+                                setAdapter(categoryList);
+
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -94,80 +98,126 @@ public class SaloonListFragment extends BaseFragment{
         }
     }
 
+
+    private void setAdapter(List<CategoryDTO> categoryList) {
+        GridAdapter gridAdapter = new GridAdapter(getActivity(), categoryList);
+        gridView.setAdapter(gridAdapter);
+
+        ListAdapter listAdapter = new ListAdapter(getActivity(), categoryList);
+        listView.setAdapter(listAdapter);
+
+    }
+
     class GridAdapter extends BaseAdapter {
         private Context mContext;
         LayoutInflater inflater;
-        public GridAdapter(Context c) {
+        private List<CategoryDTO> categoryList;
+
+        public GridAdapter(Context c, List<CategoryDTO> list) {
             mContext = c;
             inflater = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            categoryList = list;
         }
 
         @Override
         public int getCount() {
             // TODO Auto-generated method stub
-            return 12;
+            return categoryList.size();
         }
 
         @Override
         public Object getItem(int position) {
             // TODO Auto-generated method stub
-            return null;
+            return categoryList.get(position);
         }
 
         @Override
         public long getItemId(int position) {
             // TODO Auto-generated method stub
-            return 0;
+            return position;
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             // TODO Auto-generated method stub
-            View grid;
+            View grid = convertView;
+            ViewHolder holder;
+            if (convertView == null) {
+                grid = inflater.inflate(R.layout.grid_item, null);
+                holder = new ViewHolder();
 
-            grid = inflater.inflate(R.layout.grid_item, null);
-            if(position%2!=0)
+                holder.txtCategoryName = (TextView) grid.findViewById(R.id.txt_category_name);
+                grid.setTag(holder);
+            } else {
+                holder = (ViewHolder) grid.getTag();
+            }
+
+            holder.txtCategoryName.setText(categoryList.get(position).getName_eng());
+            if (position % 2 != 0)
                 grid.setBackgroundColor(getResources().getColor(R.color.grid_color_dark));
             return grid;
+        }
+
+
+        private class ViewHolder {
+            private TextView txtCategoryName;
         }
     }
 
     class ListAdapter extends BaseAdapter {
         private Context mContext;
         LayoutInflater inflater;
-        public ListAdapter(Context c) {
+        private List<CategoryDTO> categoryList;
+
+
+        public ListAdapter(Context c, List<CategoryDTO> list) {
             mContext = c;
             inflater = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            categoryList = list;
         }
 
         @Override
         public int getCount() {
-            // TODO Auto-generated method stub
-            return 12;
+
+            return categoryList.size();
         }
 
         @Override
         public Object getItem(int position) {
             // TODO Auto-generated method stub
-            return null;
+            return categoryList.get(position);
         }
 
         @Override
         public long getItemId(int position) {
             // TODO Auto-generated method stub
-            return 0;
+            return position;
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             // TODO Auto-generated method stub
-            View list;
+            View list = convertView;
+            ViewHolder holder;
+            if (convertView == null) {
+                list = inflater.inflate(R.layout.list_item, null);
+                holder = new ViewHolder();
 
-            list = inflater.inflate(R.layout.list_item, null);
+                holder.txtCategoryName = (TextView) list.findViewById(R.id.txt_category_name);
+                list.setTag(holder);
+            } else {
+                holder = (ViewHolder) list.getTag();
+            }
 
+            holder.txtCategoryName.setText(categoryList.get(position).getName_eng());
             return list;
+        }
+
+
+        private class ViewHolder {
+            private TextView txtCategoryName;
         }
     }
 }

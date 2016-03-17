@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.groomer.R;
-import com.groomer.fragments.SaloonListFragment;
+import com.groomer.category.SaloonListFragment;
 
 public class HomeActivity extends BaseActivity {
 
