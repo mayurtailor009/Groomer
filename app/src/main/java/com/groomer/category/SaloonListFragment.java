@@ -1,12 +1,15 @@
 package com.groomer.category;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,6 +25,10 @@ import com.groomer.model.CategoryDTO;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.Utils;
 import com.groomer.volley.CustomJsonRequest;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import org.json.JSONObject;
 
@@ -69,12 +76,13 @@ public class SaloonListFragment extends BaseFragment {
             Map<String, String> params = new HashMap<>();
             params.put("action", Constants.SALOON_LIST_METHOD);
             params.put("lang", "eng");
-
+            final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constants.SERVICE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
+                                pdialog.dismiss();
                                 Utils.ShowLog(Constants.TAG, "Response=>" + response.toString());
                                 Type type = new TypeToken<ArrayList<CategoryDTO>>() {
                                 }.getType();
@@ -90,8 +98,10 @@ public class SaloonListFragment extends BaseFragment {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Utils.showExceptionDialog(getActivity());
+                    pdialog.dismiss();
                 }
             });
+            pdialog.show();
             GroomerApplication.getInstance().getRequestQueue().add(postReq);
         } else {
             Utils.showNoNetworkDialog(getActivity());
@@ -112,12 +122,23 @@ public class SaloonListFragment extends BaseFragment {
         private Context mContext;
         LayoutInflater inflater;
         private List<CategoryDTO> categoryList;
-
+        private DisplayImageOptions options;
         public GridAdapter(Context c, List<CategoryDTO> list) {
             mContext = c;
             inflater = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             categoryList = list;
+            options = new DisplayImageOptions.Builder()
+                    .showImageForEmptyUri(R.drawable.icon_9)
+                    .showImageOnFail(R.drawable.icon_9)
+                    .showImageOnLoading(R.drawable.icon_9)
+                    .resetViewBeforeLoading(true)
+                    .cacheOnDisk(true)
+                    .imageScaleType(ImageScaleType.EXACTLY)
+                    .bitmapConfig(Bitmap.Config.RGB_565)
+                    .considerExifParams(true)
+                    .displayer(new SimpleBitmapDisplayer())
+                    .build();
         }
 
         @Override
@@ -148,12 +169,15 @@ public class SaloonListFragment extends BaseFragment {
                 holder = new ViewHolder();
 
                 holder.txtCategoryName = (TextView) grid.findViewById(R.id.txt_category_name);
+                holder.ivThumb = (ImageView) grid.findViewById(R.id.ivThumb);
                 grid.setTag(holder);
             } else {
                 holder = (ViewHolder) grid.getTag();
             }
 
             holder.txtCategoryName.setText(categoryList.get(position).getName_eng());
+            ImageLoader.getInstance().displayImage(categoryList.get(position).getImage(), holder.ivThumb,
+                    options);
             if (position % 2 != 0)
                 grid.setBackgroundColor(getResources().getColor(R.color.grid_color_dark));
             return grid;
@@ -162,6 +186,7 @@ public class SaloonListFragment extends BaseFragment {
 
         private class ViewHolder {
             private TextView txtCategoryName;
+            private ImageView ivThumb;
         }
     }
 
@@ -169,13 +194,24 @@ public class SaloonListFragment extends BaseFragment {
         private Context mContext;
         LayoutInflater inflater;
         private List<CategoryDTO> categoryList;
-
+        private DisplayImageOptions options;
 
         public ListAdapter(Context c, List<CategoryDTO> list) {
             mContext = c;
             inflater = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             categoryList = list;
+            options = new DisplayImageOptions.Builder()
+                    .showImageForEmptyUri(R.drawable.icon_9)
+                    .showImageOnFail(R.drawable.icon_9)
+                    .showImageOnLoading(R.drawable.icon_9)
+                    .resetViewBeforeLoading(true)
+                    .cacheOnDisk(true)
+                    .imageScaleType(ImageScaleType.EXACTLY)
+                    .bitmapConfig(Bitmap.Config.RGB_565)
+                    .considerExifParams(true)
+                    .displayer(new SimpleBitmapDisplayer())
+                    .build();
         }
 
         @Override
@@ -206,18 +242,25 @@ public class SaloonListFragment extends BaseFragment {
                 holder = new ViewHolder();
 
                 holder.txtCategoryName = (TextView) list.findViewById(R.id.txt_category_name);
+                holder.tvCount = (TextView) list.findViewById(R.id.tv_count);
+                holder.ivThumb = (ImageView) list.findViewById(R.id.ivThumb);
                 list.setTag(holder);
             } else {
                 holder = (ViewHolder) list.getTag();
             }
 
             holder.txtCategoryName.setText(categoryList.get(position).getName_eng());
+            holder.tvCount.setText(categoryList.get(position).getId());
+            ImageLoader.getInstance().displayImage(categoryList.get(position).getImage(), holder.ivThumb,
+                    options);
             return list;
         }
 
 
         private class ViewHolder {
             private TextView txtCategoryName;
+            private ImageView ivThumb;
+            private TextView tvCount;
         }
     }
 }

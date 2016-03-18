@@ -9,13 +9,10 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
 import com.groomer.activity.BaseActivity;
-import com.groomer.activity.HomeActivity;
 import com.groomer.login.LoginActivity;
-import com.groomer.model.UserDTO;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.Utils;
 import com.groomer.volley.CustomJsonRequest;
@@ -101,7 +98,7 @@ public class ForgetpasswordActivity extends BaseActivity {
     public boolean validateForm() {
 
         if (getEditTextText(R.id.et_emailid).equals("")) {
-            Utils.showDialog(this, "Message", "Please enter username");
+            Utils.showDialog(this, "Message", "Please enter emailid");
             return false;
         }
         return true;

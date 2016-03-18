@@ -17,8 +17,9 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/ivThumb"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:src="@drawable/icon_9" />
 
         <com.groomer.customviews.CustomTextViewMarkNovaRegular
@@ -33,6 +34,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"

@@ -12,15 +12,18 @@
         android:padding="20dp">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/ivThumb"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:src="@drawable/icon_9" />
 
         <com.groomer.customviews.CustomTextViewMarkNovaRegular
             android:id="@+id/txt_category_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
+            android:singleLine="true"
             android:text="Hair Cut"
             android:textColor="@color/black"
             android:textSize="16sp" />
