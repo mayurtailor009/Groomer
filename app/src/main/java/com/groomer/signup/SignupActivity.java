@@ -12,7 +12,7 @@ import com.google.gson.Gson;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
 import com.groomer.activity.BaseActivity;
-import com.groomer.activity.HomeActivity;
+import com.groomer.home.HomeActivity;
 import com.groomer.model.UserDTO;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.Utils;

@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -13,7 +12,7 @@ import com.google.gson.Gson;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
 import com.groomer.activity.BaseActivity;
-import com.groomer.activity.HomeActivity;
+import com.groomer.home.HomeActivity;
 import com.groomer.forgetpassword.ForgetpasswordActivity;
 import com.groomer.model.UserDTO;
 import com.groomer.utillity.Constants;

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- this array contains the string for navigation drawer -->
+    <array name="menu_item_string_array">
+        <item>Services</item>
+        <item>Alerts</item>
+        <item>Appointments</item>
+        <item>Favourite</item>
+        <item>Settings</item>
+        <item>Logout</item>
+    </array>
+
+    <!-- this array contains drawable icons for navigation drawer menu items -->
+    <array name="menu_item_drawable_array">
+        <item>0</item>
+        <item>0</item>
+    </array>
+</resources>

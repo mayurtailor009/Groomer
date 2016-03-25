@@ -4,4 +4,35 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
+
+    <!-- For navigation drawer-->
+
+    <string name="menu_favorite">Favourite</string>
+    <string name="menu_services">Services</string>
+    <string name="menu_alerts">Alerts</string>
+    <string name="menu_appointments">Appointments</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_logout">Logout</string>
+
+    <!-- End For navigation drawer-->
+
+    <!--Start For settings screen -->
+
+    <string name="txt_name">Name</string>
+    <string name="txt_email">Email</string>
+    <string name="txt_mobile_no">Mobile No.</string>
+    <string name="txt_location">Location</string>
+
+    <string name="hint_enter_here">Enter Here</string>
+    <string name="hint_email">john@gmail.com</string>
+
+    <!--END For settings screen -->
+
+    <!--For alert screen -->
+
+    <string name="txt_alert_msg">Dave Dud has Accepted your Appointment!</string>
+    <string name="txt_date_time">tue 2 Aug at 11:00 PM</string>
+    <!--END For alert screen -->
+
+
 </resources>

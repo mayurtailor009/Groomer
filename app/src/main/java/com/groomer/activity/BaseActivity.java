@@ -31,13 +31,13 @@ public class BaseActivity extends AppCompatActivity implements OnClickListener,
 		//Thread.setDefaultUncaughtExceptionHandler(new UnCaughtException(BaseFragment.this));
 	}
 
-	public Toolbar setToolbarTitle(String title){
-		toolbar = (Toolbar) findViewById(R.id.toolbar);
-		((TextView)toolbar.findViewById(R.id.toolbar_title)).setText(title);
-		setSupportActionBar(toolbar);
-		getSupportActionBar().setDisplayShowTitleEnabled(false);
-		return toolbar;
-	}
+//	public Toolbar setToolbarTitle(String title){
+//		toolbar = (Toolbar) findViewById(R.id.toolbar);
+//		((TextView)toolbar.findViewById(R.id.toolbar_title)).setText(title);
+//		setSupportActionBar(toolbar);
+//		getSupportActionBar().setDisplayShowTitleEnabled(false);
+//		return toolbar;
+//	}
 	public View setTouchNClick(int id) {
 
 		View v = findViewById(id);
@@ -218,14 +218,12 @@ public class BaseActivity extends AppCompatActivity implements OnClickListener,
 
 	}
 
-/*
 	public void setHeader(String header){
-		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
 		setSupportActionBar(toolbar);
 		TextView tvHeader = (TextView) toolbar.findViewById(R.id.toolbar_title);
 		tvHeader.setText(header);
 	}
-*/
 
 
 //	public void setRightClick(){

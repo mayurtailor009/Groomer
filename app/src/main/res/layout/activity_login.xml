@@ -83,6 +83,7 @@
                     android:id="@+id/et_emailid"
                     style="@style/et_login_style"
                     android:layout_marginTop="5dp"
+                    android:text="deepakgupta@gmail.com"
                     android:drawableRight="@drawable/email_field_icon"
                     android:hint="Enter Here" />
 
@@ -99,6 +100,7 @@
                     android:layout_marginTop="5dp"
                     android:drawableRight="@drawable/lock_field_icon"
                     android:hint="Enter here"
+                    android:text="123456"
                     android:inputType="textPassword"
                     android:typeface="monospace" />
 
