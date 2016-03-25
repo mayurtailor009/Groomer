@@ -41,6 +41,9 @@
     <string name="txt_vendor_price_unit">SAR</string>
     <string name="txt_start_from">Starts From</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <!--END For vendor list screen -->
 
 

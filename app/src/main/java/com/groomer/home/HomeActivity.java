@@ -15,6 +15,7 @@ import com.groomer.R;
 import com.groomer.activity.BaseActivity;
 import com.groomer.alert.AlertFragment;
 import com.groomer.category.SaloonListFragment;
+import com.groomer.favourite.FavouriteFragment;
 import com.groomer.settings.SettingFragment;
 
 public class HomeActivity extends BaseActivity {
@@ -102,6 +103,10 @@ public class HomeActivity extends BaseActivity {
         } else if (view == itemAlerts) {
             resideMenu.closeMenu();
             changeFragment(AlertFragment.newInstance());
+            //   setHeader(getString(R.string.menu_settings));
+        } else if (view == itemFavorite) {
+            resideMenu.closeMenu();
+            changeFragment(FavouriteFragment.newInstance());
             //   setHeader(getString(R.string.menu_settings));
         }
 
