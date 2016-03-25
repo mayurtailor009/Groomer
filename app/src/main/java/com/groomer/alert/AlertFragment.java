@@ -56,7 +56,7 @@ public class AlertFragment extends BaseFragment {
 
         RecyclerView alertRecyclerView = (RecyclerView) view.findViewById(R.id.recycle_alert);
 
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        LinearLayoutManager llm = new LinearLayoutManager(mActivity);
         alertRecyclerView.setLayoutManager(llm);
 
         AlertAdapter alertAdapter = new AlertAdapter(mActivity);

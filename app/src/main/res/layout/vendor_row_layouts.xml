@@ -1,0 +1,111 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    card_view:cardCornerRadius="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="140dp">
+
+            <include
+                layout="@layout/image_view_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="@dimen/margin_10"
+                android:src="@drawable/fav_active_icon" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_10">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+                    android:id="@+id/txt_vendor_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_vendor_name"
+                    android:textSize="15sp" />
+
+
+                <com.groomer.customviews.CustomTextViewMarkNovaThin
+                    android:id="@+id/txt_vendor_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_toRightOf="@+id/txt_vendor_name"
+                    android:text="4.5"
+                    android:textSize="12sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_5"
+                    android:layout_toRightOf="@+id/txt_vendor_rating"
+                    android:src="@drawable/star_icon" />
+
+
+                <com.groomer.customviews.CustomTextViewMarkNovaThin
+                    android:id="@+id/txt_vendor_price_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/txt_vendor_price"
+                    android:text="@string/txt_vendor_price_unit"
+                    android:textSize="12sp" />
+
+                <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+                    android:id="@+id/txt_vendor_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="@dimen/margin_5"
+                    android:text="55"
+                    android:textColor="@color/colorBlue"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_3">
+
+                <com.groomer.customviews.CustomTextViewMarkNovaThin
+                    android:id="@+id/txt_vendor_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/txt_vendor_address"
+                    android:textSize="12sp" />
+
+                <com.groomer.customviews.CustomTextViewMarkNovaThin
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/txt_start_from"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

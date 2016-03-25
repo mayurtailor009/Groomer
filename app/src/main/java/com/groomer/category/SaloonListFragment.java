@@ -2,11 +2,13 @@ package com.groomer.category;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -46,7 +48,6 @@ public class SaloonListFragment extends BaseFragment {
     View view;
     ListView listView;
     GridView gridView;
-
 
 
     public static SaloonListFragment newInstance() {
@@ -122,8 +123,24 @@ public class SaloonListFragment extends BaseFragment {
         GridAdapter gridAdapter = new GridAdapter(getActivity(), categoryList);
         gridView.setAdapter(gridAdapter);
 
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                startActivity(new Intent(getActivity(), VendorListActivity.class));
+            }
+        });
+
+
         ListAdapter listAdapter = new ListAdapter(getActivity(), categoryList);
         listView.setAdapter(listAdapter);
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                startActivity(new Intent(getActivity(), VendorListActivity.class));
+            }
+        });
 
     }
 
@@ -132,6 +149,7 @@ public class SaloonListFragment extends BaseFragment {
         LayoutInflater inflater;
         private List<CategoryDTO> categoryList;
         private DisplayImageOptions options;
+
         public GridAdapter(Context c, List<CategoryDTO> list) {
             mContext = c;
             inflater = (LayoutInflater) mContext

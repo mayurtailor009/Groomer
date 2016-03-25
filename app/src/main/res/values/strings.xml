@@ -29,10 +29,19 @@
     <!--END For settings screen -->
 
     <!--For alert screen -->
-
     <string name="txt_alert_msg">Dave Dud has Accepted your Appointment!</string>
     <string name="txt_date_time">tue 2 Aug at 11:00 PM</string>
     <!--END For alert screen -->
+
+
+    <!--For vendor list screen -->
+
+    <string name="txt_vendor_name">Pretty Looks</string>
+    <string name="txt_vendor_address">21 Magon Street, Near Amazon Park (2 Km.)</string>
+    <string name="txt_vendor_price_unit">SAR</string>
+    <string name="txt_start_from">Starts From</string>
+
+    <!--END For vendor list screen -->
 
 
 </resources>
