@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.groomer.vendordetails.VendorDetailsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_layout"
+        android:orientation="vertical">
+
+        <!-- viewpager layout -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@android:color/holo_red_light">
+
+            <!-- back arrow and zoom button layout -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:padding="@dimen/margin_10">
+
+                <!-- back arrow button -->
+                <ImageView
+                    android:id="@+id/vendor_details_iv_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:clickable="true"
+                    android:padding="@dimen/margin_5"
+                    android:src="@drawable/white_back_btn" />
+
+                <!-- zoom button -->
+                <ImageView
+                    android:id="@+id/vendor_details_zoom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="@dimen/margin_5"
+                    android:src="@drawable/zoom_icon" />
+            </RelativeLayout>
+
+            <!-- viewpager -->
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vendor_details_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
+                android:focusable="false"/>
+
+            <!-- page indicator and favirote icons layout -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/margin_10">
+
+                <!-- circle view pager page indicator -->
+                <com.viewpagerindicator.CirclePageIndicator
+                    android:id="@+id/vendor_details_viewpager_indicators"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="true"
+                    android:paddingLeft="@dimen/margin_10"
+                    app:fillColor="@color/colorWhite"
+                    app:pageColor="@color/divider_color" />
+
+                <!-- favirote icon -->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/fav_active_icon" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <!-- vendor name and address details -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_10">
+
+            <!-- vendor name and address details layout -->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true">
+
+                <!-- vendor name -->
+                <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+                    android:id="@+id/txt_vendor_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_vendor_name"
+                    android:textSize="15sp" />
+
+                <!-- vendor address -->
+                <com.groomer.customviews.CustomTextViewMarkNovaThin
+                    android:id="@+id/txt_vendor_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/txt_vendor_name"
+                    android:layout_marginTop="@dimen/margin_3"
+                    android:text="@string/txt_vendor_address"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <!-- root icon -->
+            <ImageView
+                android:id="@+id/directions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/root_icon" />
+        </RelativeLayout>
+
+        <!-- tabs for vendor's details -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_5"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <!-- servies tab -->
+            <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                android:id="@+id/txt_services_tab"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.33"
+                android:background="@color/divider_color"
+                android:gravity="center"
+                android:padding="@dimen/margin_15"
+                android:text="@string/menu_services"
+                android:textSize="15sp" />
+
+            <!-- about tab -->
+            <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                android:id="@+id/txt_about_tab"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_3"
+                android:layout_weight="0.33"
+                android:background="@color/divider_color"
+                android:gravity="center"
+                android:padding="@dimen/margin_15"
+                android:text="@string/txt_about"
+                android:textSize="15sp" />
+
+            <!-- reviews tab -->
+            <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                android:id="@+id/txt_reviews_tab"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_3"
+                android:layout_weight="0.34"
+                android:background="@color/divider_color"
+                android:gravity="center"
+                android:padding="@dimen/margin_15"
+                android:text="@string/txt_review"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <!-- this layout changes according to the tabs -->
+        <FrameLayout
+            android:id="@+id/vendor_details_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <!-- bottom layout   -->
+    <LinearLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <!-- service selected details -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:background="@color/light_green"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_10">
+
+            <!-- total amount -->
+            <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SAR 130.00"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp" />
+
+            <!-- services seleted -->
+            <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_3"
+                android:text="2 Services"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <!-- appointment set text -->
+        <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+            android:id="@+id/txt_set_appointment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"
+            android:background="@color/dark_green"
+            android:gravity="center"
+            android:padding="@dimen/margin_10"
+            android:text="@string/set_appointment"
+            android:textColor="@color/colorWhite"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+</RelativeLayout>

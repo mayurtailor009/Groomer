@@ -13,6 +13,7 @@ import com.groomer.R;
 
 public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.DetailsViewHolder> {
 
+    private Context context;
 
     public static class DetailsViewHolder extends RecyclerView.ViewHolder {
 
@@ -34,10 +35,6 @@ public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.De
 
         }
     }
-
-
-    private Context context;
-
 
     public VendorListAdapter(Context context) {
 
