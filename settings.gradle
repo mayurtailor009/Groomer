@@ -1,1 +1,1 @@
-include ':app', ':Ranger'
+include ':Ranger', ':app'

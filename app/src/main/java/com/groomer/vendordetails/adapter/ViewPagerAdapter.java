@@ -26,7 +26,7 @@ public class ViewPagerAdapter extends PagerAdapter {
     private LayoutInflater inflater;
     private DisplayImageOptions options;
     private int[] images = new int[] {
-            R.drawable.default_image, R.drawable.default_image
+            R.drawable.slide_img, R.drawable.slide_img
     };
 
 

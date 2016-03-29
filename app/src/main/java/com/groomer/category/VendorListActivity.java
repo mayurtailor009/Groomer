@@ -30,6 +30,9 @@ public class VendorListActivity extends BaseActivity {
     }
 
     private void init() {
+
+
+        setLeftClick(R.drawable.back_btn);
         RecyclerView vendorRecyclerView = (RecyclerView) findViewById(R.id.recycle_vendor);
 
         LinearLayoutManager llm = new LinearLayoutManager(mActivity);
@@ -49,4 +52,17 @@ public class VendorListActivity extends BaseActivity {
         );
 
     }
+
+
+    @Override
+    public void onClick(View arg0) {
+        switch (arg0.getId()) {
+            case R.drawable.back_btn:
+
+                finish();
+                break;
+
+        }
+    }
+
 }
