@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.groomer.R;
 import com.groomer.alert.AlertFragment;
+import com.groomer.appointment.AppointmentFragment;
 import com.groomer.category.SaloonListFragment;
 import com.groomer.favourite.FavouriteFragment;
 import com.groomer.settings.SettingFragment;
@@ -72,6 +73,9 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.nav_alerts:
                         displayFragment(1);
                         break;
+                    case R.id.nav_appointments:
+                        displayFragment(2);
+                        break;
                     case R.id.nav_favourite:
                         displayFragment(3);
                         break;
@@ -95,6 +99,10 @@ public class HomeActivity extends AppCompatActivity {
             case 1:
                 fragment = AlertFragment.newInstance();
                 title = getString(R.string.menu_alerts);
+                break;
+            case 2:
+                fragment = AppointmentFragment.newInstance();
+                title = getString(R.string.menu_appointments);
                 break;
             case 3:
                 fragment = FavouriteFragment.newInstance();

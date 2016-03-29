@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_1"
+    android:background="@color/colorWhite"
+    android:padding="@dimen/margin_10">
+
+    <!-- user appointed image and name layout -->
+    <LinearLayout
+        android:id="@+id/user_appointed_name_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!-- user appointed image -->
+        <include
+            layout="@layout/circuler_image_view"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+
+        <!-- user appointmented name -->
+        <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+            android:id="@+id/txt_appointed_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/margin_5"
+            android:text="David Dud"
+            android:textSize="@dimen/textsize_15sp" />
+    </LinearLayout>
+
+    <!-- address layout -->
+    <LinearLayout
+        android:id="@+id/appointed_user_address_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_appointed_name_layout"
+        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_3"
+        android:orientation="horizontal">
+
+        <!-- location green image -->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/location_green" />
+
+        <!-- address textview -->
+        <com.groomer.customviews.CustomTextViewMarkNovaRegular
+            android:id="@+id/txt_appointed_user_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:text="7th Ave, Apt 12, NYC"
+            android:textSize="@dimen/textsize_12sp" />
+    </LinearLayout>
+
+    <!-- appointed user time layout -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appointed_user_address_layout"
+        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_3"
+        android:orientation="horizontal">
+
+        <!-- schedule icon -->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/schedule_icon" />
+
+        <!-- appointment time -->
+        <com.groomer.customviews.CustomTextViewMarkNovaRegular
+            android:id="@+id/txt_appointed_user_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/margin_5"
+            android:text="11:00 PM"
+            android:textColor="@color/light_green"
+            android:textSize="@dimen/textsize_12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/date_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@color/light_green"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_10">
+
+        <com.groomer.customviews.CustomTextViewMarkNovaRegular
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="TUE"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/textsize_12sp" />
+
+        <com.groomer.customviews.CustomTextViewMarkNovaExtrabold
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_3"
+            android:text="2"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/textsize_18sp" />
+
+        <com.groomer.customviews.CustomTextViewMarkNovaRegular
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_3"
+            android:text="AUG"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/textsize_12sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/down_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/date_layout"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/margin_5"
+        android:paddingLeft="@dimen/margin_10"
+        android:paddingRight="@dimen/margin_10"
+        android:paddingTop="@dimen/margin_10"
+        android:src="@drawable/down_green" />
+</RelativeLayout>

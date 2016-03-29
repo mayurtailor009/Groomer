@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/children_services_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!--<include layout="@layout/layout_confirm_appoint_services_item" />-->
+
+    <!-- cancel, reschedule, and rebook layout -->
+    <LinearLayout
+        android:id="@+id/bottom_button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <!-- cancel layout -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.33"
+            android:background="@color/light_green"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_15">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/close_icon" />
+
+            <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_10"
+                android:text="@string/txt_cancel"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/textsize_12sp" />
+        </LinearLayout>
+
+        <!-- Reschedule layout -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_1"
+            android:layout_weight="0.34"
+            android:background="@color/light_green"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_15">
+
+            <!-- Reschedule image -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/reshedule" />
+
+            <!-- Reschedule text -->
+            <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_10"
+                android:text="@string/txt_reschedule"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/textsize_12sp" />
+        </LinearLayout>
+
+        <!-- Rebook layout -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_1"
+            android:layout_weight="0.33"
+            android:background="@color/light_green"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_15">
+
+            <!-- rebook image -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/rebook" />
+
+            <!-- rebook text -->
+            <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_10"
+                android:text="@string/txt_rebook"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/textsize_12sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
