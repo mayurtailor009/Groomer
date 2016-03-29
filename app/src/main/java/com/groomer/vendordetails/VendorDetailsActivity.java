@@ -1,5 +1,7 @@
 package com.groomer.vendordetails;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -21,11 +23,14 @@ public class VendorDetailsActivity extends BaseActivity {
     private static int currentPage = 0;
     private static int NUM_PAGES = 0;
     private ArrayList<String> imageList;
+    private Activity mActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vendor_details);
+
+        mActivity = VendorDetailsActivity.this;
 
         mPager = (ViewPager) findViewById(R.id.vendor_details_viewpager);
         mPager.setAdapter(new ViewPagerAdapter(this, null));
@@ -37,14 +42,20 @@ public class VendorDetailsActivity extends BaseActivity {
         final float density = getResources().getDisplayMetrics().density;
         indicator.setRadius(5 * density);
 
-        setClick(R.id.vendor_details_iv_back);
         displayFragment(0);
+
+        //setting click operations on views
+        setClick(R.id.vendor_details_iv_back);
+        setClick(R.id.btn_services_tab);
+        setClick(R.id.btn_set_appointment);
     }
 
     private void displayFragment(int position) {
         Fragment fragment = null;
         switch (position) {
             case 0:
+                setButtonSelected(R.id.btn_services_tab, true);
+                setTextColor(R.id.btn_services_tab, R.color.colorWhite);
                 fragment = ServicesFragment.newInstance();
                 break;
         }
@@ -61,7 +72,13 @@ public class VendorDetailsActivity extends BaseActivity {
             case R.id.vendor_details_iv_back:
                 this.finish();
                 break;
-
+            case R.id.btn_services_tab:
+                displayFragment(0);
+                break;
+            case R.id.btn_set_appointment:
+                Intent intent = new Intent(mActivity, ConfirmAppointmentActivity.class);
+                mActivity.startActivity(intent);
+                break;
         }
     }
 }

@@ -50,8 +50,12 @@
             android:name=".forgetpassword.ForgetpasswordActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".category.VendorListActivity" />
-        <activity android:name=".vendordetails.VendorDetailsActivity"
+        <activity android:name=".category.VendorListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".vendordetails.VendorDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".vendordetails.ConfirmAppointmentActivity"
             android:screenOrientation="portrait"></activity>
     </application>
 

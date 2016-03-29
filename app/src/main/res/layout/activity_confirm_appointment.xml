@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.groomer.vendordetails.ConfirmAppointmentActivity">
+
+    <!-- service price, name, address details with close button layout -->
+    <RelativeLayout
+        android:id="@+id/confirm_appoint_servicedetailslayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/light_green"
+        android:padding="@dimen/margin_15">
+
+        <!-- service price text -->
+        <com.groomer.customviews.CustomTextViewMarkNovaExtrabold
+            android:id="@+id/confirm_appoint_txt_service_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SAR 130"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/textsize_15sp" />
+
+        <!-- service name text -->
+        <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+            android:id="@+id/confirm_appoint_txt_service_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/confirm_appoint_txt_service_price"
+            android:layout_marginTop="@dimen/margin_3"
+            android:text="Pretty Looks"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/textsize_15sp" />
+
+        <!-- service name text -->
+        <com.groomer.customviews.CustomTextViewMarkNovaThin
+            android:id="@+id/confirm_appoint_txt_service_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/confirm_appoint_txt_service_name"
+            android:layout_marginTop="@dimen/margin_3"
+            android:text="@string/txt_vendor_address"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/textsize_15sp" />
+
+        <!-- cross button -->
+        <ImageView
+            android:id="@+id/confirm_appoint_cross_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/close_btn"
+            android:tint="@color/colorWhite" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/confirm_appoint_service_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/confirm_appoint_servicedetailslayout" />
+
+    <!-- per service time, price details with remove button -->
+    <LinearLayout
+        android:id="@+id/confirm_appoint_removebtnlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/confirm_appoint_service_list"
+        android:background="@color/grid_color"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <!-- per service taken time text -->
+        <com.groomer.customviews.CustomTextViewMarkNovaLight
+            android:id="@+id/confirm_appoint_service_takentime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:background="@color/colorWhite"
+            android:gravity="right"
+            android:padding="@dimen/margin_15"
+            android:text="30 MIN"
+            android:textSize="@dimen/textsize_15sp" />
+
+        <!-- per service price taken -->
+        <com.groomer.customviews.CustomTextViewMarkNovaRegular
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_1"
+            android:layout_weight="0.25"
+            android:background="@color/colorWhite"
+            android:gravity="center"
+            android:padding="@dimen/margin_15"
+            android:text="SAR 65"
+            android:textSize="@dimen/textsize_15sp" />
+
+        <!-- remove button -->
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_1"
+            android:layout_weight="0.25"
+            android:background="@android:color/holo_red_dark"
+            android:text="@string/txt_remove"
+            android:textAllCaps="false"
+            android:textSize="@dimen/textsize_12sp" />
+    </LinearLayout>
+
+    <!-- select date text -->
+    <com.groomer.customviews.CustomTextViewMarkNovaExtrabold
+        android:id="@+id/label_select_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/confirm_appoint_removebtnlayout"
+        android:padding="@dimen/margin_15"
+        android:text="@string/txt_select_date"
+        android:textSize="@dimen/textsize_15sp" />
+
+    <LinearLayout
+        android:id="@+id/rangerlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/label_select_date"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin_15"
+        android:weightSum="1">
+
+        <!-- back arrow icon -->
+        <ImageView
+            android:id="@+id/ranger_back_arrow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.1"
+            android:src="@drawable/back_arrow" />
+
+        <!-- horizontal date picker -->
+        <com.andressantibanez.ranger.Ranger
+            android:id="@+id/date_picker"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:scrollbarSize="2dp"
+            app:alwaysDisplayMonth="true"
+            app:dayTextColor="@color/black"
+            app:daysContainerBackgroundColor="@color/colorWhite"
+            app:displayDayOfWeek="true"
+            app:selectedDayBackgroundColor="@color/grid_color"
+            app:selectedDayTextColor="@color/black" />
+
+        <!-- next arrow -->
+        <ImageView
+            android:id="@+id/ranger_next_arrow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.1"
+            android:src="@drawable/next_arrow" />
+    </LinearLayout>
+
+    <!-- label select time text -->
+    <com.groomer.customviews.CustomTextViewMarkNovaExtrabold
+        android:id="@+id/label_select_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rangerlayout"
+        android:padding="@dimen/margin_15"
+        android:text="@string/txt_select_time"
+        android:textSize="@dimen/textsize_15sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/label_select_time"
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_15">
+
+        <LinearLayout
+            android:id="@+id/time_seekbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <!-- day image icon -->
+            <ImageView
+                android:id="@+id/sun_image"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.1"
+                android:src="@drawable/day_icon" />
+
+            <!-- seekbar to choose time -->
+            <SeekBar
+                android:id="@+id/time_seekbar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.8"
+                android:max="24"
+                android:progressDrawable="@drawable/gradient_dragger"
+                android:thumb="@drawable/pointer_icon" />
+
+            <!-- night image icon -->
+            <ImageView
+                android:id="@+id/night_image"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.1"
+                android:src="@drawable/night_icon" />
+        </LinearLayout>
+
+        <!-- time selected from seekbar text -->
+        <com.groomer.customviews.CustomTextViewMarkNovaRegular
+            android:id="@+id/txt_selected_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_3"
+            android:text="09:00 AM" />
+    </LinearLayout>
+
+    <!-- confirm appointment button -->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/light_green"
+        android:padding="@dimen/margin_15"
+        android:text="@string/txt_confirm_appointment"
+        android:textColor="@color/colorWhite" />
+
+</RelativeLayout>

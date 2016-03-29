@@ -96,14 +96,15 @@
                 android:padding="@dimen/margin_10">
 
                 <!-- select or selected text -->
-                <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+                <Button
                     android:id="@+id/btn_service_select"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/light_green"
+                    android:background="@drawable/select_btn_selector"
                     android:gravity="center"
                     android:padding="@dimen/margin_15"
                     android:text="@string/txt_select"
+                    android:textSize="12sp"
                     android:textColor="@color/colorWhite" />
             </LinearLayout>
         </LinearLayout>

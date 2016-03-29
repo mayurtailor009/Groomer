@@ -31,9 +31,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
+                    android:clickable="true"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:clickable="true"
                     android:padding="@dimen/margin_5"
                     android:src="@drawable/white_back_btn" />
 
@@ -52,8 +52,8 @@
                 android:id="@+id/vendor_details_viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusableInTouchMode="false"
-                android:focusable="false"/>
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
 
             <!-- page indicator and favirote icons layout -->
             <RelativeLayout
@@ -132,42 +132,48 @@
             android:weightSum="1">
 
             <!-- servies tab -->
-            <com.groomer.customviews.CustomTextViewMarkNovaRegular
-                android:id="@+id/txt_services_tab"
+            <Button
+                android:id="@+id/btn_services_tab"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.33"
-                android:background="@color/divider_color"
+                android:background="@drawable/tab_button_selector"
                 android:gravity="center"
                 android:padding="@dimen/margin_15"
                 android:text="@string/menu_services"
-                android:textSize="15sp" />
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
             <!-- about tab -->
-            <com.groomer.customviews.CustomTextViewMarkNovaRegular
-                android:id="@+id/txt_about_tab"
+            <Button
+                android:id="@+id/btn_about_tab"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_3"
                 android:layout_weight="0.33"
-                android:background="@color/divider_color"
+                android:background="@drawable/tab_button_selector"
                 android:gravity="center"
                 android:padding="@dimen/margin_15"
                 android:text="@string/txt_about"
-                android:textSize="15sp" />
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
             <!-- reviews tab -->
-            <com.groomer.customviews.CustomTextViewMarkNovaRegular
-                android:id="@+id/txt_reviews_tab"
+            <Button
+                android:id="@+id/btn_reviews_tab"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_3"
                 android:layout_weight="0.34"
-                android:background="@color/divider_color"
+                android:background="@drawable/tab_button_selector"
                 android:gravity="center"
                 android:padding="@dimen/margin_15"
                 android:text="@string/txt_review"
-                android:textSize="15sp" />
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <!-- this layout changes according to the tabs -->
@@ -214,9 +220,9 @@
                 android:textSize="15sp" />
         </LinearLayout>
 
-        <!-- appointment set text -->
-        <com.groomer.customviews.CustomTextViewMarkNovaSemibold
-            android:id="@+id/txt_set_appointment"
+        <!-- set appointment button -->
+        <Button
+            android:id="@+id/btn_set_appointment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.4"
@@ -224,6 +230,7 @@
             android:gravity="center"
             android:padding="@dimen/margin_10"
             android:text="@string/set_appointment"
+            android:textAllCaps="false"
             android:textColor="@color/colorWhite"
             android:textSize="15sp" />
     </LinearLayout>

@@ -1,84 +1,121 @@
 package com.groomer.home;
 
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.groomer.R;
-import com.groomer.activity.BaseActivity;
 import com.groomer.alert.AlertFragment;
 import com.groomer.category.SaloonListFragment;
 import com.groomer.favourite.FavouriteFragment;
 import com.groomer.settings.SettingFragment;
 
-public class HomeActivity extends BaseActivity {
+
+public class HomeActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
-    private ResideMenuSecond resideMenu;
-    private ResideMenuItem itemServices, itemAlerts, itemAppointments,
-            itemFavorite, itemSetting, itemLogout;
-
-    private ResideMenuSecond.OnMenuListener menuListener = new ResideMenuSecond.OnMenuListener() {
-        @Override
-        public void openMenu() {
-        }
-
-        @Override
-        public void closeMenu() {
-        }
-    };
-
+    private Toolbar toolbar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        setViewVisibility(R.id.hamburgur_img_icon, View.VISIBLE);
-        setClick(R.id.hamburgur_img_icon);
-        setUpMenu();
 
+        toolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+
+        init();
+
+        setUpNavigationViewItemClick();
+
+        findViewById(R.id.hamburgur_img_icon).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
+        displayFragment(0);
+    }
+
+    private void init() {
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open,
+                R.string.drawer_close);
+        drawerLayout.addDrawerListener(drawerToggle);
+        //drawerToggle.syncState();
 
     }
 
-    private void setUpMenu() {
-        resideMenu = new ResideMenuSecond(this);
-        resideMenu.setBackgroundColor(getResources().getColor(R.color.dark_green));
-        resideMenu.attachToActivity(this);
-        resideMenu.setMenuListener(menuListener);
+    private void setUpNavigationViewItemClick() {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigationview);
+        navigationView.setNavigationItemSelectedListener(new NavigationView
+                .OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+                switch (item.getItemId()) {
+                    case R.id.nav_services:
+                        displayFragment(0);
+                        break;
+                    case R.id.nav_alerts:
+                        displayFragment(1);
+                        break;
+                    case R.id.nav_favourite:
+                        displayFragment(3);
+                        break;
+                    case R.id.nav_settings:
+                        displayFragment(4);
+                        break;
+                }
+                return true;
+            }
+        });
+    }
 
-        itemServices = new ResideMenuItem(this, R.drawable.place_icon, getString(R.string.menu_services), "");
-        itemAppointments = new ResideMenuItem(this, R.drawable.thumb_icon, getString(R.string.menu_appointments), "");
-        itemAlerts = new ResideMenuItem(this, R.drawable.notification_btn, getString(R.string.menu_alerts), "");
-        itemLogout = new ResideMenuItem(this, R.drawable.logout_btn, getString(R.string.menu_logout), "");
-        itemFavorite = new ResideMenuItem(this, R.drawable.fav_btn, getString(R.string.menu_favorite), "");
-        itemSetting = new ResideMenuItem(this, R.drawable.setting_btn, getString(R.string.menu_settings), "");
+    private void displayFragment(int index) {
+        Fragment fragment = null;
+        String title = "";
+        switch (index) {
+            case 0:
+                fragment = SaloonListFragment.newInstance();
+                title = getString(R.string.txt_category);
+                break;
+            case 1:
+                fragment = AlertFragment.newInstance();
+                title = getString(R.string.menu_alerts);
+                break;
+            case 3:
+                fragment = FavouriteFragment.newInstance();
+                title = getString(R.string.menu_favorite);
+                break;
+            case 4:
+                fragment = SettingFragment.newInstance();
+                title = getString(R.string.menu_settings);
+                break;
+        }
 
-        itemServices.setOnClickListener(this);
-        itemAppointments.setOnClickListener(this);
-        itemAlerts.setOnClickListener(this);
-        itemLogout.setOnClickListener(this);
-        itemFavorite.setOnClickListener(this);
-        itemSetting.setOnClickListener(this);
+        setHeader(title);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.body_layout, fragment)
+                .commit();
+    }
 
-
-        resideMenu.addMenuItem(itemServices, ResideMenuSecond.DIRECTION_LEFT);
-        resideMenu.addMenuItem(itemAlerts, ResideMenuSecond.DIRECTION_LEFT);
-        resideMenu.addMenuItem(itemAppointments, ResideMenuSecond.DIRECTION_LEFT);
-        resideMenu.addMenuItem(itemFavorite, ResideMenuSecond.DIRECTION_LEFT);
-        resideMenu.addMenuItem(itemSetting, ResideMenuSecond.DIRECTION_LEFT);
-        resideMenu.addMenuItem(itemLogout, ResideMenuSecond.DIRECTION_LEFT);
-
-
-        changeFragment(SaloonListFragment.newInstance());
-
+    private void setHeader(String title) {
+        TextView textView = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        textView.setText(title);
     }
 
 
@@ -86,56 +123,6 @@ public class HomeActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
-    }
-
-
-    @Override
-    public void onClick(View view) {
-
-        if (view == itemServices) {
-            resideMenu.closeMenu();
-            changeFragment(SaloonListFragment.newInstance());
-            // setHeader(getString(R.string.menu_services));
-        } else if (view == itemSetting) {
-            resideMenu.closeMenu();
-            changeFragment(SettingFragment.newInstance());
-            //   setHeader(getString(R.string.menu_settings));
-        } else if (view == itemAlerts) {
-            resideMenu.closeMenu();
-            changeFragment(AlertFragment.newInstance());
-            //   setHeader(getString(R.string.menu_settings));
-        } else if (view == itemFavorite) {
-            resideMenu.closeMenu();
-            changeFragment(FavouriteFragment.newInstance());
-            //   setHeader(getString(R.string.menu_settings));
-        }
-
-
-        switch (view.getId()) {
-            case R.id.hamburgur_img_icon:
-                if (resideMenu.isOpened()) {
-                    resideMenu.closeMenu();
-                    resideMenu.setOpened(false);
-                } else {
-                    resideMenu.openMenu(ResideMenuSecond.DIRECTION_LEFT);
-                    resideMenu.setOpened(true);
-                }
-                break;
-        }
-
-
-    }
-
-
-    private void changeFragment(Fragment targetFragment) {
-
-
-        resideMenu.clearIgnoredViewList();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.body_layout, targetFragment, "fragment")
-                .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit();
     }
 
 }

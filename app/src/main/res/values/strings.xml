@@ -16,6 +16,10 @@
 
     <!-- End For navigation drawer-->
 
+
+    <!-- start for categories -->
+    <string name="txt_category">Categories</string>
+
     <!--Start For settings screen -->
 
     <string name="txt_name">Name</string>
@@ -45,6 +49,10 @@
     <string name="set_appointment">Set Appointment</string>
     <string name="txt_select">SELECT</string>
     <string name="txt_selected">SELECTED</string>
+    <string name="txt_remove">Remove</string>
+    <string name="txt_select_date">SELECT DATE</string>
+    <string name="txt_select_time">SELECT TIME</string>
+    <string name="txt_confirm_appointment">CONFIRM APPOINTMENT</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

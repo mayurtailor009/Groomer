@@ -14,8 +14,7 @@
         android:id="@+id/hamburgur_img_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/menu_btn"
-        android:visibility="gone"/>
+        android:src="@drawable/menu_btn" />
 
 
     <com.groomer.customviews.CustomTextViewMarkNovaRegular
@@ -23,8 +22,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:text="Categories"
         android:textColor="@color/colorBlue"
-        android:textSize="20sp"
-        android:text="Categories" />
+        android:textSize="20sp" />
 
 </android.support.v7.widget.Toolbar>

@@ -111,6 +111,10 @@ public class BaseActivity extends AppCompatActivity implements OnClickListener,
 	public void setButtonSelected(int id, boolean flag){
 		((Button)findViewById(id)).setSelected(flag);
 	}
+
+	public void setTextColor(int id, int color) {
+		((Button) findViewById(id)).setTextColor(getResources().getColor(color));
+	}
 	public boolean isButtonSelected(int id){
 		return ((Button)findViewById(id)).isSelected();
 	}
