@@ -15,6 +15,7 @@ import com.groomer.activity.BaseActivity;
 import com.groomer.home.HomeActivity;
 import com.groomer.forgetpassword.ForgetpasswordActivity;
 import com.groomer.model.UserDTO;
+import com.groomer.signup.SignupActivity;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.Utils;
 import com.groomer.volley.CustomJsonRequest;
@@ -38,6 +39,7 @@ public class LoginActivity extends BaseActivity {
 
         setTouchNClick(R.id.btn_login);
         setClick(R.id.tv_forgotpassword);
+        setClick(R.id.tv_signup);
     }
 
     @Override
@@ -48,6 +50,10 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.tv_forgotpassword:
                 startActivity(new Intent(LoginActivity.this, ForgetpasswordActivity.class));
+                break;
+            case R.id.tv_signup:
+                startActivity(new Intent(LoginActivity.this, SignupActivity.class));
+                finish();
                 break;
         }
     }
@@ -78,8 +84,9 @@ public class LoginActivity extends BaseActivity {
                                     if (Utils.getWebServiceStatus(response)) {
 
                                         UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
-
+                                        Utils.putObjectIntoPref(LoginActivity.this, userDTO, Constants.USER_INFO);
                                         startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                                        finish();
                                     } else {
                                         Utils.showDialog(LoginActivity.this, "Error", Utils.getWebServiceMessage(response));
                                     }

@@ -13,6 +13,7 @@ import com.groomer.GroomerApplication;
 import com.groomer.R;
 import com.groomer.activity.BaseActivity;
 import com.groomer.home.HomeActivity;
+import com.groomer.login.LoginActivity;
 import com.groomer.model.UserDTO;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.Utils;
@@ -35,6 +36,7 @@ public class SignupActivity extends BaseActivity {
 
     private void init() {
         setTouchNClick(R.id.btn_signup);
+        setClick(R.id.tv_signin);
     }
 
     @Override
@@ -42,6 +44,10 @@ public class SignupActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.btn_signup:
                 performSignUp();
+                break;
+            case R.id.tv_signin:
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
                 break;
         }
     }
@@ -78,8 +84,9 @@ public class SignupActivity extends BaseActivity {
                                     if (Utils.getWebServiceStatusByInt(response) == 1) {
 
                                         UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
-
+                                        Utils.putObjectIntoPref(SignupActivity.this, userDTO, Constants.USER_INFO);
                                         startActivity(new Intent(SignupActivity.this, HomeActivity.class));
+                                        finish();
                                     } else {
                                         Utils.showDialog(SignupActivity.this, "Error", Utils.getWebServiceMessage(response));
                                     }

@@ -1,5 +1,6 @@
 package com.groomer.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -8,7 +9,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -18,7 +18,10 @@ import com.groomer.alert.AlertFragment;
 import com.groomer.appointment.AppointmentFragment;
 import com.groomer.category.SaloonListFragment;
 import com.groomer.favourite.FavouriteFragment;
+import com.groomer.login.LoginActivity;
 import com.groomer.settings.SettingFragment;
+import com.groomer.utillity.Constants;
+import com.groomer.utillity.Utils;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -81,6 +84,11 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_settings:
                         displayFragment(4);
+                        break;
+                    case R.id.nav_logout:
+                        Utils.removeObjectIntoPref(HomeActivity.this, Constants.USER_INFO);
+                        finish();
+                        startActivity(new Intent(HomeActivity.this, LoginActivity.class));
                         break;
                 }
                 return true;
