@@ -128,14 +128,18 @@ public class SaloonListFragment extends BaseFragment {
     }
 
 
-    private void setAdapter(List<CategoryDTO> categoryList) {
+    private void setAdapter(final List<CategoryDTO> categoryList) {
         GridAdapter gridAdapter = new GridAdapter(getActivity(), categoryList);
         gridView.setAdapter(gridAdapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(getActivity(), VendorListActivity.class));
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("dto", categoryList.get(position));
+                Intent intent = new Intent(getActivity(), VendorListActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 
@@ -147,7 +151,11 @@ public class SaloonListFragment extends BaseFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(getActivity(), VendorListActivity.class));
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("dto", categoryList.get(position));
+                Intent intent = new Intent(getActivity(), VendorListActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 

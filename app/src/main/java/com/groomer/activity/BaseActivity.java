@@ -229,6 +229,7 @@ public class BaseActivity extends AppCompatActivity implements OnClickListener,
     public void setHeader(String header) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
         TextView tvHeader = (TextView) toolbar.findViewById(R.id.toolbar_title);
         tvHeader.setText(header);
     }

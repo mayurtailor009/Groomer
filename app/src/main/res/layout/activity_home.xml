@@ -38,7 +38,7 @@
         android:background="@color/light_green"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/layout_navigation_header"
-        app:itemBackground="@color/light_green"
+        app:itemBackground="@color/green"
         app:itemIconTint="@color/colorWhite"
         app:itemTextColor="@color/colorWhite"
         app:menu="@menu/menu_navigation_drawer" />
