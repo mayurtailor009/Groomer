@@ -36,7 +36,7 @@
                 android:padding="15dp"
                 android:weightSum="7">
 
-                <com.groomer.customviews.CustomTextViewMarkNovaBold
+                <com.groomer.customviews.CustomTextViewMarkNovaSemibold
                     android:id="@+id/tv_signin"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                     android:textColor="@color/blue_light"
                     android:textSize="20sp" />
 
-                <com.groomer.customviews.CustomTextViewMarkNovaBold
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -73,7 +73,7 @@
                 android:orientation="vertical"
                 android:padding="15dp">
 
-                <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Email ID"
@@ -86,7 +86,7 @@
                     android:drawableRight="@drawable/email_field_icon"
                     android:hint="Enter Here" />
 
-                <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -109,12 +109,14 @@
                     android:layout_marginTop="20dp"
                     android:text="LOGIN" />
 
-                <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
                     android:id="@+id/tv_forgotpassword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="right"
                     android:layout_marginTop="10dp"
                     android:text="Forget Password ?"
+                    android:textColor="@color/blue_light"
                     android:textSize="20sp" />
             </LinearLayout>
 

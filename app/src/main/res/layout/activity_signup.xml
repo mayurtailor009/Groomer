@@ -47,7 +47,7 @@
                     android:textColor="@color/blue_light"
                     android:textSize="20sp" />
 
-                <com.groomer.customviews.CustomTextViewMarkNovaBold
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -56,7 +56,7 @@
                     android:textColor="@color/blue_light"
                     android:textSize="20sp" />
 
-                <com.groomer.customviews.CustomTextViewMarkNovaBold
+                <com.groomer.customviews.CustomTextViewMarkNovaSemibold
                     android:id="@+id/tv_signup"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
                 android:orientation="vertical"
                 android:padding="15dp">
 
-                <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Name"
@@ -85,11 +85,10 @@
                     android:id="@+id/et_name"
                     style="@style/et_login_style"
                     android:layout_marginTop="5dp"
-                    android:drawableRight="@drawable/email_field_icon"
                     android:hint="Enter Here"
                     android:inputType="textCapWords" />
 
-                <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -100,11 +99,10 @@
                     android:id="@+id/et_phone"
                     style="@style/et_login_style"
                     android:layout_marginTop="5dp"
-                    android:drawableRight="@drawable/email_field_icon"
                     android:hint="Enter Here"
                     android:inputType="number" />
 
-                <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -118,7 +116,7 @@
                     android:drawableRight="@drawable/email_field_icon"
                     android:hint="Enter Here" />
 
-                <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
