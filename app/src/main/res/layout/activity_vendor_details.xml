@@ -104,7 +104,7 @@
                     android:textSize="15sp" />
 
                 <!-- vendor address -->
-                <com.groomer.customviews.CustomTextViewMarkNovaThin
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
                     android:id="@+id/txt_vendor_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -63,5 +63,8 @@
 
     <!--END For vendor list screen -->
 
+    <!-- vendor details acitivty -->
+    <string name="txt_about_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac orci quis odilo bibendum mattis.</string>
+    <string name="txt_timing">Timing</string>
 
 </resources>
