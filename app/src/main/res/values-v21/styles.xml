@@ -9,11 +9,12 @@
         <item name="windowActionBar">false</item>
         <item name="android:buttonStyle">@style/btnStyleBlue</item>
         <item name="splashLogo">@drawable/avtar_blue</item>
-        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textColor">@color/black</item>
         <item name="editTextStyle">@style/et_style_blue</item>
+        <item name="drawerBg">@color/colorBlueDark</item>
     </style>
 
-    <style name="AppThemeWhite" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppThemeGreen" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/green</item>
         <item name="colorPrimaryDark">@color/green</item>
@@ -24,20 +25,22 @@
         <item name="splashLogo">@drawable/avtar_white</item>
         <item name="android:textColor">@color/black</item>
         <item name="editTextStyle">@style/et_style_white</item>
+        <item name="drawerBg">@color/green</item>
 
     </style>
 
-    <style name="AppThemeGray" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppThemeRed" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorGray</item>
-        <item name="colorPrimaryDark">@color/colorGrayDark</item>
+        <item name="colorPrimary">@color/red</item>
+        <item name="colorPrimaryDark">@color/red</item>
         <!--<item name="android:background">@color/colorGray</item>-->
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-        <item name="android:buttonStyle">@style/btnStyleGray</item>
+        <item name="android:buttonStyle">@style/btnStyleRed</item>
         <item name="splashLogo">@drawable/avtar_gray</item>
-        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textColor">@color/black</item>
         <item name="editTextStyle">@style/et_style_gray</item>
+        <item name="drawerBg">@color/red</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

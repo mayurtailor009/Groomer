@@ -23,6 +23,7 @@ public class VendorListActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme();
         setContentView(R.layout.activity_vendor_list);
 
         mActivity = VendorListActivity.this;

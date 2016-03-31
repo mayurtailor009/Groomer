@@ -2,6 +2,6 @@
 <resources>
     <declare-styleable name="customAttrs">
         <attr name="splashLogo" format="reference" />
-
+        <attr name="drawerBg" format="color" />
     </declare-styleable>
 </resources>

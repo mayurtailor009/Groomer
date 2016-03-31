@@ -1,6 +1,7 @@
 package com.groomer.activity;
 
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,7 +16,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.groomer.R;
+import com.groomer.utillity.Constants;
+import com.groomer.utillity.Theme;
 import com.groomer.utillity.TouchEffect;
+import com.groomer.utillity.Utils;
 
 
 public class BaseActivity extends AppCompatActivity implements OnClickListener,
@@ -275,4 +279,30 @@ public class BaseActivity extends AppCompatActivity implements OnClickListener,
 //		Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
 //		toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_transparent_color));
 //	}
+
+    public void setTheme(){
+        Theme theme = Utils.getObjectFromPref(this, Constants.CURRENT_THEME);
+        if(theme==null)
+            theme = Theme.Green;
+        switch (theme){
+            case Blue:
+                setTheme(R.style.AppThemeBlue);
+                if (Build.VERSION.SDK_INT >= 21) {
+                    getWindow().setStatusBarColor(getResources().getColor(R.color.colorBlueDark));
+                }
+                break;
+            case Green:
+                setTheme(R.style.AppThemeGreen);
+                if (Build.VERSION.SDK_INT >= 21) {
+                    getWindow().setStatusBarColor(getResources().getColor(R.color.green));
+                }
+                break;
+            case Red:
+                setTheme(R.style.AppThemeRed);
+                if (Build.VERSION.SDK_INT >= 21) {
+                    getWindow().setStatusBarColor(getResources().getColor(R.color.red));
+                }
+                break;
+        }
+    }
 }

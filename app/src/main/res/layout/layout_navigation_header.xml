@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/navigation_header_height"
-    android:background="@color/green"
+    android:background="?attr/drawerBg"
     android:orientation="horizontal"
     android:padding="@dimen/margin_20">
 

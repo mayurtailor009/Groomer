@@ -97,6 +97,34 @@
 
             </RelativeLayout>
 
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="fill_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <View
+                    android:id="@+id/view_green"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@color/green" />
+
+                <View
+                    android:id="@+id/view_blue"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/colorBlue" />
+
+                <View
+                    android:id="@+id/view_red"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/red" />
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

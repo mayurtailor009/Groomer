@@ -7,13 +7,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.groomer.R;
+import com.groomer.activity.BaseActivity;
 import com.groomer.alert.AlertFragment;
 import com.groomer.appointment.AppointmentFragment;
 import com.groomer.category.SaloonListFragment;
@@ -24,7 +23,7 @@ import com.groomer.utillity.Constants;
 import com.groomer.utillity.Utils;
 
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends BaseActivity {
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
@@ -33,6 +32,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme();
         setContentView(R.layout.activity_home);
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -129,10 +129,10 @@ public class HomeActivity extends AppCompatActivity {
                 .commit();
     }
 
-    private void setHeader(String title) {
+    /*private void setHeader(String title) {
         TextView textView = (TextView) toolbar.findViewById(R.id.toolbar_title);
         textView.setText(title);
-    }
+    }*/
 
 
 

@@ -11,12 +11,12 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppThemeWhite">
+        android:theme="@style/AppThemeGreen">
         <activity
             android:name=".activity.SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeWhite">
+            android:theme="@style/AppThemeGreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,7 +27,7 @@
             android:name=".activity.ThemeTestActivity"
             android:label="@string/title_activity_splash"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeWhite">
+            android:theme="@style/AppThemeGreen">
 
         </activity>
         <activity

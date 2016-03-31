@@ -2,18 +2,19 @@
 
     <style name="AppThemeBlue" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorBlue</item>
+        <item name="colorPrimary">@color/colorBlueDark</item>
         <item name="colorPrimaryDark">@color/colorBlueDark</item>
         <item name="windowNoTitle">true</item>
         <!--<item name="android:background">@color/colorBlue</item>-->
         <item name="windowActionBar">false</item>
         <item name="buttonStyle">@style/btnStyleBlue</item>
         <item name="splashLogo">@drawable/avtar_blue</item>
-        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textColor">@color/black</item>
         <item name="editTextStyle">@style/et_style_blue</item>
+        <item name="drawerBg">@color/colorBlueDark</item>
     </style>
 
-    <style name="AppThemeWhite" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppThemeGreen" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/green</item>
         <item name="colorPrimaryDark">@color/green</item>
@@ -24,21 +25,23 @@
         <item name="splashLogo">@drawable/avtar_white</item>
         <item name="android:textColor">@color/black</item>
         <item name="editTextStyle">@style/et_style_white</item>
+        <item name="drawerBg">@color/green</item>
         <!--<item name="drawerArrowStyle">@style/MyDrawerArrowToggle</item>-->
 
     </style>
 
-    <style name="AppThemeGray" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppThemeRed" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorGray</item>
-        <item name="colorPrimaryDark">@color/colorGrayDark</item>
+        <item name="colorPrimary">@color/red</item>
+        <item name="colorPrimaryDark">@color/red</item>
         <!--<item name="android:background">@color/colorGray</item>-->
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-        <item name="buttonStyle">@style/btnStyleGray</item>
+        <item name="buttonStyle">@style/btnStyleRed</item>
         <item name="splashLogo">@drawable/avtar_gray</item>
-        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textColor">@color/black</item>
         <item name="editTextStyle">@style/et_style_gray</item>
+        <item name="drawerBg">@color/red</item>
     </style>
 
     <style name="MyDrawerArrowToggle" parent="Widget.AppCompat.DrawerArrowToggle">
@@ -54,7 +57,7 @@
         <item name="android:layout_width">fill_parent</item>
         <item name="android:padding">10dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@color/btn_color_blue</item>
+        <item name="android:background">@color/green</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">18sp</item>
     </style>
@@ -63,17 +66,26 @@
         <item name="android:padding">10dp</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@color/colorWhite</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@color/colorBlueDark</item>
+        <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">18sp</item>
     </style>
 
-    <style name="btnStyleGray" parent="Base.Widget.AppCompat.Button">
+    <style name="btnStyleRed" parent="Base.Widget.AppCompat.Button">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:padding">10dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@color/colorWhite</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@color/red</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="btnStyleLogin" >
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/btn_color_blue</item>
+        <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">18sp</item>
     </style>
 
