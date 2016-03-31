@@ -19,6 +19,7 @@ public class ConfirmAppointmentActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme();
         setContentView(R.layout.activity_confirm_appointment);
 
         setUpRecyclerView();
