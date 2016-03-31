@@ -5,6 +5,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="logo_size">60sp</dimen>
     <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_30">30dp</dimen>
     <dimen name="margin_17">17dp</dimen>
     <dimen name="margin_15">15dp</dimen>
     <dimen name="margin_10">10dp</dimen>

@@ -1,0 +1,71 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grid_color"
+    tools:context="com.groomer.shareexperience.ShareExperienceFragment">
+
+    <!-- share experience item layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:background="@color/colorWhite"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_15">
+
+            <!-- circular image of user -->
+            <include
+                layout="@layout/circuler_image_view"
+                android:layout_width="@dimen/margin_30"
+                android:layout_height="@dimen/margin_30" />
+
+            <!-- name textView -->
+            <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:text="David Dud"
+                android:textSize="@dimen/textsize_15sp" />
+        </LinearLayout>
+
+        <!-- write something in it.. -->
+        <EditText
+            android:id="@+id/edt_write_something"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.7"
+            android:background="@android:color/transparent"
+            android:gravity="top"
+            android:hint="Write Something..."
+            android:padding="@dimen/margin_10" />
+
+        <!-- you can rating us here -->
+        <RatingBar
+            android:id="@+id/share_exp_ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="0.1"
+            android:numStars="5"
+            android:paddingTop="@dimen/margin_5"
+            android:progressDrawable="@drawable/ratingbar_layer_list" />
+
+        <!-- all done then submit -->
+        <Button
+            android:id="@+id/share_exp_submitbtn"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:background="@color/light_green"
+            android:text="@string/txt_submit" />
+    </LinearLayout>
+
+</FrameLayout>

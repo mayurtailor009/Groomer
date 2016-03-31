@@ -16,6 +16,7 @@
     <string name="txt_cancel">CANCEL</string>
     <string name="txt_reschedule">RESCHEDULE</string>
     <string name="txt_rebook">REBOOK</string>
+    <string name="txt_submit">SUBMIT</string>
 
     <!-- End For navigation drawer-->
 
