@@ -87,6 +87,7 @@
                     android:drawableRight="@drawable/email_field_icon"
                     android:hint="Enter Here" />
 
+
                 <com.groomer.customviews.CustomTextViewMarkNovaRegular
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
