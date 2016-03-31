@@ -45,6 +45,7 @@ public class ThemeTestActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
     public void setTheme(){
