@@ -27,7 +27,6 @@ public class SettingFragment extends BaseFragment {
 
     public static SettingFragment newInstance() {
         SettingFragment fragment = new SettingFragment();
-
         return fragment;
     }
 
@@ -53,6 +52,8 @@ public class SettingFragment extends BaseFragment {
         setClick(R.id.view_blue, view);
         setClick(R.id.view_red, view);
         setClick(R.id.view_green, view);
+        setClick(R.id.btn_select_english, view);
+        setClick(R.id.btn_select_arabic, view);
     }
 
     @Override
@@ -95,6 +96,20 @@ public class SettingFragment extends BaseFragment {
                 getActivity().finish();
                 startActivity(new Intent(getContext(), HomeActivity.class));
                 break;
+            case R.id.btn_select_english:
+                changeLanguageToEnglish();
+                break;
+            case R.id.btn_select_arabic:
+                changeLanguageToArabic();
+                break;
         }
+    }
+
+    private void changeLanguageToArabic() {
+
+    }
+
+    private void changeLanguageToEnglish() {
+        
     }
 }

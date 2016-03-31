@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    tools:context=".login.LoginActivity">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <com.groomer.customviews.CustomTextViewMarkNovaBold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="GROOMER"
+                android:textColor="@color/btn_color_blue"
+                android:textSize="@dimen/logo_size" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/divider_color" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="15dp"
+                android:weightSum="7">
+
+                <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+                    android:id="@+id/tv_signin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center_horizontal"
+                    android:text="SIGN IN"
+                    android:textColor="@color/blue_light"
+                    android:textSize="20sp" />
+
+                <com.groomer.customviews.CustomTextViewMarkNovaThin
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="/"
+                    android:textColor="@color/blue_light"
+                    android:textSize="20sp" />
+
+                <com.groomer.customviews.CustomTextViewMarkNovaThin
+                    android:id="@+id/tv_signup"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center_horizontal"
+                    android:text="SIGN UP"
+                    android:textColor="@color/blue_light"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email ID"
+                    android:textSize="20sp" />
+
+
+                <EditText
+                    android:id="@+id/et_emailid"
+                    style="@style/et_login_style"
+                    android:layout_marginTop="5dp"
+                    android:drawableRight="@drawable/email_field_icon"
+                    android:hint="Enter Here" />
+
+
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Password"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/et_passowrd"
+                    style="@style/et_login_style"
+                    android:layout_marginTop="5dp"
+                    android:drawableRight="@drawable/lock_field_icon"
+                    android:hint="Enter here"
+                    android:inputType="textPassword"
+                    android:typeface="monospace" />
+
+                <Button
+                    style="@style/btnStyleLogin"
+                    android:id="@+id/btn_login"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="LOGIN" />
+
+
+            </LinearLayout>
+
+
+            <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:text="أو تسجيل الدخول عبر"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/facebook_icon" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/twiiter_icon" />
+            </LinearLayout>
+
+            <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                android:id="@+id/tv_forgotpassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="10dp"
+                android:text="Forget Password ?"
+                android:textColor="@color/blue_light"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

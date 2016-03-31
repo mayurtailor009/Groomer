@@ -27,9 +27,7 @@
             android:name=".activity.ThemeTestActivity"
             android:label="@string/title_activity_splash"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeGreen">
-
-        </activity>
+            android:theme="@style/AppThemeGreen"></activity>
         <activity
             android:name=".login.LoginActivity"
             android:screenOrientation="portrait"
@@ -46,13 +44,16 @@
             android:name=".forgetpassword.ForgetpasswordActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".category.VendorListActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".category.VendorListActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".vendordetails.VendorDetailsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".vendordetails.ConfirmAppointmentActivity"
-            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".vendordetails.ConfirmAppointmentActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".shareexperience.ShareExperienceActivity"></activity>
     </application>
 
 </manifest>

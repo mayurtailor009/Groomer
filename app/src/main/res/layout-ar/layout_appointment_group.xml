@@ -29,19 +29,6 @@
             android:textSize="@dimen/textsize_15sp" />
     </LinearLayout>
 
-    <!-- share experience button -->
-    <Button
-        android:id="@+id/btn_share_experience"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/user_appointed_name_layout"
-        android:layout_marginLeft="@dimen/margin_5"
-        android:layout_marginTop="@dimen/margin_5"
-        android:text="@string/share_experience"
-        android:textAllCaps="false"
-        android:textSize="@dimen/textsize_12sp"
-        android:visibility="gone"/>
-
     <!-- address layout -->
     <LinearLayout
         android:id="@+id/appointed_user_address_layout"
@@ -71,7 +58,6 @@
 
     <!-- appointed user time layout -->
     <LinearLayout
-        android:id="@+id/layout_appointed_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/appointed_user_address_layout"

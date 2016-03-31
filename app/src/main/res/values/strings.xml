@@ -6,7 +6,6 @@
     <string name="drawer_close">Close</string>
 
     <!-- For navigation drawer-->
-
     <string name="menu_favorite">Favourite</string>
     <string name="menu_services">Services</string>
     <string name="menu_alerts">Alerts</string>
@@ -20,19 +19,26 @@
 
     <!-- End For navigation drawer-->
 
+    <!-- login screen -->
+    <string name="txt_sign_up">SIGN UP</string>
+    <string name="txt_sign_in">SIGN IN</string>
+    <string name="txt_password">Password</string>
+    <string name="txt_login">LOGIN</string>
 
     <!-- start for categories -->
     <string name="txt_category">Select Category</string>
 
     <!--Start For settings screen -->
-
     <string name="txt_name">Name</string>
     <string name="txt_email">Email</string>
+    <string name="txt_email_id">Email ID</string>
     <string name="txt_mobile_no">Mobile No.</string>
     <string name="txt_location">Location</string>
-
     <string name="hint_enter_here">Enter Here</string>
     <string name="hint_email">john@gmail.com</string>
+    <string name="txt_change_language">Change Language</string>
+    <string name="txt_english">English</string>
+    <string name="txt_arabic">العربية</string>
 
     <!--END For settings screen -->
 
@@ -43,7 +49,6 @@
 
 
     <!--For vendor list screen and vendor details screen -->
-
     <string name="txt_vendor_name">Pretty Looks</string>
     <string name="txt_vendor_address">21 Magon Street, Near Amazon Park (2 Km.)</string>
     <string name="txt_vendor_price_unit">SAR</string>
@@ -57,14 +62,14 @@
     <string name="txt_select_date">SELECT DATE</string>
     <string name="txt_select_time">SELECT TIME</string>
     <string name="txt_confirm_appointment">CONFIRM APPOINTMENT</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <!--END For vendor list screen -->
 
-    <!-- vendor details acitivty -->
+    <!-- vendor details about tab screen -->
     <string name="txt_about_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac orci quis odilo bibendum mattis.</string>
     <string name="txt_timing">Timing</string>
+
+    <!-- appointment screen -->
+    <string name="share_experience">Share your experience</string>
+    <string name="share_title">Share Experience</string>
 
 </resources>

@@ -1,9 +1,20 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grid_color"
-    tools:context="com.groomer.shareexperience.ShareExperienceFragment">
+    android:orientation="vertical"
+    tools:context="com.groomer.shareexperience.ShareExperienceActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/toolbar" />
+    </LinearLayout>
 
     <!-- share experience item layout -->
     <LinearLayout
@@ -15,7 +26,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.1"
+            android:layout_weight="0.12"
             android:background="@color/colorWhite"
             android:orientation="horizontal"
             android:padding="@dimen/margin_15">
@@ -41,7 +52,7 @@
             android:id="@+id/edt_write_something"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.7"
+            android:layout_weight="0.68"
             android:background="@android:color/transparent"
             android:gravity="top"
             android:hint="Write Something..."
@@ -68,4 +79,4 @@
             android:text="@string/txt_submit" />
     </LinearLayout>
 
-</FrameLayout>
+</LinearLayout>

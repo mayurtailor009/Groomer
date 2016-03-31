@@ -1,0 +1,53 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.groomer.vendordetails.fragments.AboutFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_10">
+
+
+        <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_about"
+            android:textSize="14sp">
+
+
+        </com.groomer.customviews.CustomTextViewMarkNovaSemibold>
+
+        <com.groomer.customviews.CustomTextViewMarkNovaRegular
+            android:id="@+id/txt_about_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
+            android:text="@string/txt_about_text"
+            android:textSize="@dimen/textsize_12sp" />
+
+        <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20"
+            android:text="@string/txt_timing"
+            android:textSize="14sp">
+
+
+        </com.groomer.customviews.CustomTextViewMarkNovaSemibold>
+
+        <com.groomer.customviews.CustomTextViewMarkNovaRegular
+            android:id="@+id/txt_timing_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
+            android:text="Mon - Tue: 10:00AM -10:00PM"
+            android:textSize="@dimen/textsize_12sp" />
+
+
+    </LinearLayout>
+
+
+</FrameLayout>

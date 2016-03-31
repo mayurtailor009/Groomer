@@ -1,18 +1,27 @@
 package com.groomer.appointment.adapter;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.groomer.R;
+import com.groomer.category.VendorListActivity;
+import com.groomer.home.HomeActivity;
 import com.groomer.model.AppointmentDTO;
 import com.groomer.model.VendorServicesDTO;
+import com.groomer.reschedule.RescheduleDialogFragment;
+import com.groomer.shareexperience.ShareExperienceActivity;
 import com.groomer.vendordetails.adapter.ServiceInfoAdapter;
 
 import java.util.HashMap;
@@ -34,11 +43,17 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         TextView mUserName;
         TextView mUserAddress;
         TextView mUserTime;
+        Button shareBtn;
+        LinearLayout addressLayout;
+        LinearLayout timeLayout;
 
         public GroupViewHoler(View view) {
             mUserName = (TextView) view.findViewById(R.id.txt_appointed_user_name);
             mUserAddress = (TextView) view.findViewById(R.id.txt_appointed_user_address);
             mUserTime = (TextView) view.findViewById(R.id.txt_appointed_user_time);
+            shareBtn = (Button) view.findViewById(R.id.btn_share_experience);
+            addressLayout = (LinearLayout) view.findViewById(R.id.appointed_user_address_layout);
+            timeLayout = (LinearLayout) view.findViewById(R.id.layout_appointed_time);
         }
     }
 
@@ -47,9 +62,15 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
      */
     private class ChildViewHolder {
         RecyclerView mRecyclerView;
+        LinearLayout cancelLayout;
+        LinearLayout rescheduleLayout;
+        LinearLayout rebookLayout;
 
         public ChildViewHolder(View view) {
             mRecyclerView = (RecyclerView) view.findViewById(R.id.children_services_list);
+            cancelLayout = (LinearLayout) view.findViewById(R.id.layout_cancel);
+            rescheduleLayout = (LinearLayout) view.findViewById(R.id.layout_reschedule);
+            rebookLayout = (LinearLayout) view.findViewById(R.id.layout_rebook);
         }
     }
 
@@ -112,7 +133,16 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         gHolder.mUserName.setText(mBean.getmUserName());
         gHolder.mUserAddress.setText(mBean.getmUserAddress());
         gHolder.mUserTime.setText(mBean.getmUserTime());
-
+        if (groupPosition == 3) {
+            gHolder.addressLayout.setVisibility(View.GONE);
+            gHolder.timeLayout.setVisibility(View.GONE);
+            gHolder.shareBtn.setVisibility(View.VISIBLE);
+            gHolder.shareBtn.setOnClickListener(sharebuttonClickListener);
+        } else {
+            gHolder.addressLayout.setVisibility(View.VISIBLE);
+            gHolder.timeLayout.setVisibility(View.VISIBLE);
+            gHolder.shareBtn.setVisibility(View.GONE);
+        }
         return convertView;
     }
 
@@ -131,7 +161,8 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         List<VendorServicesDTO> servicesDTO = childrenList.get(groupPosition);
         cHolder.mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         cHolder.mRecyclerView.setAdapter(new ServiceInfoAdapter(context, servicesDTO));
-
+        cHolder.rebookLayout.setOnClickListener(rebookListener);
+        cHolder.rescheduleLayout.setOnClickListener(rescheduleListener);
         return convertView;
     }
 
@@ -139,4 +170,31 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return false;
     }
+
+    // handles the click event on rebook button
+    View.OnClickListener rebookListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent vendorListIntent = new Intent(context, HomeActivity.class);
+            context.startActivity(vendorListIntent);
+        }
+    };
+
+    //handles the click event on reschedule layout.
+    View.OnClickListener rescheduleListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            RescheduleDialogFragment dialog = RescheduleDialogFragment.getInstance();
+            dialog.show(((Activity)context).getFragmentManager(), "");
+        }
+    };
+
+    // handles the click event on share experience button.
+    View.OnClickListener sharebuttonClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent shareExperienceIntent = new Intent(context, ShareExperienceActivity.class);
+            context.startActivity(shareExperienceIntent);
+        }
+    };
 }
