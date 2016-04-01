@@ -13,6 +13,14 @@
     <string name="txt_rebook">ريبوك</string>
     <string name="txt_submit">عرض</string>
 
+
+    <!-- login screen -->
+    <string name="txt_sign_up">سجل</string>
+    <string name="txt_sign_in">تسجيل الدخول</string>
+    <string name="txt_password">كلمه السر</string>
+    <string name="txt_login">تسجيل الدخول</string>
+    <string name="txt_forgot_password">هل نسيت كلمة المرور ؟</string>
+
     <!-- start for categories -->
     <string name="txt_category">اختر الفئة</string>
 

@@ -31,10 +31,10 @@
                     android:layout_height="60dp" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_marginRight="@dimen/margin_10"
                     android:orientation="vertical">
 
                     <!-- service name -->
@@ -47,24 +47,18 @@
 
                     <!-- service price and time details -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_3"
                         android:orientation="horizontal">
 
-                        <!-- service price -->
-                        <com.groomer.customviews.CustomTextViewMarkNovaSemibold
-                            android:id="@+id/txt_service_price"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="SAR 65"
-                            android:textSize="15sp" />
-
+                        <!-- service time taken -->
                         <com.groomer.customviews.CustomTextViewMarkNovaLight
+                            android:id="@+id/txt_service_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/margin_5"
-                            android:text="|"
+                            android:text="دقيقة 30"
                             android:textSize="15sp" />
 
                         <ImageView
@@ -74,14 +68,22 @@
                             android:layout_marginLeft="@dimen/margin_5"
                             android:src="@drawable/schedule_icon" />
 
-                        <!-- service time taken -->
                         <com.groomer.customviews.CustomTextViewMarkNovaLight
-                            android:id="@+id/txt_service_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/margin_5"
-                            android:text="30 MIN"
+                            android:text="|"
                             android:textSize="15sp" />
+
+                        <!-- service price -->
+                        <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+                            android:id="@+id/txt_service_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/margin_5"
+                            android:text="65 ريال "
+                            android:textSize="15sp" />
+
+
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

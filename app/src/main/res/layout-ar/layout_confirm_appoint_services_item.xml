@@ -19,8 +19,8 @@
             android:id="@+id/confirm_appoint_item_service_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="Service 1"
+            android:layout_alignParentRight="true"
+            android:text=" 1 الخدمة"
             android:textSize="@dimen/textsize_15sp" />
 
         <!-- item's service time -->
@@ -28,8 +28,8 @@
             android:id="@+id/confirm_appoint_item_service_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="30 MIN"
+            android:layout_alignParentLeft="true"
+            android:text="دقيقة 30 "
             android:textSize="@dimen/textsize_15sp" />
     </RelativeLayout>
 
@@ -47,6 +47,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="@dimen/textsize_15sp"
-            android:text="SAR 65" />
+            android:text="65 ريال" />
     </RelativeLayout>
 </LinearLayout>

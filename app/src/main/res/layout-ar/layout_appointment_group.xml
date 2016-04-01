@@ -9,7 +9,9 @@
     <!-- user appointed image and name layout -->
     <LinearLayout
         android:id="@+id/user_appointed_name_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_toRightOf="@+id/date_layout"
+        android:layout_marginLeft="@dimen/margin_5"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <!-- user appointed image -->
@@ -21,21 +23,23 @@
         <!-- user appointmented name -->
         <com.groomer.customviews.CustomTextViewMarkNovaSemibold
             android:id="@+id/txt_appointed_user_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/margin_5"
-            android:text="David Dud"
+            android:layout_marginRight="@dimen/margin_5"
+            android:text="ديفيد لم تنفجر"
             android:textSize="@dimen/textsize_15sp" />
     </LinearLayout>
 
     <!-- address layout -->
     <LinearLayout
         android:id="@+id/appointed_user_address_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/date_layout"
+        android:layout_marginLeft="@dimen/margin_5"
         android:layout_below="@id/user_appointed_name_layout"
-        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_marginRight="@dimen/margin_10"
         android:layout_marginTop="@dimen/margin_3"
         android:orientation="horizontal">
 
@@ -48,20 +52,22 @@
         <!-- address textview -->
         <com.groomer.customviews.CustomTextViewMarkNovaRegular
             android:id="@+id/txt_appointed_user_address"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/margin_10"
-            android:text="7th Ave, Apt 12, NYC"
+            android:layout_marginRight="@dimen/margin_10"
+            android:text="7 افي، شقة 12، مدينة نيويورك"
             android:textSize="@dimen/textsize_12sp" />
     </LinearLayout>
 
     <!-- appointed user time layout -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/date_layout"
+        android:layout_marginLeft="@dimen/margin_5"
         android:layout_below="@id/appointed_user_address_layout"
-        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_marginRight="@dimen/margin_10"
         android:layout_marginTop="@dimen/margin_3"
         android:orientation="horizontal">
 
@@ -74,11 +80,11 @@
         <!-- appointment time -->
         <com.groomer.customviews.CustomTextViewMarkNovaRegular
             android:id="@+id/txt_appointed_user_time"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/margin_5"
-            android:text="11:00 PM"
+            android:layout_marginRight="@dimen/margin_5"
+            android:text="مساء 11:00"
             android:textColor="@color/light_green"
             android:textSize="@dimen/textsize_12sp" />
     </LinearLayout>
@@ -87,7 +93,7 @@
         android:id="@+id/date_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
         android:background="?attr/drawerBg"
         android:orientation="vertical"
         android:padding="@dimen/margin_10">
@@ -123,7 +129,7 @@
         android:id="@+id/down_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
         android:layout_below="@id/date_layout"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/margin_5"

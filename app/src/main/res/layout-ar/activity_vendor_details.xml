@@ -41,19 +41,17 @@
                         android:id="@+id/vendor_details_iv_back"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
+                        android:layout_alignParentRight="true"
                         android:padding="@dimen/margin_5"
-                        android:src="@drawable/white_back_btn" />
+                        android:src="@drawable/next_arrow"
+                        android:tint="@color/colorWhite"/>
 
                     <!-- zoom button -->
                     <ImageView
                         android:id="@+id/vendor_details_zoom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentLeft="true"
                         android:padding="@dimen/margin_5"
                         android:src="@drawable/zoom_icon" />
                 </RelativeLayout>
@@ -71,7 +69,7 @@
                     android:id="@+id/vendor_details_viewpager_indicators"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
                     android:layout_centerInParent="true"
                     android:paddingLeft="@dimen/margin_10"
                     app:fillColor="@color/colorWhite"
@@ -81,7 +79,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentLeft="true"
                     android:src="@drawable/fav_active_icon" />
             </RelativeLayout>
         </RelativeLayout>
@@ -96,13 +94,14 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true">
+                android:layout_alignParentRight="true">
 
                 <!-- vendor name -->
                 <com.groomer.customviews.CustomTextViewMarkNovaSemibold
                     android:id="@+id/txt_vendor_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
                     android:text="@string/txt_vendor_name"
                     android:textSize="15sp" />
 
@@ -111,7 +110,7 @@
                     android:id="@+id/txt_vendor_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
                     android:layout_below="@id/txt_vendor_name"
                     android:layout_marginTop="@dimen/margin_3"
                     android:text="@string/txt_vendor_address"
@@ -123,7 +122,7 @@
                 android:id="@+id/directions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentLeft="true"
                 android:src="@drawable/root_icon" />
         </RelativeLayout>
 
@@ -211,6 +210,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="SAR 130.00"
+                android:gravity="right"
                 android:textColor="@color/colorWhite"
                 android:textSize="15sp" />
 
@@ -220,6 +220,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_3"
                 android:text="2 Services"
+                android:gravity="right"
                 android:textColor="@color/colorWhite"
                 android:textSize="15sp" />
         </LinearLayout>

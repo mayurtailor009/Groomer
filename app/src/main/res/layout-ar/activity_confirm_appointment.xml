@@ -86,7 +86,7 @@
                 android:background="@color/colorWhite"
                 android:gravity="left"
                 android:padding="@dimen/margin_15"
-                android:text="30 MIN"
+                android:text="دقيقة 30"
                 android:textSize="@dimen/textsize_15sp" />
 
             <!-- per service price taken -->
@@ -98,7 +98,7 @@
                 android:background="@color/colorWhite"
                 android:gravity="center"
                 android:padding="@dimen/margin_15"
-                android:text="SAR 65"
+                android:text="65 ريال"
                 android:textSize="@dimen/textsize_15sp" />
 
             <!-- remove button -->

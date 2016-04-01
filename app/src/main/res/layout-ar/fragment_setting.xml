@@ -21,10 +21,8 @@
 
                 <include
                     layout="@layout/circuler_image_view"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/margin_5" />
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"></include>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -86,7 +84,7 @@
                 <com.groomer.customviews.CustomTextViewMarkNovaSemibold
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
                     android:text="@string/txt_location"
                     android:textSize="20sp" />
 
@@ -94,7 +92,7 @@
                     android:id="@+id/swh_location"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_alignParentRight="true" />
+                    android:layout_alignParentLeft="true" />
 
 
             </RelativeLayout>
@@ -119,12 +117,10 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight=".5"
-                    android:background="@color/grid_color"
-
+                    android:background="@color/light_green"
                     android:gravity="center"
                     android:text="@string/txt_english"
-                    android:textColor="@color/black"
-
+                    android:textColor="@color/colorWhite"
                     android:textSize="16sp" />
 
 
@@ -133,19 +129,20 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".5"
-                    android:background="?attr/drawerBg"
                     android:gravity="center"
                     android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:background="@color/grid_color"
                     android:text="@string/txt_arabic"
-                    android:textColor="@color/colorWhite"
                     android:textSize="16sp" />
             </LinearLayout>
 
+
             <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
+                android:layout_width="fill_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <View

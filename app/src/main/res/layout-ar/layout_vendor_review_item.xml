@@ -22,7 +22,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginRight="@dimen/margin_10"
                 android:orientation="vertical">
 
                 <!-- service name -->
@@ -30,7 +30,7 @@
                     android:id="@+id/txt_service_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hair Cut"
+                    android:text="حلاقة شعر"
                     android:textSize="15sp" />
 
                 <!-- service rating -->
@@ -64,6 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_3"
+                    android:gravity="right"
                     android:text="@string/txt_about_text"
                     android:textSize="12sp" />
 

@@ -17,14 +17,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="@dimen/margin_20"
+        android:layout_marginRight="@dimen/margin_20"
         android:orientation="vertical">
 
         <com.groomer.customviews.CustomTextViewMarkNovaRegular
             android:id="@+id/nav_header_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Deepak Gupta"
+            android:text="ديباك غوبتا"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/textsize_18sp" />
 
@@ -35,10 +35,11 @@
             android:orientation="horizontal">
 
             <com.groomer.customviews.CustomTextViewMarkNovaLight
-                android:id="@+id/nav_header_age"
+                android:id="@+id/nav_header_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="32 M"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:text="دبي"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/textsize_15sp" />
 
@@ -51,11 +52,10 @@
                 android:textSize="@dimen/textsize_15sp" />
 
             <com.groomer.customviews.CustomTextViewMarkNovaLight
-                android:id="@+id/nav_header_location"
+                android:id="@+id/nav_header_age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_5"
-                android:text="Dubai"
+                android:text="م 32"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/textsize_15sp" />
         </LinearLayout>
