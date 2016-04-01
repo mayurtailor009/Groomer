@@ -16,7 +16,7 @@
         <!-- viewpager layout -->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="160dp"
             android:background="@android:color/holo_red_light">
 
             <!-- back arrow and zoom button layout -->

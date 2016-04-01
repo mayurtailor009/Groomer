@@ -68,10 +68,10 @@ public class LoginActivity extends BaseActivity {
                 params.put("email", getEditTextText(R.id.et_emailid));
                 params.put("password", getEditTextText(R.id.et_passowrd));
                 params.put("device", "android");
-                params.put("device_id", "asdfasdfsdfsdfsdfgdfgdfg");
+                params.put("device_id", "abc");
                 params.put("lat", "23.444444");
                 params.put("lng", "76.555555");
-                params.put("address", "");
+                params.put("address", "abc");
 
                 final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
                 CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constants.SERVICE_URL, params,
@@ -90,7 +90,6 @@ public class LoginActivity extends BaseActivity {
                                     } else {
                                         Utils.showDialog(LoginActivity.this, "Error", Utils.getWebServiceMessage(response));
                                     }
-
 
                                 } catch (Exception e) {
                                     e.printStackTrace();

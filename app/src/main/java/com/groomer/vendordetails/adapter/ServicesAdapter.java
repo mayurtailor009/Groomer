@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.groomer.R;
@@ -25,12 +26,22 @@ public class ServicesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         TextView mServiceName;
         TextView mServicePrice;
         TextView mServiceTime;
-
+        Button btnService;
         public ServiceHoler(View view) {
             super(view);
             mServiceName = (TextView) view.findViewById(R.id.txt_service_name);
             mServicePrice = (TextView) view.findViewById(R.id.txt_service_price);
             mServiceTime = (TextView) view.findViewById(R.id.txt_service_time);
+            btnService = (Button) view.findViewById(R.id.btn_service_select);
+
+            btnService.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Button btn = (Button)v;
+                    v.setSelected(true);
+                    btn.setText("Selected");
+                }
+            });
         }
     }
 

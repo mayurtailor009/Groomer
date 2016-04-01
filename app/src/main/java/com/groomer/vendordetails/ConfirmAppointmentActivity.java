@@ -3,6 +3,7 @@ package com.groomer.vendordetails;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.groomer.R;
 import com.groomer.activity.BaseActivity;
@@ -22,9 +23,13 @@ public class ConfirmAppointmentActivity extends BaseActivity {
         setTheme();
         setContentView(R.layout.activity_confirm_appointment);
 
+        init();
         setUpRecyclerView();
     }
 
+    private void init(){
+        setClick(R.id.confirm_appoint_cross_button);
+    }
     private void setUpRecyclerView() {
         mRecyclerView = (RecyclerView) findViewById(R.id.confirm_appoint_service_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -41,5 +46,14 @@ public class ConfirmAppointmentActivity extends BaseActivity {
             list.add(servicesDTO);
         }
         return list;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.confirm_appoint_cross_button:
+                finish();
+                break;
+        }
     }
 }

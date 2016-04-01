@@ -1,9 +1,7 @@
 package com.groomer.appointment.adapter;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,12 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.groomer.R;
-import com.groomer.category.VendorListActivity;
-import com.groomer.home.HomeActivity;
 import com.groomer.model.AppointmentDTO;
 import com.groomer.model.VendorServicesDTO;
 import com.groomer.reschedule.RescheduleDialogFragment;
 import com.groomer.shareexperience.ShareExperienceActivity;
+import com.groomer.vendordetails.VendorDetailsActivity;
 import com.groomer.vendordetails.adapter.ServiceInfoAdapter;
 
 import java.util.HashMap;
@@ -46,6 +43,7 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         Button shareBtn;
         LinearLayout addressLayout;
         LinearLayout timeLayout;
+        LinearLayout dateLayout;
 
         public GroupViewHoler(View view) {
             mUserName = (TextView) view.findViewById(R.id.txt_appointed_user_name);
@@ -54,6 +52,7 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
             shareBtn = (Button) view.findViewById(R.id.btn_share_experience);
             addressLayout = (LinearLayout) view.findViewById(R.id.appointed_user_address_layout);
             timeLayout = (LinearLayout) view.findViewById(R.id.layout_appointed_time);
+            dateLayout = (LinearLayout) view.findViewById(R.id.date_layout);
         }
     }
 
@@ -137,6 +136,7 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
             gHolder.addressLayout.setVisibility(View.GONE);
             gHolder.timeLayout.setVisibility(View.GONE);
             gHolder.shareBtn.setVisibility(View.VISIBLE);
+            gHolder.dateLayout.setEnabled(false);
             gHolder.shareBtn.setOnClickListener(sharebuttonClickListener);
         } else {
             gHolder.addressLayout.setVisibility(View.VISIBLE);
@@ -175,7 +175,7 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
     View.OnClickListener rebookListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent vendorListIntent = new Intent(context, HomeActivity.class);
+            Intent vendorListIntent = new Intent(context, VendorDetailsActivity.class);
             context.startActivity(vendorListIntent);
         }
     };

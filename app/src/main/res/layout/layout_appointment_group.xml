@@ -33,7 +33,7 @@
     <Button
         android:id="@+id/btn_share_experience"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_below="@id/user_appointed_name_layout"
         android:layout_marginLeft="@dimen/margin_5"
         android:layout_marginTop="@dimen/margin_5"
@@ -102,7 +102,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:background="?attr/drawerBg"
+        android:background="@drawable/def_selector"
         android:orientation="vertical"
         android:padding="@dimen/margin_10">
 
