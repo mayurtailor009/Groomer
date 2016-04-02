@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.groomer.R;
@@ -20,6 +22,7 @@ public class VendorListActivity extends BaseActivity {
 
     private Context mActivity;
     private CategoryDTO categoryDTO;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,12 +67,17 @@ public class VendorListActivity extends BaseActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_vendor_list, menu);
+        return true;
+    }
+
 
     @Override
     public void onClick(View arg0) {
         switch (arg0.getId()) {
             case R.id.hamburgur_img_icon:
-
                 finish();
                 break;
 
