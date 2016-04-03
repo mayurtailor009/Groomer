@@ -37,9 +37,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/light_green"
+        android:background="?attr/drawerBg"
         android:orientation="horizontal"
-        android:padding="@dimen/margin_10">
+        android:paddingLeft="@dimen/margin_5"
+        android:paddingRight="@dimen/margin_5">
 
         <!-- within text -->
         <com.groomer.customviews.CustomTextViewMarkNovaSemibold
