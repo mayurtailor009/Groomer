@@ -16,9 +16,6 @@ import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import java.util.List;
 
-/**
- * Created by Deepak Singh on 27-Mar-16.
- */
 public class ViewPagerAdapter extends PagerAdapter {
 
     private Context context;
@@ -32,7 +29,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     public ViewPagerAdapter(Context context, List<String> imageList) {
         this.context = context;
-       // this.imageList = imageList;
+        this.imageList = imageList;
         inflater = LayoutInflater.from(context);
         options = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
@@ -49,7 +46,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return images.length;
+        return imageList.size();
     }
 
     @Override
@@ -61,11 +58,11 @@ public class ViewPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         View imageLayout = inflater.inflate(R.layout.viewpager_adapter_layout, container, false);
         assert imageLayout != null;
-        final ImageView image = (ImageView) imageLayout.findViewById(R.id.image);
-        //ImageLoader.getInstance().displayImage(imageList.get(position), image, options);
-        image.setImageResource(images[position]);
-        container.addView(image, 0);
-        return image;
+        final ImageView image = (ImageView) imageLayout.findViewById(R.id.thumbnail);
+        ImageLoader.getInstance().displayImage(imageList.get(position), image, options);
+        //image.setImageResource(images[position]);
+        container.addView(imageLayout, 0);
+        return imageLayout;
     }
 
     @Override

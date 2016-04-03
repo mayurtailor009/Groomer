@@ -68,6 +68,7 @@ public class ConfirmAppointmentActivity extends BaseActivity {
                 break;
             case R.id.ranger_next_arrow:
                 increaseDate();
+                break;
         }
     }
 

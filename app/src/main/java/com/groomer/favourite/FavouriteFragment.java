@@ -59,7 +59,7 @@ public class FavouriteFragment extends BaseFragment {
         LinearLayoutManager llm = new LinearLayoutManager(mActivity);
         vendorRecyclerView.setLayoutManager(llm);
 
-        VendorListAdapter vendorListAdapter = new VendorListAdapter(mActivity);
+        VendorListAdapter vendorListAdapter = new VendorListAdapter(mActivity, null);
         vendorRecyclerView.setAdapter(vendorListAdapter);
     }
 }

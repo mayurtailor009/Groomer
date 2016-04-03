@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.groomer.R;
 import com.groomer.fragments.BaseFragment;
+import com.groomer.model.ServiceDTO;
 import com.groomer.model.VendorServicesDTO;
 import com.groomer.vendordetails.adapter.ServicesAdapter;
 
@@ -47,15 +48,8 @@ public class ServicesFragment extends BaseFragment {
         mServicesList.setAdapter(new ServicesAdapter(mActivity, getServicesList()));
     }
 
-    private List<VendorServicesDTO> getServicesList() {
-        List<VendorServicesDTO> list = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            VendorServicesDTO servicesDTO = new VendorServicesDTO();
-            servicesDTO.setServiceName("Hair Cut");
-            servicesDTO.setServicePrice("SAR 65");
-            servicesDTO.setServiceTime("30 MIN");
-            list.add(servicesDTO);
-        }
+    private List<ServiceDTO> getServicesList() {
+        List<ServiceDTO> list = (List<ServiceDTO>) getArguments().getSerializable("serviceList");
         return list;
     }
 }

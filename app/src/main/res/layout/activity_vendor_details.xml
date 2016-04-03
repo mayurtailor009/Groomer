@@ -16,8 +16,7 @@
         <!-- viewpager layout -->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:background="@android:color/holo_red_light">
+            android:layout_height="160dp">
 
             <!-- back arrow and zoom button layout -->
             <FrameLayout
@@ -43,10 +42,10 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:clickable="true"
-                        android:scaleType="centerCrop"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:padding="@dimen/margin_5"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/white_back_btn" />
 
                     <!-- zoom button -->
@@ -212,12 +211,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="SAR 130.00"
+                android:id="@+id/services_total_amount"
                 android:textColor="@color/colorWhite"
                 android:textSize="15sp" />
 
             <!-- services seleted -->
             <com.groomer.customviews.CustomTextViewMarkNovaRegular
                 android:layout_width="match_parent"
+                android:id="@+id/service_count"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_3"
                 android:text="2 Services"

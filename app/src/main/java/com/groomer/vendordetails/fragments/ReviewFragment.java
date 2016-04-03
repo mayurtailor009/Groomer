@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.groomer.R;
 import com.groomer.fragments.BaseFragment;
+import com.groomer.model.ReviewDTO;
 import com.groomer.model.VendorReviewsDTO;
 import com.groomer.model.VendorServicesDTO;
 import com.groomer.vendordetails.adapter.ReviewsAdapter;
@@ -64,15 +65,9 @@ public class ReviewFragment extends BaseFragment {
     }
 
 
-    private List<VendorReviewsDTO> getReviewsList() {
-        List<VendorReviewsDTO> list = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            VendorReviewsDTO reviewsDTO = new VendorReviewsDTO();
-            reviewsDTO.setCategoryName("Hair Cut");
-            reviewsDTO.setRating("4.5");
-            reviewsDTO.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac orci quis odilo bibendum mattis.");
-            list.add(reviewsDTO);
-        }
+    private List<ReviewDTO> getReviewsList() {
+        List<ReviewDTO> list = (List<ReviewDTO>) getArguments()
+                .getSerializable("reviewList");
         return list;
     }
 
