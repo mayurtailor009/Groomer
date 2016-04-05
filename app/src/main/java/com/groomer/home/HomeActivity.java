@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.groomer.R;
 import com.groomer.activity.BaseActivity;
@@ -18,6 +19,7 @@ import com.groomer.appointment.AppointmentFragment;
 import com.groomer.category.SaloonListFragment;
 import com.groomer.favourite.FavouriteFragment;
 import com.groomer.login.LoginActivity;
+import com.groomer.model.UserDTO;
 import com.groomer.settings.SettingFragment;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.Utils;
@@ -64,6 +66,8 @@ public class HomeActivity extends BaseActivity {
 
     private void setUpNavigationViewItemClick() {
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigationview);
+        setHeadersValues(navigationView);
+
         navigationView.setNavigationItemSelectedListener(new NavigationView
                 .OnNavigationItemSelectedListener() {
             @Override
@@ -95,6 +99,7 @@ public class HomeActivity extends BaseActivity {
             }
         });
     }
+
 
     private void displayFragment(int index) {
         Fragment fragment = null;
@@ -129,12 +134,29 @@ public class HomeActivity extends BaseActivity {
                 .commit();
     }
 
+
+
+
     /*private void setHeader(String title) {
         TextView textView = (TextView) toolbar.findViewById(R.id.toolbar_title);
         textView.setText(title);
     }*/
 
+    private void setHeadersValues(NavigationView navigationView) {
 
+        UserDTO userDTO = Utils.getObjectFromPref(this, Constants.USER_INFO);
+
+        View headerLayout = navigationView.getHeaderView(0);
+
+        TextView txt_name = (TextView) headerLayout.findViewById(R.id.nav_header_user_name);
+        txt_name.setText(userDTO.getName_eng());
+
+
+        TextView txt_age_gender = (TextView) headerLayout.findViewById(R.id.nav_header_age);
+        txt_age_gender.setText(userDTO.getGender());
+
+
+    }
 
 
 }

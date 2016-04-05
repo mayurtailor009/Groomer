@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -22,6 +23,7 @@ import com.groomer.model.ReviewDTO;
 import com.groomer.model.SaloonDetailsDTO;
 import com.groomer.model.ServiceDTO;
 import com.groomer.utillity.Constants;
+import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.Utils;
 import com.groomer.vendordetails.adapter.ViewPagerAdapter;
 import com.groomer.vendordetails.fragments.AboutFragment;
@@ -70,10 +72,10 @@ public class VendorDetailsActivity extends BaseActivity {
 
     private void getVendorDetails() {
         HashMap<String, String> params = new HashMap<>();
-        params.put("action", "saloondetail");
-        params.put("lat", "23.444444");
-        params.put("lng", "76.555555");
-        params.put("user_id", "10");
+        params.put("action", Constants.VENDOR_DETAILS);
+        params.put("lat", "");
+        params.put("lng", "");
+        params.put("user_id", Utils.getUserId(mActivity));
         params.put("store_id", getIntent().getStringExtra("store_id"));
         params.put("lang", "eng");
 
@@ -161,6 +163,15 @@ public class VendorDetailsActivity extends BaseActivity {
     private void setSaloonDetails(SaloonDetailsDTO saloonDetailsDTO) {
         setViewText(R.id.txt_vendor_name, saloonDetailsDTO.getStorename_eng());
         setViewText(R.id.txt_vendor_address, saloonDetailsDTO.getAddress());
+
+        ImageView img_fav = (ImageView) findViewById(R.id.img_fav);
+        if (saloonDetailsDTO.getFavourite().equals("1")) {
+            img_fav.setImageResource(R.drawable.fav_active_icon);
+
+        } else {
+
+            img_fav.setImageResource(R.drawable.fav_icon);
+        }
     }
 
     /**

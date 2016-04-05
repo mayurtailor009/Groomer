@@ -28,10 +28,11 @@ public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.De
     private Context context;
     private List<VendorListDTO> vendorsList;
     private DisplayImageOptions options;
+    private static MyClickListener myClickListener;
 
-    public static class DetailsViewHolder extends RecyclerView.ViewHolder {
+    public static class DetailsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        ImageView thumbnail;
+        ImageView thumbnail, img_fav;
         TextView txt_vendor_name, txt_vendor_rating, txt_vendor_address, txt_vendor_price, txt_vendor_price_unit;
 
 
@@ -45,8 +46,21 @@ public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.De
             txt_vendor_address = (TextView) itemView.findViewById(R.id.txt_vendor_address);
             txt_vendor_price = (TextView) itemView.findViewById(R.id.txt_vendor_price);
             txt_vendor_price_unit = (TextView) itemView.findViewById(R.id.txt_vendor_price_unit);
+            img_fav = (ImageView) itemView.findViewById(R.id.img_fav);
 
+
+            thumbnail.setOnClickListener(this);
+            img_fav.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            myClickListener.onItemClick(getAdapterPosition(), v);
+        }
+    }
+
+    public void setOnItemClickListener(MyClickListener myClickListener) {
+        this.myClickListener = myClickListener;
     }
 
     public VendorListAdapter(Context context, List<VendorListDTO> vendorsList) {
@@ -83,6 +97,11 @@ public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.De
         holder.txt_vendor_price_unit.setText(vendorListDTO.getCurrency());
         holder.txt_vendor_address.setText(vendorListDTO.getAddress());
         holder.txt_vendor_rating.setText(vendorListDTO.getRating());
+        if (vendorListDTO.getFavourite().equalsIgnoreCase("1")) {
+            holder.img_fav.setImageResource(R.drawable.fav_active_icon);
+        } else {
+            holder.img_fav.setImageResource(R.drawable.fav_icon);
+        }
 
     }
 
@@ -91,5 +110,7 @@ public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.De
         return vendorsList.size();
     }
 
-
+    public interface MyClickListener {
+        public void onItemClick(int position, View v);
+    }
 }

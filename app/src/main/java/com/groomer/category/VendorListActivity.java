@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -77,16 +78,45 @@ public class VendorListActivity extends BaseActivity {
         VendorListAdapter vendorListAdapter = new VendorListAdapter(mActivity, vendorList);
         vendorRecyclerView.setAdapter(vendorListAdapter);
 
-        vendorRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(mActivity,
-                        vendorRecyclerView, new MyOnClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
+//        vendorRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(mActivity,
+//                        vendorRecyclerView, new MyOnClickListener() {
+//                    @Override
+//                    public void onItemClick(View view, int position) {
+//                        Intent intent = new Intent(mActivity, VendorDetailsActivity.class);
+//                        intent.putExtra("store_id", vendorList.get(position).getStore_id());
+//                        mActivity.startActivity(intent);
+//                    }
+//                })
+//        );
+
+
+        ((VendorListAdapter) vendorListAdapter).setOnItemClickListener(new VendorListAdapter.MyClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+                switch (v.getId()) {
+                    case R.id.thumbnail:
                         Intent intent = new Intent(mActivity, VendorDetailsActivity.class);
                         intent.putExtra("store_id", vendorList.get(position).getStore_id());
                         mActivity.startActivity(intent);
-                    }
-                })
-        );
+                        break;
+
+                    case R.id.img_fav:
+
+                        if (vendorList.get(position).getFavourite().equalsIgnoreCase("1")) {
+
+                            addRemoveFromFavourite("0", vendorList.get(position).getStore_id());
+
+                        } else {
+                            addRemoveFromFavourite("1", vendorList.get(position).getStore_id());
+
+                        }
+
+                        break;
+
+
+                }
+            }
+        });
     }
 
     @Override
@@ -109,10 +139,10 @@ public class VendorListActivity extends BaseActivity {
     private void getVendorsList(CategoryDTO categoryDTO) {
         if (Utils.isOnline(mActivity)) {
             HashMap<String, String> params = new HashMap<>();
-            params.put("action", "saloonlist");
-            params.put("lat", "23.444444");
-            params.put("lng", "76.555555");
-            params.put("user_id", "10");
+            params.put("action", Constants.VENDOR_LIST);
+            params.put("lat", "");
+            params.put("lng", "");
+            params.put("user_id", Utils.getUserId(mActivity));
             params.put("category_id", categoryDTO.getId());
             params.put("lang", "eng");
 
@@ -152,6 +182,53 @@ public class VendorListActivity extends BaseActivity {
             jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         }
+    }
+
+
+    private void addRemoveFromFavourite(String status, String storeID) {
+        if (Utils.isOnline(mActivity)) {
+            HashMap<String, String> params = new HashMap<>();
+            params.put("action", Constants.ADD_REMOVE_FAVOURITE);
+            params.put("user_id", Utils.getUserId(mActivity));
+            params.put("store_id", storeID);
+            params.put("status", status);
+            params.put("lang", "eng");
+
+            final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
+            CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
+                    Constants.SERVICE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.i("Groomer info", response.toString());
+                            pdialog.dismiss();
+                            if (Utils.getWebServiceStatus(response)) {
+                                try {
+
+                                    Toast.makeText(mActivity, Utils.getWebServiceMessage(response), Toast.LENGTH_SHORT).show();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
+
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.i("Groomer info", error.toString());
+                        }
+                    }
+            );
+
+            pdialog.show();
+            GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
+            jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        }
+
+
     }
 
 

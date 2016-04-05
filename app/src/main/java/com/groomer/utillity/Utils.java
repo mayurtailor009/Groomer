@@ -10,6 +10,8 @@ import android.net.ConnectivityManager;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 
+import com.groomer.model.UserDTO;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -258,9 +260,10 @@ public class Utils {
      * How to use<br>
      * Bean bean = new Bean();<br>
      * putObjectIntoPref(context,bean,key)
+     *
      * @param context Context of an application
-     * @param e your genric object
-     * @param key String key which is associate with object
+     * @param e       your genric object
+     * @param key     String key which is associate with object
      */
     public static <E> void putObjectIntoPref(Context context, E e, String key) {
         SharedPreferences.Editor editor = context.getSharedPreferences(Constants.PREF_FILE,
@@ -287,51 +290,71 @@ public class Utils {
      * This method is use to get your object from preference.<br>
      * How to use<br>
      * Bean bean = getObjectFromPref(context,key);
+     *
      * @param context
      * @param key
      * @return
      */
     @SuppressWarnings("unchecked")
-    public static <E> E getObjectFromPref(Context context, String key){
-        try{
-            SharedPreferences pref = context.getSharedPreferences(Constants.PREF_FILE,Context.MODE_PRIVATE);
+    public static <E> E getObjectFromPref(Context context, String key) {
+        try {
+            SharedPreferences pref = context.getSharedPreferences(Constants.PREF_FILE, Context.MODE_PRIVATE);
             return (E) ObjectSerializer.deserialize(pref.getString(key, null));
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public static String getStringFromPref(Context context, String key){
+    public static String getStringFromPref(Context context, String key) {
         return context.getSharedPreferences(Constants.PREF_FILE, Context.MODE_PRIVATE).getString(key, null);
     }
 
-    public static void putStringIntoPref(Context context, String key, String value){
+    public static void putStringIntoPref(Context context, String key, String value) {
         context.getSharedPreferences(Constants.PREF_FILE, Context.MODE_PRIVATE).edit().putString(key, value).commit();
     }
 
-    public static void putIntIntoPref(Context context, String key, int value){
+    public static void putIntIntoPref(Context context, String key, int value) {
         context.getSharedPreferences(Constants.PREF_FILE, Context.MODE_PRIVATE).edit().putInt(key, value).commit();
     }
 
-    public static void putBooleanIntoPref(Context context, String key, boolean value){
+    public static void putBooleanIntoPref(Context context, String key, boolean value) {
         context.getSharedPreferences(Constants.PREF_FILE, Context.MODE_PRIVATE).edit().putBoolean(key, value).commit();
     }
 
-    public static void putLongIntoPref(Context context, String key, long value){
+    public static void putLongIntoPref(Context context, String key, long value) {
         context.getSharedPreferences(Constants.PREF_FILE, Context.MODE_PRIVATE).edit().putLong(key, value).commit();
     }
 
-    public static int getIntFromPref(Context context, String key){
+    public static int getIntFromPref(Context context, String key) {
         return context.getSharedPreferences(Constants.PREF_FILE, Context.MODE_PRIVATE).getInt(key, 0);
     }
 
-    public static boolean getBooleanFromPref(Context context, String key, boolean defValue){
+    public static boolean getBooleanFromPref(Context context, String key, boolean defValue) {
         return context.getSharedPreferences(Constants.PREF_FILE, Context.MODE_PRIVATE).getBoolean(key, defValue);
     }
 
-    public static long getLongFromPref(Context context, String key){
+    public static long getLongFromPref(Context context, String key) {
         return context.getSharedPreferences(Constants.PREF_FILE, Context.MODE_PRIVATE).getLong(key, 0);
+    }
+
+
+    public static String getUserId(Context context) {
+        UserDTO userDTO = GroomerPreference.getObjectFromPref(context, Constants.USER_INFO);
+        if (userDTO != null)
+            return userDTO.getId();
+        else
+            return "0";
+    }
+
+
+    public static String getSelectedLanguage(Context context) {
+
+        if (GroomerPreference.getAPP_LANG(context).contains(Constants.LANG_ARABIC_CODE)) {
+            return Constants.LANG_ARABIC_CODE;
+        } else {
+            return Constants.LANG_ENGLISH_CODE;
+        }
     }
 
 }

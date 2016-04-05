@@ -6,9 +6,12 @@ import java.io.Serializable;
 public class UserDTO implements Serializable {
 
     private String id;
+    private String name_eng;
     private String email;
-    private String name;
     private String mobile;
+    private String gender;
+    private String dob;
+    private String image;
 
     public String getId() {
         return id;
@@ -16,6 +19,14 @@ public class UserDTO implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getName_eng() {
+        return name_eng;
+    }
+
+    public void setName_eng(String name_eng) {
+        this.name_eng = name_eng;
     }
 
     public String getEmail() {
@@ -26,19 +37,35 @@ public class UserDTO implements Serializable {
         this.email = email;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getMobile() {
         return mobile;
     }
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

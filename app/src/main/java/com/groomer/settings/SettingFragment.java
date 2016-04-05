@@ -54,6 +54,8 @@ public class SettingFragment extends BaseFragment {
         setClick(R.id.view_green, view);
         setClick(R.id.btn_select_english, view);
         setClick(R.id.btn_select_arabic, view);
+
+
     }
 
     @Override
