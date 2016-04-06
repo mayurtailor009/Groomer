@@ -10,8 +10,10 @@ import android.net.ConnectivityManager;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 
+import com.andressantibanez.ranger.Ranger;
 import com.groomer.model.UserDTO;
 
+import org.joda.time.LocalDateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,13 +42,11 @@ public class Utils {
         ConnectivityManager conMgr = (ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        if (conMgr.getActiveNetworkInfo() != null
+        return conMgr.getActiveNetworkInfo() != null
 
                 && conMgr.getActiveNetworkInfo().isAvailable()
 
-                && conMgr.getActiveNetworkInfo().isConnected())
-            return true;
-        return false;
+                && conMgr.getActiveNetworkInfo().isConnected();
     }
 
 
@@ -354,6 +354,48 @@ public class Utils {
             return Constants.LANG_ARABIC_CODE;
         } else {
             return Constants.LANG_ENGLISH_CODE;
+        }
+    }
+
+    /**
+     * this method checks that the selected date must be 1 or greater than 1 then
+     * it will decrease the selected day by 1.
+     */
+    public static void decreaseDate(Ranger date_picker) {
+        if (date_picker.getSelectedDay() > 1) {
+            date_picker.setSelectedDay(date_picker.getSelectedDay() - 1, true, 0);
+        }
+    }
+
+
+    /**
+     * this method first checks for the month and do the increament in date
+     * according to the days in the current month. if month is february then it will check for
+     * that the current year is leap year or not.
+     */
+    public static void increaseDate(Ranger date_picker) {
+        LocalDateTime dateTime = new LocalDateTime();
+        int i = dateTime.getMonthOfYear();
+        if (i == 1 || i == 3 || i == 5 || i == 7 || i == 8 || i == 10 || i == 12) {
+            if (date_picker.getSelectedDay() < 31) {
+                date_picker.setSelectedDay(date_picker.getSelectedDay() + 1, true, 0);
+            }
+        } else if (i == 2) {
+            int year = dateTime.getYear();
+            boolean b = year % 4 == 0 ? true : false;
+            if (b) {
+                if (date_picker.getSelectedDay() < 29) {
+                    date_picker.setSelectedDay(date_picker.getSelectedDay() + 1, true, 0);
+                }
+            } else {
+                if (date_picker.getSelectedDay() < 28) {
+                    date_picker.setSelectedDay(date_picker.getSelectedDay() + 1, true, 0);
+                }
+            }
+        } else {
+            if (date_picker.getSelectedDay() < 30) {
+                date_picker.setSelectedDay(date_picker.getSelectedDay() + 1, true, 0);
+            }
         }
     }
 

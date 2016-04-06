@@ -9,6 +9,7 @@ import com.andressantibanez.ranger.Ranger;
 import com.groomer.R;
 import com.groomer.activity.BaseActivity;
 import com.groomer.model.VendorServicesDTO;
+import com.groomer.utillity.Utils;
 import com.groomer.vendordetails.adapter.ServiceInfoAdapter;
 
 import org.joda.time.LocalDateTime;
@@ -64,52 +65,11 @@ public class ConfirmAppointmentActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.ranger_back_arrow:
-                decreaseDate();
+                Utils.decreaseDate(date_picker);
                 break;
             case R.id.ranger_next_arrow:
-                increaseDate();
+                Utils.increaseDate(date_picker);
                 break;
-        }
-    }
-
-    /**
-     * this method checks that the selected date must be 1 or greater than 1 then
-     * it will decrease the selected day by 1.
-     */
-    private void decreaseDate() {
-        if (date_picker.getSelectedDay() > 1) {
-            date_picker.setSelectedDay(date_picker.getSelectedDay() - 1, true, 0);
-        }
-    }
-
-    /**
-     * this method first checks for the month and do the increament in date
-     * according to the days in the current month. if month is february then it will check for
-     * that the current year is leap year or not.
-     */
-    private void increaseDate() {
-        LocalDateTime dateTime = new LocalDateTime();
-        int i = dateTime.getMonthOfYear();
-        if (i == 1 || i == 3 || i == 5 || i == 7 || i == 8 || i == 10 || i == 12) {
-            if (date_picker.getSelectedDay() < 31) {
-                date_picker.setSelectedDay(date_picker.getSelectedDay() + 1, true, 0);
-            }
-        } else if (i == 2) {
-            int year = dateTime.getYear();
-            boolean b = year % 4 == 0 ? true : false;
-            if (b) {
-                if (date_picker.getSelectedDay() < 29) {
-                    date_picker.setSelectedDay(date_picker.getSelectedDay() + 1, true, 0);
-                }
-            } else {
-                if (date_picker.getSelectedDay() < 28) {
-                    date_picker.setSelectedDay(date_picker.getSelectedDay() + 1, true, 0);
-                }
-            }
-        } else {
-            if (date_picker.getSelectedDay() < 30) {
-                date_picker.setSelectedDay(date_picker.getSelectedDay() + 1, true, 0);
-            }
         }
     }
 }

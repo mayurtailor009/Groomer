@@ -16,8 +16,7 @@
         <!-- viewpager layout -->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:background="@android:color/holo_red_light">
+            android:layout_height="200dp">
 
             <!-- back arrow and zoom button layout -->
             <FrameLayout
@@ -44,7 +43,7 @@
                         android:layout_alignParentRight="true"
                         android:padding="@dimen/margin_5"
                         android:src="@drawable/next_arrow"
-                        android:tint="@color/colorWhite"/>
+                        android:tint="@color/colorWhite" />
 
                     <!-- zoom button -->
                     <ImageView
@@ -209,8 +208,8 @@
             <com.groomer.customviews.CustomTextViewMarkNovaSemibold
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="SAR 130.00"
                 android:gravity="right"
+                android:text="ريال سعودي 130.00"
                 android:textColor="@color/colorWhite"
                 android:textSize="15sp" />
 
@@ -219,8 +218,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_3"
-                android:text="2 Services"
                 android:gravity="right"
+                android:text="خدمات 2"
                 android:textColor="@color/colorWhite"
                 android:textSize="15sp" />
         </LinearLayout>
@@ -231,9 +230,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.4"
-
             android:gravity="center"
             android:padding="@dimen/margin_10"
+            android:background="@color/dark_green"
             android:text="@string/set_appointment"
             android:textAllCaps="false"
             android:textSize="15sp" />

@@ -44,7 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                    <com.groomer.customviews.CustomTextViewMarkNovaSemibold
                         android:id="@+id/txt_vendor_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
                         android:textSize="15sp" />
 
 
-                    <com.groomer.customviews.CustomTextViewMarkNovaThin
+                    <com.groomer.customviews.CustomTextViewMarkNovaRegular
                         android:id="@+id/txt_vendor_rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -66,14 +66,14 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_5"
+                        android:layout_alignTop="@id/txt_vendor_rating"
                         android:layout_marginBottom="@dimen/margin_1"
-                        android:layout_alignBottom="@id/txt_vendor_name"
+                        android:layout_marginLeft="@dimen/margin_5"
                         android:layout_toRightOf="@+id/txt_vendor_rating"
                         android:src="@drawable/star_icon" />
 
 
-                    <com.groomer.customviews.CustomTextViewMarkNovaThin
+                    <com.groomer.customviews.CustomTextViewMarkNovaRegular
                         android:id="@+id/txt_vendor_price_unit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_5">
 
-                    <com.groomer.customviews.CustomTextViewMarkNovaThin
+                    <com.groomer.customviews.CustomTextViewMarkNovaRegular
                         android:id="@+id/txt_vendor_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -108,7 +108,7 @@
                         android:text="@string/txt_vendor_address"
                         android:textSize="12sp" />
 
-                    <com.groomer.customviews.CustomTextViewMarkNovaThin
+                    <com.groomer.customviews.CustomTextViewMarkNovaRegular
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"

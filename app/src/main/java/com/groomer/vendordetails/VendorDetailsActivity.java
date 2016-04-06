@@ -76,8 +76,8 @@ public class VendorDetailsActivity extends BaseActivity {
     private void getVendorDetails() {
         HashMap<String, String> params = new HashMap<>();
         params.put("action", Constants.VENDOR_DETAILS);
-        params.put("lat", "");
-        params.put("lng", "");
+        params.put("lat", "23.444444");
+        params.put("lng", "76.555555");
         params.put("user_id", Utils.getUserId(mActivity));
         params.put("store_id", getIntent().getStringExtra("store_id"));
         params.put("lang", "eng");

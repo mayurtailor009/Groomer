@@ -8,6 +8,7 @@
     <dimen name="margin_30">30dp</dimen>
     <dimen name="margin_17">17dp</dimen>
     <dimen name="margin_15">15dp</dimen>
+    <dimen name="margin_12">12dp</dimen>
     <dimen name="margin_10">10dp</dimen>
     <dimen name="margin_5">5dp</dimen>
     <dimen name="margin_3">3dp</dimen>

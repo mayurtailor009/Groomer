@@ -210,10 +210,15 @@
                         android:id="@+id/time_seekbar"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
+                        android:layout_gravity="center|center_vertical"
                         android:layout_weight="0.8"
                         android:max="24"
+                        android:maxHeight="@dimen/margin_12"
+                        android:minHeight="@dimen/margin_12"
+                        android:paddingLeft="@dimen/margin_20"
+                        android:paddingStart="@dimen/margin_20"
                         android:progressDrawable="@drawable/gradient_dragger"
+                        android:splitTrack="false"
                         android:thumb="@drawable/pointer_icon" />
 
                     <!-- night image icon -->
