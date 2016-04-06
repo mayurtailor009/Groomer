@@ -127,7 +127,8 @@ public class VendorDetailsActivity extends BaseActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        Log.i("Groomer info", error.toString());
+                        pdialog.dismiss();
                     }
                 }
         );

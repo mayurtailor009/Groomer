@@ -209,17 +209,17 @@
 
             <!-- total amount -->
             <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+                android:id="@+id/services_total_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="SAR 130.00"
-                android:id="@+id/services_total_amount"
                 android:textColor="@color/colorWhite"
                 android:textSize="15sp" />
 
             <!-- services seleted -->
             <com.groomer.customviews.CustomTextViewMarkNovaRegular
-                android:layout_width="match_parent"
                 android:id="@+id/service_count"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_3"
                 android:text="2 Services"
@@ -233,7 +233,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.4"
-
+            android:background="@color/dark_green"
             android:gravity="center"
             android:padding="@dimen/margin_10"
             android:text="@string/set_appointment"

@@ -2,10 +2,8 @@ package com.groomer.favourite;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,13 +15,11 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
 import com.groomer.category.adapter.VendorListAdapter;
 import com.groomer.fragments.BaseFragment;
-import com.groomer.model.CategoryDTO;
 import com.groomer.model.VendorListDTO;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.Utils;
@@ -66,7 +62,7 @@ public class FavouriteFragment extends BaseFragment {
 
 
         view = inflater.inflate(R.layout.fragment_favourite, container, false);
-
+        mActivity = FavouriteFragment.this.getActivity();
         return view;
     }
 
@@ -80,10 +76,26 @@ public class FavouriteFragment extends BaseFragment {
         LinearLayoutManager llm = new LinearLayoutManager(mActivity);
         vendorRecyclerView.setLayoutManager(llm);
 
-        VendorListAdapter vendorListAdapter = new VendorListAdapter(mActivity, null);
+        VendorListAdapter vendorListAdapter = new VendorListAdapter(mActivity, getList());
         vendorRecyclerView.setAdapter(vendorListAdapter);
     }
 
+    private List<VendorListDTO> getList() {
+        List<VendorListDTO> list = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            VendorListDTO listDTO = new VendorListDTO();
+            listDTO.setCurrency("SRA");
+            listDTO.setAddress(mActivity.getString(R.string.txt_vendor_address));
+            listDTO.setStorename_eng("Pretty Looks");
+            listDTO.setRating("4.5");
+            listDTO.setPrice("60.00");
+            listDTO.setFavourite("1");
+            listDTO.setDistance("2");
+            listDTO.setStore_id("17");
+            list.add(listDTO);
+        }
+        return list;
+    }
 
 
     private void getFavoriteList() {
@@ -128,7 +140,6 @@ public class FavouriteFragment extends BaseFragment {
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         }
     }
-
 
 
 }

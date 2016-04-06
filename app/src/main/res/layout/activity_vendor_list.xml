@@ -70,7 +70,8 @@
             android:maxHeight="@dimen/margin_1"
             android:minHeight="@dimen/margin_1"
             android:progressDrawable="@drawable/layerlist_km_seekbar"
-            android:thumb="@drawable/green_dragger" />
+            android:thumb="@drawable/green_dragger"
+            android:thumbOffset="@dimen/margin_1" />
     </LinearLayout>
 
 </RelativeLayout>

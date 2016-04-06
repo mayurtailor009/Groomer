@@ -10,10 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
-import com.groomer.GroomerApplication;
 import com.groomer.R;
 import com.groomer.model.VendorListDTO;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -21,6 +17,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.DetailsViewHolder> {
@@ -28,6 +25,7 @@ public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.De
     private Context context;
     private List<VendorListDTO> vendorsList;
     private DisplayImageOptions options;
+    private List<VendorListDTO> filteredList;
     private static MyClickListener myClickListener;
 
     public static class DetailsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -60,12 +58,14 @@ public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.De
     }
 
     public void setOnItemClickListener(MyClickListener myClickListener) {
-        this.myClickListener = myClickListener;
+        VendorListAdapter.myClickListener = myClickListener;
     }
 
     public VendorListAdapter(Context context, List<VendorListDTO> vendorsList) {
         this.context = context;
         this.vendorsList = vendorsList;
+        filteredList = new ArrayList<>();
+        filteredList.addAll(vendorsList);
 
         options = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
@@ -111,6 +111,22 @@ public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.De
     }
 
     public interface MyClickListener {
-        public void onItemClick(int position, View v);
+        void onItemClick(int position, View v);
+    }
+
+
+    public void getFilteredList(String text) {
+        vendorsList.clear();
+        if (text.length() == 0) {
+            vendorsList.addAll(filteredList);
+        } else {
+            for (VendorListDTO vendorListDTO : filteredList) {
+                if (vendorListDTO.getStorename_eng().toUpperCase()
+                        .contains(text.toUpperCase())) {
+                    vendorsList.add(vendorListDTO);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 }

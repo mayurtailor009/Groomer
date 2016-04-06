@@ -1,14 +1,21 @@
 package com.groomer.category;
 
 import android.app.ProgressDialog;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -23,8 +30,6 @@ import com.groomer.activity.BaseActivity;
 import com.groomer.category.adapter.VendorListAdapter;
 import com.groomer.model.CategoryDTO;
 import com.groomer.model.VendorListDTO;
-import com.groomer.recyclerviewitemclick.MyOnClickListener;
-import com.groomer.recyclerviewitemclick.RecyclerTouchListener;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.Utils;
 import com.groomer.vendordetails.VendorDetailsActivity;
@@ -42,6 +47,7 @@ public class VendorListActivity extends BaseActivity {
 
     private Context mActivity;
     private RecyclerView vendorRecyclerView;
+    private  VendorListAdapter vendorListAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,6 +59,8 @@ public class VendorListActivity extends BaseActivity {
 
         CategoryDTO categoryDTO = (CategoryDTO) getIntent().getExtras().getSerializable("dto");
         init(categoryDTO);
+
+
 
         getVendorsList(categoryDTO);
     }
@@ -75,7 +83,7 @@ public class VendorListActivity extends BaseActivity {
     }
 
     private void setUpListAdapter(final List<VendorListDTO> vendorList) {
-        VendorListAdapter vendorListAdapter = new VendorListAdapter(mActivity, vendorList);
+        vendorListAdapter = new VendorListAdapter(mActivity, vendorList);
         vendorRecyclerView.setAdapter(vendorListAdapter);
 
 //        vendorRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(mActivity,
@@ -90,7 +98,7 @@ public class VendorListActivity extends BaseActivity {
 //        );
 
 
-        ((VendorListAdapter) vendorListAdapter).setOnItemClickListener(new VendorListAdapter.MyClickListener() {
+        vendorListAdapter.setOnItemClickListener(new VendorListAdapter.MyClickListener() {
             @Override
             public void onItemClick(int position, View v) {
                 switch (v.getId()) {
@@ -122,7 +130,41 @@ public class VendorListActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_vendor_list, menu);
+        SearchManager searchManager = (SearchManager) mActivity.getSystemService(SEARCH_SERVICE);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                vendorListAdapter.getFilteredList(newText);
+                return true;
+            }
+        });
+        searchView.setQueryHint(Html.fromHtml("<font color = #d7e6f0>"
+                + "Search..." + "</font>"));
+        changeSearchViewTextColor(searchView);
         return true;
+    }
+
+    private void changeSearchViewTextColor(View view) {
+        if (view != null) {
+            if (view instanceof TextView) {
+                ((TextView) view).setTextColor(Color.BLACK);
+                return;
+            } else if (view instanceof ViewGroup) {
+                ViewGroup viewGroup = (ViewGroup) view;
+                for (int i = 0; i < viewGroup.getChildCount(); i++) {
+                    changeSearchViewTextColor(viewGroup.getChildAt(i));
+                }
+            }
+        }
     }
 
 

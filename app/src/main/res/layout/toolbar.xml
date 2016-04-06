@@ -6,6 +6,7 @@
     android:layout_height="?attr/actionBarSize"
     android:background="@color/colorWhite"
     android:minHeight="?attr/actionBarSize"
+    app:collapseIcon="@drawable/back_btn"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -17,7 +18,7 @@
         android:src="@drawable/menu_btn" />
 
 
-    <com.groomer.customviews.CustomTextViewMarkNovaRegular
+    <com.groomer.customviews.CustomTextViewMarkNovaExtrabold
         android:id="@+id/toolbar_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
