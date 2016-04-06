@@ -22,6 +22,7 @@ import com.groomer.login.LoginActivity;
 import com.groomer.model.UserDTO;
 import com.groomer.settings.SettingFragment;
 import com.groomer.utillity.Constants;
+import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.Utils;
 
 
@@ -52,7 +53,9 @@ public class HomeActivity extends BaseActivity {
             }
         });
 
-        displayFragment(0);
+        int fragmentNumber = getIntent().getIntExtra("fragmentNumber", 0);
+
+        displayFragment(fragmentNumber);
     }
 
     private void init() {
@@ -144,10 +147,8 @@ public class HomeActivity extends BaseActivity {
 
     private void setHeadersValues(NavigationView navigationView) {
 
-        UserDTO userDTO = Utils.getObjectFromPref(this, Constants.USER_INFO);
-
+        UserDTO userDTO = GroomerPreference.getObjectFromPref(this, Constants.USER_INFO);
         View headerLayout = navigationView.getHeaderView(0);
-
         TextView txt_name = (TextView) headerLayout.findViewById(R.id.nav_header_user_name);
         txt_name.setText(userDTO.getName_eng());
 

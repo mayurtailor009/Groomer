@@ -47,7 +47,7 @@ public class VendorListActivity extends BaseActivity {
 
     private Context mActivity;
     private RecyclerView vendorRecyclerView;
-    private  VendorListAdapter vendorListAdapter;
+    private VendorListAdapter vendorListAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,6 @@ public class VendorListActivity extends BaseActivity {
 
         CategoryDTO categoryDTO = (CategoryDTO) getIntent().getExtras().getSerializable("dto");
         init(categoryDTO);
-
 
 
         getVendorsList(categoryDTO);
@@ -214,7 +213,8 @@ public class VendorListActivity extends BaseActivity {
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.i("Groomer info", error.toString());
+                            pdialog.dismiss();
+                            Utils.showExceptionDialog(mActivity);
                         }
                     }
             );
@@ -260,6 +260,8 @@ public class VendorListActivity extends BaseActivity {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             Log.i("Groomer info", error.toString());
+                            pdialog.dismiss();
+                            Utils.showExceptionDialog(mActivity);
                         }
                     }
             );

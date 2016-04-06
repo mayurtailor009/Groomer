@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -49,6 +50,7 @@ public class VendorDetailsActivity extends BaseActivity {
     private Activity mActivity;
     private ArrayList<ReviewDTO> reviewList;
     private ArrayList<ServiceDTO> serviceList;
+    private SaloonDetailsDTO saloonDetailsDTO;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,7 @@ public class VendorDetailsActivity extends BaseActivity {
         setClick(R.id.btn_about_tab);
         setClick(R.id.btn_reviews_tab);
         setClick(R.id.btn_set_appointment);
+        setClick(R.id.img_fav);
     }
 
     private void getVendorDetails() {
@@ -91,14 +94,14 @@ public class VendorDetailsActivity extends BaseActivity {
                             if (Utils.getWebServiceStatus(response)) {
 
                                 //getting saloon details
-                                SaloonDetailsDTO saloonDetailsDTO = new Gson().fromJson(
+                                saloonDetailsDTO = new Gson().fromJson(
                                         response.getJSONObject("Saloon").toString(),
                                         SaloonDetailsDTO.class
                                 );
 
                                 //adding images urls to imagelist to show in viewpager.
                                 imageList.add(saloonDetailsDTO.getImage());
-                                setSaloonDetails(saloonDetailsDTO); //setting the saloon details
+                                setSaloonDetails(); //setting the saloon details
                                 setUpViewPager();
 
                                 //getting reviews list.
@@ -129,6 +132,7 @@ public class VendorDetailsActivity extends BaseActivity {
                     public void onErrorResponse(VolleyError error) {
                         Log.i("Groomer info", error.toString());
                         pdialog.dismiss();
+                        Utils.showExceptionDialog(mActivity);
                     }
                 }
         );
@@ -158,10 +162,8 @@ public class VendorDetailsActivity extends BaseActivity {
 
     /**
      * this method sets the saloon name and address details.
-     *
-     * @param saloonDetailsDTO is saloon details bean.
      */
-    private void setSaloonDetails(SaloonDetailsDTO saloonDetailsDTO) {
+    private void setSaloonDetails() {
         setViewText(R.id.txt_vendor_name, saloonDetailsDTO.getStorename_eng());
         setViewText(R.id.txt_vendor_address, saloonDetailsDTO.getAddress());
 
@@ -253,6 +255,69 @@ public class VendorDetailsActivity extends BaseActivity {
                 Intent intent = new Intent(mActivity, ConfirmAppointmentActivity.class);
                 mActivity.startActivity(intent);
                 break;
+
+            case R.id.img_fav:
+                if (saloonDetailsDTO.getFavourite().equalsIgnoreCase("1")) {
+
+                    addRemoveFromFavourite("0", saloonDetailsDTO.getStore_id());
+
+                } else {
+                    addRemoveFromFavourite("1", saloonDetailsDTO.getStore_id());
+
+                }
+
+                break;
         }
     }
+
+
+    private void addRemoveFromFavourite(String status, String storeID) {
+        if (Utils.isOnline(mActivity)) {
+            HashMap<String, String> params = new HashMap<>();
+            params.put("action", Constants.ADD_REMOVE_FAVOURITE);
+            params.put("user_id", Utils.getUserId(mActivity));
+            params.put("store_id", storeID);
+            params.put("status", status);
+            params.put("lang", "eng");
+
+            final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
+            CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
+                    Constants.SERVICE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.i("Groomer info", response.toString());
+                            pdialog.dismiss();
+                            if (Utils.getWebServiceStatus(response)) {
+                                try {
+
+                                    Toast.makeText(mActivity, Utils.getWebServiceMessage(response), Toast.LENGTH_SHORT).show();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
+
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.i("Groomer info", error.toString());
+                            pdialog.dismiss();
+                            Utils.showExceptionDialog(mActivity);
+                        }
+                    }
+            );
+
+            pdialog.show();
+            GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
+            jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        }
+
+
+    }
+
+
 }

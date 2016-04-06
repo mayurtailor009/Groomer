@@ -17,6 +17,7 @@ import com.groomer.forgetpassword.ForgetpasswordActivity;
 import com.groomer.model.UserDTO;
 import com.groomer.signup.SignupActivity;
 import com.groomer.utillity.Constants;
+import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.Utils;
 import com.groomer.volley.CustomJsonRequest;
 
@@ -84,8 +85,13 @@ public class LoginActivity extends BaseActivity {
                                     if (Utils.getWebServiceStatus(response)) {
 
                                         UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
-                                        Utils.putObjectIntoPref(LoginActivity.this, userDTO, Constants.USER_INFO);
-                                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                                        GroomerPreference.putObjectIntoPref(LoginActivity.this, userDTO, Constants.USER_INFO);
+
+                                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                        intent.putExtra("fragmentNumber", 0);
+                                        startActivity(intent);
+
+
                                         finish();
                                     } else {
                                         Utils.showDialog(LoginActivity.this, "Error", Utils.getWebServiceMessage(response));

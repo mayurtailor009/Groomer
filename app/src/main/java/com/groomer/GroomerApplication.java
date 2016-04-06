@@ -15,9 +15,18 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
+import org.acra.ACRA;
+import org.acra.ReportingInteractionMode;
+import org.acra.annotation.ReportsCrashes;
+
 /**
  * Created by mayur.tailor on 10-03-2016.
+ *
+ *
  */
+
+@ReportsCrashes(mailTo = "nickygupta02@gmail.com", // my email here
+        mode = ReportingInteractionMode.SILENT)
 public class GroomerApplication extends Application {
     private RequestQueue mRequestQueue;
     public static final String TAG = "GroomerApplication";
@@ -29,6 +38,8 @@ public class GroomerApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        ACRA.init(this);
         mInstance = this;
 
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
