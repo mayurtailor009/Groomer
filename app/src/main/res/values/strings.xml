@@ -73,4 +73,9 @@
     <string name="share_title">Share Experience</string>
     <string name="confirm">Confirm</string>
 
+    <!-- alert texts -->
+    <string name="you_logout">You will be Logged out !!</string>
+    <string name="ok_button">Ok</string>
+    <string name="canceled">Cancel</string>
+
 </resources>

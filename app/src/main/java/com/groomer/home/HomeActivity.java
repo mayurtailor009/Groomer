@@ -1,5 +1,6 @@
 package com.groomer.home;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -11,19 +12,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.groomer.R;
 import com.groomer.activity.BaseActivity;
 import com.groomer.alert.AlertFragment;
 import com.groomer.appointment.AppointmentFragment;
 import com.groomer.category.SaloonListFragment;
+import com.groomer.customviews.alert.CustomAlert;
 import com.groomer.favourite.FavouriteFragment;
-import com.groomer.login.LoginActivity;
 import com.groomer.model.UserDTO;
 import com.groomer.settings.SettingFragment;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.GroomerPreference;
-import com.groomer.utillity.Utils;
+import com.groomer.utillity.SessionManager;
 
 
 public class HomeActivity extends BaseActivity {
@@ -31,12 +33,15 @@ public class HomeActivity extends BaseActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private Toolbar toolbar;
+    private Activity mActivity;
+    private boolean backPressedToExitOnce = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme();
         setContentView(R.layout.activity_home);
+        mActivity = HomeActivity.this;
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
@@ -93,9 +98,7 @@ public class HomeActivity extends BaseActivity {
                         displayFragment(4);
                         break;
                     case R.id.nav_logout:
-                        Utils.removeObjectIntoPref(HomeActivity.this, Constants.USER_INFO);
-                        finish();
-                        startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                        logoutFromApp();
                         break;
                 }
                 return true;
@@ -103,6 +106,47 @@ public class HomeActivity extends BaseActivity {
         });
     }
 
+    /**
+     * this method takes out of the application.
+     */
+    private void logoutFromApp() {
+        new CustomAlert(mActivity)
+                .doubleButtonAlertDialog(
+                        getString(R.string.you_logout),
+                        getString(R.string.ok_button),
+                        getString(R.string.canceled), "dblBtnCallbackResponse", 1000);
+    }
+
+    /**
+     * callback method of double button alert box.
+     *
+     * @param flag true if Ok button pressed otherwise false.
+     * @param code is requestCode.
+     */
+    public void dblBtnCallbackResponse(Boolean flag, int code) {
+        if (flag) {
+            SessionManager.logoutUser(mActivity);
+        }
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (backPressedToExitOnce) {
+            super.onBackPressed();
+            SessionManager.logoutUser(mActivity);
+        } else {
+            this.backPressedToExitOnce = true;
+            Toast.makeText(mActivity, "Press again to exit", Toast.LENGTH_SHORT).show();
+            new android.os.Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    backPressedToExitOnce = false;
+                }
+            }, 2000);
+        }
+    }
 
     private void displayFragment(int index) {
         Fragment fragment = null;

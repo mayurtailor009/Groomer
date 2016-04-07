@@ -64,4 +64,9 @@
     <string name="share_experience">تجربتكم</string>
     <string name="share_title">حصة الخبرة</string>
     <string name="confirm">تأكيد</string>
+
+    <!-- alert texts -->
+    <string name="you_logout">وسوف يتم تسجيل الخروج !!</string>
+    <string name="ok_button">حسنا</string>
+    <string name="canceled">إلغاء</string>
 </resources>
