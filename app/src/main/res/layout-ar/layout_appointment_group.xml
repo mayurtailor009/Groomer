@@ -26,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:gravity="right"
             android:layout_marginRight="@dimen/margin_5"
             android:text="ديفيد لم تنفجر"
             android:textSize="@dimen/textsize_15sp" />
@@ -97,6 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:gravity="right"
             android:layout_marginRight="@dimen/margin_5"
             android:text="مساء 11:00"
             android:textColor="@color/light_green"

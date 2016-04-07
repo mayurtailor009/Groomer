@@ -58,7 +58,7 @@ public class AppointmentFragment extends BaseFragment {
         for (int i = 0; i < 10; i++) {
             AppointmentDTO appointmentDTO = new AppointmentDTO();
             appointmentDTO.setmUserName("Dave Dud");
-            appointmentDTO.setmUserAddress("7th Ave, Apt 12, NYC");
+            appointmentDTO.setmUserAddress(mActivity.getString(R.string.txt_vendor_address));
             appointmentDTO.setmUserTime("11:00 PM");
             list.add(appointmentDTO);
         }
