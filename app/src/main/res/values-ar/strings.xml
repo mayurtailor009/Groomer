@@ -59,4 +59,9 @@
     <!-- vendor details about tab screen -->
     <string name="txt_about_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac orci quis odilo bibendum mattis.</string>
     <string name="txt_timing">توقيت</string>
+
+    <!-- appointment screen -->
+    <string name="share_experience">تجربتكم</string>
+    <string name="share_title">حصة الخبرة</string>
+    <string name="confirm">تأكيد</string>
 </resources>

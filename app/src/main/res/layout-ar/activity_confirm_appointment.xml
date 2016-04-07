@@ -8,6 +8,7 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/confirm_appointment_btn"
         tools:context="com.groomer.vendordetails.ConfirmAppointmentActivity">
 
         <RelativeLayout
@@ -25,9 +26,11 @@
                 <!-- service price text -->
                 <com.groomer.customviews.CustomTextViewMarkNovaExtrabold
                     android:id="@+id/confirm_appoint_txt_service_price"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="SAR 130"
+                    android:text="130  ريال"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_toRightOf="@+id/confirm_appoint_cross_button"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/textsize_15sp" />
 
@@ -89,7 +92,7 @@
                     android:background="@color/colorWhite"
                     android:gravity="left"
                     android:padding="@dimen/margin_15"
-                    android:text="دقيقة 30"
+                    android:text="3o MIN"
                     android:textSize="@dimen/textsize_15sp" />
 
                 <!-- per service price taken -->

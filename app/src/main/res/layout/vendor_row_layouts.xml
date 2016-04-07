@@ -113,6 +113,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:text="@string/txt_start_from"
+                        android:id="@+id/txt_starts_from"
                         android:textSize="12sp" />
 
                 </RelativeLayout>

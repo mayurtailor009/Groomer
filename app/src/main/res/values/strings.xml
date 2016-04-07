@@ -71,5 +71,6 @@
     <!-- appointment screen -->
     <string name="share_experience">Share your experience</string>
     <string name="share_title">Share Experience</string>
+    <string name="confirm">Confirm</string>
 
 </resources>

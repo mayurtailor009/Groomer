@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.groomer.R;
 import com.groomer.fragments.BaseFragment;
@@ -45,7 +46,11 @@ public class ServicesFragment extends BaseFragment {
     private void setUpRecycler() {
         mServicesList = (RecyclerView) view.findViewById(R.id.vendor_services_list);
         mServicesList.setLayoutManager(new LinearLayoutManager(mActivity));
-        mServicesList.setAdapter(new ServicesAdapter(mActivity, getServicesList()));
+        if (getServicesList() != null) {
+            mServicesList.setAdapter(new ServicesAdapter(mActivity, getServicesList()));
+        } else {
+            Toast.makeText(mActivity, "List is empty.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private List<ServiceDTO> getServicesList() {

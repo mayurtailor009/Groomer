@@ -1,5 +1,6 @@
 package com.groomer.appointment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ public class AppointmentFragment extends BaseFragment {
 
     private View view;
     private ExpandableListView mExpandableListView;
+    private Activity mActivity;
 
     public static AppointmentFragment newInstance() {
         AppointmentFragment fragment = new AppointmentFragment();
@@ -37,6 +39,7 @@ public class AppointmentFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_appointment, container, false);
+        mActivity = AppointmentFragment.this.getActivity();
 
         setUpExpandableListVIew();
         return view;
@@ -69,8 +72,10 @@ public class AppointmentFragment extends BaseFragment {
             List<VendorServicesDTO> list = new ArrayList<>();
             for (int j = 0; j < 3; j++) {
                 VendorServicesDTO servicesDTO = new VendorServicesDTO();
-                servicesDTO.setServiceName("service " + (j + 1));
-                servicesDTO.setServicePrice("SAR 65");
+                servicesDTO.setServiceName(mActivity.getResources().getString(R.string.menu_services)
+                        + " " + (j + 1));
+                servicesDTO.setServicePrice(mActivity.getString(R.string.txt_vendor_price_unit)
+                        + " " + "65");
                 servicesDTO.setServiceTime("30 MIN");
                 list.add(servicesDTO);
             }

@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.groomer.R;
 import com.groomer.fragments.BaseFragment;
@@ -61,7 +62,11 @@ public class ReviewFragment extends BaseFragment {
     private void setUpRecycler() {
         mReviewList = (RecyclerView) view.findViewById(R.id.vendor_review_list);
         mReviewList.setLayoutManager(new LinearLayoutManager(mActivity));
-        mReviewList.setAdapter(new ReviewsAdapter(mActivity, getReviewsList()));
+        if (getReviewsList() != null) {
+            mReviewList.setAdapter(new ReviewsAdapter(mActivity, getReviewsList()));
+        } else {
+            Toast.makeText(mActivity, "List is empty.", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

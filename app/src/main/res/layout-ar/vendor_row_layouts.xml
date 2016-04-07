@@ -35,13 +35,14 @@
                 android:layout_gravity="bottom"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
+                android:gravity="center"
                 android:padding="@dimen/margin_5">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                    <com.groomer.customviews.CustomTextViewMarkNovaSemibold
                         android:id="@+id/txt_vendor_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -49,12 +50,12 @@
                         android:textSize="15sp" />
 
 
-                    <com.groomer.customviews.CustomTextViewMarkNovaThin
+                    <com.groomer.customviews.CustomTextViewMarkNovaRegular
                         android:id="@+id/txt_vendor_rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_10"
-                        android:layout_toRightOf="@+id/txt_vendor_name"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:layout_toLeftOf="@+id/txt_vendor_name"
                         android:text="4.5"
                         android:textSize="12sp" />
 
@@ -62,7 +63,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_5"
-                        android:layout_toRightOf="@+id/txt_vendor_rating"
+                        android:layout_toLeftOf="@+id/txt_vendor_rating"
                         android:src="@drawable/star_icon" />
 
 
@@ -70,7 +71,7 @@
                         android:id="@+id/txt_vendor_price_unit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@+id/txt_vendor_price"
+                        android:layout_toRightOf="@+id/txt_vendor_price"
                         android:text="@string/txt_vendor_price_unit"
                         android:textSize="12sp" />
 
@@ -78,8 +79,8 @@
                         android:id="@+id/txt_vendor_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginLeft="@dimen/margin_5"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginRight="@dimen/margin_5"
                         android:text="55"
                         android:textColor="@color/colorBlue"
                         android:textSize="15sp" />
@@ -91,18 +92,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_5">
 
-                    <com.groomer.customviews.CustomTextViewMarkNovaThin
+                    <com.groomer.customviews.CustomTextViewMarkNovaRegular
                         android:id="@+id/txt_vendor_address"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_toRightOf="@+id/txt_starts_from"
                         android:text="@string/txt_vendor_address"
                         android:textSize="12sp" />
 
-                    <com.groomer.customviews.CustomTextViewMarkNovaThin
+                    <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                        android:id="@+id/txt_starts_from"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentLeft="true"
                         android:text="@string/txt_start_from"
                         android:textSize="12sp" />
 

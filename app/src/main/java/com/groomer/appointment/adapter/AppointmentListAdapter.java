@@ -21,6 +21,8 @@ import com.groomer.shareexperience.ShareExperienceActivity;
 import com.groomer.vendordetails.VendorDetailsActivity;
 import com.groomer.vendordetails.adapter.ServiceInfoAdapter;
 
+import org.joda.time.LocalDateTime;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -53,6 +55,7 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
             addressLayout = (LinearLayout) view.findViewById(R.id.appointed_user_address_layout);
             timeLayout = (LinearLayout) view.findViewById(R.id.layout_appointed_time);
             dateLayout = (LinearLayout) view.findViewById(R.id.date_layout);
+
         }
     }
 

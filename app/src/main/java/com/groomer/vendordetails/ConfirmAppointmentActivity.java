@@ -1,5 +1,6 @@
 package com.groomer.vendordetails;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,12 +22,14 @@ public class ConfirmAppointmentActivity extends BaseActivity {
 
     private RecyclerView mRecyclerView;
     private Ranger date_picker;
+    private Activity mActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme();
         setContentView(R.layout.activity_confirm_appointment);
+        mActivity = ConfirmAppointmentActivity.this;
 
         init();
         setUpRecyclerView();
@@ -50,8 +53,10 @@ public class ConfirmAppointmentActivity extends BaseActivity {
         List<VendorServicesDTO> list = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             VendorServicesDTO servicesDTO = new VendorServicesDTO();
-            servicesDTO.setServiceName("Service " + (i+1));
-            servicesDTO.setServicePrice("SAR 65");
+            servicesDTO.setServiceName(mActivity.getResources().getString(R.string.menu_services)
+                    + " " + (i+1));
+            servicesDTO.setServicePrice(mActivity.getString(R.string.txt_vendor_price_unit)
+                    + " " + "65");
             servicesDTO.setServiceTime("30 MIN");
             list.add(servicesDTO);
         }

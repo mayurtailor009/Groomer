@@ -21,6 +21,7 @@
 
         <!-- cancel layout -->
         <LinearLayout
+            android:id="@+id/layout_cancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.33"
@@ -46,6 +47,7 @@
 
         <!-- Reschedule layout -->
         <LinearLayout
+            android:id="@+id/layout_reschedule"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_1"
@@ -74,6 +76,7 @@
 
         <!-- Rebook layout -->
         <LinearLayout
+            android:id="@+id/layout_rebook"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_1"

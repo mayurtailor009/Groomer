@@ -58,6 +58,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/margin_5"
+                            android:layout_gravity="center"
                             android:text="دقيقة 30"
                             android:textSize="15sp" />
 
@@ -72,6 +73,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="|"
+                            android:layout_gravity="center"
                             android:textSize="15sp" />
 
                         <!-- service price -->
@@ -80,7 +82,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="@dimen/margin_5"
-                            android:text="65 ريال "
+                            android:layout_gravity="left"
+                            android:text=" 65 ريال"
                             android:textSize="15sp" />
 
 
