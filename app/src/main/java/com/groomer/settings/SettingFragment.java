@@ -96,19 +96,19 @@ public class SettingFragment extends BaseFragment {
                 theme = Theme.Blue;
                 Utils.putObjectIntoPref(getContext(), theme, Constants.CURRENT_THEME);
                 getActivity().finish();
-                startActivity(new Intent(getContext(), HomeActivity.class));
+                startHomeActivity();
                 break;
             case R.id.view_green:
                 theme = Theme.Green;
                 Utils.putObjectIntoPref(getContext(), theme, Constants.CURRENT_THEME);
                 getActivity().finish();
-                startActivity(new Intent(getContext(), HomeActivity.class));
+                startHomeActivity();
                 break;
             case R.id.view_red:
                 theme = Theme.Red;
                 Utils.putObjectIntoPref(getContext(), theme, Constants.CURRENT_THEME);
                 getActivity().finish();
-                startActivity(new Intent(getContext(), HomeActivity.class));
+                startHomeActivity();
                 break;
             case R.id.btn_select_english:
                 changeLanguageToEnglish();
@@ -167,5 +167,9 @@ public class SettingFragment extends BaseFragment {
         startActivity(intent);
     }
 
-
+    public void startHomeActivity(){
+        Intent intent = new Intent(mActivity,HomeActivity.class);
+        intent.putExtra("fragmentNumber", 4);
+        startActivity(intent);
+    }
 }

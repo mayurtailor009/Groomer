@@ -117,7 +117,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight=".5"
-                    android:background="@color/light_green"
+                    android:background="?attr/drawerBg"
                     android:gravity="center"
                     android:text="@string/txt_english"
                     android:textColor="@color/colorWhite"

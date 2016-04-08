@@ -76,10 +76,10 @@
 
                 <!-- favirote icon -->
                 <ImageView
+                    android:id="@+id/img_fav"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:id="@+id/img_fav"
                     android:src="@drawable/fav_active_icon" />
             </RelativeLayout>
         </RelativeLayout>
@@ -153,7 +153,7 @@
                 android:id="@+id/btn_about_tab"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_3"
+                android:layout_marginRight="@dimen/margin_3"
                 android:layout_weight="0.33"
                 android:background="@drawable/tab_button_selector"
                 android:gravity="center"
@@ -168,7 +168,7 @@
                 android:id="@+id/btn_reviews_tab"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_3"
+                android:layout_marginRight="@dimen/margin_3"
                 android:layout_weight="0.34"
                 android:background="@drawable/tab_button_selector"
                 android:gravity="center"
@@ -231,9 +231,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.4"
+            android:background="?attr/drawerBg"
             android:gravity="center"
             android:padding="@dimen/margin_10"
-            android:background="@color/dark_green"
             android:text="@string/set_appointment"
             android:textAllCaps="false"
             android:textSize="15sp" />
