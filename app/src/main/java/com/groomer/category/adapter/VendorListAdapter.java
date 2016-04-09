@@ -40,7 +40,7 @@ public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.De
 
             thumbnail = (ImageView) itemView.findViewById(R.id.thumbnail);
             txt_vendor_rating = (TextView) itemView.findViewById(R.id.txt_vendor_rating);
-            txt_vendor_name = (TextView) itemView.findViewById(R.id.txt_vendor_address);
+            txt_vendor_name = (TextView) itemView.findViewById(R.id.txt_vendor_name);
             txt_vendor_address = (TextView) itemView.findViewById(R.id.txt_vendor_address);
             txt_vendor_price = (TextView) itemView.findViewById(R.id.txt_vendor_price);
             txt_vendor_price_unit = (TextView) itemView.findViewById(R.id.txt_vendor_price_unit);

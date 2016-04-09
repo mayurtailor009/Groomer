@@ -11,6 +11,7 @@ import com.groomer.R;
 import com.groomer.appointment.adapter.AppointmentListAdapter;
 import com.groomer.fragments.BaseFragment;
 import com.groomer.model.AppointmentDTO;
+import com.groomer.model.ServiceDTO;
 import com.groomer.model.VendorServicesDTO;
 
 import java.util.ArrayList;
@@ -66,17 +67,15 @@ public class AppointmentFragment extends BaseFragment {
     }
 
 
-    private HashMap<Integer, List<VendorServicesDTO>> getChilderList() {
-        HashMap<Integer, List<VendorServicesDTO>> hashMap = new HashMap<>();
+    private HashMap<Integer, List<ServiceDTO>> getChilderList() {
+        HashMap<Integer, List<ServiceDTO>> hashMap = new HashMap<>();
         for (int i = 0; i < 10; i++) {
-            List<VendorServicesDTO> list = new ArrayList<>();
+            List<ServiceDTO> list = new ArrayList<>();
             for (int j = 0; j < 3; j++) {
-                VendorServicesDTO servicesDTO = new VendorServicesDTO();
-                servicesDTO.setServiceName(mActivity.getResources().getString(R.string.menu_services)
+                ServiceDTO servicesDTO = new ServiceDTO();
+                servicesDTO.setName_eng(mActivity.getResources().getString(R.string.menu_services)
                         + " " + (j + 1));
-                servicesDTO.setServicePrice(mActivity.getString(R.string.txt_vendor_price_unit)
-                        + " " + "65");
-                servicesDTO.setServiceTime("30 MIN");
+                servicesDTO.setPrice("65");
                 list.add(servicesDTO);
             }
             hashMap.put(i, list);

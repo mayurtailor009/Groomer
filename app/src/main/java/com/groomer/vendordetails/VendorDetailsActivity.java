@@ -24,33 +24,34 @@ import com.groomer.model.ReviewDTO;
 import com.groomer.model.SaloonDetailsDTO;
 import com.groomer.model.ServiceDTO;
 import com.groomer.utillity.Constants;
-import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.Utils;
 import com.groomer.vendordetails.adapter.ViewPagerAdapter;
 import com.groomer.vendordetails.fragments.AboutFragment;
 import com.groomer.vendordetails.fragments.ReviewFragment;
 import com.groomer.vendordetails.fragments.ServicesFragment;
+import com.groomer.vendordetails.priceserviceinterface.PriceServiceInterface;
 import com.groomer.volley.CustomJsonRequest;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-public class VendorDetailsActivity extends BaseActivity {
+public class VendorDetailsActivity extends BaseActivity implements PriceServiceInterface {
 
     private DisplayImageOptions options;
-    private static ViewPager mPager;
-    private static int currentPage = 0;
-    private static int NUM_PAGES = 0;
     private ArrayList<String> imageList;
     private Activity mActivity;
     private ArrayList<ReviewDTO> reviewList;
     private ArrayList<ServiceDTO> serviceList;
     private SaloonDetailsDTO saloonDetailsDTO;
+    private List<ServiceDTO> selectedList;
+    private String totalPrice;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -148,16 +149,8 @@ public class VendorDetailsActivity extends BaseActivity {
      * this method simply calls the displayFrament method and shows the services fragment.
      */
     private void showServiesFragment() {
-        double total_amount = 0;
         //displaying services fragment after getting list of service.
         displayFragment(0);
-
-        for (int i = 0; i < serviceList.size(); i++) {
-            total_amount += Double.valueOf(serviceList.get(i).getPrice());
-        }
-
-        setViewText(R.id.services_total_amount, "SAR " + total_amount);
-        setViewText(R.id.service_count, serviceList.size() + " Services");
     }
 
     /**
@@ -181,7 +174,7 @@ public class VendorDetailsActivity extends BaseActivity {
      * this method initializes the viewpager and set the images in it.
      */
     private void setUpViewPager() {
-        mPager = (ViewPager) findViewById(R.id.vendor_details_viewpager);
+        ViewPager mPager = (ViewPager) findViewById(R.id.vendor_details_viewpager);
         mPager.setAdapter(new ViewPagerAdapter(this, imageList));
 
         CirclePageIndicator indicator = (CirclePageIndicator) findViewById(
@@ -253,17 +246,21 @@ public class VendorDetailsActivity extends BaseActivity {
                 break;
             case R.id.btn_set_appointment:
                 Intent intent = new Intent(mActivity, ConfirmAppointmentActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("serviceDTO", (Serializable) selectedList);
+                intent.putExtras(bundle);
+                intent.putExtra("saloonName", saloonDetailsDTO.getStorename_eng());
+                intent.putExtra("saloonAddress", saloonDetailsDTO.getAddress());
+                intent.putExtra("totalPrice", totalPrice);
+                intent.putExtra("store_id", getIntent().getStringExtra("store_id"));
                 mActivity.startActivity(intent);
                 break;
 
             case R.id.img_fav:
                 if (saloonDetailsDTO.getFavourite().equalsIgnoreCase("1")) {
-
                     addRemoveFromFavourite("0", saloonDetailsDTO.getStore_id());
-
                 } else {
                     addRemoveFromFavourite("1", saloonDetailsDTO.getStore_id());
-
                 }
 
                 break;
@@ -320,4 +317,21 @@ public class VendorDetailsActivity extends BaseActivity {
     }
 
 
+    @Override
+    public void getPriceSum(String sum) {
+        totalPrice = "SAR " + sum;
+        setViewText(R.id.services_total_amount, "SAR " + sum);
+
+    }
+
+    @Override
+    public void getServiceCount(String serviceCount) {
+        setViewText(R.id.service_count, serviceCount
+                + (serviceCount.equals("1") ? " Service" : " Services"));
+    }
+
+    @Override
+    public void getSelectedServiceList(List<ServiceDTO> serviceDTOList) {
+        selectedList = serviceDTOList;
+    }
 }

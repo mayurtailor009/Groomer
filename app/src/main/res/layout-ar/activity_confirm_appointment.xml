@@ -67,64 +67,20 @@
                     android:tint="@color/colorWhite" />
             </RelativeLayout>
 
-            <android.support.v7.widget.RecyclerView
+            <com.baoyz.swipemenulistview.SwipeMenuListView
                 android:id="@+id/confirm_appoint_service_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/confirm_appoint_servicedetailslayout" />
 
-            <!-- per service time, price details with remove button -->
-            <LinearLayout
-                android:id="@+id/confirm_appoint_removebtnlayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/confirm_appoint_service_list"
-                android:background="@color/grid_color"
-                android:orientation="horizontal"
-                android:weightSum="1">
 
-                <!-- per service taken time text -->
-                <com.groomer.customviews.CustomTextViewMarkNovaLight
-                    android:id="@+id/confirm_appoint_service_takentime"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:background="@color/colorWhite"
-                    android:gravity="left"
-                    android:padding="@dimen/margin_15"
-                    android:text="3o MIN"
-                    android:textSize="@dimen/textsize_15sp" />
-
-                <!-- per service price taken -->
-                <com.groomer.customviews.CustomTextViewMarkNovaRegular
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_1"
-                    android:layout_weight="0.25"
-                    android:background="@color/colorWhite"
-                    android:gravity="center"
-                    android:padding="@dimen/margin_15"
-                    android:text="65 ريال"
-                    android:textSize="@dimen/textsize_15sp" />
-
-                <!-- remove button -->
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_1"
-                    android:layout_weight="0.25"
-                    android:background="@android:color/holo_red_dark"
-                    android:text="@string/txt_remove"
-                    android:textAllCaps="false"
-                    android:textSize="@dimen/textsize_12sp" />
-            </LinearLayout>
 
             <!-- select date text -->
             <com.groomer.customviews.CustomTextViewMarkNovaExtrabold
                 android:id="@+id/label_select_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/confirm_appoint_removebtnlayout"
+                android:layout_below="@id/confirm_appoint_service_list"
                 android:gravity="right"
                 android:padding="@dimen/margin_15"
                 android:text="@string/txt_select_date"

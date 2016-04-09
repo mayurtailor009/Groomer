@@ -15,7 +15,7 @@ public class RescheduleDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog = new Dialog(getActivity());
+        final Dialog dialog = new Dialog(getActivity());
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.reschedule_dialog);
         date_picker = (Ranger) dialog.findViewById(R.id.dialog_date_picker);
@@ -33,6 +33,14 @@ public class RescheduleDialogFragment extends DialogFragment {
                         Utils.increaseDate(date_picker);
                     }
                 });
+        dialog.findViewById(R.id.cross_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.setCanceledOnTouchOutside(false);
         dialog.show();
         return dialog;
     }

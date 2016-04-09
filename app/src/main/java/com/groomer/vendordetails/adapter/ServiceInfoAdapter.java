@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.groomer.R;
+import com.groomer.model.ServiceDTO;
 import com.groomer.model.VendorServicesDTO;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
  */
 public class ServiceInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<VendorServicesDTO> mList;
+    private List<ServiceDTO> mList;
     private Context context;
 
     public static class ServiceInfoHolder extends RecyclerView.ViewHolder {
@@ -34,7 +35,7 @@ public class ServiceInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
 
-    public ServiceInfoAdapter(Context context, List<VendorServicesDTO> mList) {
+    public ServiceInfoAdapter(Context context, List<ServiceDTO> mList) {
         this.context = context;
         this.mList = mList;
     }
@@ -49,10 +50,10 @@ public class ServiceInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ServiceInfoHolder mHolder = (ServiceInfoHolder) holder;
-        VendorServicesDTO servicesDTO = mList.get(position);
-        mHolder.mServiceTime.setText(servicesDTO.getServiceTime());
-        mHolder.mServiceName.setText(servicesDTO.getServiceName());
-        mHolder.mServicePrice.setText(servicesDTO.getServicePrice());
+        ServiceDTO servicesDTO = mList.get(position);
+        mHolder.mServiceTime.setText("30 MIN");
+        mHolder.mServiceName.setText(servicesDTO.getName_eng());
+        mHolder.mServicePrice.setText("SRA " + servicesDTO.getPrice());
     }
 
     @Override

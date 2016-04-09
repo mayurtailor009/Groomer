@@ -2,17 +2,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/colorWhite"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
 
     <!-- select date label -->
     <com.groomer.customviews.CustomTextViewMarkNovaSemibold
         android:id="@+id/txt_dialog_select_date"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/margin_20"
         android:text="@string/txt_select_date"
         android:textSize="@dimen/textsize_18sp" />
+
+    <!-- cross icon -->
+    <ImageView
+        android:id="@+id/cross_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:padding="@dimen/margin_20"
+        android:src="@drawable/close_btn" />
 
     <!-- ranger layout -->
     <LinearLayout

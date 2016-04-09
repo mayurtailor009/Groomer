@@ -15,13 +15,11 @@ import android.widget.TextView;
 
 import com.groomer.R;
 import com.groomer.model.AppointmentDTO;
-import com.groomer.model.VendorServicesDTO;
+import com.groomer.model.ServiceDTO;
 import com.groomer.reschedule.RescheduleDialogFragment;
 import com.groomer.shareexperience.ShareExperienceActivity;
 import com.groomer.vendordetails.VendorDetailsActivity;
 import com.groomer.vendordetails.adapter.ServiceInfoAdapter;
-
-import org.joda.time.LocalDateTime;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +31,7 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private List<AppointmentDTO> groupHeader;
-    private HashMap<Integer, List<VendorServicesDTO>> childrenList;
+    private HashMap<Integer, List<ServiceDTO>> childrenList;
 
     /**
      * this class acts like a holder for group of expandable list.
@@ -77,7 +75,7 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
     }
 
     public AppointmentListAdapter(Context context, List<AppointmentDTO> groupHeader,
-                                  HashMap<Integer, List<VendorServicesDTO>> childrenList) {
+                                  HashMap<Integer, List<ServiceDTO>> childrenList) {
         this.context = context;
         this.groupHeader = groupHeader;
         this.childrenList = childrenList;
@@ -161,7 +159,8 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
             cHolder = (ChildViewHolder) convertView.getTag();
         }
 
-        List<VendorServicesDTO> servicesDTO = childrenList.get(groupPosition);
+        List<ServiceDTO> servicesDTO = childrenList.get(groupPosition);
+
         cHolder.mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         cHolder.mRecyclerView.setAdapter(new ServiceInfoAdapter(context, servicesDTO));
         cHolder.rebookLayout.setOnClickListener(rebookListener);
@@ -188,7 +187,7 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         @Override
         public void onClick(View v) {
             RescheduleDialogFragment dialog = RescheduleDialogFragment.getInstance();
-            dialog.show(((Activity)context).getFragmentManager(), "");
+            dialog.show(((Activity) context).getFragmentManager(), "");
         }
     };
 

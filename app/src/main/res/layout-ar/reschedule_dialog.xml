@@ -14,6 +14,15 @@
         android:text="@string/txt_select_date"
         android:textSize="@dimen/textsize_18sp" />
 
+    <!-- cross icon -->
+    <ImageView
+        android:id="@+id/cross_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:padding="@dimen/margin_20"
+        android:src="@drawable/close_btn" />
+
     <!-- ranger layout -->
     <LinearLayout
         android:id="@+id/dialog_ranger_layout"
