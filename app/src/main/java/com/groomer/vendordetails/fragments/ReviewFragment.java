@@ -1,10 +1,7 @@
 package com.groomer.vendordetails.fragments;
 
 import android.app.Activity;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,12 +12,8 @@ import android.widget.Toast;
 import com.groomer.R;
 import com.groomer.fragments.BaseFragment;
 import com.groomer.model.ReviewDTO;
-import com.groomer.model.VendorReviewsDTO;
-import com.groomer.model.VendorServicesDTO;
 import com.groomer.vendordetails.adapter.ReviewsAdapter;
-import com.groomer.vendordetails.adapter.ServicesAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

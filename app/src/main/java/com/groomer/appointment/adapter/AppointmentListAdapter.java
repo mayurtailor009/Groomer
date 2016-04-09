@@ -1,10 +1,13 @@
 package com.groomer.appointment.adapter;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +15,26 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.groomer.GroomerApplication;
 import com.groomer.R;
+import com.groomer.model.AppointServicesDTO;
 import com.groomer.model.AppointmentDTO;
-import com.groomer.model.ServiceDTO;
 import com.groomer.reschedule.RescheduleDialogFragment;
 import com.groomer.shareexperience.ShareExperienceActivity;
+import com.groomer.utillity.Constants;
+import com.groomer.utillity.GroomerPreference;
+import com.groomer.utillity.Utils;
 import com.groomer.vendordetails.VendorDetailsActivity;
-import com.groomer.vendordetails.adapter.ServiceInfoAdapter;
+import com.groomer.volley.CustomJsonRequest;
+
+import org.joda.time.DateTime;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,16 +45,18 @@ import java.util.List;
 public class AppointmentListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
-    private List<AppointmentDTO> groupHeader;
-    private HashMap<Integer, List<ServiceDTO>> childrenList;
+    private List<AppointmentDTO> appointsParentList;
 
     /**
      * this class acts like a holder for group of expandable list.
      */
     private class GroupViewHoler {
         TextView mUserName;
-        TextView mUserAddress;
-        TextView mUserTime;
+        TextView address;
+        TextView time;
+        TextView dayName;
+        TextView dayNumber;
+        TextView month;
         Button shareBtn;
         LinearLayout addressLayout;
         LinearLayout timeLayout;
@@ -47,13 +64,15 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
 
         public GroupViewHoler(View view) {
             mUserName = (TextView) view.findViewById(R.id.txt_appointed_user_name);
-            mUserAddress = (TextView) view.findViewById(R.id.txt_appointed_user_address);
-            mUserTime = (TextView) view.findViewById(R.id.txt_appointed_user_time);
+            address = (TextView) view.findViewById(R.id.txt_appointed_user_address);
+            time = (TextView) view.findViewById(R.id.txt_appointed_user_time);
             shareBtn = (Button) view.findViewById(R.id.btn_share_experience);
             addressLayout = (LinearLayout) view.findViewById(R.id.appointed_user_address_layout);
             timeLayout = (LinearLayout) view.findViewById(R.id.layout_appointed_time);
             dateLayout = (LinearLayout) view.findViewById(R.id.date_layout);
-
+            dayName = (TextView) view.findViewById(R.id.txt_day);
+            dayNumber = (TextView) view.findViewById(R.id.txt_day_in_number);
+            month = (TextView) view.findViewById(R.id.txt_month);
         }
     }
 
@@ -62,9 +81,9 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
      */
     private class ChildViewHolder {
         RecyclerView mRecyclerView;
-        LinearLayout cancelLayout;
         LinearLayout rescheduleLayout;
         LinearLayout rebookLayout;
+        LinearLayout cancelLayout;
 
         public ChildViewHolder(View view) {
             mRecyclerView = (RecyclerView) view.findViewById(R.id.children_services_list);
@@ -74,17 +93,15 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         }
     }
 
-    public AppointmentListAdapter(Context context, List<AppointmentDTO> groupHeader,
-                                  HashMap<Integer, List<ServiceDTO>> childrenList) {
+    public AppointmentListAdapter(Context context, List<AppointmentDTO> appointmentList) {
         this.context = context;
-        this.groupHeader = groupHeader;
-        this.childrenList = childrenList;
+        this.appointsParentList = appointmentList;
     }
 
 
     @Override
     public int getGroupCount() {
-        return groupHeader.size();
+        return appointsParentList.size();
     }
 
     @Override
@@ -94,12 +111,12 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getGroup(int groupPosition) {
-        return groupHeader.get(groupPosition);
+        return appointsParentList.get(groupPosition);
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return childrenList.get(groupPosition);
+        return appointsParentList.get(groupPosition).getService().get(childPosition);
     }
 
     @Override
@@ -129,23 +146,36 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
             gHolder = (GroupViewHoler) convertView.getTag();
         }
 
-        AppointmentDTO mBean = groupHeader.get(groupPosition);
-        gHolder.mUserName.setText(mBean.getmUserName());
-        gHolder.mUserAddress.setText(mBean.getmUserAddress());
-        gHolder.mUserTime.setText(mBean.getmUserTime());
-        if (groupPosition == 3) {
+        AppointmentDTO mBean = appointsParentList.get(groupPosition);
+        if (GroomerPreference.getAPP_LANG(context).equals("eng")) {
+            gHolder.mUserName.setText(mBean.getStorename_eng());
+        } else {
+            gHolder.mUserName.setText(mBean.getStorename_ara());
+        }
+        gHolder.address.setText(mBean.getAddress());
+        gHolder.time.setText(mBean.getTime());
+
+        if (appointsParentList.get(groupPosition).getStatus().equals("3")) {
             gHolder.addressLayout.setVisibility(View.GONE);
             gHolder.timeLayout.setVisibility(View.GONE);
             gHolder.shareBtn.setVisibility(View.VISIBLE);
             gHolder.dateLayout.setEnabled(false);
-            gHolder.shareBtn.setOnClickListener(sharebuttonClickListener);
+            performClickOnShareButton(gHolder.shareBtn, groupPosition);
         } else {
             gHolder.addressLayout.setVisibility(View.VISIBLE);
             gHolder.timeLayout.setVisibility(View.VISIBLE);
+            gHolder.dateLayout.setEnabled(true);
             gHolder.shareBtn.setVisibility(View.GONE);
         }
+
+        DateTime dateTime = DateTime.parse(mBean.getDate());
+        gHolder.month.setText(dateTime.toString("MMM"));
+        gHolder.dayName.setText(dateTime.toString("E"));
+        gHolder.dayNumber.setText(dateTime.toString("dd"));
+
         return convertView;
     }
+
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
@@ -159,12 +189,14 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
             cHolder = (ChildViewHolder) convertView.getTag();
         }
 
-        List<ServiceDTO> servicesDTO = childrenList.get(groupPosition);
+        List<AppointServicesDTO> servicesDTO = appointsParentList.get(groupPosition).getService();
 
         cHolder.mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        cHolder.mRecyclerView.setAdapter(new ServiceInfoAdapter(context, servicesDTO));
-        cHolder.rebookLayout.setOnClickListener(rebookListener);
-        cHolder.rescheduleLayout.setOnClickListener(rescheduleListener);
+        cHolder.mRecyclerView.setAdapter(new AppointListChildAdapter(context, servicesDTO));
+
+        performClickOnRebook(cHolder.rebookLayout, groupPosition);
+        performClickOnCancel(cHolder.cancelLayout, groupPosition);
+        performClickOnReschedule(cHolder.rescheduleLayout, groupPosition);
         return convertView;
     }
 
@@ -173,30 +205,103 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         return false;
     }
 
-    // handles the click event on rebook button
-    View.OnClickListener rebookListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent vendorListIntent = new Intent(context, VendorDetailsActivity.class);
-            context.startActivity(vendorListIntent);
-        }
-    };
+    // handles clikc on rebook layout
+    private void performClickOnRebook(LinearLayout rebookLayout, final int groupPosition) {
+        rebookLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent vendorListIntent = new Intent(context, VendorDetailsActivity.class);
+                vendorListIntent.putExtra("store_id", appointsParentList.get(groupPosition).getStore_id());
+                context.startActivity(vendorListIntent);
+            }
+        });
+    }
 
-    //handles the click event on reschedule layout.
-    View.OnClickListener rescheduleListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            RescheduleDialogFragment dialog = RescheduleDialogFragment.getInstance();
-            dialog.show(((Activity) context).getFragmentManager(), "");
-        }
-    };
+    // handles clikc on reschedule layout
+    private void performClickOnReschedule(LinearLayout rescheduleLayout, final int groupPosition) {
+        rescheduleLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RescheduleDialogFragment dialog = RescheduleDialogFragment.getInstance();
+                Bundle bundle = new Bundle();
+                bundle.putString("order_id", appointsParentList.get(groupPosition).getOrder_id());
+                dialog.setArguments(bundle);
+                dialog.show(((Activity) context).getFragmentManager(), "");
+            }
+        });
+    }
 
-    // handles the click event on share experience button.
-    View.OnClickListener sharebuttonClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent shareExperienceIntent = new Intent(context, ShareExperienceActivity.class);
-            context.startActivity(shareExperienceIntent);
-        }
-    };
+
+    // handles clikc on cancel layout
+    private void performClickOnCancel(LinearLayout cancelLayout, final int groupPosition) {
+        cancelLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requestForCancel(groupPosition);
+            }
+        });
+    }
+
+    //handles click on share button.
+    private void performClickOnShareButton(Button shareBtn, final int groupPosition) {
+        shareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent shareExperienceIntent = new Intent(context, ShareExperienceActivity.class);
+                shareExperienceIntent.putExtra("store_id",
+                        appointsParentList.get(groupPosition).getStore_id());
+                context.startActivity(shareExperienceIntent);
+            }
+        });
+
+    }
+
+    private void requestForCancel(final int position) {
+        final String orderID = appointsParentList.get(position).getOrder_id();
+        HashMap<String, String> params = new HashMap<>();
+        params.put("action", Constants.CANCEL_APPOINTMENT);
+        params.put("user_id", Utils.getUserId(context));
+        params.put("lang", GroomerPreference.getAPP_LANG(context));
+        params.put("order_id", orderID);
+
+        final ProgressDialog pdialog = Utils.createProgressDialog(context, null, false);
+        CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
+                Constants.SERVICE_URL, params,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.i("Groomer info", response.toString());
+                        pdialog.dismiss();
+                        if (Utils.getWebServiceStatus(response)) {
+                            try {
+                                Toast.makeText(context, Utils.getWebServiceMessage(response),
+                                        Toast.LENGTH_SHORT).show();
+                                for (int i = 0; i < appointsParentList.size(); i++) {
+                                    if (orderID.equals(appointsParentList.get(position)
+                                            .getOrder_id())) {
+                                        appointsParentList.remove(i);
+                                        notifyDataSetChanged();
+                                    }
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i("Groomer info", error.toString());
+                        pdialog.dismiss();
+                        Utils.showExceptionDialog(context);
+                    }
+                }
+        );
+
+        pdialog.show();
+        GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
+        jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+    }
 }

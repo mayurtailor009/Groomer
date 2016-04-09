@@ -86,6 +86,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         mHolder.mServiceName.setText(servicesDTO.getName_eng());
         mHolder.mServicePrice.setText("SAR " + servicesDTO.getPrice());
 
+        mHolder.btnService.setTag(position);
         mHolder.btnService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

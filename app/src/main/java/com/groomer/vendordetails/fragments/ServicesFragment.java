@@ -12,10 +12,8 @@ import android.widget.Toast;
 import com.groomer.R;
 import com.groomer.fragments.BaseFragment;
 import com.groomer.model.ServiceDTO;
-import com.groomer.model.VendorServicesDTO;
 import com.groomer.vendordetails.adapter.ServicesAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ServicesFragment extends BaseFragment {

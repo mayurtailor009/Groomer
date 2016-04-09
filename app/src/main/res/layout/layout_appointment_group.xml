@@ -40,7 +40,7 @@
         android:text="@string/share_experience"
         android:textAllCaps="false"
         android:textSize="@dimen/textsize_12sp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <!-- address layout -->
     <LinearLayout
@@ -107,6 +107,7 @@
         android:padding="@dimen/margin_10">
 
         <com.groomer.customviews.CustomTextViewMarkNovaRegular
+            android:id="@+id/txt_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -114,7 +115,8 @@
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/textsize_12sp" />
 
-        <com.groomer.customviews.CustomTextViewMarkNovaExtrabold
+        <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+            android:id="@+id/txt_day_in_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -124,6 +126,7 @@
             android:textSize="@dimen/textsize_18sp" />
 
         <com.groomer.customviews.CustomTextViewMarkNovaRegular
+            android:id="@+id/txt_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

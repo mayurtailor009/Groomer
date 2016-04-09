@@ -212,7 +212,7 @@
                 android:id="@+id/services_total_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="SAR 130.00"
+                android:text="SAR 0"
                 android:textColor="@color/colorWhite"
                 android:textSize="15sp" />
 
@@ -222,7 +222,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_3"
-                android:text="2 Services"
+                android:text="0 Services"
                 android:textColor="@color/colorWhite"
                 android:textSize="15sp" />
         </LinearLayout>

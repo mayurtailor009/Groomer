@@ -67,12 +67,74 @@
             android:src="@drawable/next_arrow" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/time_seekbar_parent_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dialog_ranger_layout"
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_15">
+
+        <LinearLayout
+            android:id="@+id/time_seekbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <!-- day image icon -->
+            <ImageView
+                android:id="@+id/sun_image"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.1"
+                android:src="@drawable/day_icon" />
+
+            <!-- seekbar to choose time -->
+            <SeekBar
+                android:id="@+id/time_seekbar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_vertical"
+                android:layout_weight="0.8"
+                android:max="24"
+                android:maxHeight="@dimen/margin_12"
+                android:minHeight="@dimen/margin_12"
+                android:paddingLeft="@dimen/margin_20"
+                android:paddingStart="@dimen/margin_20"
+                android:progressDrawable="@drawable/gradient_dragger"
+                android:splitTrack="false"
+                android:thumb="@drawable/pointer_icon" />
+
+            <!-- night image icon -->
+            <ImageView
+                android:id="@+id/night_image"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.1"
+                android:src="@drawable/night_icon" />
+        </LinearLayout>
+
+        <!-- time selected from seekbar text -->
+        <com.groomer.customviews.CustomTextViewMarkNovaRegular
+            android:id="@+id/txt_selected_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_3"
+            android:text="09:00 AM" />
+    </LinearLayout>
+
+
     <!-- press this confirm button after selecting date -->
     <Button
         android:id="@+id/btn_dialog_date_confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/dialog_ranger_layout"
+        android:layout_below="@id/time_seekbar_parent_layout"
         android:layout_marginTop="@dimen/margin_10"
         android:background="@color/light_green"
         android:text="@string/confirm"

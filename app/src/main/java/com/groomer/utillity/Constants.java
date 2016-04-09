@@ -28,5 +28,8 @@ public class Constants {
     public static String FAVOURITE_LIST = "favorite";
     public static String ADD_REMOVE_FAVOURITE = "addfavorite";
     public static String ADD_REVIEW = "addreview";
-
+    public static String RESCHEDULE_APPOINTMENT = "reschedule_appointment";
+    public static String CANCEL_APPOINTMENT = "cancel_appointment";
+    public static String APPOINTMENTS = "appointment";
+    public static String REVIEWLIST = "reviewlist";
 }

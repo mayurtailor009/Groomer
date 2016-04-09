@@ -71,8 +71,8 @@ public class ReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ReviewHolder mHolder = (ReviewHolder) holder;
         ReviewDTO reviewsDTO = reviewsList.get(position);
-        ImageLoader.getInstance().displayImage(reviewsDTO.getImage(), mHolder.thumbnail, options);
-        mHolder.txt_service_name.setText(reviewsDTO.getName_eng());
+        ImageLoader.getInstance().displayImage(reviewsDTO.getUser_image(), mHolder.thumbnail, options);
+        mHolder.txt_service_name.setText(reviewsDTO.getUser_name());
         mHolder.txt_service_rating.setText(reviewsDTO.getRating());
         mHolder.txt_service_review.setText(reviewsDTO.getReview());
     }

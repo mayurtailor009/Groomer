@@ -24,6 +24,7 @@ import com.groomer.model.ReviewDTO;
 import com.groomer.model.SaloonDetailsDTO;
 import com.groomer.model.ServiceDTO;
 import com.groomer.utillity.Constants;
+import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.Utils;
 import com.groomer.vendordetails.adapter.ViewPagerAdapter;
 import com.groomer.vendordetails.fragments.AboutFragment;
@@ -81,7 +82,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
         params.put("lng", "76.555555");
         params.put("user_id", Utils.getUserId(mActivity));
         params.put("store_id", getIntent().getStringExtra("store_id"));
-        params.put("lang", "eng");
+        params.put("lang", GroomerPreference.getAPP_LANG(mActivity));
 
         final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
         CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
@@ -104,14 +105,6 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                                 imageList.add(saloonDetailsDTO.getImage());
                                 setSaloonDetails(); //setting the saloon details
                                 setUpViewPager();
-
-                                //getting reviews list.
-                                Type reviewType = new TypeToken<ArrayList<ReviewDTO>>() {
-                                }.getType();
-                                reviewList = new Gson().fromJson(
-                                        response.getJSONArray("Review").toString(),
-                                        reviewType
-                                );
 
                                 //getting service list.
                                 Type servieType = new TypeToken<ArrayList<ServiceDTO>>() {
@@ -209,24 +202,68 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                 setTextColor(R.id.btn_services_tab, R.color.black);
                 fragment = AboutFragment.newInstance();
                 break;
-            case 2:
-                setButtonSelected(R.id.btn_reviews_tab, true);
-                setButtonSelected(R.id.btn_about_tab, false);
-                setButtonSelected(R.id.btn_services_tab, false);
-                setTextColor(R.id.btn_reviews_tab, R.color.colorWhite);
-                setTextColor(R.id.btn_about_tab, R.color.black);
-                setTextColor(R.id.btn_services_tab, R.color.black);
-                fragment = ReviewFragment.newInstance();
-                Bundle reviewBundle = new Bundle();
-                reviewBundle.putSerializable("reviewList", reviewList);
-                fragment.setArguments(reviewBundle);
-                break;
         }
 
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.vendor_details_container, fragment)
                 .commit();
+    }
+
+    private void requestForReviews() {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("action", Constants.REVIEWLIST);
+        params.put("store_id", saloonDetailsDTO.getStore_id());
+        params.put("lang", GroomerPreference.getAPP_LANG(mActivity));
+
+        final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
+        CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
+                Constants.SERVICE_URL, params,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.i("Groomer info", response.toString());
+                        pdialog.dismiss();
+                        if (Utils.getWebServiceStatus(response)) {
+                            try {
+                                //getting reviews list.
+                                Type reviewType = new TypeToken<ArrayList<ReviewDTO>>() {
+                                }.getType();
+                                reviewList = new Gson().fromJson(
+                                        response.getJSONArray("review").toString(),
+                                        reviewType
+                                );
+                                ReviewFragment fragment = ReviewFragment.newInstance();
+                                Bundle reviewBundle = new Bundle();
+                                reviewBundle.putSerializable("reviewList", reviewList);
+                                fragment.setArguments(reviewBundle);
+
+                                getSupportFragmentManager()
+                                        .beginTransaction()
+                                        .replace(R.id.vendor_details_container, fragment)
+                                        .commit();
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                Utils.showExceptionDialog(mActivity);
+                            }
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i("Groomer info", error.toString());
+                        pdialog.dismiss();
+                        Utils.showExceptionDialog(mActivity);
+                    }
+                }
+        );
+
+        pdialog.show();
+        GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
+        jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     @Override
@@ -239,10 +276,22 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                 displayFragment(0);
                 break;
             case R.id.btn_about_tab:
+                setViewText(R.id.services_total_amount, "SAR " + 0);
+                setViewText(R.id.service_count, 0 +" Service");
                 displayFragment(1);
                 break;
             case R.id.btn_reviews_tab:
-                displayFragment(2);
+                requestForReviews();
+
+                setViewText(R.id.services_total_amount, "SAR " + 0);
+                setViewText(R.id.service_count, 0 +" Service");
+
+                setButtonSelected(R.id.btn_reviews_tab, true);
+                setButtonSelected(R.id.btn_about_tab, false);
+                setButtonSelected(R.id.btn_services_tab, false);
+                setTextColor(R.id.btn_reviews_tab, R.color.colorWhite);
+                setTextColor(R.id.btn_about_tab, R.color.black);
+                setTextColor(R.id.btn_services_tab, R.color.black);
                 break;
             case R.id.btn_set_appointment:
                 Intent intent = new Intent(mActivity, ConfirmAppointmentActivity.class);

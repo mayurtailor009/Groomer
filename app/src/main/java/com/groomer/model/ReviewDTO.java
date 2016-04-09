@@ -6,9 +6,8 @@ public class ReviewDTO implements Serializable {
 
     private String review;
     private String rating;
-    private String name_eng;
-    private String name_ara;
-    private String image;
+    private String user_name;
+    private String user_image;
 
     public String getReview() {
         return review;
@@ -26,27 +25,19 @@ public class ReviewDTO implements Serializable {
         this.rating = rating;
     }
 
-    public String getName_eng() {
-        return name_eng;
+    public String getUser_name() {
+        return user_name;
     }
 
-    public void setName_eng(String name_eng) {
-        this.name_eng = name_eng;
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
-    public String getName_ara() {
-        return name_ara;
+    public String getUser_image() {
+        return user_image;
     }
 
-    public void setName_ara(String name_ara) {
-        this.name_ara = name_ara;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
+    public void setUser_image(String user_image) {
+        this.user_image = user_image;
     }
 }

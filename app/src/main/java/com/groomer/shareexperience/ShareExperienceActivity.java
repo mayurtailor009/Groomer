@@ -16,6 +16,7 @@ import com.groomer.GroomerApplication;
 import com.groomer.R;
 import com.groomer.activity.BaseActivity;
 import com.groomer.utillity.Constants;
+import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.Utils;
 import com.groomer.volley.CustomJsonRequest;
 
@@ -66,9 +67,8 @@ public class ShareExperienceActivity extends BaseActivity {
             HashMap<String, String> params = new HashMap<>();
             params.put("action", Constants.ADD_REVIEW);
             params.put("user_id", Utils.getUserId(mActivity));
-            // params.put("store_id", getIntent().getStringExtra("storeId"));
-            params.put("store_id", "17");
-            params.put("lang", "eng");
+            params.put("store_id", getIntent().getStringExtra("store_id"));
+            params.put("lang", GroomerPreference.getAPP_LANG(mActivity));
             params.put("rating", rating);
             params.put("review", getEditTextText(R.id.edt_write_something));
 
@@ -82,14 +82,13 @@ public class ShareExperienceActivity extends BaseActivity {
                             pdialog.dismiss();
                             if (Utils.getWebServiceStatus(response)) {
                                 try {
-
                                     Toast.makeText(mActivity, Utils.getWebServiceMessage(response), Toast.LENGTH_SHORT).show();
                                     finish();
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
                             } else {
-
+                                Utils.showExceptionDialog(mActivity);
                             }
                         }
                     },
@@ -97,6 +96,8 @@ public class ShareExperienceActivity extends BaseActivity {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             Log.i("Groomer info", error.toString());
+                            pdialog.dismiss();
+                            Utils.showExceptionDialog(mActivity);
                         }
                     }
             );

@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.groomer.R;
 import com.groomer.model.ServiceDTO;
-import com.groomer.model.VendorServicesDTO;
 
 import java.util.List;
 
