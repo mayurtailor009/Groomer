@@ -135,12 +135,11 @@
             android:weightSum="1">
 
             <!-- servies tab -->
-            <com.groomer.customviews.CustomButtonMarkNovaRegular
+            <Button
                 android:id="@+id/btn_services_tab"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.33"
-                android:background="@drawable/tab_button_selector"
                 android:gravity="center"
                 android:padding="@dimen/margin_15"
                 android:text="@string/menu_services"
@@ -149,13 +148,13 @@
                 android:textSize="15sp" />
 
             <!-- about tab -->
-            <com.groomer.customviews.CustomButtonMarkNovaRegular
+            <Button
                 android:id="@+id/btn_about_tab"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_3"
                 android:layout_weight="0.33"
-                android:background="@drawable/tab_button_selector"
+
                 android:gravity="center"
                 android:padding="@dimen/margin_15"
                 android:text="@string/txt_about"
@@ -164,13 +163,13 @@
                 android:textSize="15sp" />
 
             <!-- reviews tab -->
-            <com.groomer.customviews.CustomButtonMarkNovaRegular
+            <Button
                 android:id="@+id/btn_reviews_tab"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_3"
                 android:layout_weight="0.34"
-                android:background="@drawable/tab_button_selector"
+
                 android:gravity="center"
                 android:padding="@dimen/margin_15"
                 android:text="@string/txt_review"

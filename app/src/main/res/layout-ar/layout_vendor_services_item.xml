@@ -106,7 +106,6 @@
                     android:id="@+id/btn_service_select"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/select_btn_selector"
                     android:gravity="center"
                     android:padding="@dimen/margin_15"
                     android:text="@string/txt_select"

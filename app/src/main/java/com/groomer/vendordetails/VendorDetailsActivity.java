@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -47,7 +48,6 @@ import java.util.List;
 public class VendorDetailsActivity extends BaseActivity implements PriceServiceInterface {
 
     private DisplayImageOptions options;
-    private ArrayList<String> imageList;
     private Activity mActivity;
     private ArrayList<ReviewDTO> reviewList;
     private ArrayList<ServiceDTO> serviceList;
@@ -63,7 +63,6 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
 
         mActivity = VendorDetailsActivity.this;
 
-        imageList = new ArrayList<>();
 
         getVendorDetails();
 
@@ -75,7 +74,11 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
         setClick(R.id.btn_set_appointment);
         setClick(R.id.img_fav);
 
+        buttonSelected(true, false, false);
 
+        setTextColor(R.id.btn_services_tab, R.color.colorWhite);
+        setTextColor(R.id.btn_about_tab, R.color.black);
+        setTextColor(R.id.btn_reviews_tab, R.color.black);
     }
 
     private void getVendorDetails() {
@@ -105,7 +108,6 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                                 );
 
                                 //adding images urls to imagelist to show in viewpager.
-                                imageList.add(saloonDetailsDTO.getImage());
                                 setSaloonDetails(); //setting the saloon details
                                 setUpViewPager();
 
@@ -161,7 +163,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
         }
         setViewText(R.id.txt_vendor_address, saloonDetailsDTO.getAddress());
 
-        if(saloonDetailsDTO.getRating()!=null && !saloonDetailsDTO.getRating().equalsIgnoreCase("")) {
+        if (saloonDetailsDTO.getRating() != null && !saloonDetailsDTO.getRating().equalsIgnoreCase("")) {
             setViewText(R.id.btn_reviews_tab, "Reviews(" + saloonDetailsDTO.getRating() + ")");
         }
 
@@ -179,8 +181,10 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
      * this method initializes the viewpager and set the images in it.
      */
     private void setUpViewPager() {
+        List<String> list = new ArrayList<>();
+        list.add(saloonDetailsDTO.getImage());
         ViewPager mPager = (ViewPager) findViewById(R.id.vendor_details_viewpager);
-        mPager.setAdapter(new ViewPagerAdapter(this, imageList));
+        mPager.setAdapter(new ViewPagerAdapter(mActivity, list));
 
         CirclePageIndicator indicator = (CirclePageIndicator) findViewById(
                 R.id.vendor_details_viewpager_indicators);
@@ -194,9 +198,8 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
         Fragment fragment = null;
         switch (position) {
             case 0:
-                setButtonSelected(R.id.btn_services_tab, true);
-                setButtonSelected(R.id.btn_about_tab, false);
-                setButtonSelected(R.id.btn_reviews_tab, false);
+                buttonSelected(true, false, false);
+
                 setTextColor(R.id.btn_services_tab, R.color.colorWhite);
                 setTextColor(R.id.btn_about_tab, R.color.black);
                 setTextColor(R.id.btn_reviews_tab, R.color.black);
@@ -206,9 +209,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                 fragment.setArguments(serviceBundle);
                 break;
             case 1:
-                setButtonSelected(R.id.btn_about_tab, true);
-                setButtonSelected(R.id.btn_reviews_tab, false);
-                setButtonSelected(R.id.btn_services_tab, false);
+                buttonSelected(false, true, false);
                 setTextColor(R.id.btn_about_tab, R.color.colorWhite);
                 setTextColor(R.id.btn_reviews_tab, R.color.black);
                 setTextColor(R.id.btn_services_tab, R.color.black);
@@ -301,10 +302,10 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
 
                 setViewText(R.id.services_total_amount, "SAR " + 0);
                 setViewText(R.id.service_count, 0 + " Service");
-
-                setButtonSelected(R.id.btn_reviews_tab, true);
-                setButtonSelected(R.id.btn_about_tab, false);
-                setButtonSelected(R.id.btn_services_tab, false);
+                buttonSelected(false, false, true);
+//                setButtonSelected(R.id.btn_reviews_tab, true);
+//                setButtonSelected(R.id.btn_about_tab, false);
+//                setButtonSelected(R.id.btn_services_tab, false);
                 setTextColor(R.id.btn_reviews_tab, R.color.colorWhite);
                 setTextColor(R.id.btn_about_tab, R.color.black);
                 setTextColor(R.id.btn_services_tab, R.color.black);
@@ -333,6 +334,36 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                 }
 
                 break;
+        }
+    }
+
+    private void buttonSelected(boolean servicesSelected,
+                                boolean aboutSelected,
+                                boolean reviewSelected) {
+        if (reviewSelected) {
+            ((Button) findViewById(R.id.btn_reviews_tab)).
+                    setBackgroundColor(getResources().getColor(R.color.green));
+        } else {
+            ((Button) findViewById(R.id.btn_reviews_tab)).
+                    setBackgroundColor(getResources().getColor(R.color.grey));
+
+        }
+        if (aboutSelected) {
+            ((Button) findViewById(R.id.btn_about_tab)).
+                    setBackgroundColor(getResources().getColor(R.color.green));
+
+        } else {
+            ((Button) findViewById(R.id.btn_about_tab)).
+                    setBackgroundColor(getResources().getColor(R.color.grey));
+        }
+        if (servicesSelected) {
+            ((Button) findViewById(R.id.btn_services_tab)).
+                    setBackgroundColor(getResources().getColor(R.color.green));
+
+        } else {
+            ((Button) findViewById(R.id.btn_services_tab)).
+                    setBackgroundColor(getResources().getColor(R.color.grey));
+
         }
     }
 

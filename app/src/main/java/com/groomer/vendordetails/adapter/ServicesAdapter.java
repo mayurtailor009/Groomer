@@ -88,10 +88,11 @@ public class ServicesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         mHolder.mServicePrice.setText("SAR " + servicesDTO.getPrice());
         mHolder.mServiceTime.setText(servicesDTO.getDuration());
         if (mList.get(position).isSelected()) {
-            mHolder.btnService.setSelected(true);
+            buttonSelected(true, mHolder.btnService);
             mHolder.btnService.setText("Selected");
         } else {
-            mHolder.btnService.setSelected(false);
+            buttonSelected(false, mHolder.btnService);
+
             mHolder.btnService.setText("Select");
         }
         mHolder.btnService.setTag(position);
@@ -102,7 +103,8 @@ public class ServicesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 int pos = Integer.parseInt(v.getTag().toString());
                 //mHolder.clicked = mHolder.clicked ? false : true;
                 if (!mList.get(pos).isSelected()) {
-                    v.setSelected(true);
+                   // v.setSelected(true);
+                    buttonSelected(true, mHolder.btnService);
                     btn.setText("Selected");
                     priceSum += Double.parseDouble(servicesDTO.getPrice());
                     serviceCount++;
@@ -110,7 +112,8 @@ public class ServicesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     mList.get(pos).setIsSelected(true);
 
                 } else {
-                    v.setSelected(false);
+                    buttonSelected(false, mHolder.btnService);
+                    //v.setSelected(false);
                     btn.setText("Select");
                     if (priceSum > 0 && serviceCount > 0) {
                         priceSum -= Double.parseDouble(servicesDTO.getPrice());
@@ -125,6 +128,15 @@ public class ServicesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 notifyDataSetChanged();
             }
         });
+    }
+
+    private void buttonSelected(boolean isSelected, Button btn) {
+        if (isSelected) {
+            btn.setBackgroundColor(context.getResources().getColor(R.color.green));
+        } else {
+            btn.setBackgroundColor(context.getResources().getColor(R.color.grey));
+
+        }
     }
 
     @Override

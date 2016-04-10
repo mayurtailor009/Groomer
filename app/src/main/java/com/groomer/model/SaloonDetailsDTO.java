@@ -17,13 +17,13 @@ public class SaloonDetailsDTO {
     private String rating;
     private String favourite;
     private String image;
-    private List<String> images;
+    private List<ImagesDTO> images;
 
-    public List<String> getImages() {
+    public List<ImagesDTO> getImages() {
         return images;
     }
 
-    public void setImages(List<String> images) {
+    public void setImages(List<ImagesDTO> images) {
         this.images = images;
     }
 
