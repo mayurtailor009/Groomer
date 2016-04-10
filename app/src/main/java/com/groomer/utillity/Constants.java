@@ -17,6 +17,7 @@ public class Constants {
 
     public static String SERVICE_URL = "http://128.199.234.133/groomer/webservices";
     public static String LOGIN_METHOD = "login";
+    public static String EDIT_PROFILE_METHOD = "editprofile";
     public static String SALOON_LIST_METHOD = "categorylist";
     public static String SIGN_UP_METHOD = "register";
     public static String FORGET_PASSWORD_METHOD = "forgot";
@@ -28,6 +29,9 @@ public class Constants {
     public static String FAVOURITE_LIST = "favorite";
     public static String ADD_REMOVE_FAVOURITE = "addfavorite";
     public static String ADD_REVIEW = "addreview";
+    public static String MENU_COUNTER = "menucounter";
+    public static String CHANGE_PASSWORD_METHOD = "change_password";
+
     public static String RESCHEDULE_APPOINTMENT = "reschedule_appointment";
     public static String CANCEL_APPOINTMENT = "cancel_appointment";
     public static String APPOINTMENTS = "appointment";

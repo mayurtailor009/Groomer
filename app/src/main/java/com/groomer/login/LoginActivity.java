@@ -98,6 +98,7 @@ public class LoginActivity extends BaseActivity {
                                     }
 
                                 } catch (Exception e) {
+                                    pdialog.dismiss();
                                     e.printStackTrace();
                                 }
                             }

@@ -25,6 +25,7 @@ import com.groomer.model.SaloonDetailsDTO;
 import com.groomer.model.ServiceDTO;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.GroomerPreference;
+import com.groomer.utillity.HelpMe;
 import com.groomer.utillity.Utils;
 import com.groomer.vendordetails.adapter.ViewPagerAdapter;
 import com.groomer.vendordetails.fragments.AboutFragment;
@@ -150,7 +151,11 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
      * this method sets the saloon name and address details.
      */
     private void setSaloonDetails() {
-        setViewText(R.id.txt_vendor_name, saloonDetailsDTO.getStorename_eng());
+        if(HelpMe.isArabic(mActivity)){
+            setViewText(R.id.txt_vendor_name, saloonDetailsDTO.getStorename_ara());
+        }else {
+            setViewText(R.id.txt_vendor_name, saloonDetailsDTO.getStorename_eng());
+        }
         setViewText(R.id.txt_vendor_address, saloonDetailsDTO.getAddress());
 
         ImageView img_fav = (ImageView) findViewById(R.id.img_fav);
@@ -277,14 +282,14 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                 break;
             case R.id.btn_about_tab:
                 setViewText(R.id.services_total_amount, "SAR " + 0);
-                setViewText(R.id.service_count, 0 +" Service");
+                setViewText(R.id.service_count, 0 + " Service");
                 displayFragment(1);
                 break;
             case R.id.btn_reviews_tab:
                 requestForReviews();
 
                 setViewText(R.id.services_total_amount, "SAR " + 0);
-                setViewText(R.id.service_count, 0 +" Service");
+                setViewText(R.id.service_count, 0 + " Service");
 
                 setButtonSelected(R.id.btn_reviews_tab, true);
                 setButtonSelected(R.id.btn_about_tab, false);
@@ -294,15 +299,19 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                 setTextColor(R.id.btn_services_tab, R.color.black);
                 break;
             case R.id.btn_set_appointment:
-                Intent intent = new Intent(mActivity, ConfirmAppointmentActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("serviceDTO", (Serializable) selectedList);
-                intent.putExtras(bundle);
-                intent.putExtra("saloonName", saloonDetailsDTO.getStorename_eng());
-                intent.putExtra("saloonAddress", saloonDetailsDTO.getAddress());
-                intent.putExtra("totalPrice", totalPrice);
-                intent.putExtra("store_id", getIntent().getStringExtra("store_id"));
-                mActivity.startActivity(intent);
+                if (selectedList != null && selectedList.size() > 0) {
+                    Intent intent = new Intent(mActivity, ConfirmAppointmentActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("serviceDTO", (Serializable) selectedList);
+                    intent.putExtras(bundle);
+                    intent.putExtra("saloonName", saloonDetailsDTO.getStorename_eng());
+                    intent.putExtra("saloonAddress", saloonDetailsDTO.getAddress());
+                    intent.putExtra("totalPrice", totalPrice);
+                    intent.putExtra("store_id", getIntent().getStringExtra("store_id"));
+                    mActivity.startActivity(intent);
+                } else {
+                    Toast.makeText(mActivity, "Select atleast one service.", Toast.LENGTH_SHORT).show();
+                }
                 break;
 
             case R.id.img_fav:
@@ -317,7 +326,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
     }
 
 
-    private void addRemoveFromFavourite(String status, String storeID) {
+    private void addRemoveFromFavourite(final String status, String storeID) {
         if (Utils.isOnline(mActivity)) {
             HashMap<String, String> params = new HashMap<>();
             params.put("action", Constants.ADD_REMOVE_FAVOURITE);
@@ -336,8 +345,17 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                             pdialog.dismiss();
                             if (Utils.getWebServiceStatus(response)) {
                                 try {
-
-                                    Toast.makeText(mActivity, Utils.getWebServiceMessage(response), Toast.LENGTH_SHORT).show();
+                                    ImageView img_fav = (ImageView) findViewById(R.id.img_fav);
+                                    if (status.equalsIgnoreCase("1")) {
+                                        img_fav.setImageResource(R.drawable.fav_active_icon);
+                                        saloonDetailsDTO.setFavourite("1");
+                                    } else {
+                                        img_fav.setImageResource(R.drawable.fav_icon);
+                                        saloonDetailsDTO.setFavourite("0");
+                                    }
+                                    Toast.makeText(mActivity,
+                                            Utils.getWebServiceMessage(response),
+                                            Toast.LENGTH_SHORT).show();
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }

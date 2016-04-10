@@ -10,6 +10,15 @@ public class ServiceDTO implements Serializable {
     private String name_ara;
     private String image;
     private String price;
+    private boolean isSelected;
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setIsSelected(boolean isSelected) {
+        this.isSelected = isSelected;
+    }
 
     public String getService_id() {
         return service_id;

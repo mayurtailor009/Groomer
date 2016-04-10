@@ -32,6 +32,16 @@ public class SwipeMenuListViewAdapter extends BaseAdapter {
     }
 
     @Override
+    public int getViewTypeCount() {
+
+        return 1;
+    }
+
+    public void setServiceList(List<ServiceDTO> mList) {
+        this.mList = mList;
+    }
+
+    @Override
     public int getCount() {
         return mList.size();
     }

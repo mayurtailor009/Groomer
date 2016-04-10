@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="app_name">Groomer</string>
+    <string name="app_name_capital">GROOMER</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+
     <!-- navigation drawer screen -->
     <string name="menu_favorite">مفضل</string>
     <string name="menu_services">خدمات</string>
@@ -35,6 +43,29 @@
     <string name="txt_change_language">غير اللغة</string>
     <string name="txt_english">English</string>
     <string name="txt_arabic">العربية</string>
+    <string name="btn_text_save">Save</string>
+    <string name="txt_theme">Theme</string>
+    <string name="txt_dob">Dob</string>
+    <string name="txt_hint_dob">dd-MM-yyy</string>
+    <string name="txt_gender">Gender</string>
+
+
+    <!-- start for Change password screen -->
+    <string name="change_password_header">Change Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password_lbl">Confirm Password</string>
+    <string name="submit_btn">Submit</string>
+    <string name="password_hint">********</string>
+    <!--END For Change password  screen -->
+
+    <!-- start for Forget password screen -->
+    <string name="forget_password_header">Forget Password</string>
+    <string name="email_id">Email Id</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="submit">Submit</string>
+    <!--END For Forget password  screen -->
+
+
 
     <!--For alert screen -->
     <string name="txt_alert_msg">وقد مقبول ديف تنفجر تعيين الخاص بك!</string>

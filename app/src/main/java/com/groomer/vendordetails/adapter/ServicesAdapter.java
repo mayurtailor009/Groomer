@@ -1,6 +1,7 @@
 package com.groomer.vendordetails.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -85,19 +86,27 @@ public class ServicesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         ImageLoader.getInstance().displayImage(servicesDTO.getImage(), mHolder.thumbnail, options);
         mHolder.mServiceName.setText(servicesDTO.getName_eng());
         mHolder.mServicePrice.setText("SAR " + servicesDTO.getPrice());
-
+        if (mList.get(position).isSelected()) {
+            mHolder.btnService.setSelected(true);
+            mHolder.btnService.setText("Selected");
+        } else {
+            mHolder.btnService.setSelected(false);
+            mHolder.btnService.setText("Select");
+        }
         mHolder.btnService.setTag(position);
         mHolder.btnService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Button btn = (Button) v;
-                mHolder.clicked = mHolder.clicked ? false : true;
-                if (mHolder.clicked) {
+                int pos = Integer.parseInt(v.getTag().toString());
+                //mHolder.clicked = mHolder.clicked ? false : true;
+                if (!mList.get(pos).isSelected()) {
                     v.setSelected(true);
                     btn.setText("Selected");
                     priceSum += Double.parseDouble(servicesDTO.getPrice());
                     serviceCount++;
                     selectedList.add(servicesDTO);
+                    mList.get(pos).setIsSelected(true);
 
                 } else {
                     v.setSelected(false);
@@ -106,11 +115,13 @@ public class ServicesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         priceSum -= Double.parseDouble(servicesDTO.getPrice());
                         serviceCount--;
                         selectedList.remove(servicesDTO);
+                        mList.get(pos).setIsSelected(false);
                     }
                 }
                 mInterface.getPriceSum(priceSum + "");
                 mInterface.getServiceCount(serviceCount + "");
                 mInterface.getSelectedServiceList(selectedList);
+                notifyDataSetChanged();
             }
         });
     }

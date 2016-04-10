@@ -4,7 +4,7 @@
     android:id="@+id/app_bar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@color/colorWhite"
+    android:background="@color/grey"
     android:minHeight="?attr/actionBarSize"
     app:collapseIcon="@drawable/back_btn"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -15,10 +15,12 @@
         android:id="@+id/hamburgur_img_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
         android:src="@drawable/menu_btn" />
 
 
-    <com.groomer.customviews.CustomTextViewMarkNovaExtrabold
+    <com.groomer.customviews.CustomTextViewMarkNovaRegular
         android:id="@+id/toolbar_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

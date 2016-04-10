@@ -20,7 +20,6 @@ import com.groomer.R;
 import com.groomer.appointment.adapter.AppointmentListAdapter;
 import com.groomer.fragments.BaseFragment;
 import com.groomer.model.AppointmentDTO;
-import com.groomer.model.ServiceDTO;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.Utils;

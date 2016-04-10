@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -81,10 +84,12 @@ public class ConfirmAppointmentActivity extends BaseActivity implements
     private void setUpRecyclerView() {
         date_picker = (Ranger) findViewById(R.id.date_picker);
         mRecyclerView = (SwipeMenuListView) findViewById(R.id.confirm_appoint_service_list);
-        createSwipeMenu();
+
         adapter = new SwipeMenuListViewAdapter(mActivity, serviceDTOList);
+        createSwipeMenu();
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setOnMenuItemClickListener(this);
+        setListViewHeightBasedOnItems(mRecyclerView);
 
     }
 
@@ -103,11 +108,25 @@ public class ConfirmAppointmentActivity extends BaseActivity implements
         };
 
         mRecyclerView.setMenuCreator(creator);
+        mRecyclerView.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
+
+            @Override
+            public void onSwipeStart(int position) {
+                // swipe start
+                mRecyclerView.smoothOpenMenu(position);
+            }
+
+            @Override
+            public void onSwipeEnd(int position) {
+                // swipe end
+            }
+        });
+
     }
 
     private int convert_dp_to_px(int dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
-                mActivity.getResources().getDisplayMetrics());
+                getResources().getDisplayMetrics());
     }
 
     @Override
@@ -126,6 +145,40 @@ public class ConfirmAppointmentActivity extends BaseActivity implements
                 confirmAppointment();
                 break;
         }
+    }
+
+
+    public static boolean setListViewHeightBasedOnItems(ListView listView) {
+
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter != null) {
+
+            int numberOfItems = listAdapter.getCount();
+
+            // Get total height of all items.
+            int totalItemsHeight = 0;
+            for (int itemPos = 0; itemPos < numberOfItems; itemPos++) {
+                View item = listAdapter.getView(itemPos, null, listView);
+                item.measure(0, 0);
+                totalItemsHeight += item.getMeasuredHeight();
+            }
+
+            // Get total height of all item dividers.
+            int totalDividersHeight = listView.getDividerHeight() *
+                    (numberOfItems - 1);
+
+            // Set list height.
+            ViewGroup.LayoutParams params = listView.getLayoutParams();
+            params.height = totalItemsHeight + totalDividersHeight;
+            listView.setLayoutParams(params);
+            listView.requestLayout();
+
+            return true;
+
+        } else {
+            return false;
+        }
+
     }
 
     /**
@@ -244,7 +297,9 @@ public class ConfirmAppointmentActivity extends BaseActivity implements
      */
     private void removeServiceFromTheList(int position) {
         serviceDTOList.remove(position);
+        adapter.setServiceList(serviceDTOList);
         adapter.notifyDataSetChanged();
+        setListViewHeightBasedOnItems(mRecyclerView);
         double amount = 0.0;
         for (int i = 0; i < serviceDTOList.size(); i++) {
             amount = Double.valueOf(serviceDTOList.get(i).getPrice());

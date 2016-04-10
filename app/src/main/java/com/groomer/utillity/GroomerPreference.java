@@ -11,18 +11,14 @@ public class GroomerPreference {
 
     public static final String IS_LOGGED_IN = "IS_LOGGED_IN";
     public static final String KEY_PHONE = "PHONE";
-    public static final String USER_OTP = "OTP";
     public static final String APP_LANG = "LANG";
     public static final String LATITUDE = "LATITUDE";
     public static final String LONGITUDE = "LONGITUDE";
     public static final String DISTANCE_UNIT = "DISTANCE_UNIT";
     public static final String PUSH_REGISTRATION_ID = "PUSH_REGISTRATION_ID";
-    public static final String IS_SHOW_SURVEY_AFTER_LOGIN = "IS_SHOW_SURVEY_AFTER_LOGIN";
     public static final String CURRENCY_ENG = "CURRENCY_ENG";
     public static final String CURRENCY_ARA = "CURRENCY_ARA";
 
-    // for payment info
-    public static final String ACCOUNTS = "ACCOUNTS";
 
     public static void setCurrencyEng(Context context, String userId) {
         SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
@@ -50,18 +46,6 @@ public class GroomerPreference {
                 "ر");
     }
 
-    public static void setIsShowSurveyAfterLogin(Context context, Boolean isShowSurveyAfterLogin) {
-        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean(IS_SHOW_SURVEY_AFTER_LOGIN, isShowSurveyAfterLogin);
-        editor.apply();
-    }
-
-    public static Boolean isShowSurveyAfterLogin(Context context) {
-        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getBoolean(
-                IS_SHOW_SURVEY_AFTER_LOGIN, false);
-    }
 
 
     public static void setPushRegistrationId(Context context, String userId) {
@@ -134,18 +118,6 @@ public class GroomerPreference {
     }
 
 
-    public static void setUSER_OTP(Context context, String otp) {
-        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(USER_OTP, otp);
-        editor.apply();
-    }
-
-    public static String getUSER_OTP(Context context) {
-        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(
-                USER_OTP, "");
-    }
 
     public static void setAPP_LANG(Context context, String lang) {
         SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
@@ -241,7 +213,6 @@ public class GroomerPreference {
         editor.putString(LATITUDE, "0.0");
         editor.putString(LONGITUDE, "0.0");
         editor.putBoolean(IS_LOGGED_IN, false);
-        editor.putBoolean(IS_SHOW_SURVEY_AFTER_LOGIN, false);
         editor.apply();
 
     }

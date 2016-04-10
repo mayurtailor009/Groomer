@@ -1,8 +1,8 @@
 package com.groomer.home;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -21,11 +21,16 @@ import com.groomer.appointment.AppointmentFragment;
 import com.groomer.category.SaloonListFragment;
 import com.groomer.customviews.alert.CustomAlert;
 import com.groomer.favourite.FavouriteFragment;
+import com.groomer.menucount.MenuCountHandler;
+import com.groomer.model.MenuDTO;
 import com.groomer.model.UserDTO;
 import com.groomer.settings.SettingFragment;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.SessionManager;
+import com.groomer.utillity.Utils;
+
+import java.lang.ref.WeakReference;
 
 
 public class HomeActivity extends BaseActivity {
@@ -35,6 +40,10 @@ public class HomeActivity extends BaseActivity {
     private Toolbar toolbar;
     private Activity mActivity;
     private boolean backPressedToExitOnce = false;
+    private final MenuHandler menuHandler =
+            new MenuHandler(HomeActivity.this);
+    private MenuDTO menuDTO;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,7 +76,29 @@ public class HomeActivity extends BaseActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open,
                 R.string.drawer_close);
-        drawerLayout.addDrawerListener(drawerToggle);
+        drawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+
+
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                new Thread(new MenuCountHandler(menuHandler,
+                        HomeActivity.this)).start();
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
         //drawerToggle.syncState();
 
     }
@@ -129,6 +160,36 @@ public class HomeActivity extends BaseActivity {
         }
 
     }
+
+    public static class MenuHandler extends android.os.Handler {
+
+        private static final String TAG = "MenuHandler";
+        public final WeakReference<HomeActivity> mActivity;
+
+        MenuHandler(HomeActivity activity) {
+            mActivity = new WeakReference<HomeActivity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            Utils.ShowLog(TAG, "handleMessage in MenuHandler");
+            HomeActivity activity = mActivity.get();
+            activity.menuDTO = ((MenuDTO) msg.obj);
+            activity.changeMenuCount(((MenuDTO) msg.obj));
+
+
+        }
+    }
+
+    public void changeMenuCount(MenuDTO menuDto) {
+
+        //TODO
+        // Set menu count
+//        menuListAdapter.setAlertCount(menuDTO.getAlert());
+//        menuListAdapter.notifyDataSetChanged();
+
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -196,9 +257,22 @@ public class HomeActivity extends BaseActivity {
         TextView txt_name = (TextView) headerLayout.findViewById(R.id.nav_header_user_name);
         txt_name.setText(userDTO.getName_eng());
 
+        StringBuffer stringBuffer = new StringBuffer();
+        if (userDTO.getGender() != null && !userDTO.getGender().equalsIgnoreCase("")) {
+            stringBuffer.append(userDTO.getGender());
+        }
+        if (userDTO.getAge() != null && !userDTO.getAge().equalsIgnoreCase("")) {
+            stringBuffer.append(" "+userDTO.getAge());
+        }
+        if (userDTO.getLocation() != null && !userDTO.getLocation().equalsIgnoreCase("")) {
+            if (!stringBuffer.equals("")) {
+                stringBuffer.append(" | ");
+            }
+            stringBuffer.append(userDTO.getLocation());
+        }
 
         TextView txt_age_gender = (TextView) headerLayout.findViewById(R.id.nav_header_age);
-        txt_age_gender.setText(userDTO.getGender());
+        txt_age_gender.setText(stringBuffer.toString());
 
 
     }

@@ -28,7 +28,7 @@
                     android:id="@+id/confirm_appoint_txt_service_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SAR 130"
+                    android:text=""
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/textsize_15sp" />
 
@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/confirm_appoint_txt_service_price"
                     android:layout_marginTop="@dimen/margin_3"
-                    android:text="Pretty Looks"
+                    android:text=""
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/textsize_15sp" />
 
