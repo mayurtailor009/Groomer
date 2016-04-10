@@ -120,6 +120,7 @@ public class SettingFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        selectedButton(GroomerPreference.getAPP_LANG(getActivity().getApplicationContext()));
         options = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
                 .cacheOnDisk(true)
@@ -507,6 +508,9 @@ public class SettingFragment extends BaseFragment {
             HelpMe.setLocale(Constants.LANG_ARABIC_CODE, getActivity().getApplicationContext());
             selectedButton(Constants.LANG_ARABIC_CODE);
             GroomerPreference.setAPP_LANG(getActivity().getApplicationContext(), Constants.LANG_ARABIC_CODE);
+            Intent intent = new Intent(mActivity, HomeActivity.class);
+            intent.putExtra("fragmentNumber", 4);
+            startActivity(intent);
         }
 
     }
@@ -517,6 +521,9 @@ public class SettingFragment extends BaseFragment {
             HelpMe.setLocale(Constants.LANG_ENGLISH_CODE, getActivity().getApplicationContext());
             selectedButton(Constants.LANG_ENGLISH_CODE);
             GroomerPreference.setAPP_LANG(getActivity().getApplicationContext(), Constants.LANG_ENGLISH_CODE);
+            Intent intent = new Intent(mActivity, HomeActivity.class);
+            intent.putExtra("fragmentNumber", 4);
+            startActivity(intent);
         }
     }
 
@@ -544,9 +551,7 @@ public class SettingFragment extends BaseFragment {
             btn_select_english.setTextColor(getResources().getColor(R.color.black));
         }
 
-        Intent intent = new Intent(mActivity, HomeActivity.class);
-        intent.putExtra("fragmentNumber", 4);
-        startActivity(intent);
+
     }
 
 

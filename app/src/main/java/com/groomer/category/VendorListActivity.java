@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +52,7 @@ public class VendorListActivity extends BaseActivity {
     private VendorListAdapter vendorListAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private CategoryDTO categoryDTO;
+    private SeekBar distanceSeekBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,7 +66,7 @@ public class VendorListActivity extends BaseActivity {
         init(categoryDTO);
 
 
-        getVendorsList(categoryDTO);
+        getVendorsList(categoryDTO, "5");
 
         // Add pull to refresh functionality
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.active_swipe_refresh_layout);
@@ -72,11 +74,13 @@ public class VendorListActivity extends BaseActivity {
 
             @Override
             public void onRefresh() {
-                getVendorsList(categoryDTO);
+                getVendorsList(categoryDTO, "5");
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
-
+        distanceSeekBar = (SeekBar) findViewById(R.id.seekbar_km);
+        distanceSeekBar.setProgress(5);
+        distanceSeekBar.setOnSeekBarChangeListener(seekBarChangeListener);
     }
 
     private void init(CategoryDTO categoryDTO) {
@@ -97,6 +101,10 @@ public class VendorListActivity extends BaseActivity {
     }
 
     private void setUpListAdapter(final List<VendorListDTO> vendorList) {
+
+        if (vendorListAdapter != null) {
+            vendorListAdapter = null;
+        }
         vendorListAdapter = new VendorListAdapter(mActivity, vendorList);
         vendorRecyclerView.setAdapter(vendorListAdapter);
 
@@ -111,6 +119,14 @@ public class VendorListActivity extends BaseActivity {
 //                })
 //        );
 
+        vendorRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                setViewVisibility(R.id.km_seekbar_layout, View.VISIBLE);
+
+            }
+        });
 
         vendorListAdapter.setOnItemClickListener(new VendorListAdapter.MyClickListener() {
             @Override
@@ -192,7 +208,7 @@ public class VendorListActivity extends BaseActivity {
     }
 
 
-    private void getVendorsList(CategoryDTO categoryDTO) {
+    private void getVendorsList(CategoryDTO categoryDTO, String distances) {
         if (Utils.isOnline(mActivity)) {
             HashMap<String, String> params = new HashMap<>();
             params.put("action", Constants.VENDOR_LIST);
@@ -201,6 +217,7 @@ public class VendorListActivity extends BaseActivity {
             params.put("user_id", Utils.getUserId(mActivity));
             params.put("category_id", categoryDTO.getId());
             params.put("lang", "eng");
+            params.put("distance", distances);
 
             final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
             CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
@@ -289,6 +306,27 @@ public class VendorListActivity extends BaseActivity {
 
 
     }
+
+    SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            setTextViewText(R.id.txt_km, progress + " Km:");
+
+            getVendorsList(categoryDTO, progress + "");
+
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+        }
+    };
 
 
 }

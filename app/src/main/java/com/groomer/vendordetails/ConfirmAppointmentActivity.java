@@ -2,6 +2,7 @@ package com.groomer.vendordetails;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,7 @@ import com.groomer.GroomerApplication;
 import com.groomer.R;
 import com.groomer.activity.BaseActivity;
 import com.groomer.appointment.adapter.SwipeMenuListViewAdapter;
+import com.groomer.home.HomeActivity;
 import com.groomer.model.ServiceDTO;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.Utils;
@@ -211,8 +213,11 @@ public class ConfirmAppointmentActivity extends BaseActivity implements
                         pdialog.dismiss();
                         try {
                             if (Utils.getWebServiceStatus(response)) {
-                                Toast.makeText(mActivity, Utils.getWebServiceMessage(response),
-                                        Toast.LENGTH_SHORT).show();
+
+                                finish();
+                                Intent intent = new Intent(mActivity, HomeActivity.class);
+                                intent.putExtra("fragmentNumber", 2);
+                                startActivity(intent);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -293,6 +298,7 @@ public class ConfirmAppointmentActivity extends BaseActivity implements
 
     /**
      * this method removes the service from the list and substract the amount from total amount.
+     *
      * @param position is the position of selected service.
      */
     private void removeServiceFromTheList(int position) {

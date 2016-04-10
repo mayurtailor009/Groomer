@@ -3,6 +3,7 @@ package com.groomer.vendordetails;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -73,6 +74,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
         setClick(R.id.btn_reviews_tab);
         setClick(R.id.btn_set_appointment);
         setClick(R.id.img_fav);
+        setClick(R.id.directions);
 
         buttonSelected(true, false, false);
 
@@ -333,6 +335,19 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                     addRemoveFromFavourite("1", saloonDetailsDTO.getStore_id());
                 }
 
+                break;
+
+            case R.id.directions:
+
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(
+                        "geo:" + saloonDetailsDTO.getLat() +
+                                "," + saloonDetailsDTO.getLng() +
+                                "?q=" + saloonDetailsDTO.getLat() +
+                                "," + saloonDetailsDTO.getLng() +
+                                "(" + saloonDetailsDTO.getStorename_eng() + ")"));
+
+                intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+                startActivity(intent);
                 break;
         }
     }

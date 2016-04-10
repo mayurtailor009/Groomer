@@ -1,8 +1,10 @@
 package com.groomer.home;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Message;
+import android.support.annotation.IdRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -11,6 +13,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +32,10 @@ import com.groomer.utillity.Constants;
 import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.SessionManager;
 import com.groomer.utillity.Utils;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import java.lang.ref.WeakReference;
 
@@ -43,6 +50,8 @@ public class HomeActivity extends BaseActivity {
     private final MenuHandler menuHandler =
             new MenuHandler(HomeActivity.this);
     private MenuDTO menuDTO;
+    private NavigationView navigationView;
+    private DisplayImageOptions options;
 
 
     @Override
@@ -99,13 +108,26 @@ public class HomeActivity extends BaseActivity {
 
             }
         });
+
+
+        options = new DisplayImageOptions.Builder()
+                .resetViewBeforeLoading(true)
+                .cacheOnDisk(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .considerExifParams(true)
+                .displayer(new SimpleBitmapDisplayer())
+                .showImageOnLoading(R.drawable.avater)
+                .showImageOnFail(R.drawable.avater)
+                .showImageForEmptyUri(R.drawable.avater)
+                .build();
         //drawerToggle.syncState();
 
     }
 
     private void setUpNavigationViewItemClick() {
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigationview);
-        setHeadersValues(navigationView);
+        navigationView = (NavigationView) findViewById(R.id.navigationview);
+        setHeadersValues();
 
         navigationView.setNavigationItemSelectedListener(new NavigationView
                 .OnNavigationItemSelectedListener() {
@@ -183,6 +205,10 @@ public class HomeActivity extends BaseActivity {
 
     public void changeMenuCount(MenuDTO menuDto) {
 
+
+        setMenuCounter(R.id.nav_alerts, Integer.parseInt(menuDto.getAlert()));
+        setMenuCounter(R.id.nav_appointments, Integer.parseInt(menuDto.getAppointment()));
+        setMenuCounter(R.id.nav_favourite, Integer.parseInt(menuDto.getFavorite()));
         //TODO
         // Set menu count
 //        menuListAdapter.setAlertCount(menuDTO.getAlert());
@@ -250,7 +276,7 @@ public class HomeActivity extends BaseActivity {
         textView.setText(title);
     }*/
 
-    private void setHeadersValues(NavigationView navigationView) {
+    private void setHeadersValues() {
 
         UserDTO userDTO = GroomerPreference.getObjectFromPref(this, Constants.USER_INFO);
         View headerLayout = navigationView.getHeaderView(0);
@@ -262,7 +288,7 @@ public class HomeActivity extends BaseActivity {
             stringBuffer.append(userDTO.getGender());
         }
         if (userDTO.getAge() != null && !userDTO.getAge().equalsIgnoreCase("")) {
-            stringBuffer.append(" "+userDTO.getAge());
+            stringBuffer.append(" " + userDTO.getAge());
         }
         if (userDTO.getIs_location_service() != null
                 && !userDTO.getIs_location_service().equalsIgnoreCase("")) {
@@ -272,11 +298,21 @@ public class HomeActivity extends BaseActivity {
             stringBuffer.append(userDTO.getIs_location_service());
         }
 
+        ImageView imageView = (ImageView) headerLayout.findViewById(R.id.img_user_image);
+        ImageLoader.getInstance().displayImage(userDTO.getImage(), imageView,
+                options);
+
+
         TextView txt_age_gender = (TextView) headerLayout.findViewById(R.id.nav_header_age);
         txt_age_gender.setText(stringBuffer.toString());
 
 
     }
 
+
+    private void setMenuCounter(@IdRes int itemId, int count) {
+        TextView view = (TextView) navigationView.getMenu().findItem(itemId).getActionView();
+        view.setText(String.valueOf(count));
+    }
 
 }

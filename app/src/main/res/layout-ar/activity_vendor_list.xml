@@ -39,7 +39,8 @@
         android:background="?attr/drawerBg"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/margin_5"
-        android:paddingRight="@dimen/margin_5">
+        android:paddingRight="@dimen/margin_5"
+        android:visibility="gone">
 
         <!-- within text -->
         <com.groomer.customviews.CustomTextViewMarkNovaSemibold
@@ -66,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-
+            android:max="25"
             android:maxHeight="@dimen/margin_1"
             android:minHeight="@dimen/margin_1"
             android:progressDrawable="@drawable/layerlist_km_seekbar"
