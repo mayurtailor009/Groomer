@@ -51,10 +51,10 @@
 
 
     <!-- start for Change password screen -->
-    <string name="change_password_header">Change Password</string>
-    <string name="new_password">New Password</string>
-    <string name="confirm_password_lbl">Confirm Password</string>
-    <string name="submit_btn">Submit</string>
+    <string name="change_password_header">تغيير كلمة السر</string>
+    <string name="new_password">كلمة السر الجديدة</string>
+    <string name="confirm_password_lbl">تأكيد كلمة المرور</string>
+    <string name="submit_btn">عرض</string>
     <string name="password_hint">********</string>
     <!--END For Change password  screen -->
 

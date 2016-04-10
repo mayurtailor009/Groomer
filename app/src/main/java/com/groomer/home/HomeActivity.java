@@ -264,11 +264,12 @@ public class HomeActivity extends BaseActivity {
         if (userDTO.getAge() != null && !userDTO.getAge().equalsIgnoreCase("")) {
             stringBuffer.append(" "+userDTO.getAge());
         }
-        if (userDTO.getLocation() != null && !userDTO.getLocation().equalsIgnoreCase("")) {
+        if (userDTO.getIs_location_service() != null
+                && !userDTO.getIs_location_service().equalsIgnoreCase("")) {
             if (!stringBuffer.equals("")) {
                 stringBuffer.append(" | ");
             }
-            stringBuffer.append(userDTO.getLocation());
+            stringBuffer.append(userDTO.getIs_location_service());
         }
 
         TextView txt_age_gender = (TextView) headerLayout.findViewById(R.id.nav_header_age);

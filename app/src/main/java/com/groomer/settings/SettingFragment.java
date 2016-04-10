@@ -44,6 +44,7 @@ import com.groomer.camera.GallerySelectInterface;
 import com.groomer.changepassword.ChangePasswordActivity;
 import com.groomer.fragments.BaseFragment;
 import com.groomer.home.HomeActivity;
+import com.groomer.model.UserDTO;
 import com.groomer.settings.adapter.CountryCodeAdapter;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.GroomerPreference;
@@ -52,6 +53,7 @@ import com.groomer.utillity.Theme;
 import com.groomer.utillity.Utils;
 import com.groomer.volley.CustomJsonImageRequest;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
@@ -117,7 +119,6 @@ public class SettingFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        init();
 
         options = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
@@ -138,10 +139,13 @@ public class SettingFragment extends BaseFragment {
         swh_location = (Switch) view.findViewById(R.id.swh_location);
 
         countryCodeList = getCountryCode();
+        init();
         //selectedButton(GroomerPreference.getAPP_LANG(getActivity().getApplicationContext()));
     }
 
     private void init() {
+        settingAllProfileValues();
+
         setClick(R.id.view_blue, view);
         setClick(R.id.view_red, view);
         setClick(R.id.view_green, view);
@@ -152,6 +156,23 @@ public class SettingFragment extends BaseFragment {
         setClick(R.id.btn_save, view);
         setClick(R.id.txt_country_code, view);
 
+    }
+
+    private void settingAllProfileValues() {
+        UserDTO userDTO = GroomerPreference.getObjectFromPref(mActivity, Constants.USER_INFO);
+
+        setViewText(R.id.et_name, userDTO.getName_eng(), view);
+        setViewText(R.id.et_emailid, userDTO.getEmail(), view);
+        setViewText(R.id.et_mobile_no, userDTO.getMobile(), view);
+        setViewText(R.id.edt_dob, userDTO.getDob(), view);
+        setViewText(R.id.edt_gender, userDTO.getGender(), view);
+        if (userDTO.getIs_location_service() != null) {
+            swh_location.setChecked(userDTO.getIs_location_service().equals("1") ? true : false);
+        }
+        if (userDTO.getCountry_code() != null) {
+            setViewText(R.id.txt_country_code, "+" + userDTO.getCountry_code(), view);
+        }
+        ImageLoader.getInstance().displayImage(userDTO.getImage(), ivProfile, options);
     }
 
 
@@ -538,7 +559,7 @@ public class SettingFragment extends BaseFragment {
             params.put("name", getViewText(R.id.et_name, view));
             params.put("dob", getViewText(R.id.edt_dob, view));
             params.put("gender", getViewText(R.id.edt_gender, view).equals("Male") ? "M" : "F");
-            params.put("country_code", getViewTag(R.id.txt_country_code, view));
+            params.put("country_code", getViewText(R.id.txt_country_code, view));
             params.put("is_location_service", swh_location.isChecked() ? "1" : "0");
             params.put("mobile", getViewText(R.id.et_mobile_no, view));
             params.put("location", getViewText(R.id.et_mobile_no, view));
@@ -557,12 +578,12 @@ public class SettingFragment extends BaseFragment {
 
                                     Toast.makeText(mActivity, "Success", Toast.LENGTH_SHORT).show();
 
-//                                    UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
-//                                    TraphoriaPreference.putObjectIntoPref(getActivity(),
-//                                            userDTO, PreferenceConstant.USER_INFO);
-//                                    Intent intent = new Intent(getActivity(), NavigationDrawerActivity.class);
-//                                    intent.putExtra("fragmentNumber", 7);
-//                                    startActivity(intent);
+                                    UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
+                                    GroomerPreference.putObjectIntoPref(getActivity(),
+                                            userDTO, Constants.USER_INFO);
+                                    Intent intent = new Intent(getActivity(), HomeActivity.class);
+                                    intent.putExtra("fragmentNumber", 4);
+                                    startActivity(intent);
                                 } else {
                                     Utils.customDialog(Utils.getWebServiceMessage(response), getActivity());
                                 }
@@ -607,16 +628,16 @@ public class SettingFragment extends BaseFragment {
         } else if (getViewText(R.id.et_emailid, view).equals("")) {
             Utils.showDialog(mActivity, "Message", "Please enter email id.");
             return false;
-        }else if (getViewText(R.id.txt_country_code, view).equals("")) {
+        } else if (getViewText(R.id.txt_country_code, view).equals("")) {
             Utils.showDialog(mActivity, "Message", "Please select country code.");
             return false;
-        }else if (getViewText(R.id.et_mobile_no, view).equals("")) {
+        } else if (getViewText(R.id.et_mobile_no, view).equals("")) {
             Utils.showDialog(mActivity, "Message", "Please enter mobile number.");
             return false;
-        }else if (getViewText(R.id.edt_dob, view).equals("")) {
+        } else if (getViewText(R.id.edt_dob, view).equals("")) {
             Utils.showDialog(mActivity, "Message", "Please select dob.");
             return false;
-        }else if (getViewText(R.id.edt_gender, view).equals("")) {
+        } else if (getViewText(R.id.edt_gender, view).equals("")) {
             Utils.showDialog(mActivity, "Message", "Please select gender.");
             return false;
         }

@@ -12,8 +12,25 @@ public class UserDTO implements Serializable {
     private String gender;
     private String dob;
     private String age;
-    private String location;
+    private String is_location_service;
     private String image;
+    private String country_code;
+
+    public String getIs_location_service() {
+        return is_location_service;
+    }
+
+    public void setIs_location_service(String is_location_service) {
+        this.is_location_service = is_location_service;
+    }
+
+    public String getCountry_code() {
+        return country_code;
+    }
+
+    public void setCountry_code(String country_code) {
+        this.country_code = country_code;
+    }
 
     public String getId() {
         return id;
@@ -69,14 +86,6 @@ public class UserDTO implements Serializable {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public String getAge() {

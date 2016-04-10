@@ -2,7 +2,6 @@ package com.groomer.changepassword;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -13,8 +12,8 @@ import com.android.volley.VolleyError;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
 import com.groomer.activity.BaseActivity;
-import com.groomer.login.LoginActivity;
 import com.groomer.utillity.Constants;
+import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.Utils;
 import com.groomer.volley.CustomJsonRequest;
 
@@ -36,14 +35,20 @@ public class ChangePasswordActivity extends BaseActivity {
     }
 
     private void init() {
+        setLeftClick(R.drawable.back_btn, true);
+        setHeader("Change Password");
         setTouchNClick(R.id.btn_changepassword);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_forgetpassword:
+            case R.id.btn_changepassword:
                 performChangePassword();
+                break;
+
+            case R.id.hamburgur_img_icon:
+                this.finish();
                 break;
         }
     }
@@ -57,9 +62,10 @@ public class ChangePasswordActivity extends BaseActivity {
                 Map<String, String> params = new HashMap<>();
                 params.put("action", Constants.CHANGE_PASSWORD_METHOD);
                 params.put("user_id", Utils.getUserId(mActivity));
-                params.put("password", getEditTextText(R.id.edt_password));
+                params.put("password", getEditTextText(R.id.edt_new_password));
                 params.put("confirm_password", getEditTextText(R.id.edt_new_password));
-                params.put("current_pass", getEditTextText(R.id.edt_confirm_password));
+                params.put("current_pass", getEditTextText(R.id.edt_password));
+                params.put("lang", GroomerPreference.getAPP_LANG(mActivity));
 
                 final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
                 CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constants.SERVICE_URL, params,
@@ -70,9 +76,9 @@ public class ChangePasswordActivity extends BaseActivity {
                                 pdialog.dismiss();
                                 try {
                                     if (Utils.getWebServiceStatus(response)) {
-                                        startActivity(new Intent(ChangePasswordActivity.this, LoginActivity.class));
+                                        //startActivity(new Intent(ChangePasswordActivity.this, LoginActivity.class));
                                         Toast.makeText(ChangePasswordActivity.this, Utils.getWebServiceMessage(response), Toast.LENGTH_LONG).show();
-
+                                        mActivity.finish();
                                     } else {
                                         Utils.showDialog(ChangePasswordActivity.this, "Error", Utils.getWebServiceMessage(response));
                                     }
@@ -112,7 +118,7 @@ public class ChangePasswordActivity extends BaseActivity {
         } else if (getEditTextText(R.id.edt_confirm_password).equals("")) {
             Utils.showDialog(this, "Message", "Please enter confirm password.");
             return false;
-        } else if (getEditTextText(R.id.edt_confirm_password).equals
+        } else if (!getEditTextText(R.id.edt_confirm_password).equals
                 (getEditTextText(R.id.edt_new_password))) {
             Utils.showDialog(this, "Message", "New and confirm password are not same.");
             return false;
