@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -48,6 +49,8 @@ public class VendorListActivity extends BaseActivity {
     private Context mActivity;
     private RecyclerView vendorRecyclerView;
     private VendorListAdapter vendorListAdapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private CategoryDTO categoryDTO;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,11 +60,23 @@ public class VendorListActivity extends BaseActivity {
 
         mActivity = VendorListActivity.this;
 
-        CategoryDTO categoryDTO = (CategoryDTO) getIntent().getExtras().getSerializable("dto");
+        categoryDTO = (CategoryDTO) getIntent().getExtras().getSerializable("dto");
         init(categoryDTO);
 
 
         getVendorsList(categoryDTO);
+
+        // Add pull to refresh functionality
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.active_swipe_refresh_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+            @Override
+            public void onRefresh() {
+                getVendorsList(categoryDTO);
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
     }
 
     private void init(CategoryDTO categoryDTO) {
@@ -73,7 +88,7 @@ public class VendorListActivity extends BaseActivity {
 
         setHeader(categoryDTO.getName_eng());
 
-        setLeftClick(R.drawable.back_btn);
+        setLeftClick(R.drawable.back_btn, true);
 
         vendorRecyclerView = (RecyclerView) findViewById(R.id.recycle_vendor);
 

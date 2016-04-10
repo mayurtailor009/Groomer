@@ -31,7 +31,7 @@ public class Constants {
     public static String ADD_REVIEW = "addreview";
     public static String MENU_COUNTER = "menucounter";
     public static String CHANGE_PASSWORD_METHOD = "change_password";
-
+    public static String NOTIFICATIONS = "notifications";
     public static String RESCHEDULE_APPOINTMENT = "reschedule_appointment";
     public static String CANCEL_APPOINTMENT = "cancel_appointment";
     public static String APPOINTMENTS = "appointment";

@@ -11,16 +11,16 @@
         android:padding="@dimen/margin_10">
 
 
-        <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+        <com.groomer.customviews.CustomTextViewMarkNovaLight
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/txt_about"
-            android:textSize="14sp">
+            android:textSize="14sp"/>
 
 
-        </com.groomer.customviews.CustomTextViewMarkNovaSemibold>
 
-        <com.groomer.customviews.CustomTextViewMarkNovaRegular
+
+        <com.groomer.customviews.CustomTextViewMarkNovaLight
             android:id="@+id/txt_about_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,23 +28,24 @@
             android:text="@string/txt_about_text"
             android:textSize="@dimen/textsize_12sp" />
 
-        <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+        <com.groomer.customviews.CustomTextViewMarkNovaLight
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_20"
             android:text="@string/txt_timing"
-            android:textSize="14sp">
+            android:textSize="14sp"
+            android:visibility="gone"/>
 
 
-        </com.groomer.customviews.CustomTextViewMarkNovaSemibold>
 
-        <com.groomer.customviews.CustomTextViewMarkNovaRegular
+        <com.groomer.customviews.CustomTextViewMarkNovaLight
             android:id="@+id/txt_timing_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_10"
             android:text="Mon - Tue: 10:00AM -10:00PM"
-            android:textSize="@dimen/textsize_12sp" />
+            android:textSize="@dimen/textsize_12sp"
+            android:visibility="gone" />
 
 
     </LinearLayout>

@@ -262,12 +262,16 @@ public class BaseActivity extends AppCompatActivity implements OnClickListener,
 //		ivLeft.setOnClickListener(this);
 //	}
 
-    public void setLeftClick(int drawbleId) {
+    public void setLeftClick(int drawbleId, boolean isPadding) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         ImageView ivLeft = (ImageView) toolbar.findViewById(R.id.hamburgur_img_icon);
         ivLeft.setVisibility(View.VISIBLE);
         ivLeft.setOnClickListener(this);
         ivLeft.setImageResource(drawbleId);
+        if (isPadding) {
+            ivLeft.setPadding(10, 10, 10, 10);
+        }
+
     }
 //
 //	public void setHeaderNormal(){
@@ -280,11 +284,11 @@ public class BaseActivity extends AppCompatActivity implements OnClickListener,
 //		toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_transparent_color));
 //	}
 
-    public void setTheme(){
+    public void setTheme() {
         Theme theme = Utils.getObjectFromPref(this, Constants.CURRENT_THEME);
-        if(theme==null)
+        if (theme == null)
             theme = Theme.Green;
-        switch (theme){
+        switch (theme) {
             case Blue:
                 setTheme(R.style.AppThemeBlue);
                 if (Build.VERSION.SDK_INT >= 21) {

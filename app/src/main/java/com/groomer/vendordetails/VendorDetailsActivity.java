@@ -74,13 +74,15 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
         setClick(R.id.btn_reviews_tab);
         setClick(R.id.btn_set_appointment);
         setClick(R.id.img_fav);
+
+
     }
 
     private void getVendorDetails() {
         HashMap<String, String> params = new HashMap<>();
         params.put("action", Constants.VENDOR_DETAILS);
-        params.put("lat", "23.444444");
-        params.put("lng", "76.555555");
+        params.put("lat", "" + GroomerPreference.getLatitude(mActivity));
+        params.put("lng", "" + GroomerPreference.getLongitude(mActivity));
         params.put("user_id", Utils.getUserId(mActivity));
         params.put("store_id", getIntent().getStringExtra("store_id"));
         params.put("lang", GroomerPreference.getAPP_LANG(mActivity));
@@ -151,12 +153,17 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
      * this method sets the saloon name and address details.
      */
     private void setSaloonDetails() {
-        if(HelpMe.isArabic(mActivity)){
+
+        if (HelpMe.isArabic(mActivity)) {
             setViewText(R.id.txt_vendor_name, saloonDetailsDTO.getStorename_ara());
-        }else {
+        } else {
             setViewText(R.id.txt_vendor_name, saloonDetailsDTO.getStorename_eng());
         }
         setViewText(R.id.txt_vendor_address, saloonDetailsDTO.getAddress());
+
+        if(saloonDetailsDTO.getRating()!=null && !saloonDetailsDTO.getRating().equalsIgnoreCase("")) {
+            setViewText(R.id.btn_reviews_tab, "Reviews(" + saloonDetailsDTO.getRating() + ")");
+        }
 
         ImageView img_fav = (ImageView) findViewById(R.id.img_fav);
         if (saloonDetailsDTO.getFavourite().equals("1")) {
@@ -205,7 +212,11 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                 setTextColor(R.id.btn_about_tab, R.color.colorWhite);
                 setTextColor(R.id.btn_reviews_tab, R.color.black);
                 setTextColor(R.id.btn_services_tab, R.color.black);
-                fragment = AboutFragment.newInstance();
+                if (HelpMe.isArabic(mActivity)) {
+                    fragment = AboutFragment.newInstance(saloonDetailsDTO.getStoredesc_ara());
+                } else {
+                    fragment = AboutFragment.newInstance(saloonDetailsDTO.getStoredesc_eng());
+                }
                 break;
         }
 
@@ -275,14 +286,14 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.vendor_details_iv_back:
-                this.finish();
+                mActivity.finish();
                 break;
             case R.id.btn_services_tab:
                 displayFragment(0);
                 break;
             case R.id.btn_about_tab:
-                setViewText(R.id.services_total_amount, "SAR " + 0);
-                setViewText(R.id.service_count, 0 + " Service");
+//                setViewText(R.id.services_total_amount, "SAR " + 0);
+//                setViewText(R.id.service_count, 0 + " Service");
                 displayFragment(1);
                 break;
             case R.id.btn_reviews_tab:

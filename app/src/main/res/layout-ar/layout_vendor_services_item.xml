@@ -38,7 +38,7 @@
                     android:orientation="vertical">
 
                     <!-- service name -->
-                    <com.groomer.customviews.CustomTextViewMarkNovaBold
+                    <com.groomer.customviews.CustomTextViewMarkNovaRegular
                         android:id="@+id/txt_service_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -57,10 +57,10 @@
                             android:id="@+id/txt_service_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/margin_5"
                             android:layout_gravity="center"
-                            android:text="دقيقة 30"
-                            android:textSize="15sp" />
+                            android:layout_marginLeft="@dimen/margin_5"
+                            android:text=""
+                            android:textSize="10sp" />
 
                         <ImageView
                             android:layout_width="12dp"
@@ -72,19 +72,19 @@
                         <com.groomer.customviews.CustomTextViewMarkNovaLight
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="|"
                             android:layout_gravity="center"
-                            android:textSize="15sp" />
+                            android:text="|"
+                            android:textSize="10sp" />
 
                         <!-- service price -->
-                        <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+                        <com.groomer.customviews.CustomTextViewMarkNovaLight
                             android:id="@+id/txt_service_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="@dimen/margin_5"
                             android:layout_gravity="left"
+                            android:layout_marginRight="@dimen/margin_5"
                             android:text=" 65 ريال"
-                            android:textSize="15sp" />
+                            android:textSize="12sp" />
 
 
                     </LinearLayout>
@@ -102,7 +102,7 @@
                 android:padding="@dimen/margin_10">
 
                 <!-- select or selected text -->
-                <Button
+                <com.groomer.customviews.CustomButtonMarkNovaRegular
                     android:id="@+id/btn_service_select"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

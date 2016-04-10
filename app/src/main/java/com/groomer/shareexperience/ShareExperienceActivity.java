@@ -35,7 +35,7 @@ public class ShareExperienceActivity extends BaseActivity {
         setContentView(R.layout.activity_share_experience);
 
         setHeader(getString(R.string.share_title));
-        setLeftClick(R.drawable.back_btn);
+        setLeftClick(R.drawable.back_btn,true);
         setClick(R.id.share_exp_submitbtn);
 
         mActivity = this;

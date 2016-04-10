@@ -26,7 +26,7 @@
                 android:orientation="vertical">
 
                 <!-- service name -->
-                <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+                <com.groomer.customviews.CustomTextViewMarkNovaLight
                     android:id="@+id/txt_service_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
                     android:orientation="horizontal">
 
                     <!-- service price -->
-                    <com.groomer.customviews.CustomTextViewMarkNovaBold
+                    <com.groomer.customviews.CustomTextViewMarkNovaRegular
                         android:id="@+id/txt_service_rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
                 </LinearLayout>
 
 
-                <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                <com.groomer.customviews.CustomTextViewMarkNovaThin
                     android:id="@+id/txt_service_review"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

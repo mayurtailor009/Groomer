@@ -1,17 +1,47 @@
 package com.groomer.model;
 
 
+import java.util.List;
+
 public class SaloonDetailsDTO {
     private String storename_eng;
     private String storename_ara;
     private String storedesc_eng;
     private String storedesc_ara;
+
+    private String lat;
+    private String lng;
     private String address;
     private String store_id;
     private String distance;
     private String rating;
     private String favourite;
     private String image;
+    private List<String> images;
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
+    }
 
     public String getStorename_eng() {
         return storename_eng;

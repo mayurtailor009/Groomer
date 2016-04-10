@@ -22,9 +22,9 @@ public class ViewPagerAdapter extends PagerAdapter {
     private List<String> imageList;
     private LayoutInflater inflater;
     private DisplayImageOptions options;
-    private int[] images = new int[] {
-            R.drawable.slide_img, R.drawable.slide_img
-    };
+//    private int[] images = new int[] {
+//            R.drawable.slide_img, R.drawable.slide_img
+//    };
 
 
     public ViewPagerAdapter(Context context, List<String> imageList) {

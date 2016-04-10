@@ -10,6 +10,16 @@ public class ServiceDTO implements Serializable {
     private String name_ara;
     private String image;
     private String price;
+    private String duration;
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
     private boolean isSelected;
 
     public boolean isSelected() {

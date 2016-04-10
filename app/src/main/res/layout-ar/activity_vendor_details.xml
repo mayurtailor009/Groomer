@@ -41,7 +41,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:padding="@dimen/margin_5"
+                        android:padding="@dimen/margin_10"
                         android:src="@drawable/next_arrow"
                         android:tint="@color/colorWhite" />
 
@@ -51,7 +51,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:padding="@dimen/margin_5"
+                        android:padding="@dimen/margin_10"
                         android:src="@drawable/zoom_icon" />
                 </RelativeLayout>
             </FrameLayout>
@@ -60,8 +60,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_margin="@dimen/margin_10">
+                android:layout_alignParentBottom="true">
 
                 <!-- circle view pager page indicator -->
                 <com.viewpagerindicator.CirclePageIndicator
@@ -69,8 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerInParent="true"
-                    android:paddingLeft="@dimen/margin_10"
+                    android:padding="@dimen/margin_10"
                     app:fillColor="@color/colorWhite"
                     app:pageColor="@color/divider_color" />
 
@@ -80,6 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
+                    android:padding="@dimen/margin_10"
                     android:src="@drawable/fav_active_icon" />
             </RelativeLayout>
         </RelativeLayout>
@@ -135,7 +134,7 @@
             android:weightSum="1">
 
             <!-- servies tab -->
-            <Button
+            <com.groomer.customviews.CustomButtonMarkNovaRegular
                 android:id="@+id/btn_services_tab"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -146,10 +145,10 @@
                 android:text="@string/menu_services"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:textSize="12sp" />
+                android:textSize="15sp" />
 
             <!-- about tab -->
-            <Button
+            <com.groomer.customviews.CustomButtonMarkNovaRegular
                 android:id="@+id/btn_about_tab"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -161,10 +160,10 @@
                 android:text="@string/txt_about"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:textSize="12sp" />
+                android:textSize="15sp" />
 
             <!-- reviews tab -->
-            <Button
+            <com.groomer.customviews.CustomButtonMarkNovaRegular
                 android:id="@+id/btn_reviews_tab"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -176,7 +175,7 @@
                 android:text="@string/txt_review"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:textSize="12sp" />
+                android:textSize="15sp" />
         </LinearLayout>
 
         <!-- this layout changes according to the tabs -->

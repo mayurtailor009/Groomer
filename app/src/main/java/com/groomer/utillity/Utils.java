@@ -241,9 +241,9 @@ public class Utils {
         return json;
     }
 
-    public static String secondsToDate(String seconds) {
-        int second = Integer.parseInt(seconds);
-        Date date = new Date(second * 1000);
+    public static String secondsToDate(long seconds) {
+
+        Date date = new Date(seconds * 1000);
         SimpleDateFormat sdf = new SimpleDateFormat("d MMM | h:mm a");
         return sdf.format(date);
     }

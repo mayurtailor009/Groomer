@@ -8,7 +8,7 @@
         <!--<item name="android:background">@color/colorBlue</item>-->
         <item name="windowActionBar">false</item>
         <item name="android:buttonStyle">@style/btnStyleBlue</item>
-        <item name="splashLogo">@drawable/avtar_blue</item>
+        <item name="splashLogo">@drawable/avater</item>
         <item name="android:textColor">@color/black</item>
         <item name="editTextStyle">@style/et_style_blue</item>
         <item name="drawerBg">@color/colorBlueDark</item>
@@ -22,7 +22,7 @@
         <!--<item name="android:background">@color/colorWhite</item>-->
         <item name="windowActionBar">false</item>
         <item name="android:buttonStyle">@style/btnStyleWhite</item>
-        <item name="splashLogo">@drawable/avtar_white</item>
+        <item name="splashLogo">@drawable/avater</item>
         <item name="android:textColor">@color/black</item>
         <item name="editTextStyle">@style/et_style_white</item>
         <item name="drawerBg">@color/green</item>
@@ -37,7 +37,7 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:buttonStyle">@style/btnStyleRed</item>
-        <item name="splashLogo">@drawable/avtar_gray</item>
+        <item name="splashLogo">@drawable/avater</item>
         <item name="android:textColor">@color/black</item>
         <item name="editTextStyle">@style/et_style_gray</item>
         <item name="drawerBg">@color/red</item>

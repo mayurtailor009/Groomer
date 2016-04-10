@@ -86,6 +86,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         ImageLoader.getInstance().displayImage(servicesDTO.getImage(), mHolder.thumbnail, options);
         mHolder.mServiceName.setText(servicesDTO.getName_eng());
         mHolder.mServicePrice.setText("SAR " + servicesDTO.getPrice());
+        mHolder.mServiceTime.setText(servicesDTO.getDuration());
         if (mList.get(position).isSelected()) {
             mHolder.btnService.setSelected(true);
             mHolder.btnService.setText("Selected");

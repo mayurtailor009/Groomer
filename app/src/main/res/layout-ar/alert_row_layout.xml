@@ -33,14 +33,15 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_alert_msg"
                 android:text="@string/txt_alert_msg"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
-            <com.groomer.customviews.CustomTextViewMarkNovaRegular
+            <com.groomer.customviews.CustomTextViewMarkNovaLight
                 android:layout_width="wrap_content"
                 android:id="@+id/txt_alert_date"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_3"
                 android:text="@string/txt_date_time"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
 
         </LinearLayout>
