@@ -32,6 +32,7 @@ import com.groomer.GroomerApplication;
 import com.groomer.R;
 import com.groomer.activity.BaseActivity;
 import com.groomer.category.adapter.VendorListAdapter;
+import com.groomer.gps.GPSTracker;
 import com.groomer.model.CategoryDTO;
 import com.groomer.model.VendorListDTO;
 import com.groomer.utillity.Constants;
@@ -65,6 +66,7 @@ public class VendorListActivity extends BaseActivity {
         setContentView(R.layout.activity_vendor_list);
 
         mActivity = VendorListActivity.this;
+        GPSTracker gpstracker= new GPSTracker(mActivity);
 
         categoryDTO = (CategoryDTO) getIntent().getExtras().getSerializable("dto");
         init(categoryDTO);
@@ -248,8 +250,8 @@ public class VendorListActivity extends BaseActivity {
         if (Utils.isOnline(mActivity)) {
             HashMap<String, String> params = new HashMap<>();
             params.put("action", Constants.VENDOR_LIST);
-            params.put("lat", "");
-            params.put("lng", "");
+            params.put("lat", GroomerPreference.getLatitude(mActivity)+"");
+            params.put("lng", GroomerPreference.getLongitude(mActivity)+"");
             params.put("user_id", Utils.getUserId(mActivity));
             params.put("category_id", categoryDTO.getId());
             params.put("lang", Utils.getSelectedLanguage(mActivity));

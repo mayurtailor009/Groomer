@@ -1,5 +1,6 @@
 package com.groomer.signup;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,10 +13,12 @@ import com.google.gson.Gson;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
 import com.groomer.activity.BaseActivity;
+import com.groomer.gps.GPSTracker;
 import com.groomer.home.HomeActivity;
 import com.groomer.login.LoginActivity;
 import com.groomer.model.UserDTO;
 import com.groomer.utillity.Constants;
+import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.Utils;
 import com.groomer.volley.CustomJsonRequest;
 
@@ -26,11 +29,14 @@ import java.util.Map;
 
 public class SignupActivity extends BaseActivity {
 
+    private Activity mActivity;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        mActivity=this;
 
+        GPSTracker gpstracker= new GPSTracker(mActivity);
         init();
     }
 
@@ -68,8 +74,8 @@ public class SignupActivity extends BaseActivity {
                 params.put("dob", "08/21/1989");
                 params.put("confirm_password", getEditTextText(R.id.et_passowrd));
                 params.put("device_id", "dsbsbdbsnbnksxkj");
-                params.put("lat", "24.333333");
-                params.put("lng", "75.333333");
+                params.put("lat", GroomerPreference.getLatitude(mActivity)+"");
+                params.put("lng", GroomerPreference.getLongitude(mActivity)+"");
                 params.put("image", "");
                 params.put("device", "android");
 

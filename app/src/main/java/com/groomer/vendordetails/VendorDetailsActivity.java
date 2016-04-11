@@ -23,6 +23,7 @@ import com.google.gson.reflect.TypeToken;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
 import com.groomer.activity.BaseActivity;
+import com.groomer.gps.GPSTracker;
 import com.groomer.model.ReviewDTO;
 import com.groomer.model.SaloonDetailsDTO;
 import com.groomer.model.ServiceDTO;
@@ -72,7 +73,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
 
         mActivity = VendorDetailsActivity.this;
 
-
+        GPSTracker gpstracker= new GPSTracker(mActivity);
         getVendorDetails();
 
         //setting click operations on views

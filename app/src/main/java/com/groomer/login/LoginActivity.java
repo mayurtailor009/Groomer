@@ -1,5 +1,6 @@
 package com.groomer.login;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import com.google.gson.Gson;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
 import com.groomer.activity.BaseActivity;
+import com.groomer.gps.GPSTracker;
 import com.groomer.home.HomeActivity;
 import com.groomer.forgetpassword.ForgetpasswordActivity;
 import com.groomer.model.UserDTO;
@@ -28,12 +30,14 @@ import java.util.Map;
 
 public class LoginActivity extends BaseActivity {
 
+    private Activity mActivity;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        mActivity=this;
         init();
+        GPSTracker gpsTracker=new GPSTracker(mActivity);
     }
 
     private void init() {
@@ -70,8 +74,8 @@ public class LoginActivity extends BaseActivity {
                 params.put("password", getEditTextText(R.id.et_passowrd));
                 params.put("device", "android");
                 params.put("device_id", "abc");
-                params.put("lat", "23.444444");
-                params.put("lng", "76.555555");
+                params.put("lat", GroomerPreference.getLatitude(mActivity)+"");
+                params.put("lng", GroomerPreference.getLongitude(mActivity)+"");
                 params.put("address", "abc");
 
                 final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
