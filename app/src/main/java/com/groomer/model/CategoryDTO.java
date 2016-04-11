@@ -12,6 +12,15 @@ public class CategoryDTO implements Serializable {
     private String status;
     private String created;
     private String modified;
+    private String service_count;
+
+    public String getService_count() {
+        return service_count;
+    }
+
+    public void setService_count(String service_count) {
+        this.service_count = service_count;
+    }
 
     public String getId() {
         return id;

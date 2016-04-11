@@ -1,7 +1,6 @@
 package com.groomer.vendordetails.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,14 +25,14 @@ import java.util.List;
 public class ServicesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
-    private List<ServiceDTO> mList;
+    private List<ServiceDTO> serviceDTOList;
     private DisplayImageOptions options;
     private double priceSum = 0.0;
     private int serviceCount = 0;
     private List<ServiceDTO> selectedList;
     private PriceServiceInterface mInterface;
 
-    public static class ServiceHoler extends RecyclerView.ViewHolder {
+    public static class ServiceHolder extends RecyclerView.ViewHolder {
 
         TextView mServiceName;
         TextView mServicePrice;
@@ -42,7 +41,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         ImageView thumbnail;
         boolean clicked;
 
-        public ServiceHoler(View view) {
+        public ServiceHolder(View view) {
             super(view);
             mServiceName = (TextView) view.findViewById(R.id.txt_service_name);
             mServicePrice = (TextView) view.findViewById(R.id.txt_service_price);
@@ -53,9 +52,10 @@ public class ServicesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
+
     public ServicesAdapter(Context context, List<ServiceDTO> mList) {
         this.context = context;
-        this.mList = mList;
+        serviceDTOList = mList;
         selectedList = new ArrayList<>();
 
         options = new DisplayImageOptions.Builder()
@@ -75,72 +75,80 @@ public class ServicesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.layout_vendor_services_item, parent, false);
-        return new ServiceHoler(view);
+        return new ServiceHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        final ServiceHoler mHolder = (ServiceHoler) holder;
+        final ServiceHolder mHolder = (ServiceHolder) holder;
         mInterface = (PriceServiceInterface) context;
-        final ServiceDTO servicesDTO = mList.get(position);
+        final ServiceDTO servicesDTO = serviceDTOList.get(position);
         ImageLoader.getInstance().displayImage(servicesDTO.getImage(), mHolder.thumbnail, options);
         mHolder.mServiceName.setText(servicesDTO.getName_eng());
         mHolder.mServicePrice.setText("SAR " + servicesDTO.getPrice());
         mHolder.mServiceTime.setText(servicesDTO.getDuration());
-        if (mList.get(position).isSelected()) {
+        if (serviceDTOList.get(position).isSelected()) {
             buttonSelected(true, mHolder.btnService);
             mHolder.btnService.setText("Selected");
+            //serviceCount++;
         } else {
             buttonSelected(false, mHolder.btnService);
-
             mHolder.btnService.setText("Select");
         }
         mHolder.btnService.setTag(position);
-        mHolder.btnService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Button btn = (Button) v;
-                int pos = Integer.parseInt(v.getTag().toString());
-                //mHolder.clicked = mHolder.clicked ? false : true;
-                if (!mList.get(pos).isSelected()) {
-                   // v.setSelected(true);
-                    buttonSelected(true, mHolder.btnService);
-                    btn.setText("Selected");
-                    priceSum += Double.parseDouble(servicesDTO.getPrice());
-                    serviceCount++;
-                    selectedList.add(servicesDTO);
-                    mList.get(pos).setIsSelected(true);
-
-                } else {
-                    buttonSelected(false, mHolder.btnService);
-                    //v.setSelected(false);
-                    btn.setText("Select");
-                    if (priceSum > 0 && serviceCount > 0) {
-                        priceSum -= Double.parseDouble(servicesDTO.getPrice());
-                        serviceCount--;
-                        selectedList.remove(servicesDTO);
-                        mList.get(pos).setIsSelected(false);
-                    }
-                }
-                mInterface.getPriceSum(priceSum + "");
-                mInterface.getServiceCount(serviceCount + "");
-                mInterface.getSelectedServiceList(selectedList);
-                notifyDataSetChanged();
-            }
-        });
+        mHolder.btnService.setOnClickListener(selectClick);
     }
+
+    View.OnClickListener selectClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Button btn = (Button) v;
+            int pos = Integer.parseInt(v.getTag().toString());
+            ServiceDTO servicesDTO = serviceDTOList.get(pos);
+            //mHolder.clicked = mHolder.clicked ? false : true;
+            if (!serviceDTOList.get(pos).isSelected()) {
+                // v.setSelected(true);
+                buttonSelected(true, btn);
+
+                btn.setText("Selected");
+                priceSum += Double.parseDouble(servicesDTO.getPrice());
+                //serviceCount++;
+                selectedList.add(servicesDTO);
+                serviceDTOList.get(pos).setIsSelected(true);
+
+            } else {
+                buttonSelected(false, btn);
+                //v.setSelected(false);
+                btn.setText("Select");
+                if (priceSum > 0 && serviceCount > 0) {
+                    priceSum -= Double.parseDouble(servicesDTO.getPrice());
+                    //serviceCount--;
+                    selectedList.remove(servicesDTO);
+                    serviceDTOList.get(pos).setIsSelected(false);
+                }
+            }
+            mInterface.getPriceSum(priceSum + "");
+            mInterface.getServiceCount(serviceCount + "");
+
+            mInterface.getSelectedServiceList(serviceDTOList);
+            //serviceCount=0;
+            notifyDataSetChanged();
+        }
+    };
 
     private void buttonSelected(boolean isSelected, Button btn) {
         if (isSelected) {
             btn.setBackgroundColor(context.getResources().getColor(R.color.green));
+            btn.setTextColor(context.getResources().getColor(R.color.colorWhite));
         } else {
             btn.setBackgroundColor(context.getResources().getColor(R.color.grey));
+            btn.setTextColor(context.getResources().getColor(R.color.black));
 
         }
     }
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return serviceDTOList.size();
     }
 }

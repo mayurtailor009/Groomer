@@ -51,7 +51,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
     private DisplayImageOptions options;
     private Activity mActivity;
     private ArrayList<ReviewDTO> reviewList;
-    private ArrayList<ServiceDTO> serviceList;
+    private List<ServiceDTO> serviceList;
     private SaloonDetailsDTO saloonDetailsDTO;
     private List<ServiceDTO> selectedList;
     private String totalPrice;
@@ -206,9 +206,9 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                 setTextColor(R.id.btn_about_tab, R.color.black);
                 setTextColor(R.id.btn_reviews_tab, R.color.black);
                 fragment = ServicesFragment.newInstance();
-                Bundle serviceBundle = new Bundle();
-                serviceBundle.putSerializable("serviceList", serviceList);
-                fragment.setArguments(serviceBundle);
+//                Bundle serviceBundle = new Bundle();
+//                serviceBundle.putSerializable("serviceList", serviceList);
+//                fragment.setArguments(serviceBundle);
                 break;
             case 1:
                 buttonSelected(false, true, false);
@@ -440,6 +440,13 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
 
     }
 
+    public List<ServiceDTO> getServiceList() {
+        return serviceList;
+    }
+
+    public void setServiceList(List<ServiceDTO> serviceList) {
+        this.serviceList = serviceList;
+    }
 
     @Override
     public void getPriceSum(String sum) {
@@ -456,6 +463,17 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
 
     @Override
     public void getSelectedServiceList(List<ServiceDTO> serviceDTOList) {
-        selectedList = serviceDTOList;
+        double buyDouble = 0.0;
+        serviceList = serviceDTOList;
+        selectedList = new ArrayList<>();
+        for (ServiceDTO dto : serviceDTOList) {
+            if (dto.isSelected()) {
+                selectedList.add(dto);
+                //buyDouble =buyDouble+ dto.getPrice()
+            }
+        }
+
+        setViewText(R.id.service_count, selectedList.size() +
+                (selectedList.size() == 1 ? " Service" : " Services"));
     }
 }

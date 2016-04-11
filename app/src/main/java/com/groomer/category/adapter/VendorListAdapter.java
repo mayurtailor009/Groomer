@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.groomer.R;
 import com.groomer.model.VendorListDTO;
+import com.groomer.utillity.HelpMe;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -80,6 +81,10 @@ public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.De
                 .build();
     }
 
+    public void setVendorsList(List<VendorListDTO> vendorList){
+        this.vendorsList=vendorList;
+    }
+
     @Override
     public DetailsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.vendor_row_layouts, parent, false);
@@ -92,7 +97,11 @@ public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.De
     public void onBindViewHolder(DetailsViewHolder holder, int position) {
         VendorListDTO vendorListDTO = vendorsList.get(position);
         ImageLoader.getInstance().displayImage(vendorListDTO.getImage(), holder.thumbnail, options);
-        holder.txt_vendor_name.setText(vendorListDTO.getStorename_eng());
+        if (HelpMe.isArabic(context)) {
+            holder.txt_vendor_name.setText(vendorListDTO.getStorename_ara());
+        } else {
+            holder.txt_vendor_name.setText(vendorListDTO.getStorename_eng());
+        }
         holder.txt_vendor_price.setText(vendorListDTO.getPrice());
         holder.txt_vendor_price_unit.setText(vendorListDTO.getCurrency());
         holder.txt_vendor_address.setText(vendorListDTO.getAddress());

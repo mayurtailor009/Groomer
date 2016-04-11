@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.groomer.R;
 import com.groomer.fragments.BaseFragment;
 import com.groomer.model.ServiceDTO;
+import com.groomer.vendordetails.VendorDetailsActivity;
 import com.groomer.vendordetails.adapter.ServicesAdapter;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class ServicesFragment extends BaseFragment {
     private RecyclerView mServicesList;
     private View view;
     private Activity mActivity;
+    private List<ServiceDTO> serviceDTOList;
 
     public static ServicesFragment newInstance() {
         ServicesFragment fragment = new ServicesFragment();
@@ -44,15 +46,13 @@ public class ServicesFragment extends BaseFragment {
     private void setUpRecycler() {
         mServicesList = (RecyclerView) view.findViewById(R.id.vendor_services_list);
         mServicesList.setLayoutManager(new LinearLayoutManager(mActivity));
-        if (getServicesList() != null) {
-            mServicesList.setAdapter(new ServicesAdapter(mActivity, getServicesList()));
+
+        serviceDTOList = ((VendorDetailsActivity) mActivity).getServiceList();
+        if (serviceDTOList != null && serviceDTOList.size() != 0) {
+            mServicesList.setAdapter(new ServicesAdapter(mActivity, serviceDTOList));
         } else {
             Toast.makeText(mActivity, "List is empty.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private List<ServiceDTO> getServicesList() {
-        List<ServiceDTO> list = (List<ServiceDTO>) getArguments().getSerializable("serviceList");
-        return list;
-    }
 }

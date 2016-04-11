@@ -294,8 +294,9 @@ public class SaloonListFragment extends BaseFragment {
             }
 
             holder.txtCategoryName.setText(categoryList.get(position).getName_eng());
-            holder.tvCount.setText(categoryList.get(position).getId());
-            ImageLoader.getInstance().displayImage(categoryList.get(position).getImage(), holder.ivThumb,
+            holder.tvCount.setText(categoryList.get(position).getService_count());
+            ImageLoader.getInstance().displayImage(categoryList.get(position).getImage(),
+                    holder.ivThumb,
                     options);
             return list;
         }
