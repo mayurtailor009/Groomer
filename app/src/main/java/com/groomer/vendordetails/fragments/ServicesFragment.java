@@ -22,7 +22,7 @@ public class ServicesFragment extends BaseFragment {
     private View view;
     private Activity mActivity;
     private List<ServiceDTO> serviceDTOList;
-
+    private ServicesAdapter servicesAdapter;
     public static ServicesFragment newInstance() {
         ServicesFragment fragment = new ServicesFragment();
         return fragment;
@@ -49,7 +49,11 @@ public class ServicesFragment extends BaseFragment {
 
         serviceDTOList = ((VendorDetailsActivity) mActivity).getServiceList();
         if (serviceDTOList != null && serviceDTOList.size() != 0) {
-            mServicesList.setAdapter(new ServicesAdapter(mActivity, serviceDTOList));
+            if(servicesAdapter==null) {
+                servicesAdapter = new ServicesAdapter(mActivity, serviceDTOList);
+
+            }
+            mServicesList.setAdapter(servicesAdapter);
         } else {
             Toast.makeText(mActivity, "List is empty.", Toast.LENGTH_SHORT).show();
         }

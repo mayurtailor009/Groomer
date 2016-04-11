@@ -21,7 +21,6 @@ import com.groomer.appointment.adapter.AppointmentListAdapter;
 import com.groomer.fragments.BaseFragment;
 import com.groomer.model.AppointmentDTO;
 import com.groomer.utillity.Constants;
-import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.Utils;
 import com.groomer.volley.CustomJsonRequest;
 
@@ -38,6 +37,7 @@ public class AppointmentFragment extends BaseFragment {
     private View view;
     private ExpandableListView mExpandableListView;
     private Activity mActivity;
+    private int lastExpandedPosition = -1;
 
     public static AppointmentFragment newInstance() {
         AppointmentFragment fragment = new AppointmentFragment();
@@ -65,8 +65,20 @@ public class AppointmentFragment extends BaseFragment {
     private void setUpExpandableListVIew(List<AppointmentDTO> appointmentList) {
         mExpandableListView.setChoiceMode(ExpandableListView.CHOICE_MODE_SINGLE);
         mExpandableListView.setAdapter(new AppointmentListAdapter(
-                        this.getActivity(), appointmentList)
+                        this.getActivity(), appointmentList, mExpandableListView)
         );
+
+        mExpandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if (lastExpandedPosition != -1
+                        && groupPosition != lastExpandedPosition) {
+                    mExpandableListView.collapseGroup(lastExpandedPosition);
+                }
+                lastExpandedPosition = groupPosition;
+            }
+        });
     }
 
     private void getAppointmentList() {

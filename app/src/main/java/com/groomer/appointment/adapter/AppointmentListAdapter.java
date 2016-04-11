@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +29,6 @@ import com.groomer.model.AppointmentDTO;
 import com.groomer.reschedule.RescheduleDialogFragment;
 import com.groomer.shareexperience.ShareExperienceActivity;
 import com.groomer.utillity.Constants;
-import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.HelpMe;
 import com.groomer.utillity.Utils;
 import com.groomer.vendordetails.VendorDetailsActivity;
@@ -47,6 +47,7 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private List<AppointmentDTO> appointsParentList;
+    private ExpandableListView mExpandableListView;
 
     /**
      * this class acts like a holder for group of expandable list.
@@ -94,9 +95,10 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         }
     }
 
-    public AppointmentListAdapter(Context context, List<AppointmentDTO> appointmentList) {
+    public AppointmentListAdapter(Context context, List<AppointmentDTO> appointmentList, ExpandableListView mExpandableListView) {
         this.context = context;
         this.appointsParentList = appointmentList;
+        this.mExpandableListView = mExpandableListView;
     }
 
 
@@ -285,6 +287,9 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
                                         notifyDataSetChanged();
                                     }
                                 }
+                                int count =  getGroupCount();
+                                for (int i = 0; i <count ; i++)
+                                    mExpandableListView.collapseGroup(i);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

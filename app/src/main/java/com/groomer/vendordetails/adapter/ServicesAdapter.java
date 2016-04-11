@@ -118,7 +118,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                 btn.setText("Selected");
                 priceSum += Double.parseDouble(servicesDTO.getPrice());
-                //serviceCount++;
+                serviceCount++;
                 selectedList.add(servicesDTO);
                 serviceDTOList.get(pos).setIsSelected(true);
 
@@ -128,7 +128,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 btn.setText("Select");
                 if (priceSum > 0 && serviceCount > 0) {
                     priceSum -= Double.parseDouble(servicesDTO.getPrice());
-                    //serviceCount--;
+                    serviceCount--;
                     selectedList.remove(servicesDTO);
                     serviceDTOList.get(pos).setIsSelected(false);
                 }

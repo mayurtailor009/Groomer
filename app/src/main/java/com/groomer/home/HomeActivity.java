@@ -221,7 +221,7 @@ public class HomeActivity extends BaseActivity {
     public void onBackPressed() {
         if (backPressedToExitOnce) {
             super.onBackPressed();
-            SessionManager.logoutUser(mActivity);
+            //SessionManager.logoutUser(mActivity);
         } else {
             this.backPressedToExitOnce = true;
             Toast.makeText(mActivity, "Press again to exit", Toast.LENGTH_SHORT).show();

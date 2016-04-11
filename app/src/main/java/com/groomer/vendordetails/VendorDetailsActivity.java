@@ -46,7 +46,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -63,6 +62,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
     private static int NUM_PAGES = 0;
     private ViewPager mPager;
     private ArrayList<String> listImages;
+    private HashMap<String, Fragment> fragmentList = new HashMap<String, Fragment>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -255,18 +255,25 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
 
     private void displayFragment(int position) {
         Fragment fragment = null;
+        String tag = null;
         switch (position) {
             case 0:
+                tag = "service";
                 buttonSelected(true, false, false);
                 setTextColor(R.id.btn_services_tab, R.color.colorWhite);
                 setTextColor(R.id.btn_about_tab, R.color.black);
                 setTextColor(R.id.btn_reviews_tab, R.color.black);
-                fragment = ServicesFragment.newInstance();
+                fragment = fragmentList.get(tag);
+                if(fragment == null) {
+                    fragment = ServicesFragment.newInstance();
+                    fragmentList.put(tag, fragment);
+                }
 //                Bundle serviceBundle = new Bundle();
 //                serviceBundle.putSerializable("serviceList", serviceList);
 //                fragment.setArguments(serviceBundle);
                 break;
             case 1:
+                tag = "about";
                 buttonSelected(false, true, false);
                 setTextColor(R.id.btn_about_tab, R.color.colorWhite);
                 setTextColor(R.id.btn_reviews_tab, R.color.black);
@@ -281,8 +288,9 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.vendor_details_container, fragment)
+                .replace(R.id.vendor_details_container, fragment, tag)
                 .commit();
+        getSupportFragmentManager().executePendingTransactions();
     }
 
     private void requestForReviews() {
@@ -358,8 +366,8 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
             case R.id.btn_reviews_tab:
                 requestForReviews();
 
-                setViewText(R.id.services_total_amount, "SAR " + 0);
-                setViewText(R.id.service_count, 0 + " Service");
+                //setViewText(R.id.services_total_amount, "SAR " + 0);
+                //setViewText(R.id.service_count, 0 + " Service");
                 buttonSelected(false, false, true);
 //                setButtonSelected(R.id.btn_reviews_tab, true);
 //                setButtonSelected(R.id.btn_about_tab, false);
