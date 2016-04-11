@@ -14,9 +14,9 @@
         android:layout_gravity="center_vertical" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="center_vertical|right"
         android:layout_marginRight="@dimen/margin_20"
         android:orientation="vertical">
 
@@ -25,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ديباك غوبتا"
+            android:gravity="right"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/textsize_18sp" />
 
@@ -32,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_5"
+            android:gravity="right"
             android:orientation="horizontal">
 
 

@@ -265,7 +265,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                 setTextColor(R.id.btn_about_tab, R.color.black);
                 setTextColor(R.id.btn_reviews_tab, R.color.black);
                 fragment = fragmentList.get(tag);
-                if(fragment == null) {
+                if (fragment == null) {
                     fragment = ServicesFragment.newInstance();
                     fragmentList.put(tag, fragment);
                 }
@@ -428,27 +428,27 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                                 boolean aboutSelected,
                                 boolean reviewSelected) {
         if (reviewSelected) {
-            ((Button) findViewById(R.id.btn_reviews_tab)).
+            findViewById(R.id.btn_reviews_tab).
                     setBackgroundColor(getResources().getColor(R.color.green));
         } else {
-            ((Button) findViewById(R.id.btn_reviews_tab)).
+            findViewById(R.id.btn_reviews_tab).
                     setBackgroundColor(getResources().getColor(R.color.grey));
 
         }
         if (aboutSelected) {
-            ((Button) findViewById(R.id.btn_about_tab)).
+            findViewById(R.id.btn_about_tab).
                     setBackgroundColor(getResources().getColor(R.color.green));
 
         } else {
-            ((Button) findViewById(R.id.btn_about_tab)).
+            findViewById(R.id.btn_about_tab).
                     setBackgroundColor(getResources().getColor(R.color.grey));
         }
         if (servicesSelected) {
-            ((Button) findViewById(R.id.btn_services_tab)).
+            findViewById(R.id.btn_services_tab).
                     setBackgroundColor(getResources().getColor(R.color.green));
 
         } else {
-            ((Button) findViewById(R.id.btn_services_tab)).
+            findViewById(R.id.btn_services_tab).
                     setBackgroundColor(getResources().getColor(R.color.grey));
 
         }
@@ -529,8 +529,12 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
 
     @Override
     public void getServiceCount(String serviceCount) {
-        setViewText(R.id.service_count, serviceCount
-                + (serviceCount.equals("1") ? " Service" : " Services"));
+        if (!GroomerPreference.getAPP_LANG(mActivity).equals("ara")) {
+            setViewText(R.id.service_count, serviceCount
+                    + (serviceCount.equals("1") ? " Service" : " Services"));
+        } else {
+            setViewText(R.id.service_count, " خدمات " + serviceCount);
+        }
     }
 
     @Override

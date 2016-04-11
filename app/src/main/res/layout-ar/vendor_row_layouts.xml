@@ -98,6 +98,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginLeft="@dimen/margin_10"
+                        android:gravity="right"
                         android:layout_toRightOf="@+id/txt_starts_from"
                         android:text="@string/txt_vendor_address"
                         android:textSize="12sp" />
