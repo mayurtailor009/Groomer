@@ -118,7 +118,7 @@ public class RescheduleDialogFragment extends DialogFragment {
         HashMap<String, String> params = new HashMap<>();
         params.put("action", Constants.RESCHEDULE_APPOINTMENT);
         params.put("user_id", Utils.getUserId(mActivity));
-        params.put("lang", GroomerPreference.getAPP_LANG(mActivity));
+        params.put("lang", Utils.getSelectedLanguage(mActivity));
         params.put("date", date);
         params.put("time", timeTextView.getText().toString());
         params.put("order_id", order_id);

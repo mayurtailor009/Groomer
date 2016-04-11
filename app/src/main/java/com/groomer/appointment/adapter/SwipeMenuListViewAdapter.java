@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.groomer.R;
 import com.groomer.model.ServiceDTO;
+import com.groomer.utillity.HelpMe;
 
 import java.util.List;
 
@@ -74,7 +75,13 @@ public class SwipeMenuListViewAdapter extends BaseAdapter {
 
         ServiceDTO servicesDTO = mList.get(position);
         holder.mServiceTime.setText("30 MIN");
-        holder.mServiceName.setText(servicesDTO.getName_eng());
+
+        if (HelpMe.isArabic(context)) {
+            holder.mServiceName.setText(servicesDTO.getName_ara());
+        } else {
+            holder.mServiceName.setText(servicesDTO.getName_eng());
+        }
+
         holder.mServicePrice.setText("SRA " + servicesDTO.getPrice());
 
         return convertView;

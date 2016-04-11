@@ -27,7 +27,7 @@
             android:name=".activity.ThemeTestActivity"
             android:label="@string/title_activity_splash"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeGreen"></activity>
+            android:theme="@style/AppThemeGreen" />
         <activity
             android:name=".login.LoginActivity"
             android:screenOrientation="portrait"
@@ -57,7 +57,8 @@
         <activity
             android:name=".vendordetails.ConfirmAppointmentActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".shareexperience.ShareExperienceActivity"></activity>
+        <activity android:name=".shareexperience.ShareExperienceActivity" />
+        <activity android:name=".vendordetails.FullScreenImageActivity"></activity>
     </application>
 
 </manifest>

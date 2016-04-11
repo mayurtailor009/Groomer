@@ -29,6 +29,7 @@ import com.groomer.reschedule.RescheduleDialogFragment;
 import com.groomer.shareexperience.ShareExperienceActivity;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.GroomerPreference;
+import com.groomer.utillity.HelpMe;
 import com.groomer.utillity.Utils;
 import com.groomer.vendordetails.VendorDetailsActivity;
 import com.groomer.volley.CustomJsonRequest;
@@ -147,10 +148,11 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         }
 
         AppointmentDTO mBean = appointsParentList.get(groupPosition);
-        if (GroomerPreference.getAPP_LANG(context).equals("eng")) {
-            gHolder.mUserName.setText(mBean.getStorename_eng());
-        } else {
+        if (HelpMe.isArabic(context)) {
             gHolder.mUserName.setText(mBean.getStorename_ara());
+        } else {
+            gHolder.mUserName.setText(mBean.getStorename_eng());
+
         }
         gHolder.address.setText(mBean.getAddress());
         gHolder.time.setText(mBean.getTime());
@@ -261,7 +263,7 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         HashMap<String, String> params = new HashMap<>();
         params.put("action", Constants.CANCEL_APPOINTMENT);
         params.put("user_id", Utils.getUserId(context));
-        params.put("lang", GroomerPreference.getAPP_LANG(context));
+        params.put("lang", Utils.getSelectedLanguage(context));
         params.put("order_id", orderID);
 
         final ProgressDialog pdialog = Utils.createProgressDialog(context, null, false);

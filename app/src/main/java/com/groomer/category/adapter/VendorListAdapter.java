@@ -81,8 +81,8 @@ public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.De
                 .build();
     }
 
-    public void setVendorsList(List<VendorListDTO> vendorList){
-        this.vendorsList=vendorList;
+    public void setVendorsList(List<VendorListDTO> vendorList) {
+        this.vendorsList = vendorList;
     }
 
     @Override
@@ -99,11 +99,12 @@ public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.De
         ImageLoader.getInstance().displayImage(vendorListDTO.getImage(), holder.thumbnail, options);
         if (HelpMe.isArabic(context)) {
             holder.txt_vendor_name.setText(vendorListDTO.getStorename_ara());
+            holder.txt_vendor_price_unit.setText(vendorListDTO.getCurrency_ara());
         } else {
             holder.txt_vendor_name.setText(vendorListDTO.getStorename_eng());
+            holder.txt_vendor_price_unit.setText(vendorListDTO.getCurrency());
         }
         holder.txt_vendor_price.setText(vendorListDTO.getPrice());
-        holder.txt_vendor_price_unit.setText(vendorListDTO.getCurrency());
         holder.txt_vendor_address.setText(vendorListDTO.getAddress());
         holder.txt_vendor_rating.setText(vendorListDTO.getRating());
         if (vendorListDTO.getFavourite().equalsIgnoreCase("1")) {

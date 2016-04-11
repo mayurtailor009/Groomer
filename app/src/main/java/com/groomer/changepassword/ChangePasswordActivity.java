@@ -65,7 +65,7 @@ public class ChangePasswordActivity extends BaseActivity {
                 params.put("password", getEditTextText(R.id.edt_new_password));
                 params.put("confirm_password", getEditTextText(R.id.edt_new_password));
                 params.put("current_pass", getEditTextText(R.id.edt_password));
-                params.put("lang", GroomerPreference.getAPP_LANG(mActivity));
+                params.put("lang", Utils.getSelectedLanguage(mActivity));
 
                 final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
                 CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constants.SERVICE_URL, params,

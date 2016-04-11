@@ -73,7 +73,7 @@ public class AppointmentFragment extends BaseFragment {
         HashMap<String, String> params = new HashMap<>();
         params.put("action", Constants.APPOINTMENTS);
         params.put("user_id", Utils.getUserId(mActivity));
-        params.put("lang", GroomerPreference.getAPP_LANG(mActivity));
+        params.put("lang", Utils.getSelectedLanguage(mActivity));
 
         final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
         CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,

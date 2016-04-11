@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.groomer.R;
 import com.groomer.model.ServiceDTO;
+import com.groomer.utillity.HelpMe;
 
 import java.util.List;
 
@@ -50,8 +51,13 @@ public class ServiceInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ServiceInfoHolder mHolder = (ServiceInfoHolder) holder;
         ServiceDTO servicesDTO = mList.get(position);
-        mHolder.mServiceTime.setText("30 MIN");
-        mHolder.mServiceName.setText(servicesDTO.getName_eng());
+        mHolder.mServiceTime.setText(servicesDTO.getDuration());
+        if (HelpMe.isArabic(context)) {
+            mHolder.mServiceName.setText(servicesDTO.getName_ara());
+        } else {
+            mHolder.mServiceName.setText(servicesDTO.getName_eng());
+        }
+
         mHolder.mServicePrice.setText("SRA " + servicesDTO.getPrice());
     }
 

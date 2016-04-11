@@ -28,6 +28,7 @@ import com.groomer.R;
 import com.groomer.fragments.BaseFragment;
 import com.groomer.model.CategoryDTO;
 import com.groomer.utillity.Constants;
+import com.groomer.utillity.HelpMe;
 import com.groomer.utillity.Utils;
 import com.groomer.volley.CustomJsonRequest;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -51,6 +52,7 @@ public class SaloonListFragment extends BaseFragment {
     View view;
     ListView listView;
     GridView gridView;
+    private Context mActivity;
 
 
     public static SaloonListFragment newInstance() {
@@ -64,6 +66,8 @@ public class SaloonListFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        mActivity = getActivity();
     }
 
     @Override
@@ -94,7 +98,7 @@ public class SaloonListFragment extends BaseFragment {
         if (Utils.isOnline(getActivity())) {
             Map<String, String> params = new HashMap<>();
             params.put("action", Constants.SALOON_LIST_METHOD);
-            params.put("lang", "eng");
+            params.put("lang", Utils.getSelectedLanguage(mActivity));
             final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constants.SERVICE_URL, params,
                     new Response.Listener<JSONObject>() {
@@ -219,7 +223,12 @@ public class SaloonListFragment extends BaseFragment {
                 holder = (ViewHolder) grid.getTag();
             }
 
-            holder.txtCategoryName.setText(categoryList.get(position).getName_eng());
+            if (HelpMe.isArabic(mContext)) {
+                holder.txtCategoryName.setText(categoryList.get(position).getName_ara());
+            } else {
+                holder.txtCategoryName.setText(categoryList.get(position).getName_eng());
+            }
+
             ImageLoader.getInstance().displayImage(categoryList.get(position).getImage(), holder.ivThumb,
                     options);
             if (position % 2 != 0)
@@ -293,7 +302,12 @@ public class SaloonListFragment extends BaseFragment {
                 holder = (ViewHolder) list.getTag();
             }
 
-            holder.txtCategoryName.setText(categoryList.get(position).getName_eng());
+            if (HelpMe.isArabic(mContext)) {
+                holder.txtCategoryName.setText(categoryList.get(position).getName_ara());
+            } else {
+                holder.txtCategoryName.setText(categoryList.get(position).getName_eng());
+            }
+
             holder.tvCount.setText(categoryList.get(position).getService_count());
             ImageLoader.getInstance().displayImage(categoryList.get(position).getImage(),
                     holder.ivThumb,

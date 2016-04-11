@@ -23,6 +23,7 @@ import com.groomer.volley.CustomJsonRequest;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class ShareExperienceActivity extends BaseActivity {
 
@@ -35,7 +36,7 @@ public class ShareExperienceActivity extends BaseActivity {
         setContentView(R.layout.activity_share_experience);
 
         setHeader(getString(R.string.share_title));
-        setLeftClick(R.drawable.back_btn,true);
+        setLeftClick(R.drawable.back_btn, true);
         setClick(R.id.share_exp_submitbtn);
 
         mActivity = this;
@@ -68,7 +69,7 @@ public class ShareExperienceActivity extends BaseActivity {
             params.put("action", Constants.ADD_REVIEW);
             params.put("user_id", Utils.getUserId(mActivity));
             params.put("store_id", getIntent().getStringExtra("store_id"));
-            params.put("lang", GroomerPreference.getAPP_LANG(mActivity));
+            params.put("lang", Utils.getSelectedLanguage(mActivity));
             params.put("rating", rating);
             params.put("review", getEditTextText(R.id.edt_write_something));
 

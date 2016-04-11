@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.groomer.R;
 import com.groomer.model.ServiceDTO;
+import com.groomer.utillity.HelpMe;
 import com.groomer.vendordetails.priceserviceinterface.PriceServiceInterface;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -84,7 +85,12 @@ public class ServicesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         mInterface = (PriceServiceInterface) context;
         final ServiceDTO servicesDTO = serviceDTOList.get(position);
         ImageLoader.getInstance().displayImage(servicesDTO.getImage(), mHolder.thumbnail, options);
-        mHolder.mServiceName.setText(servicesDTO.getName_eng());
+        if (HelpMe.isArabic(context)) {
+            mHolder.mServiceName.setText(servicesDTO.getName_ara());
+        } else {
+            mHolder.mServiceName.setText(servicesDTO.getName_eng());
+        }
+
         mHolder.mServicePrice.setText("SAR " + servicesDTO.getPrice());
         mHolder.mServiceTime.setText(servicesDTO.getDuration());
         if (serviceDTOList.get(position).isSelected()) {

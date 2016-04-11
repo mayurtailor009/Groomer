@@ -35,6 +35,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class FavouriteFragment extends BaseFragment {
@@ -91,7 +92,7 @@ public class FavouriteFragment extends BaseFragment {
             HashMap<String, String> params = new HashMap<>();
             params.put("action", Constants.FAVOURITE_LIST);
             params.put("user_id", Utils.getUserId(mActivity));
-            params.put("lang", "eng");
+            params.put("lang", Utils.getSelectedLanguage(mActivity));
 
             final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
             CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,

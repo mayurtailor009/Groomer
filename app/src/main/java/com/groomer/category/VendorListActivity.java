@@ -252,7 +252,7 @@ public class VendorListActivity extends BaseActivity {
             params.put("lng", "");
             params.put("user_id", Utils.getUserId(mActivity));
             params.put("category_id", categoryDTO.getId());
-            params.put("lang", "eng");
+            params.put("lang", Utils.getSelectedLanguage(mActivity));
             params.put("distance", distances);
 
             final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);

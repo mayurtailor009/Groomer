@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.groomer.R;
 import com.groomer.model.AppointServicesDTO;
 import com.groomer.utillity.GroomerPreference;
+import com.groomer.utillity.HelpMe;
 
 import java.util.List;
 
@@ -53,12 +54,12 @@ public class AppointListChildAdapter extends RecyclerView.Adapter<RecyclerView.V
         ServiceInfoHolder mHolder = (ServiceInfoHolder) holder;
         AppointServicesDTO servicesDTO = mList.get(position);
         mHolder.mServiceTime.setText(servicesDTO.getDuration() + " MIN");
-        if (GroomerPreference.getAPP_LANG(context).equals("eng")) {
-            mHolder.mServiceName.setText(servicesDTO.getService_name_eng());
-        } else {
+        if (HelpMe.isArabic(context)) {
             mHolder.mServiceName.setText(servicesDTO.getService_name_ara());
-        }
+        } else {
+            mHolder.mServiceName.setText(servicesDTO.getService_name_eng());
 
+        }
         mHolder.mServicePrice.setText("SRA " + servicesDTO.getPrice());
     }
 

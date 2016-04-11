@@ -5,12 +5,9 @@
     android:orientation="vertical">
 
 
-    <ImageView
-        android:id="@+id/image"
+    <include
+        layout="@layout/image_view_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop" />
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

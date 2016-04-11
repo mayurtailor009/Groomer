@@ -196,7 +196,7 @@ public class ConfirmAppointmentActivity extends BaseActivity implements
         HashMap<String, String> params = new HashMap<>();
         params.put("action", "confirm_appointment");
         params.put("user_id", Utils.getUserId(mActivity));
-        params.put("lang", "eng");
+        params.put("lang", Utils.getSelectedLanguage(mActivity));
         params.put("store_id", getIntent().getStringExtra("store_id"));
         params.put("services", getServices());
         params.put("date", date);

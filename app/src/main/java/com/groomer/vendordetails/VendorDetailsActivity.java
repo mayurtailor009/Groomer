@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -45,6 +46,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class VendorDetailsActivity extends BaseActivity implements PriceServiceInterface {
 
@@ -55,6 +59,10 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
     private SaloonDetailsDTO saloonDetailsDTO;
     private List<ServiceDTO> selectedList;
     private String totalPrice;
+    private static int currentPage = 0;
+    private static int NUM_PAGES = 0;
+    private ViewPager mPager;
+    private ArrayList<String> listImages;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,6 +86,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
 
         buttonSelected(true, false, false);
 
+        setClick(R.id.vendor_details_zoom);
         setTextColor(R.id.btn_services_tab, R.color.colorWhite);
         setTextColor(R.id.btn_about_tab, R.color.black);
         setTextColor(R.id.btn_reviews_tab, R.color.black);
@@ -90,7 +99,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
         params.put("lng", "" + GroomerPreference.getLongitude(mActivity));
         params.put("user_id", Utils.getUserId(mActivity));
         params.put("store_id", getIntent().getStringExtra("store_id"));
-        params.put("lang", GroomerPreference.getAPP_LANG(mActivity));
+        params.put("lang", Utils.getSelectedLanguage(mActivity));
 
         final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
         CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
@@ -183,10 +192,15 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
      * this method initializes the viewpager and set the images in it.
      */
     private void setUpViewPager() {
-        List<String> list = new ArrayList<>();
-        list.add(saloonDetailsDTO.getImage());
-        ViewPager mPager = (ViewPager) findViewById(R.id.vendor_details_viewpager);
-        mPager.setAdapter(new ViewPagerAdapter(mActivity, list));
+        listImages = new ArrayList<>();
+        listImages.add(saloonDetailsDTO.getImage());
+
+        for (int i = 0; i < saloonDetailsDTO.getImages().size(); i++) {
+            listImages.add(saloonDetailsDTO.getImages().get(i).getImage());
+        }
+
+        mPager = (ViewPager) findViewById(R.id.vendor_details_viewpager);
+        mPager.setAdapter(new ViewPagerAdapter(mActivity, listImages));
 
         CirclePageIndicator indicator = (CirclePageIndicator) findViewById(
                 R.id.vendor_details_viewpager_indicators);
@@ -194,6 +208,49 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
 
         final float density = getResources().getDisplayMetrics().density;
         indicator.setRadius(3 * density);
+
+        NUM_PAGES = listImages.size();
+
+        // Auto start of viewpager
+        final Handler handler = new Handler();
+        final Runnable Update = new Runnable() {
+            public void run() {
+                if (currentPage == NUM_PAGES) {
+                    currentPage = 0;
+                }
+                mPager.setCurrentItem(currentPage, true);
+                currentPage++;
+            }
+        };
+        Timer swipeTimer = new Timer();
+        swipeTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(Update);
+            }
+        }, 3000, 3000);
+
+        // Pager listener over indicator
+        indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            @Override
+            public void onPageSelected(int position) {
+                currentPage = position;
+
+            }
+
+            @Override
+            public void onPageScrolled(int pos, float arg1, int arg2) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int pos) {
+
+            }
+        });
+
+
     }
 
     private void displayFragment(int position) {
@@ -201,7 +258,6 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
         switch (position) {
             case 0:
                 buttonSelected(true, false, false);
-
                 setTextColor(R.id.btn_services_tab, R.color.colorWhite);
                 setTextColor(R.id.btn_about_tab, R.color.black);
                 setTextColor(R.id.btn_reviews_tab, R.color.black);
@@ -233,7 +289,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
         HashMap<String, String> params = new HashMap<>();
         params.put("action", Constants.REVIEWLIST);
         params.put("store_id", saloonDetailsDTO.getStore_id());
-        params.put("lang", GroomerPreference.getAPP_LANG(mActivity));
+        params.put("lang", Utils.getSelectedLanguage(mActivity));
 
         final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
         CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
@@ -349,6 +405,13 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                 intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
                 startActivity(intent);
                 break;
+
+            case R.id.vendor_details_zoom:
+                Intent i = new Intent(this, FullScreenImageActivity.class);
+                i.putExtra("images", listImages);
+                startActivity(i);
+
+                break;
         }
     }
 
@@ -390,7 +453,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
             params.put("user_id", Utils.getUserId(mActivity));
             params.put("store_id", storeID);
             params.put("status", status);
-            params.put("lang", "eng");
+            params.put("lang", Utils.getSelectedLanguage(mActivity));
 
             final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
             CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
