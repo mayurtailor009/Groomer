@@ -71,6 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
+                    android:foregroundGravity="left|bottom"
                     android:paddingLeft="@dimen/margin_10"
                     app:fillColor="@color/colorWhite"
                     app:pageColor="@color/divider_color" />
