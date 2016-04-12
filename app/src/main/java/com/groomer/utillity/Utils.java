@@ -197,7 +197,7 @@ public class Utils {
 
     public static boolean isFromDateGreater(String fromDate, String toDate) {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date date1 = sdf.parse(fromDate);
             Date date2 = sdf.parse(toDate);
             if (date2.after(date1)) {
@@ -211,9 +211,22 @@ public class Utils {
 
 
     public static String getCurrentDate() {
-        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         return dateFormat.format(date);
+    }
+
+
+    public static Date getDateFromString(String date) {
+        Date date1 = null;
+        try {
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+            date1 = dateFormat.parse(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return date1;
     }
 
     public static boolean isValidEmail(String email) {

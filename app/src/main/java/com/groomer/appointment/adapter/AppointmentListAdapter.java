@@ -60,9 +60,11 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         TextView dayNumber;
         TextView month;
         Button shareBtn;
+        TextView rating;
         LinearLayout addressLayout;
         LinearLayout timeLayout;
         LinearLayout dateLayout;
+        LinearLayout reviewLayout;
 
         public GroupViewHoler(View view) {
             mUserName = (TextView) view.findViewById(R.id.txt_appointed_user_name);
@@ -75,6 +77,9 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
             dayName = (TextView) view.findViewById(R.id.txt_day);
             dayNumber = (TextView) view.findViewById(R.id.txt_day_in_number);
             month = (TextView) view.findViewById(R.id.txt_month);
+            reviewLayout = (LinearLayout) view.findViewById(R.id.layout_rating_review);
+            rating = (TextView) view.findViewById(R.id.txt_user_rating);
+
         }
     }
 
@@ -159,18 +164,37 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         gHolder.address.setText(mBean.getAddress());
         gHolder.time.setText(mBean.getTime());
 
-        if (appointsParentList.get(groupPosition).getStatus().equals("3")) {
+        if (appointsParentList.get(groupPosition).getStatus().equals("2")) {
             gHolder.addressLayout.setVisibility(View.GONE);
             gHolder.timeLayout.setVisibility(View.GONE);
             gHolder.shareBtn.setVisibility(View.VISIBLE);
-            gHolder.dateLayout.setEnabled(false);
             performClickOnShareButton(gHolder.shareBtn, groupPosition);
         } else {
             gHolder.addressLayout.setVisibility(View.VISIBLE);
             gHolder.timeLayout.setVisibility(View.VISIBLE);
-            gHolder.dateLayout.setEnabled(true);
             gHolder.shareBtn.setVisibility(View.GONE);
         }
+
+        if (Utils.isFromDateGreater(appointsParentList.get(groupPosition).getDate(), Utils.getCurrentDate())) {
+            gHolder.dateLayout.setEnabled(false);
+            gHolder.dateLayout.setBackgroundColor(context.getResources().getColor(R.color.divider_color));
+
+        } else {
+            gHolder.dateLayout.setEnabled(true);
+            gHolder.dateLayout.setBackgroundColor(context.getResources().getColor(R.color.green));
+        }
+
+        if (mBean.getReview() != null) {
+            gHolder.reviewLayout.setVisibility(View.VISIBLE);
+            gHolder.addressLayout.setVisibility(View.GONE);
+            gHolder.timeLayout.setVisibility(View.GONE);
+            gHolder.shareBtn.setVisibility(View.GONE);
+            gHolder.rating.setText(mBean.getReview().getRating());
+
+        } else {
+            gHolder.reviewLayout.setVisibility(View.GONE);
+        }
+
 
         DateTime dateTime = DateTime.parse(mBean.getDate());
         gHolder.month.setText(dateTime.toString("MMM"));
@@ -287,8 +311,8 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
                                         notifyDataSetChanged();
                                     }
                                 }
-                                int count =  getGroupCount();
-                                for (int i = 0; i <count ; i++)
+                                int count = getGroupCount();
+                                for (int i = 0; i < count; i++)
                                     mExpandableListView.collapseGroup(i);
                             } catch (Exception e) {
                                 e.printStackTrace();

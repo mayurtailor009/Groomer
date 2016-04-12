@@ -3,6 +3,7 @@ package com.groomer.appointment;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,12 +55,20 @@ public class AppointmentFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_appointment, container, false);
-        mActivity = AppointmentFragment.this.getActivity();
+
+        return view;
+    }
+
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mActivity = getActivity();
         mExpandableListView = (ExpandableListView) view.findViewById(R.id.appointment_list);
 
         getAppointmentList();
 
-        return view;
+
     }
 
     private void setUpExpandableListVIew(List<AppointmentDTO> appointmentList) {

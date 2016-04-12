@@ -17,6 +17,7 @@ public class AppointmentDTO {
     private String image;
     private String status;
     private List<AppointServicesDTO> Service;
+    private ReviewDTO review;
 
     public String getDate() {
         return date;
@@ -96,5 +97,13 @@ public class AppointmentDTO {
 
     public void setService(List<AppointServicesDTO> service) {
         Service = service;
+    }
+
+    public ReviewDTO getReview() {
+        return review;
+    }
+
+    public void setReview(ReviewDTO review) {
+        this.review = review;
     }
 }

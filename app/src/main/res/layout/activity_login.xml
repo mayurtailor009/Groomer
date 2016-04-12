@@ -149,7 +149,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
-                android:layout_marginRight="10dp"
                 android:text="Forget Password ?"
                 android:textColor="@color/blue_light"
                 android:textSize="20sp" />
