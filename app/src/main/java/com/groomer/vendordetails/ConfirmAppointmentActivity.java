@@ -36,6 +36,9 @@ import com.groomer.volley.CustomJsonRequest;
 import org.joda.time.LocalDateTime;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -193,51 +196,55 @@ public class ConfirmAppointmentActivity extends BaseActivity implements
         String date = date_picker.getSelectedDay() + "-" + month + "-" + year;
         String amount = getAmount();
 
-        HashMap<String, String> params = new HashMap<>();
-        params.put("action", "confirm_appointment");
-        params.put("user_id", Utils.getUserId(mActivity));
-        params.put("lang", Utils.getSelectedLanguage(mActivity));
-        params.put("store_id", getIntent().getStringExtra("store_id"));
-        params.put("services", getServices());
-        params.put("date", date);
-        params.put("time", getViewText(R.id.txt_selected_time));
-        params.put("amount", amount);
 
-        final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
-        CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
-                Constants.SERVICE_URL, params,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.i("Groomer info", response.toString());
-                        pdialog.dismiss();
-                        try {
-                            if (Utils.getWebServiceStatus(response)) {
+        if (validateForm(date + " " + getViewText(R.id.txt_selected_time))) {
 
-                                finish();
-                                Intent intent = new Intent(mActivity, HomeActivity.class);
-                                intent.putExtra("fragmentNumber", 2);
-                                startActivity(intent);
+            HashMap<String, String> params = new HashMap<>();
+            params.put("action", "confirm_appointment");
+            params.put("user_id", Utils.getUserId(mActivity));
+            params.put("lang", Utils.getSelectedLanguage(mActivity));
+            params.put("store_id", getIntent().getStringExtra("store_id"));
+            params.put("services", getServices());
+            params.put("date", date);
+            params.put("time", getViewText(R.id.txt_selected_time));
+            params.put("amount", amount);
+
+            final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
+            CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
+                    Constants.SERVICE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.i("Groomer info", response.toString());
+                            pdialog.dismiss();
+                            try {
+                                if (Utils.getWebServiceStatus(response)) {
+
+                                    finish();
+                                    Intent intent = new Intent(mActivity, HomeActivity.class);
+                                    intent.putExtra("fragmentNumber", 2);
+                                    startActivity(intent);
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.i("Groomer info", error.toString());
+                            pdialog.dismiss();
+                            Utils.showExceptionDialog(mActivity);
                         }
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i("Groomer info", error.toString());
-                        pdialog.dismiss();
-                        Utils.showExceptionDialog(mActivity);
-                    }
-                }
-        );
+            );
 
-        pdialog.show();
-        GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
-        jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            pdialog.show();
+            GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
+            jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        }
     }
 
     /**
@@ -311,5 +318,28 @@ public class ConfirmAppointmentActivity extends BaseActivity implements
             amount = Double.valueOf(serviceDTOList.get(i).getPrice());
         }
         setViewText(R.id.confirm_appoint_txt_service_price, "SAR " + amount + "");
+    }
+
+
+    private boolean validateForm(String datetime) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm a");
+        try {
+            Date date = simpleDateFormat.parse(datetime);
+            Date currentDate = new Date();
+            String date1 = simpleDateFormat.format(currentDate);
+            Date date2 = simpleDateFormat.parse(date1);
+
+            if (date2.after(date)) {
+                Utils.showDialog(mActivity, "Message", "Please select valid date time");
+                return false;
+            }
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        return true;
     }
 }

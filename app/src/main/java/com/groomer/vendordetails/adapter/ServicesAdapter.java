@@ -144,12 +144,13 @@ public class ServicesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private void buttonSelected(boolean isSelected, Button btn) {
         if (isSelected) {
-            btn.setBackgroundColor(context.getResources().getColor(R.color.green));
-            btn.setTextColor(context.getResources().getColor(R.color.colorWhite));
-        } else {
             btn.setBackgroundColor(context.getResources().getColor(R.color.grey));
             btn.setTextColor(context.getResources().getColor(R.color.black));
 
+        } else {
+
+            btn.setBackgroundColor(context.getResources().getColor(R.color.green));
+            btn.setTextColor(context.getResources().getColor(R.color.colorWhite));
         }
     }
 
