@@ -71,7 +71,7 @@ public class AppointmentFragment extends BaseFragment {
 
     }
 
-    private void setUpExpandableListVIew(List<AppointmentDTO> appointmentList) {
+    private void setUpExpandableListVIew(final List<AppointmentDTO> appointmentList) {
         mExpandableListView.setChoiceMode(ExpandableListView.CHOICE_MODE_SINGLE);
         mExpandableListView.setAdapter(new AppointmentListAdapter(
                         this.getActivity(), appointmentList, mExpandableListView)
@@ -84,6 +84,9 @@ public class AppointmentFragment extends BaseFragment {
                 if (lastExpandedPosition != -1
                         && groupPosition != lastExpandedPosition) {
                     mExpandableListView.collapseGroup(lastExpandedPosition);
+                }
+                if (appointmentList.get(groupPosition).isPassedDateFlag()) {
+                    mExpandableListView.collapseGroup(groupPosition);
                 }
                 lastExpandedPosition = groupPosition;
             }

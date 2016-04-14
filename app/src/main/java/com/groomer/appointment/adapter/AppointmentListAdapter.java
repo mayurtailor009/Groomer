@@ -177,6 +177,7 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
 
         if (Utils.isFromDateGreater(appointsParentList.get(groupPosition).getDate(), Utils.getCurrentDate())) {
             gHolder.dateLayout.setEnabled(false);
+            mBean.setPassedDateFlag(true);
             gHolder.dateLayout.setBackgroundColor(context.getResources().getColor(R.color.divider_color));
 
         } else {

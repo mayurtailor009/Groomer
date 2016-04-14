@@ -2,9 +2,7 @@ package com.groomer.model;
 
 import java.util.List;
 
-/**
- * Created by Deepak Singh on 29-Mar-16.
- */
+
 public class AppointmentDTO {
 
     private String date;
@@ -16,8 +14,17 @@ public class AppointmentDTO {
     private String storename_eng;
     private String image;
     private String status;
+    private boolean passedDateFlag;
     private List<AppointServicesDTO> Service;
     private ReviewDTO review;
+
+    public boolean isPassedDateFlag() {
+        return passedDateFlag;
+    }
+
+    public void setPassedDateFlag(boolean passedDateFlag) {
+        this.passedDateFlag = passedDateFlag;
+    }
 
     public String getDate() {
         return date;
