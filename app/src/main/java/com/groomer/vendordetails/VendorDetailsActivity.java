@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -205,6 +206,10 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
 
         CirclePageIndicator indicator = (CirclePageIndicator) findViewById(
                 R.id.vendor_details_viewpager_indicators);
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)
+                indicator.getLayoutParams();
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        indicator.setLayoutParams(layoutParams);
         indicator.setViewPager(mPager);
 
         final float density = getResources().getDisplayMetrics().density;
