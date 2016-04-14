@@ -278,6 +278,8 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
                 Intent shareExperienceIntent = new Intent(context, ShareExperienceActivity.class);
                 shareExperienceIntent.putExtra("store_id",
                         appointsParentList.get(groupPosition).getStore_id());
+                shareExperienceIntent.putExtra("order_id",
+                        appointsParentList.get(groupPosition).getOrder_id());
                 context.startActivity(shareExperienceIntent);
             }
         });

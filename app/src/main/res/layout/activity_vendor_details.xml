@@ -72,6 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:paddingLeft="@dimen/margin_10"
+                    android:layout_centerVertical="true"
                     app:fillColor="@color/colorWhite"
                     app:pageColor="@color/divider_color" />
 

@@ -2,6 +2,7 @@ package com.groomer.vendordetails;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -30,6 +32,7 @@ import com.groomer.appointment.adapter.SwipeMenuListViewAdapter;
 import com.groomer.home.HomeActivity;
 import com.groomer.model.ServiceDTO;
 import com.groomer.utillity.Constants;
+import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.Utils;
 import com.groomer.volley.CustomJsonRequest;
 
@@ -89,7 +92,6 @@ public class ConfirmAppointmentActivity extends BaseActivity implements
     private void setUpRecyclerView() {
         date_picker = (Ranger) findViewById(R.id.date_picker);
         mRecyclerView = (SwipeMenuListView) findViewById(R.id.confirm_appoint_service_list);
-
         adapter = new SwipeMenuListViewAdapter(mActivity, serviceDTOList);
         createSwipeMenu();
         mRecyclerView.setAdapter(adapter);
@@ -154,7 +156,6 @@ public class ConfirmAppointmentActivity extends BaseActivity implements
 
 
     public static boolean setListViewHeightBasedOnItems(ListView listView) {
-
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter != null) {
 
@@ -174,7 +175,7 @@ public class ConfirmAppointmentActivity extends BaseActivity implements
 
             // Set list height.
             ViewGroup.LayoutParams params = listView.getLayoutParams();
-            params.height = totalItemsHeight + totalDividersHeight;
+            params.height = (totalItemsHeight + totalDividersHeight);
             listView.setLayoutParams(params);
             listView.requestLayout();
 

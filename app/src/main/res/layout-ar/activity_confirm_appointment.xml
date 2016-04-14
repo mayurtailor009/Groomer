@@ -28,10 +28,10 @@
                     android:id="@+id/confirm_appoint_txt_service_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="130  ريال"
-                    android:gravity="right"
                     android:layout_marginLeft="@dimen/margin_10"
                     android:layout_toRightOf="@+id/confirm_appoint_cross_button"
+                    android:gravity="right"
+                    android:text="130  ريال"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/textsize_15sp" />
 
@@ -72,8 +72,8 @@
                 android:id="@+id/confirm_appoint_service_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:dividerHeight="0dp"
                 android:layout_below="@id/confirm_appoint_servicedetailslayout" />
-
 
 
             <!-- select date text -->

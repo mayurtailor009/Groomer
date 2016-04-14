@@ -208,7 +208,11 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                 R.id.vendor_details_viewpager_indicators);
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)
                 indicator.getLayoutParams();
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        if (GroomerPreference.getAPP_LANG(mActivity).equals("eng")) {
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        } else {
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        }
         indicator.setLayoutParams(layoutParams);
         indicator.setViewPager(mPager);
 

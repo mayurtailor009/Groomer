@@ -63,7 +63,7 @@ public class SwipeMenuListViewAdapter extends BaseAdapter {
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(R.layout.layout_confirm_appoint_services_item,
-                    null);
+                    parent, false);
             holder = new ServiceHolder();
             holder.mServiceName = (TextView) convertView.findViewById(R.id.confirm_appoint_item_service_name);
             holder.mServicePrice = (TextView) convertView.findViewById(R.id.confirm_appoint_item_service_price);
@@ -74,7 +74,7 @@ public class SwipeMenuListViewAdapter extends BaseAdapter {
         }
 
         ServiceDTO servicesDTO = mList.get(position);
-        holder.mServiceTime.setText("30 MIN");
+        holder.mServiceTime.setText(servicesDTO.getDuration());
 
         if (HelpMe.isArabic(context)) {
             holder.mServiceName.setText(servicesDTO.getName_ara());

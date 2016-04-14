@@ -16,14 +16,12 @@ import com.groomer.GroomerApplication;
 import com.groomer.R;
 import com.groomer.activity.BaseActivity;
 import com.groomer.utillity.Constants;
-import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.Utils;
 import com.groomer.volley.CustomJsonRequest;
 
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class ShareExperienceActivity extends BaseActivity {
 
@@ -72,6 +70,7 @@ public class ShareExperienceActivity extends BaseActivity {
             params.put("lang", Utils.getSelectedLanguage(mActivity));
             params.put("rating", rating);
             params.put("review", getEditTextText(R.id.edt_write_something));
+            params.put("order_id", getIntent().getStringExtra("order_id"));
 
             final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
             CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,

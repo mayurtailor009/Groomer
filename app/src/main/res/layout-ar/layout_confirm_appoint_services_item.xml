@@ -29,8 +29,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@id/confirm_appoint_item_service_name"
-            android:gravity="left"
             android:text="دقيقة 30"
             android:textSize="@dimen/textsize_15sp" />
     </RelativeLayout>
@@ -38,7 +36,7 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_1"
+        android:layout_marginRight="@dimen/margin_1"
         android:layout_weight="0.3"
         android:background="@color/colorWhite"
         android:padding="@dimen/margin_15">

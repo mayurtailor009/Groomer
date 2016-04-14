@@ -69,6 +69,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:padding="@dimen/margin_10"
+                    android:layout_centerVertical="true"
                     android:foregroundGravity="right|bottom"
                     app:fillColor="@color/colorWhite"
                     app:pageColor="@color/divider_color" />
