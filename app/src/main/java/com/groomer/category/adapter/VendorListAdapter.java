@@ -105,7 +105,7 @@ public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.De
             holder.txt_vendor_price_unit.setText(vendorListDTO.getCurrency());
         }
         holder.txt_vendor_price.setText(vendorListDTO.getPrice());
-        holder.txt_vendor_address.setText(vendorListDTO.getAddress());
+        holder.txt_vendor_address.setText(vendorListDTO.getAddress() + " (" + vendorListDTO.getDistance() + " Km.)");
         holder.txt_vendor_rating.setText(vendorListDTO.getRating());
         if (vendorListDTO.getFavourite().equalsIgnoreCase("1")) {
             holder.img_fav.setImageResource(R.drawable.fav_active_icon);

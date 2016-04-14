@@ -74,7 +74,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
 
         mActivity = VendorDetailsActivity.this;
 
-        GPSTracker gpstracker= new GPSTracker(mActivity);
+        GPSTracker gpstracker = new GPSTracker(mActivity);
         getVendorDetails();
 
         //setting click operations on views
@@ -174,7 +174,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
         } else {
             setViewText(R.id.txt_vendor_name, saloonDetailsDTO.getStorename_eng());
         }
-        setViewText(R.id.txt_vendor_address, saloonDetailsDTO.getAddress());
+        setViewText(R.id.txt_vendor_address, saloonDetailsDTO.getAddress() + " (" + saloonDetailsDTO.getDistance() + ")");
 
         if (saloonDetailsDTO.getRating() != null && !saloonDetailsDTO.getRating().equalsIgnoreCase("")) {
             setViewText(R.id.btn_reviews_tab, "Reviews(" + saloonDetailsDTO.getRating() + ")");
