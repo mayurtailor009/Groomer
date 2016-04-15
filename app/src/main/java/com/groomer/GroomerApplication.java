@@ -16,13 +16,14 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
-
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
-import io.fabric.sdk.android.Fabric;
+
 import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by mayur.tailor on 10-03-2016.
@@ -30,7 +31,7 @@ import org.acra.annotation.ReportsCrashes;
  *
  */
 
-@ReportsCrashes(mailTo = "nickygupta02@gmail.com", // my email here
+@ReportsCrashes(mailTo = "mayur.tailor009@gmail.com", // my email here
         mode = ReportingInteractionMode.SILENT)
 public class GroomerApplication extends Application {
 

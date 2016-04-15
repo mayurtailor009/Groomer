@@ -35,7 +35,7 @@ public class ACRAReportSender implements ReportSender {
                 Intent.ACTION_SEND);
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Crash report");
         emailIntent.putExtra(Intent.EXTRA_EMAIL,
-                "dpk.gupta21@gmail.com" +
+                "mayur.tailor009@gmail.com" +
                         "");
         emailIntent.setType("plain/text");
         emailIntent.putExtra(Intent.EXTRA_TEXT,
