@@ -191,25 +191,21 @@ public class SaloonListFragment extends BaseFragment {
 
         @Override
         public int getCount() {
-            // TODO Auto-generated method stub
             return categoryList.size();
         }
 
         @Override
         public Object getItem(int position) {
-            // TODO Auto-generated method stub
             return categoryList.get(position);
         }
 
         @Override
         public long getItemId(int position) {
-            // TODO Auto-generated method stub
             return position;
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            // TODO Auto-generated method stub
             View grid = convertView;
             ViewHolder holder;
             if (convertView == null) {
@@ -275,19 +271,18 @@ public class SaloonListFragment extends BaseFragment {
 
         @Override
         public Object getItem(int position) {
-            // TODO Auto-generated method stub
+
             return categoryList.get(position);
         }
 
         @Override
         public long getItemId(int position) {
-            // TODO Auto-generated method stub
+
             return position;
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            // TODO Auto-generated method stub
             View list = convertView;
             ViewHolder holder;
             if (convertView == null) {

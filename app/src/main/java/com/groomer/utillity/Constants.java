@@ -17,6 +17,7 @@ public class Constants {
 
     public static String SERVICE_URL = "http://128.199.234.133/groomer/webservices";
     public static String LOGIN_METHOD = "login";
+    public static String SOCIAL_LOGIN_METHOD = "social_connect";
     public static String EDIT_PROFILE_METHOD = "editprofile";
     public static String SALOON_LIST_METHOD = "categorylist";
     public static String SIGN_UP_METHOD = "register";

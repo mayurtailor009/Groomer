@@ -27,14 +27,14 @@ public class BaseFragment extends Fragment implements OnClickListener, OnChecked
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
+
         super.onCreate(savedInstanceState);
 
     }
 
     @Override
     public void onStart() {
-        // TODO Auto-generated method stub
+
         super.onStart();
     }
 

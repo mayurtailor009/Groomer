@@ -30,7 +30,6 @@ public class BaseActivity extends AppCompatActivity implements OnClickListener,
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
 
         //Thread.setDefaultUncaughtExceptionHandler(new UnCaughtException(BaseFragment.this));

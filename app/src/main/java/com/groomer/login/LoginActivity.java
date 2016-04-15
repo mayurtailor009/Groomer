@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -16,6 +17,8 @@ import com.groomer.activity.BaseActivity;
 import com.groomer.gps.GPSTracker;
 import com.groomer.home.HomeActivity;
 import com.groomer.forgetpassword.ForgetpasswordActivity;
+import com.groomer.login.listener.OnFacebookLoginListener;
+import com.groomer.login.listener.OnTwitterLoginListener;
 import com.groomer.model.UserDTO;
 import com.groomer.signup.SignupActivity;
 import com.groomer.utillity.Constants;
@@ -28,16 +31,20 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements OnFacebookLoginListener, OnTwitterLoginListener {
 
+    private static final String TAG = "LoginActivity";
     private Activity mActivity;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        mActivity=this;
+        mActivity = this;
         init();
-        GPSTracker gpsTracker=new GPSTracker(mActivity);
+        FacebookLogin fbLogin = new FacebookLogin(mActivity);
+
+        GPSTracker gpsTracker = new GPSTracker(mActivity);
     }
 
     private void init() {
@@ -45,6 +52,7 @@ public class LoginActivity extends BaseActivity {
         setTouchNClick(R.id.btn_login);
         setClick(R.id.tv_forgotpassword);
         setClick(R.id.tv_signup);
+
     }
 
     @Override
@@ -74,8 +82,8 @@ public class LoginActivity extends BaseActivity {
                 params.put("password", getEditTextText(R.id.et_passowrd));
                 params.put("device", "android");
                 params.put("device_id", "abc");
-                params.put("lat", GroomerPreference.getLatitude(mActivity)+"");
-                params.put("lng", GroomerPreference.getLongitude(mActivity)+"");
+                params.put("lat", GroomerPreference.getLatitude(mActivity) + "");
+                params.put("lng", GroomerPreference.getLongitude(mActivity) + "");
                 params.put("address", "abc");
 
                 final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
@@ -135,5 +143,85 @@ public class LoginActivity extends BaseActivity {
             return false;
         }
         return true;
+    }
+
+
+    public void doSocialLogin(String socialType, String username, String socialId, String name) {
+        Utils.hideKeyboard(mActivity);
+
+        if (Utils.isOnline(mActivity)) {
+
+
+            Map<String, String> params = new HashMap<>();
+            params.put("action", Constants.SOCIAL_LOGIN_METHOD);
+            params.put("name", name);
+            params.put("email", username);
+            params.put("social_id", socialId);
+            params.put("device", "android");
+            params.put("social_type", socialType);
+            params.put("lat", name);
+            params.put("lng", username);
+            params.put("address", username);
+            params.put("device_id", GroomerPreference.
+                    getPushRegistrationId(mActivity.getApplicationContext()));
+
+            final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST,
+                    Constants.SERVICE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Utils.ShowLog(TAG, "Response -> " + response.toString());
+                            pdialog.dismiss();
+                            try {
+                                if (Utils.getWebServiceStatus(response)) {
+                                    UserDTO userDTO = new Gson().
+                                            fromJson(response.getJSONObject("user").toString(),
+                                                    UserDTO.class);
+                                    GroomerPreference.putObjectIntoPref(LoginActivity.this, userDTO, Constants.USER_INFO);
+
+                                    Intent intent = new Intent(mActivity, HomeActivity.class);
+                                    intent.putExtra("fragmentNumber", 0);
+                                    startActivity(intent);
+                                } else {
+                                    Utils.showDialog(mActivity, "Error",
+                                            Utils.getWebServiceMessage(response));
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pdialog.dismiss();
+                    Utils.showExceptionDialog(mActivity);
+                }
+            });
+            pdialog.show();
+
+            GroomerApplication.getInstance().getRequestQueue().add(postReq);
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                    30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        } else {
+            Utils.showNoNetworkDialog(mActivity);
+        }
+    }
+
+
+    @Override
+    public void successfullFbLogin(String socialType, String username,
+                                   String socialId, String name) {
+
+        doSocialLogin(socialType, username, socialId, name);
+    }
+
+    @Override
+    public void successfullTwitterLogin(String socialType, String username,
+                                        String socialId, String name) {
+        doSocialLogin(socialType, username, socialId, name);
     }
 }

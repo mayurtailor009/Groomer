@@ -17,6 +17,9 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import io.fabric.sdk.android.Fabric;
 import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
@@ -30,6 +33,11 @@ import org.acra.annotation.ReportsCrashes;
 @ReportsCrashes(mailTo = "nickygupta02@gmail.com", // my email here
         mode = ReportingInteractionMode.SILENT)
 public class GroomerApplication extends Application {
+
+    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
+    private static final String TWITTER_KEY = "oM20Zexbsp5w0vt8lDhIs6KdI";
+    private static final String TWITTER_SECRET = "CTa9roZVZE8hwvmsvrg7Z3ZfVBavmen0JfDEc38JCJ6GGJyvkJ";
+
     private RequestQueue mRequestQueue;
     public static final String TAG = "GroomerApplication";
     private static GroomerApplication mInstance;
@@ -40,6 +48,8 @@ public class GroomerApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        Fabric.with(this, new Twitter(authConfig));
 
         ACRA.init(this);
         mInstance = this;
