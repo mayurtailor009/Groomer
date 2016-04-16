@@ -73,7 +73,7 @@ public class TwitterLogin {
                 String username = session.getUserName();
 
                 ((OnTwitterLoginListener) mActivity).
-                        successfullFbLogin("twitter", username,
+                        successfullTwitterLogin("twitter", username,
                                 session.getId() + "", username);
 
 

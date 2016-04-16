@@ -2,8 +2,13 @@ package com.groomer.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.groomer.R;
 import com.groomer.home.HomeActivity;
@@ -14,6 +19,9 @@ import com.groomer.utillity.Constants;
 import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.HelpMe;
 import com.groomer.utillity.Utils;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class SplashActivity extends BaseActivity {
 
@@ -37,6 +45,7 @@ public class SplashActivity extends BaseActivity {
     private void init() {
         setClick(R.id.tv_signin);
         setClick(R.id.tv_signup);
+        showHashKey(mContext);
     }
 
     @Override
@@ -50,6 +59,27 @@ public class SplashActivity extends BaseActivity {
                 startActivity(new Intent(mContext, SignupActivity.class));
                 finish();
                 break;
+        }
+    }
+
+
+    public void showHashKey(Context context) {
+        try {
+            PackageInfo info = context.getPackageManager().getPackageInfo("groomer.com.groomer",
+                    PackageManager.GET_SIGNATURES);
+            for (android.content.pm.Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+
+                String sign = Base64.encodeToString(md.digest(), Base64.DEFAULT);
+                Log.e("KeyHash:", sign);
+                Toast.makeText(context, sign, Toast.LENGTH_LONG).show();
+            }
+            Log.d("KeyHash:", "****------------***");
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
         }
     }
 }

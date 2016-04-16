@@ -31,7 +31,7 @@ public class FacebookLogin {
 
     public FacebookLogin(Activity mActivity) {
         this.mActivity = mActivity;
-        FacebookSdk.sdkInitialize(mActivity.getApplicationContext());
+      //FacebookSdk.sdkInitialize(mActivity.getApplicationContext());
         initClick();
     }
 
@@ -41,7 +41,7 @@ public class FacebookLogin {
 
         img_facebook_login.setOnClickListener(imgFacebookClick);
 
-        setFbClick();
+      //  setFbClick();
     }
 
     View.OnClickListener imgFacebookClick = new View.OnClickListener() {

@@ -10,6 +10,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.facebook.FacebookSdk;
 import com.google.gson.Gson;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
@@ -39,10 +40,12 @@ public class LoginActivity extends BaseActivity implements OnFacebookLoginListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
         mActivity = this;
-        init();
         FacebookLogin fbLogin = new FacebookLogin(mActivity);
+        init();
+
 
         GPSTracker gpsTracker = new GPSTracker(mActivity);
     }
