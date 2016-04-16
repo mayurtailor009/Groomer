@@ -31,8 +31,8 @@ import org.json.JSONObject;
 public class TwitterLogin {
 
     private OnTwitterLoginListener twitterSelectInterface;
-    private static final String TWITTER_KEY = "0WzgEZ838raQlA7BPASXLgsub";
-    private static final String TWITTER_SECRET = "szOdlqn9obH0MEMaGnz2dTMMQXIdcbSQvtDcT7YkOjyALQKuEF";
+    private static final String TWITTER_KEY = "VyRK1ClF701OPxCqi9V9PXYLx";
+    private static final String TWITTER_SECRET = "UhsJQCA2FpXYnJ4hHGpYdXk7XgQmwIlGWCxsHJefI52GjevrII";
     private Activity mActivity;
     private TwitterLoginButton btnTwitterLogin;
     private TwitterSession session;

@@ -36,8 +36,8 @@ import io.fabric.sdk.android.Fabric;
 public class GroomerApplication extends Application {
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
-    private static final String TWITTER_KEY = "oM20Zexbsp5w0vt8lDhIs6KdI";
-    private static final String TWITTER_SECRET = "CTa9roZVZE8hwvmsvrg7Z3ZfVBavmen0JfDEc38JCJ6GGJyvkJ";
+    private static final String TWITTER_KEY = "VyRK1ClF701OPxCqi9V9PXYLx";
+    private static final String TWITTER_SECRET = "UhsJQCA2FpXYnJ4hHGpYdXk7XgQmwIlGWCxsHJefI52GjevrII";
 
     private RequestQueue mRequestQueue;
     public static final String TAG = "GroomerApplication";
