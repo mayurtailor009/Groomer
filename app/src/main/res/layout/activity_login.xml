@@ -80,12 +80,14 @@
                     android:textSize="20sp" />
 
 
-                <EditText
+                <com.groomer.customviews.CustomEditTextMarkNovaRegular
                     android:id="@+id/et_emailid"
                     style="@style/et_login_style"
                     android:layout_marginTop="5dp"
                     android:drawableRight="@drawable/email_field_icon"
                     android:hint="Enter Here" />
+
+
 
 
                 <com.groomer.customviews.CustomTextViewMarkNovaRegular
@@ -95,7 +97,7 @@
                     android:text="Password"
                     android:textSize="20sp" />
 
-                <EditText
+                <com.groomer.customviews.CustomEditTextMarkNovaRegular
                     android:id="@+id/et_passowrd"
                     style="@style/et_login_style"
                     android:layout_marginTop="5dp"

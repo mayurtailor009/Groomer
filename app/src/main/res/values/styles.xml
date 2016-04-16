@@ -135,7 +135,7 @@
     <style name="AppThemeWhite.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="et_login_style">
-        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:singleLine">true</item>
         <item name="android:paddingBottom">10dp</item>
