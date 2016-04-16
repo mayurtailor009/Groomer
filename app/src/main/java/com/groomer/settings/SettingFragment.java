@@ -163,10 +163,22 @@ public class SettingFragment extends BaseFragment {
         UserDTO userDTO = GroomerPreference.getObjectFromPref(mActivity, Constants.USER_INFO);
 
         setViewText(R.id.et_name, userDTO.getName_eng(), view);
-        setViewText(R.id.et_emailid, userDTO.getEmail(), view);
-        setViewText(R.id.et_mobile_no, userDTO.getMobile(), view);
-        setViewText(R.id.edt_dob, userDTO.getDob(), view);
-        setViewText(R.id.edt_gender, userDTO.getGender().equalsIgnoreCase("M")?"Male":"Female", view);
+        if (userDTO.getEmail() != null) {
+            setViewText(R.id.et_emailid, userDTO.getEmail(), view);
+        }
+
+        if (userDTO.getMobile() != null) {
+            setViewText(R.id.et_mobile_no, userDTO.getMobile(), view);
+        }
+        if (userDTO.getDob() != null) {
+            setViewText(R.id.edt_dob, userDTO.getDob(), view);
+
+        }
+
+        if (userDTO.getGender() != null) {
+            setViewText(R.id.edt_gender, userDTO.getGender().equalsIgnoreCase("M") ? "Male" : "Female", view);
+        }
+
         if (userDTO.getIs_location_service() != null) {
             swh_location.setChecked(userDTO.getIs_location_service().equals("1") ? true : false);
         }

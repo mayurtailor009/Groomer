@@ -40,14 +40,12 @@ public class TwitterLogin {
 
     public TwitterLogin(Activity mActivity) {
         this.mActivity = mActivity;
-        FacebookSdk.sdkInitialize(mActivity.getApplicationContext());
         initClick();
     }
 
     public void initClick() {
         ImageView img_twitter_login = (ImageView) mActivity.findViewById(R.id.img_twitter_login);
         btnTwitterLogin = (TwitterLoginButton) mActivity.findViewById(R.id.twitter_login_button);
-
         img_twitter_login.setOnClickListener(imgFacebookClick);
 
         setTwitterClick();
@@ -86,8 +84,6 @@ public class TwitterLogin {
         });
 
     }
-
-
 
 
 }

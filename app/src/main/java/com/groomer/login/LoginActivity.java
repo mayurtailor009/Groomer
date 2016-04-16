@@ -4,13 +4,22 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.gson.Gson;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
@@ -26,16 +35,27 @@ import com.groomer.utillity.Constants;
 import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.Utils;
 import com.groomer.volley.CustomJsonRequest;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginActivity extends BaseActivity implements OnFacebookLoginListener, OnTwitterLoginListener {
+public class LoginActivity extends BaseActivity {
 
     private static final String TAG = "LoginActivity";
     private Activity mActivity;
+    private LoginButton btnFbLogin;
+    private CallbackManager callbackmanager;
+    private static final String TWITTER_KEY = "0WzgEZ838raQlA7BPASXLgsub";
+    private static final String TWITTER_SECRET = "szOdlqn9obH0MEMaGnz2dTMMQXIdcbSQvtDcT7YkOjyALQKuEF";
+    private TwitterLoginButton btnTwitterLogin;
+    private TwitterSession session;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,10 +63,7 @@ public class LoginActivity extends BaseActivity implements OnFacebookLoginListen
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
         mActivity = this;
-        FacebookLogin fbLogin = new FacebookLogin(mActivity);
         init();
-
-
         GPSTracker gpsTracker = new GPSTracker(mActivity);
     }
 
@@ -55,6 +72,33 @@ public class LoginActivity extends BaseActivity implements OnFacebookLoginListen
         setTouchNClick(R.id.btn_login);
         setClick(R.id.tv_forgotpassword);
         setClick(R.id.tv_signup);
+        ImageView img_facebook_login = (ImageView) findViewById(R.id.img_facebook_login);
+        btnFbLogin = (LoginButton) findViewById(R.id.btnFb);
+        img_facebook_login.setOnClickListener(imgFacebookClick);
+        setFbClick();
+
+        ImageView img_twitter_login = (ImageView) findViewById(R.id.img_twitter_login);
+        btnTwitterLogin = (TwitterLoginButton) findViewById(R.id.twitter_login_button);
+        img_twitter_login.setOnClickListener(imgTwitterClick);
+
+        btnTwitterLogin.setCallback(new Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+
+                session = result.data;
+
+                String username = session.getUserName();
+                //Long userid = session.getUserId();
+                doSocialLogin("twitter", username, session.getId() + "", username);
+                //getEmailidFromTwitter();
+
+            }
+
+            @Override
+            public void failure(TwitterException exception) {
+                Log.d("TwitterKit", "Login with Twitter failure", exception);
+            }
+        });
 
     }
 
@@ -162,15 +206,14 @@ public class LoginActivity extends BaseActivity implements OnFacebookLoginListen
             params.put("social_id", socialId);
             params.put("device", "android");
             params.put("social_type", socialType);
-            params.put("lat", name);
-            params.put("lng", username);
+            params.put("lat", GroomerPreference.getLatitude(mActivity) + "");
+            params.put("lng", GroomerPreference.getLongitude(mActivity) + "");
             params.put("address", username);
             params.put("device_id", GroomerPreference.
                     getPushRegistrationId(mActivity.getApplicationContext()));
 
-            final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
-            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST,
-                    Constants.SERVICE_URL, params,
+            final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constants.SERVICE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
@@ -215,16 +258,94 @@ public class LoginActivity extends BaseActivity implements OnFacebookLoginListen
     }
 
 
-    @Override
-    public void successfullFbLogin(String socialType, String username,
-                                   String socialId, String name) {
+    private void setFbClick() {
+        callbackmanager = CallbackManager.Factory.create();
+        btnFbLogin.setReadPermissions("public_profile", "email", "user_birthday");
 
-        doSocialLogin(socialType, username, socialId, name);
+
+        btnFbLogin.registerCallback(callbackmanager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(final LoginResult loginResult) {
+                System.out.println("Success");
+                GraphRequest req = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject json,
+                                                    GraphResponse response) {
+                                if (response.getError() != null) {
+                                    // handle error
+                                    Log.i("info", "onCompleted Error.");
+                                } else {
+                                    System.out.println("Success");
+                                    //String jsonresult = String.valueOf(json);
+                                    try {
+
+                                        // ((OnFacebookLoginListener)mActivity).
+                                        //   successfullFbLogin("facebook", json.getString("email"),
+                                        //         json.getString("id"), json.getString("name"));
+
+                                        doSocialLogin("facebook", json.getString("email"), json.getString("id"), json.getString("name"));
+
+
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+//                                        Utils.sendEmail(getActivity(), "Error", e.getMessage());
+                                    }
+                                }
+                            }
+                        }
+
+                );
+                Bundle param = new Bundle();
+                //, gender, birthday, first_name, last_name, link
+                param.putString("fields", "id, name, email");
+                req.setParameters(param);
+                req.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d("", "");
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+                Log.d("", "");
+            }
+        });
     }
 
+
     @Override
-    public void successfullTwitterLogin(String socialType, String username,
-                                        String socialId, String name) {
-        doSocialLogin(socialType, username, socialId, name);
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //Intent i = new Intent(getContext(), HomeActivity.class);
+        // startActivity(i);
+        if (requestCode == 64206) {
+            callbackmanager.onActivityResult(requestCode, resultCode, data);
+        } else {
+            //
+            // btnTwitterLogin.onActivityResult(requestCode, resultCode, data);
+        }
     }
+
+
+    View.OnClickListener imgFacebookClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            btnFbLogin.performClick();
+            setFbClick();
+        }
+    };
+
+
+    View.OnClickListener imgTwitterClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            btnTwitterLogin.performClick();
+        }
+    };
+
+
 }
