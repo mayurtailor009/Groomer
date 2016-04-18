@@ -24,11 +24,9 @@ import com.google.gson.Gson;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
 import com.groomer.activity.BaseActivity;
+import com.groomer.forgetpassword.ForgetpasswordActivity;
 import com.groomer.gps.GPSTracker;
 import com.groomer.home.HomeActivity;
-import com.groomer.forgetpassword.ForgetpasswordActivity;
-import com.groomer.login.listener.OnFacebookLoginListener;
-import com.groomer.login.listener.OnTwitterLoginListener;
 import com.groomer.model.UserDTO;
 import com.groomer.signup.SignupActivity;
 import com.groomer.utillity.Constants;
@@ -52,8 +50,6 @@ public class LoginActivity extends BaseActivity {
     private Activity mActivity;
     private LoginButton btnFbLogin;
     private CallbackManager callbackmanager;
-    private static final String TWITTER_KEY = "VyRK1ClF701OPxCqi9V9PXYLx";
-    private static final String TWITTER_SECRET = "UhsJQCA2FpXYnJ4hHGpYdXk7XgQmwIlGWCxsHJefI52GjevrII";
     private TwitterLoginButton btnTwitterLogin;
     private TwitterSession session;
 
@@ -326,7 +322,7 @@ public class LoginActivity extends BaseActivity {
             callbackmanager.onActivityResult(requestCode, resultCode, data);
         } else {
             //
-            // btnTwitterLogin.onActivityResult(requestCode, resultCode, data);
+             btnTwitterLogin.onActivityResult(requestCode, resultCode, data);
         }
     }
 

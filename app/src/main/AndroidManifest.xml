@@ -76,9 +76,10 @@
             android:value="@string/facebook_app_id" />
 
         <!-- End Facebook -->
+
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="75ceb3d016bc093500e9fd37278f0a2f9dfb0cc3" />
+            android:value="76685a2e5e752d4c9a711ae1d14dd60226de714e" />
     </application>
 
 </manifest>
