@@ -13,6 +13,20 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+    <!-- For push Notification Permission -->
+
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <permission
+        android:name="com.groomer.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.groomer.permission.C2D_MESSAGE" />
+
+    <!-- This app has permission to register and receive data message. -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
     <application
         android:name=".GroomerApplication"
         android:allowBackup="true"
@@ -76,10 +90,30 @@
             android:value="@string/facebook_app_id" />
 
         <!-- End Facebook -->
-
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="76685a2e5e752d4c9a711ae1d14dd60226de714e" />
+            android:value="75ceb3d016bc093500e9fd37278f0a2f9dfb0cc3" />
+
+
+        <!-- Start Push Notification -->
+        <receiver
+            android:name="com.google.android.gcm.GCMBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+
+                <!-- Receives the actual messages. -->
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <!-- Receives the registration id. -->
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.groomer" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".GCMIntentService" />
+
+        <!-- End Push Notifiaction -->
+        
     </application>
 
 </manifest>
