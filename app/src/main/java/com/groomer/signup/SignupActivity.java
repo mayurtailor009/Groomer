@@ -73,7 +73,7 @@ public class SignupActivity extends BaseActivity {
                 params.put("gender", "M");
                 params.put("dob", "08/21/1989");
                 params.put("confirm_password", getEditTextText(R.id.et_passowrd));
-                params.put("device_id", "dsbsbdbsnbnksxkj");
+                params.put("device_id", GroomerPreference.getPushRegistrationId(mActivity));
                 params.put("lat", GroomerPreference.getLatitude(mActivity)+"");
                 params.put("lng", GroomerPreference.getLongitude(mActivity)+"");
                 params.put("image", "");

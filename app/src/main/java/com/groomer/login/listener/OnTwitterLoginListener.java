@@ -7,4 +7,5 @@ public interface OnTwitterLoginListener {
 
     public void successfullTwitterLogin(String socialType, String username,
                                    String socialId, String name);
+
 }

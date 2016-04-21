@@ -97,7 +97,6 @@ public class BaseFragment extends Fragment implements OnClickListener, OnChecked
 
     @Override
     public void onClick(View arg0) {
-        // TODO Auto-generated method stub
         Intent i = null;
         switch (arg0.getId()) {
 
@@ -279,7 +278,6 @@ public class BaseFragment extends Fragment implements OnClickListener, OnChecked
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        // TODO Auto-generated method stub
 
     }
 
@@ -292,19 +290,16 @@ public class BaseFragment extends Fragment implements OnClickListener, OnChecked
 
     @Override
     public void onDestroy() {
-        // TODO Auto-generated method stub
         super.onDestroy();
     }
 
     @Override
     public void onResume() {
-        // TODO Auto-generated method stub
         super.onResume();
     }
 
     @Override
     public void onPause() {
-        // TODO Auto-generated method stub
         super.onPause();
     }
 

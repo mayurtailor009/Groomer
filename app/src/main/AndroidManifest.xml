@@ -24,6 +24,7 @@
 
     <uses-permission android:name="com.groomer.permission.C2D_MESSAGE" />
 
+
     <!-- This app has permission to register and receive data message. -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 

@@ -10,9 +10,9 @@ public final class CommonUtilities {
     // "http://192.168.0.105/gcm/gcm.php?shareRegId=1";
 
     // Google project id
-    public static final String SENDER_ID = "groomer-1287";
+    public static final String SENDER_ID = "921049770663";
     //Api KEY
-    public static final String API_KEY = "AIzaSyAtqx1--xDu9SdIbhKHo0ck-H5drg3a094";
+    public static final String API_KEY = "AIzaSyCGw-YcRFJTyR0KCIXArsUcZ56VvQVPH7M";
     /**
      * Tag used on log messages.
      */

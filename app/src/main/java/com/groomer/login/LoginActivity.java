@@ -50,6 +50,8 @@ public class LoginActivity extends BaseActivity {
     private Activity mActivity;
     private LoginButton btnFbLogin;
     private CallbackManager callbackmanager;
+    private static final String TWITTER_KEY = "0WzgEZ838raQlA7BPASXLgsub";
+    private static final String TWITTER_SECRET = "szOdlqn9obH0MEMaGnz2dTMMQXIdcbSQvtDcT7YkOjyALQKuEF";
     private TwitterLoginButton btnTwitterLogin;
     private TwitterSession session;
 
@@ -124,7 +126,7 @@ public class LoginActivity extends BaseActivity {
                 params.put("email", getEditTextText(R.id.et_emailid));
                 params.put("password", getEditTextText(R.id.et_passowrd));
                 params.put("device", "android");
-                params.put("device_id", "abc");
+                params.put("device_id", GroomerPreference.getPushRegistrationId(mActivity));
                 params.put("lat", GroomerPreference.getLatitude(mActivity) + "");
                 params.put("lng", GroomerPreference.getLongitude(mActivity) + "");
                 params.put("address", "abc");
@@ -205,9 +207,9 @@ public class LoginActivity extends BaseActivity {
             params.put("lat", GroomerPreference.getLatitude(mActivity) + "");
             params.put("lng", GroomerPreference.getLongitude(mActivity) + "");
             params.put("address", username);
-//            params.put("device_id", GroomerPreference.
-//                    getPushRegistrationId(mActivity.getApplicationContext()));
-            params.put("device_id",socialId);
+            params.put("device_id", GroomerPreference.
+                    getPushRegistrationId(mActivity.getApplicationContext()));
+
             final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constants.SERVICE_URL, params,
                     new Response.Listener<JSONObject>() {
