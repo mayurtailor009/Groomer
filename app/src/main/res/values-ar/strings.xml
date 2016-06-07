@@ -3,18 +3,18 @@
 
     <string name="app_name">Groomer</string>
     <string name="app_name_capital">GROOMER</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">الإعدادات</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
 
     <!-- navigation drawer screen -->
-    <string name="menu_favorite">مفضل</string>
+    <string name="menu_favorite">المفضلة</string>
     <string name="menu_services">خدمات</string>
     <string name="menu_alerts">التنبيهات</string>
     <string name="menu_appointments">التعيينات</string>
-    <string name="menu_settings">إعدادات</string>
+    <string name="menu_settings">الإعدادات</string>
     <string name="menu_logout">خروج</string>
     <string name="txt_cancel">إلغاء</string>
     <string name="txt_reschedule">إعادة جدولة</string>
@@ -23,7 +23,7 @@
 
 
     <!-- login screen -->
-    <string name="txt_sign_up">سجل</string>
+    <string name="txt_sign_up">التسجيل</string>
     <string name="txt_sign_in">تسجيل الدخول</string>
     <string name="txt_password">كلمه السر</string>
     <string name="txt_login">تسجيل الدخول</string>
@@ -33,25 +33,25 @@
     <string name="txt_category">اختر الفئة</string>
 
     <!--Start For settings screen -->
-    <string name="txt_name">اسم</string>
+    <string name="txt_name">الإسم</string>
     <string name="txt_email">البريد الإلكتروني</string>
     <string name="txt_email_id">البريد الإلكتروني معرف</string>
     <string name="txt_mobile_no">رقم الجوال</string>
-    <string name="txt_location">موقع</string>
+    <string name="txt_location">الموقع</string>
     <string name="hint_enter_here">أدخل هنا</string>
     <string name="hint_email">john@gmail.com</string>
-    <string name="txt_change_language">غير اللغة</string>
+    <string name="txt_change_language">تغيير اللغة </string>
     <string name="txt_english">English</string>
     <string name="txt_arabic">العربية</string>
-    <string name="btn_text_save">Save</string>
-    <string name="txt_theme">Theme</string>
-    <string name="txt_dob">Dob</string>
+    <string name="btn_text_save">حفظ</string>
+    <string name="txt_theme">موضوع</string>
+    <string name="txt_dob">دوب</string>
     <string name="txt_hint_dob">dd-MM-yyy</string>
-    <string name="txt_gender">Gender</string>
+    <string name="txt_gender">جنس</string>
 
 
     <!-- start for Change password screen -->
-    <string name="change_password_header">تغيير كلمة السر</string>
+    <string name="change_password_header">تغيير كلمة المرور</string>
     <string name="new_password">كلمة السر الجديدة</string>
     <string name="confirm_password_lbl">تأكيد كلمة المرور</string>
     <string name="submit_btn">عرض</string>
@@ -59,10 +59,10 @@
     <!--END For Change password  screen -->
 
     <!-- start for Forget password screen -->
-    <string name="forget_password_header">Forget Password</string>
-    <string name="email_id">Email Id</string>
-    <string name="confirm_password">Confirm Password</string>
-    <string name="submit">Submit</string>
+    <string name="forget_password_header">نيت كلمة المرور؟</string>
+    <string name="email_id">البريد الإلكتروني</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
+    <string name="submit">إرسال</string>
     <!--END For Forget password  screen -->
 
 
@@ -92,7 +92,7 @@
     <string name="txt_timing">توقيت</string>
 
     <!-- appointment screen -->
-    <string name="share_experience">تجربتكم</string>
+    <string name="share_experience">شارك برأيك </string>
     <string name="share_title">حصة الخبرة</string>
     <string name="confirm">تأكيد</string>
 

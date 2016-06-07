@@ -90,8 +90,11 @@ public class SignupActivity extends BaseActivity {
                                     if (Utils.getWebServiceStatusByInt(response) == 1) {
 
                                         UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
-                                        Utils.putObjectIntoPref(SignupActivity.this, userDTO, Constants.USER_INFO);
-                                        startActivity(new Intent(SignupActivity.this, HomeActivity.class));
+                                        GroomerPreference.putObjectIntoPref(SignupActivity.this, userDTO, Constants.USER_INFO);
+                                        Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
+                                        intent.putExtra("fragmentNumber", 0);
+                                        startActivity(intent);
+
                                         finish();
                                     } else {
                                         Utils.showDialog(SignupActivity.this, "Error", Utils.getWebServiceMessage(response));

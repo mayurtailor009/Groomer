@@ -646,7 +646,7 @@ public class SettingFragment extends BaseFragment {
             Utils.showDialog(mActivity, "Message", "Please enter email id.");
             return false;
         } else if (getViewText(R.id.txt_country_code, view).equals("")) {
-            Utils.showDialog(mActivity, "Message", "Please select country code.");
+            Utils.showDialog(mActivity, "Message", "Please select c ountry code.");
             return false;
         } else if (getViewText(R.id.et_mobile_no, view).equals("")) {
             Utils.showDialog(mActivity, "Message", "Please enter mobile number.");

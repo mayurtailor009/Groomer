@@ -1,6 +1,8 @@
 package com.groomer.model;
 
-public class VendorListDTO {
+import java.io.Serializable;
+
+public class VendorListDTO implements Serializable {
     private String service_id;
     private String storename_eng;
     private String storename_ara;

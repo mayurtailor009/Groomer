@@ -21,12 +21,14 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
+import com.groomer.category.VendorListActivity;
 import com.groomer.category.adapter.VendorListAdapter;
 import com.groomer.fragments.BaseFragment;
 import com.groomer.home.HomeActivity;
 import com.groomer.model.VendorListDTO;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.Utils;
+import com.groomer.vendordetails.VendorDetailsActivity;
 import com.groomer.volley.CustomJsonRequest;
 
 import org.json.JSONObject;
@@ -157,6 +159,14 @@ public class FavouriteFragment extends BaseFragment {
                             addRemoveFromFavourite("1", vendorList.get(position).getStore_id());
 
                         }
+
+                        break;
+
+                    case R.id.thumbnail:
+
+                        Intent intent = new Intent(mActivity, VendorDetailsActivity.class);
+                        intent.putExtra("store_id", vendorList.get(position).getStore_id());
+                        mActivity.startActivity(intent);
 
                         break;
 

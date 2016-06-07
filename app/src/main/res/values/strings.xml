@@ -76,7 +76,8 @@
 
     <!--For vendor list screen and vendor details screen -->
     <string name="txt_vendor_name">Pretty Looks</string>
-    <string name="txt_vendor_address">21 Magon Street, Near Amazon Park (2 Km.)</string>
+    <string name="txt_vendor_address">21 Magon Street, Near Amazon Park , Hotel Marriotr Jaipur</string>
+    <string name="txt_vendor_distance">(2 Km.)</string>
     <string name="txt_vendor_price_unit">SAR</string>
     <string name="txt_start_from">Starts From</string>
     <string name="txt_about">About</string>
