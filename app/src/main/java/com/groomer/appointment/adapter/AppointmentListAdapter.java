@@ -26,7 +26,7 @@ import com.groomer.GroomerApplication;
 import com.groomer.R;
 import com.groomer.model.AppointServicesDTO;
 import com.groomer.model.AppointmentDTO;
-import com.groomer.reschedule.RescheduleDialogFragment;
+import com.groomer.reschedule.RescheduleDialogNewFragment;
 import com.groomer.shareexperience.ShareExperienceActivity;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.HelpMe;
@@ -251,7 +251,7 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         rescheduleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RescheduleDialogFragment dialog = RescheduleDialogFragment.getInstance();
+                RescheduleDialogNewFragment dialog = RescheduleDialogNewFragment.getInstance();
                 Bundle bundle = new Bundle();
                 bundle.putString("order_id", appointsParentList.get(groupPosition).getOrder_id());
                 dialog.setArguments(bundle);
