@@ -72,8 +72,8 @@
                 android:id="@+id/confirm_appoint_service_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:dividerHeight="0dp"
-                android:layout_below="@id/confirm_appoint_servicedetailslayout" />
+                android:layout_below="@id/confirm_appoint_servicedetailslayout"
+                android:dividerHeight="0dp" />
 
 
             <!-- select date text -->
@@ -82,125 +82,39 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/confirm_appoint_service_list"
-                android:gravity="right"
                 android:padding="@dimen/margin_15"
                 android:text="@string/txt_select_date"
                 android:textSize="@dimen/textsize_15sp" />
 
-            <LinearLayout
-                android:id="@+id/rangerlayout"
+            <com.groomer.customviews.CustomButtonMarkNovaRegular
+                android:id="@+id/btn_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/label_select_date"
-                android:background="@color/colorWhite"
-                android:orientation="horizontal"
+                android:layout_margin="@dimen/margin_10"
+                android:background="?attr/drawerBg"
                 android:padding="@dimen/margin_15"
-                android:weightSum="1">
-
-                <!-- back arrow icon -->
-                <ImageView
-                    android:id="@+id/ranger_back_arrow"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="0.1"
-                    android:src="@drawable/next_arrow" />
-
-                <!-- horizontal date picker -->
-                <com.andressantibanez.ranger.Ranger
-                    android:id="@+id/date_picker"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
-                    android:scrollbarSize="2dp"
-                    app:alwaysDisplayMonth="true"
-                    app:dayTextColor="@color/black"
-                    app:daysContainerBackgroundColor="@color/colorWhite"
-                    app:displayDayOfWeek="true"
-                    app:selectedDayBackgroundColor="@color/grid_color"
-                    app:selectedDayTextColor="@color/black" />
-
-                <!-- next arrow -->
-                <ImageView
-                    android:id="@+id/ranger_next_arrow"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="0.1"
-                    android:src="@drawable/back_arrow" />
-            </LinearLayout>
+                android:text="@string/btn_add_date" />
 
             <!-- label select time text -->
             <com.groomer.customviews.CustomTextViewMarkNovaExtrabold
                 android:id="@+id/label_select_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/rangerlayout"
-                android:gravity="right"
+                android:layout_below="@id/btn_date"
                 android:padding="@dimen/margin_15"
                 android:text="@string/txt_select_time"
                 android:textSize="@dimen/textsize_15sp" />
 
-            <LinearLayout
-                android:id="@+id/time_seekbar_parent_layout"
+            <com.groomer.customviews.CustomButtonMarkNovaRegular
+                android:id="@+id/btn_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/label_select_time"
-                android:background="@color/colorWhite"
-                android:orientation="vertical"
-                android:padding="@dimen/margin_15">
-
-                <LinearLayout
-                    android:id="@+id/time_seekbar_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
-
-                    <!-- day image icon -->
-                    <ImageView
-                        android:id="@+id/sun_image"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="0.1"
-                        android:src="@drawable/day_icon" />
-
-                    <!-- seekbar to choose time -->
-                    <SeekBar
-                        android:id="@+id/time_seekbar"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="0.8"
-                        android:max="24"
-                        android:maxHeight="@dimen/margin_12"
-                        android:minHeight="@dimen/margin_12"
-                        android:paddingLeft="@dimen/margin_20"
-                        android:paddingStart="@dimen/margin_20"
-                        android:progressDrawable="@drawable/gradient_dragger"
-                        android:splitTrack="false"
-                        android:thumb="@drawable/pointer_icon" />
-
-                    <!-- night image icon -->
-                    <ImageView
-                        android:id="@+id/night_image"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="0.1"
-                        android:src="@drawable/night_icon" />
-                </LinearLayout>
-
-                <!-- time selected from seekbar text -->
-                <com.groomer.customviews.CustomTextViewMarkNovaRegular
-                    android:id="@+id/txt_selected_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/margin_3"
-                    android:text="09:00 AM" />
-            </LinearLayout>
+                android:layout_margin="@dimen/margin_10"
+                android:background="?attr/drawerBg"
+                android:padding="@dimen/margin_15"
+                android:text="@string/btn_add_time" />
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
 
@@ -211,6 +125,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="@dimen/margin_5"
+        android:background="@drawable/def_selector"
+        android:enabled="false"
         android:padding="@dimen/margin_15"
         android:text="@string/txt_confirm_appointment" />
 </RelativeLayout>

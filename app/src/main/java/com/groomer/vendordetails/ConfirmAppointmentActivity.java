@@ -1,8 +1,9 @@
 package com.groomer.vendordetails;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,13 +11,13 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.SeekBar;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.andressantibanez.ranger.Ranger;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -32,29 +33,26 @@ import com.groomer.appointment.adapter.SwipeMenuListViewAdapter;
 import com.groomer.home.HomeActivity;
 import com.groomer.model.ServiceDTO;
 import com.groomer.utillity.Constants;
-import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.Utils;
 import com.groomer.volley.CustomJsonRequest;
 
-import org.joda.time.LocalDateTime;
 import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-public class ConfirmAppointmentActivity extends BaseActivity implements
-        SeekBar.OnSeekBarChangeListener, SwipeMenuListView.OnMenuItemClickListener {
+public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMenuListView.OnMenuItemClickListener {
 
     private SwipeMenuListView mRecyclerView;
-    private Ranger date_picker;
     private Activity mActivity;
-    private SeekBar timeSeekbar;
     private List<ServiceDTO> serviceDTOList;
     private SwipeMenuListViewAdapter adapter;
-
+    private int mYear, mMonth, mDay, mHour, mMinute;
+    private Button btnSubmit, btnDate, btnTime;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,15 +68,17 @@ public class ConfirmAppointmentActivity extends BaseActivity implements
      * initializes parameters of activity and sets the text as wanted.
      */
     private void init() {
-        timeSeekbar = (SeekBar) findViewById(R.id.time_seekbar);
-        timeSeekbar.setProgress(9);
-        timeSeekbar.setOnSeekBarChangeListener(this);
+
+        btnSubmit = (Button) findViewById(R.id.confirm_appointment_btn);
+        btnDate = (Button) findViewById(R.id.btn_date);
+        btnTime = (Button) findViewById(R.id.btn_time);
+
         serviceDTOList = (List<ServiceDTO>) getIntent()
                 .getSerializableExtra("serviceDTO");
 
         setClick(R.id.confirm_appoint_cross_button);
-        setClick(R.id.ranger_back_arrow);
-        setClick(R.id.ranger_next_arrow);
+        setClick(R.id.btn_date);
+        setClick(R.id.btn_time);
         setClick(R.id.confirm_appointment_btn);
 
         setViewText(R.id.confirm_appoint_txt_service_price,
@@ -90,7 +90,6 @@ public class ConfirmAppointmentActivity extends BaseActivity implements
     }
 
     private void setUpRecyclerView() {
-        date_picker = (Ranger) findViewById(R.id.date_picker);
         mRecyclerView = (SwipeMenuListView) findViewById(R.id.confirm_appoint_service_list);
         adapter = new SwipeMenuListViewAdapter(mActivity, serviceDTOList);
         createSwipeMenu();
@@ -138,15 +137,58 @@ public class ConfirmAppointmentActivity extends BaseActivity implements
 
     @Override
     public void onClick(View view) {
+        Calendar c = Calendar.getInstance();
         switch (view.getId()) {
             case R.id.confirm_appoint_cross_button:
                 finish();
                 break;
-            case R.id.ranger_back_arrow:
-                Utils.decreaseDate(date_picker);
+            case R.id.btn_time:
+
+                mHour = c.get(Calendar.HOUR_OF_DAY);
+                mMinute = c.get(Calendar.MINUTE);
+
+                // Launch Time Picker Dialog
+                TimePickerDialog timePickerDialog = new TimePickerDialog(ConfirmAppointmentActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay,
+                                                  int minute) {
+                                if(mDay!=0)
+                                    btnSubmit.setEnabled(true);
+                                String AM_PM ;
+                                if(hourOfDay < 12) {
+                                    AM_PM = "AM";
+                                } else {
+                                    AM_PM = "PM";
+                                }
+                                if(hourOfDay>11)
+                                    hourOfDay = hourOfDay-12;
+                                btnTime.setText(hourOfDay + ":" + (minute<10?"0"+minute:minute) +" "+AM_PM);
+                            }
+                        }, mHour, mMinute, false);
+                timePickerDialog.show();
                 break;
-            case R.id.ranger_next_arrow:
-                Utils.increaseDate(date_picker);
+            case R.id.btn_date:
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(ConfirmAppointmentActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                mMonth = monthOfYear; mDay = dayOfMonth; mYear = year;
+                                btnDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                                if(mHour!=0)
+                                    btnSubmit.setEnabled(true);
+
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
                 break;
             case R.id.confirm_appointment_btn:
                 confirmAppointment();
@@ -191,14 +233,8 @@ public class ConfirmAppointmentActivity extends BaseActivity implements
      * this method calls confirm appoint as you selected date and time.
      */
     private void confirmAppointment() {
-        LocalDateTime dateTime = new LocalDateTime();
-        int month = dateTime.getMonthOfYear();
-        int year = dateTime.getYear();
-        String date = date_picker.getSelectedDay() + "-" + month + "-" + year;
         String amount = getAmount();
-
-
-        if (validateForm(date + " " + getViewText(R.id.txt_selected_time))) {
+        if (validateForm(btnDate.getText().toString() + " " + btnTime.getText().toString())) {
 
             HashMap<String, String> params = new HashMap<>();
             params.put("action", "confirm_appointment");
@@ -206,8 +242,8 @@ public class ConfirmAppointmentActivity extends BaseActivity implements
             params.put("lang", Utils.getSelectedLanguage(mActivity));
             params.put("store_id", getIntent().getStringExtra("store_id"));
             params.put("services", getServices());
-            params.put("date", date);
-            params.put("time", getViewText(R.id.txt_selected_time));
+            params.put("date", btnDate.getText().toString());
+            params.put("time", btnTime.getText().toString());
             params.put("amount", amount);
 
             final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
@@ -273,28 +309,6 @@ public class ConfirmAppointmentActivity extends BaseActivity implements
             }
         }
         return services;
-    }
-
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        if (progress > 12) {
-            setViewText(R.id.txt_selected_time,
-                    (progress - 12) < 10 ? "0" + (progress - 12) + ":00 PM" : (progress - 12) + ":00 PM");
-        } else {
-            setViewText(R.id.txt_selected_time,
-                    progress < 10 ? "0" + progress + ":00 AM" : progress + ":00 AM");
-        }
-
-    }
-
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-
-    }
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-
     }
 
     @Override

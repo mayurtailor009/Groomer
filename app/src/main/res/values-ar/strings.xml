@@ -86,6 +86,8 @@
     <string name="txt_about">حول</string>
     <string name="txt_review">التعليقات</string>
     <string name="txt_start_from">يبدأ من</string>
+    <string name="btn_add_date">انقر هنا ل إضافة التاريخ</string>
+    <string name="btn_add_time">انقر هنا لإضافة الوقت</string>
 
     <!-- vendor details about tab screen -->
     <string name="txt_about_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac orci quis odilo bibendum mattis.</string>
