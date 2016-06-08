@@ -99,13 +99,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_5"
-                    android:weightSum="1">
+                    android:weightSum="10">
 
                     <com.groomer.customviews.CustomTextViewMarkNovaRegular
                         android:id="@+id/txt_vendor_address"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight=".6"
+                        android:layout_weight="7"
                         android:singleLine="true"
                         android:text="@string/txt_vendor_address"
                         android:textSize="12sp" />
@@ -115,8 +115,8 @@
                         android:id="@+id/txt_vendor_distance"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight=".2"
-                        android:gravity="left"
+                        android:layout_weight="1.3"
+                        android:gravity="center_horizontal"
                         android:text="@string/txt_vendor_distance"
                         android:textSize="12sp" />
 
@@ -125,7 +125,7 @@
                         android:id="@+id/txt_starts_from"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight=".2"
+                        android:layout_weight="1.7"
                         android:gravity="right"
                         android:text="@string/txt_start_from"
                         android:textSize="12sp" />

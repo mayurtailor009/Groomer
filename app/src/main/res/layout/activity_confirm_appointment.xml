@@ -42,18 +42,6 @@
                     android:text=""
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/textsize_15sp" />
-
-                <!-- service name text -->
-                <com.groomer.customviews.CustomTextViewMarkNovaThin
-                    android:id="@+id/confirm_appoint_txt_service_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/confirm_appoint_txt_service_name"
-                    android:layout_marginTop="@dimen/margin_3"
-                    android:text="@string/txt_vendor_address"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/textsize_15sp" />
-
                 <!-- cross button -->
                 <ImageView
                     android:id="@+id/confirm_appoint_cross_button"
@@ -63,6 +51,21 @@
                     android:layout_centerVertical="true"
                     android:src="@drawable/close_btn"
                     android:tint="@color/colorWhite" />
+
+                <!-- service name text -->
+                <com.groomer.customviews.CustomTextViewMarkNovaThin
+                    android:id="@+id/confirm_appoint_txt_service_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/confirm_appoint_txt_service_name"
+                    android:layout_marginRight="@dimen/margin_3"
+                    android:layout_marginTop="@dimen/margin_3"
+                    android:layout_toLeftOf="@id/confirm_appoint_cross_button"
+                    android:text="@string/txt_vendor_address"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/textsize_15sp" />
+
+
             </RelativeLayout>
 
             <com.baoyz.swipemenulistview.SwipeMenuListView

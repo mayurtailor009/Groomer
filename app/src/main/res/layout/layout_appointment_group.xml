@@ -9,8 +9,9 @@
     <!-- user appointed image and name layout -->
     <LinearLayout
         android:id="@+id/user_appointed_name_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/date_layout"
         android:orientation="horizontal">
         <!-- user appointed image -->
         <include
@@ -45,11 +46,12 @@
     <!-- address layout -->
     <LinearLayout
         android:id="@+id/appointed_user_address_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/user_appointed_name_layout"
         android:layout_marginLeft="@dimen/margin_10"
         android:layout_marginTop="@dimen/margin_3"
+        android:layout_toLeftOf="@+id/date_layout"
         android:orientation="horizontal">
 
         <!-- location green image -->
@@ -61,8 +63,9 @@
         <!-- address textview -->
         <com.groomer.customviews.CustomTextViewMarkNovaRegular
             android:id="@+id/txt_appointed_user_address"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/margin_10"
             android:text="7th Ave, Apt 12, NYC"
