@@ -37,6 +37,7 @@ import com.groomer.model.CategoryDTO;
 import com.groomer.model.VendorListDTO;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.GroomerPreference;
+import com.groomer.utillity.HelpMe;
 import com.groomer.utillity.Utils;
 import com.groomer.vendordetails.VendorDetailsActivity;
 import com.groomer.volley.CustomJsonRequest;
@@ -80,7 +81,7 @@ public class VendorListActivity extends BaseActivity {
 
             @Override
             public void onRefresh() {
-                getVendorsList(categoryDTO, "5");
+                getVendorsList(categoryDTO, categoryDTO.getId());
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -95,8 +96,12 @@ public class VendorListActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
 */
+        if (HelpMe.isArabic(this)) {
+            setHeader(categoryDTO.getName_ara());
+        } else {
+            setHeader(categoryDTO.getName_eng());
+        }
 
-        setHeader(categoryDTO.getName_eng());
 
         setLeftClick(R.drawable.back_btn, true);
 

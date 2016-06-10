@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -179,7 +178,8 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
 
 
         if (saloonDetailsDTO.getRating() != null && !saloonDetailsDTO.getRating().equalsIgnoreCase("")) {
-            setViewText(R.id.btn_reviews_tab, "Reviews(" + saloonDetailsDTO.getRating() + ")");
+            String strReview = getViewText(R.id.btn_reviews_tab);
+            setViewText(R.id.btn_reviews_tab, strReview+"(" + saloonDetailsDTO.getRating() + ")");
         }
 
         ImageView img_fav = (ImageView) findViewById(R.id.img_fav);

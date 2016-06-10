@@ -77,4 +77,6 @@ public class CategoryDTO implements Serializable {
     public void setModified(String modified) {
         this.modified = modified;
     }
+
+
 }

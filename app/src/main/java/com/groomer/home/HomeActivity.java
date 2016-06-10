@@ -83,6 +83,8 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void init() {
+
+        navigationView = (NavigationView) findViewById(R.id.navigationview);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open,
                 R.string.drawer_close);
@@ -136,7 +138,7 @@ public class HomeActivity extends BaseActivity {
             txt_name.setText(getResources().getString(R.string.navigation_menu_username));
         }
 
-        navigationView = (NavigationView) findViewById(R.id.navigationview);
+
         navigationView.setNavigationItemSelectedListener(new NavigationView
                 .OnNavigationItemSelectedListener() {
             @Override

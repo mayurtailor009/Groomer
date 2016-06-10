@@ -261,6 +261,9 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
                                     Intent intent = new Intent(mActivity, HomeActivity.class);
                                     intent.putExtra("fragmentNumber", 2);
                                     startActivity(intent);
+                                }else{
+                                    Toast.makeText(ConfirmAppointmentActivity.this,
+                                            Utils.getWebServiceMessage(response), Toast.LENGTH_LONG).show();
                                 }
                             } catch (Exception e) {
                                 e.printStackTrace();

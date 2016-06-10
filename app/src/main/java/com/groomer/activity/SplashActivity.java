@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.gcm.GCMRegistrar;
 import com.groomer.R;
@@ -27,8 +26,6 @@ import com.groomer.utillity.Utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-
 
 import static com.groomer.CommonUtilities.DISPLAY_MESSAGE_ACTION;
 import static com.groomer.CommonUtilities.EXTRA_MESSAGE;
@@ -84,7 +81,7 @@ public class SplashActivity extends BaseActivity {
 
     public void showHashKey(Context context) {
         try {
-            PackageInfo info = context.getPackageManager().getPackageInfo("groomer.com.groomer",
+            PackageInfo info = context.getPackageManager().getPackageInfo("com.groomer",
                     PackageManager.GET_SIGNATURES);
             for (android.content.pm.Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
