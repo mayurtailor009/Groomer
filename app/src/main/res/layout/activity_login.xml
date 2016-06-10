@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     tools:context=".login.LoginActivity">
@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_horizontal"
-                    android:text="SIGN IN"
+                    android:text="@string/txt_sign_in"
                     android:textColor="@color/blue_light"
                     android:textSize="20sp" />
 
@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_horizontal"
-                    android:text="SIGN UP"
+                    android:text="@string/txt_sign_up"
                     android:textColor="@color/blue_light"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -76,7 +76,7 @@
                 <com.groomer.customviews.CustomTextViewMarkNovaRegular
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Email ID"
+                    android:text="@string/email_id"
                     android:textSize="20sp" />
 
 
@@ -85,16 +85,14 @@
                     style="@style/et_login_style"
                     android:layout_marginTop="5dp"
                     android:drawableRight="@drawable/email_field_icon"
-                    android:hint="Enter Here" />
-
-
+                    android:hint="@string/hint_enter_here" />
 
 
                 <com.groomer.customviews.CustomTextViewMarkNovaRegular
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Password"
+                    android:text="@string/txt_password"
                     android:textSize="20sp" />
 
                 <com.groomer.customviews.CustomEditTextMarkNovaRegular
@@ -102,7 +100,7 @@
                     style="@style/et_login_style"
                     android:layout_marginTop="5dp"
                     android:drawableRight="@drawable/lock_field_icon"
-                    android:hint="Enter here"
+                    android:hint="@string/hint_enter_here"
                     android:inputType="textPassword"
                     android:typeface="monospace" />
 
@@ -112,7 +110,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="LOGIN" />
+                    android:text="@string/txt_login" />
 
 
             </LinearLayout>
@@ -168,7 +166,17 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
-                android:text="Forget Password ?"
+                android:text="@string/txt_forget_password"
+                android:textColor="@color/blue_light"
+                android:textSize="20sp" />
+
+            <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                android:id="@+id/tv_skip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:text="@string/txt_skip"
                 android:textColor="@color/blue_light"
                 android:textSize="20sp" />
         </LinearLayout>

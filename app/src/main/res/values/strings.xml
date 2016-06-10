@@ -19,6 +19,7 @@
     <string name="txt_reschedule">RESCHEDULE</string>
     <string name="txt_rebook">REBOOK</string>
     <string name="txt_submit">SUBMIT</string>
+    <string name="navigation_menu_username">Guest</string>
 
     <!-- End For navigation drawer-->
 
@@ -26,7 +27,9 @@
     <string name="txt_sign_up">SIGN UP</string>
     <string name="txt_sign_in">SIGN IN</string>
     <string name="txt_password">Password</string>
+    <string name="txt_forget_password">Forget Password?</string>
     <string name="txt_login">LOGIN</string>
+    <string name="txt_skip">Skip</string>
 
     <!-- start for categories -->
     <string name="txt_category">Select Category</string>

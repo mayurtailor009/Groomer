@@ -70,6 +70,8 @@ public class LoginActivity extends BaseActivity {
         setTouchNClick(R.id.btn_login);
         setClick(R.id.tv_forgotpassword);
         setClick(R.id.tv_signup);
+        setClick(R.id.tv_skip);
+
         ImageView img_facebook_login = (ImageView) findViewById(R.id.img_facebook_login);
         btnFbLogin = (LoginButton) findViewById(R.id.btnFb);
         img_facebook_login.setOnClickListener(imgFacebookClick);
@@ -112,6 +114,11 @@ public class LoginActivity extends BaseActivity {
             case R.id.tv_signup:
                 startActivity(new Intent(LoginActivity.this, SignupActivity.class));
                 finish();
+                break;
+            case R.id.tv_skip:
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                intent.putExtra("fragmentNumber", 0);
+                startActivity(intent);
                 break;
         }
     }

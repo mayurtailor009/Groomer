@@ -1,6 +1,7 @@
 package com.groomer.home;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Message;
@@ -126,9 +127,16 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void setUpNavigationViewItemClick() {
-        navigationView = (NavigationView) findViewById(R.id.navigationview);
-        setHeadersValues();
+        final UserDTO userDTO = GroomerPreference.getObjectFromPref(this, Constants.USER_INFO);
+        if (userDTO != null) {
+            setHeadersValues(userDTO);
+        } else {
+            View headerLayout = navigationView.getHeaderView(0);
+            TextView txt_name = (TextView) headerLayout.findViewById(R.id.nav_header_user_name);
+            txt_name.setText(getResources().getString(R.string.navigation_menu_username));
+        }
 
+        navigationView = (NavigationView) findViewById(R.id.navigationview);
         navigationView.setNavigationItemSelectedListener(new NavigationView
                 .OnNavigationItemSelectedListener() {
             @Override
@@ -136,10 +144,20 @@ public class HomeActivity extends BaseActivity {
                 drawerLayout.closeDrawer(GravityCompat.START);
                 switch (item.getItemId()) {
                     case R.id.nav_services:
+
                         displayFragment(0);
                         break;
                     case R.id.nav_alerts:
-                        displayFragment(1);
+                        if (userDTO != null) {
+                            displayFragment(1);
+                        } else {
+                            // TODO login dialog like exap for skip functionality
+//                            Utils.showDialog(mActivity,
+//                                    getString(R.string.message),
+//                                    getString(R.string.for_access_this_please_login),
+//                                    getString(R.string.tw__login_btn_txt), "Cancel", login);
+
+                        }
                         break;
                     case R.id.nav_appointments:
                         displayFragment(2);
@@ -169,6 +187,16 @@ public class HomeActivity extends BaseActivity {
                         getString(R.string.ok_button),
                         getString(R.string.canceled), "dblBtnCallbackResponse", 1000);
     }
+
+
+    DialogInterface.OnClickListener dialogLoginBtnClick = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            SessionManager.logoutUser(mActivity);
+
+        }
+    };
+
 
     /**
      * callback method of double button alert box.
@@ -276,9 +304,9 @@ public class HomeActivity extends BaseActivity {
         textView.setText(title);
     }*/
 
-    private void setHeadersValues() {
+    private void setHeadersValues(UserDTO userDTO) {
 
-        UserDTO userDTO = GroomerPreference.getObjectFromPref(this, Constants.USER_INFO);
+
         View headerLayout = navigationView.getHeaderView(0);
         TextView txt_name = (TextView) headerLayout.findViewById(R.id.nav_header_user_name);
         txt_name.setText(userDTO.getName_eng());
