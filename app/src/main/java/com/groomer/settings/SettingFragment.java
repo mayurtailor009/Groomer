@@ -162,30 +162,32 @@ public class SettingFragment extends BaseFragment {
     private void settingAllProfileValues() {
         UserDTO userDTO = GroomerPreference.getObjectFromPref(mActivity, Constants.USER_INFO);
 
-        setViewText(R.id.et_name, userDTO.getName_eng(), view);
-        if (userDTO.getEmail() != null) {
-            setViewText(R.id.et_emailid, userDTO.getEmail(), view);
-        }
+        if(userDTO!=null) {
+            setViewText(R.id.et_name, userDTO.getName_eng(), view);
+            if (userDTO.getEmail() != null) {
+                setViewText(R.id.et_emailid, userDTO.getEmail(), view);
+            }
 
-        if (userDTO.getMobile() != null) {
-            setViewText(R.id.et_mobile_no, userDTO.getMobile(), view);
-        }
-        if (userDTO.getDob() != null) {
-            setViewText(R.id.edt_dob, userDTO.getDob(), view);
+            if (userDTO.getMobile() != null) {
+                setViewText(R.id.et_mobile_no, userDTO.getMobile(), view);
+            }
+            if (userDTO.getDob() != null) {
+                setViewText(R.id.edt_dob, userDTO.getDob(), view);
 
-        }
+            }
 
-        if (userDTO.getGender() != null) {
-            setViewText(R.id.edt_gender, userDTO.getGender().equalsIgnoreCase("M") ? "Male" : "Female", view);
-        }
+            if (userDTO.getGender() != null) {
+                setViewText(R.id.edt_gender, userDTO.getGender().equalsIgnoreCase("M") ? "Male" : "Female", view);
+            }
 
-        if (userDTO.getIs_location_service() != null) {
-            swh_location.setChecked(userDTO.getIs_location_service().equals("1") ? true : false);
+            if (userDTO.getIs_location_service() != null) {
+                swh_location.setChecked(userDTO.getIs_location_service().equals("1") ? true : false);
+            }
+            if (userDTO.getCountry_code() != null) {
+                setViewText(R.id.txt_country_code, "+" + userDTO.getCountry_code(), view);
+            }
+            ImageLoader.getInstance().displayImage(userDTO.getImage(), ivProfile, options);
         }
-        if (userDTO.getCountry_code() != null) {
-            setViewText(R.id.txt_country_code, "+" + userDTO.getCountry_code(), view);
-        }
-        ImageLoader.getInstance().displayImage(userDTO.getImage(), ivProfile, options);
     }
 
 
