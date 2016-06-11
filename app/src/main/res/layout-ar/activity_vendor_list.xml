@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".category.VendorListActivity">
 
 
@@ -15,6 +16,11 @@
 
         <include layout="@layout/toolbar" />
     </LinearLayout>
+
+    <include
+        layout="@layout/filter"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
 
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -74,4 +80,4 @@
             android:splitTrack="false"
             android:thumb="@drawable/green_dragger" />
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

@@ -135,4 +135,15 @@
     <string name="server_unregister_error">Could not unregister device on Demo Server (%1$s).</string>
 
 
+
+
+    <string name="lbl_review">Review</string>
+    <string name="txt_low_to_high">ASC</string>
+    <string name="txt_high_to_low">DESC</string>
+    <string name="lbl_rating">Rating</string>
+    <string name="lbl_search">Search</string>
+    <string name="lbl_category">Category</string>
+    <string name="lbl_distance">Distance</string>
+    <string name="lbl_apply">Apply</string>
+    <string name="lbl_cancel">Cancel</string>
 </resources>

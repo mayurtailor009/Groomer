@@ -5,6 +5,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,8 +39,11 @@ import com.groomer.gps.GPSTracker;
 import com.groomer.model.CategoryDTO;
 import com.groomer.model.VendorListDTO;
 import com.groomer.utillity.Constants;
+import com.groomer.utillity.FetchPopUpSelectValue;
 import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.HelpMe;
+import com.groomer.utillity.PopUpFragment;
+import com.groomer.utillity.Theme;
 import com.groomer.utillity.Utils;
 import com.groomer.vendordetails.VendorDetailsActivity;
 import com.groomer.volley.CustomJsonRequest;
@@ -49,7 +55,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class VendorListActivity extends BaseActivity {
+public class VendorListActivity extends BaseActivity implements FetchPopUpSelectValue {
 
 
     private Context mActivity;
@@ -59,6 +65,14 @@ public class VendorListActivity extends BaseActivity {
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private CategoryDTO categoryDTO;
     private SeekBar distanceSeekBar;
+    private Button btnRatingAsc,
+            btnRatingDesc, btnReviewAsc, btnReviewDesc;
+    private LinearLayout llFilter;
+    private ArrayList<CategoryDTO> categoryList;
+
+    private String distance = "5";
+    private String review = "ASC";
+    private String rating = "ASC";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,21 +81,27 @@ public class VendorListActivity extends BaseActivity {
         setContentView(R.layout.activity_vendor_list);
 
         mActivity = VendorListActivity.this;
-        GPSTracker gpstracker= new GPSTracker(mActivity);
+        GPSTracker gpstracker = new GPSTracker(mActivity);
 
         categoryDTO = (CategoryDTO) getIntent().getExtras().getSerializable("dto");
+        categoryList = (ArrayList<CategoryDTO>) getIntent().getSerializableExtra("dtoList");
         init(categoryDTO);
 
 
-        getVendorsList(categoryDTO, "5");
+        getVendorsList(categoryDTO, distance, rating, review);
 
+        if (HelpMe.isArabic(mActivity)) {
+            setTextViewText(R.id.txt_category, categoryDTO.getName_ara());
+        } else {
+            setTextViewText(R.id.txt_category, categoryDTO.getName_eng());
+        }
         // Add pull to refresh functionality
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.active_swipe_refresh_layout);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
             @Override
             public void onRefresh() {
-                getVendorsList(categoryDTO, categoryDTO.getId());
+                getVendorsList(categoryDTO, distance, rating, review);
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -109,6 +129,22 @@ public class VendorListActivity extends BaseActivity {
 
         LinearLayoutManager llm = new LinearLayoutManager(mActivity);
         vendorRecyclerView.setLayoutManager(llm);
+        llFilter = (LinearLayout) findViewById(R.id.ll_filter);
+        btnRatingAsc = (Button) findViewById(R.id.btn_rating_asc);
+        btnRatingDesc = (Button) findViewById(R.id.btn_rating_desc);
+        btnReviewAsc = (Button) findViewById(R.id.btn_review_asc);
+        btnReviewDesc = (Button) findViewById(R.id.btn_review_desc);
+        btnRatingAsc.setSelected(true);
+        btnReviewAsc.setSelected(true);
+
+        setTouchNClick(R.id.btn_review_desc);
+        setTouchNClick(R.id.btn_review_asc);
+        setTouchNClick(R.id.btn_rating_desc);
+        setTouchNClick(R.id.btn_rating_asc);
+        setTouchNClick(R.id.btn_apply);
+        setTouchNClick(R.id.btn_cancel);
+        setTouchNClick(R.id.txt_category);
+
     }
 
     private void setUpListAdapter(final List<VendorListDTO> vendorList) {
@@ -203,43 +239,23 @@ public class VendorListActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_vendor_list, menu);
-        SearchManager searchManager = (SearchManager) mActivity.getSystemService(SEARCH_SERVICE);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setMaxWidth(Integer.MAX_VALUE);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                vendorListAdapter.getFilteredList(newText);
-                return true;
-            }
-        });
-        searchView.setQueryHint(Html.fromHtml("<font color = #d7e6f0>"
-                + "Search..." + "</font>"));
-        changeSearchViewTextColor(searchView);
         return true;
     }
 
-    private void changeSearchViewTextColor(View view) {
-        if (view != null) {
-            if (view instanceof TextView) {
-                ((TextView) view).setTextColor(Color.BLACK);
-                return;
-            } else if (view instanceof ViewGroup) {
-                ViewGroup viewGroup = (ViewGroup) view;
-                for (int i = 0; i < viewGroup.getChildCount(); i++) {
-                    changeSearchViewTextColor(viewGroup.getChildAt(i));
-                }
-            }
-        }
-    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                if (llFilter.getVisibility() == View.GONE)
+                    llFilter.setVisibility(View.VISIBLE);
+                else
+                    llFilter.setVisibility(View.GONE);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void onClick(View arg0) {
@@ -247,18 +263,65 @@ public class VendorListActivity extends BaseActivity {
             case R.id.hamburgur_img_icon:
                 finish();
                 break;
+
+            case R.id.btn_rating_asc:
+                btnRatingDesc.setSelected(false);
+                btnRatingAsc.setSelected(true);
+                rating = "ASC";
+                break;
+
+            case R.id.btn_rating_desc:
+                btnRatingDesc.setSelected(true);
+                btnRatingAsc.setSelected(false);
+                rating = "DESC";
+                break;
+
+            case R.id.btn_review_asc:
+                btnReviewDesc.setSelected(false);
+                btnReviewAsc.setSelected(true);
+                review = "ASC";
+                break;
+
+            case R.id.btn_review_desc:
+                btnReviewDesc.setSelected(true);
+                btnReviewAsc.setSelected(false);
+                review = "DESC";
+                break;
+
+            case R.id.btn_apply:
+                llFilter.setVisibility(View.GONE);
+                getVendorsList(categoryDTO, distance, rating, review);
+                break;
+
+            case R.id.btn_cancel:
+                llFilter.setVisibility(View.GONE);
+                break;
+            case R.id.txt_category:
+
+                PopUpFragment dialogFragment = new PopUpFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("popUpList", categoryList);
+                bundle.putString("title", "Select Category");
+                dialogFragment.setArguments(bundle);
+                dialogFragment.setFetchSelectedInterface(mActivity);
+                dialogFragment.show(getFragmentManager(), "");
+
+                break;
+
         }
     }
 
 
-    private void getVendorsList(CategoryDTO categoryDTO, String distances) {
+    private void getVendorsList(CategoryDTO categoryDTO, String distances, String rating, String review) {
         if (Utils.isOnline(mActivity)) {
             HashMap<String, String> params = new HashMap<>();
             params.put("action", Constants.VENDOR_LIST);
-            params.put("lat", GroomerPreference.getLatitude(mActivity)+"");
-            params.put("lng", GroomerPreference.getLongitude(mActivity)+"");
+            params.put("lat", GroomerPreference.getLatitude(mActivity) + "");
+            params.put("lng", GroomerPreference.getLongitude(mActivity) + "");
             params.put("user_id", Utils.getUserId(mActivity));
             params.put("category_id", categoryDTO.getId());
+            params.put("rating", rating);
+            params.put("review", review);
             params.put("lang", Utils.getSelectedLanguage(mActivity));
             params.put("distance", distances);
 
@@ -366,7 +429,7 @@ public class VendorListActivity extends BaseActivity {
 
             setTextViewText(R.id.txt_km, progress + " Km:");
 
-            getVendorsList(categoryDTO, progress + "");
+            distance = progress + "";
 
         }
 
@@ -382,4 +445,15 @@ public class VendorListActivity extends BaseActivity {
     };
 
 
+    @Override
+    public void selectedValue(int text, String tag) {
+
+
+        categoryDTO = categoryList.get(text);
+        if (HelpMe.isArabic(mActivity))
+            setTextViewText(R.id.txt_category, categoryDTO.getName_ara());
+        else
+            setTextViewText(R.id.txt_category, categoryDTO.getName_eng());
+
+    }
 }

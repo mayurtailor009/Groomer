@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".category.VendorListActivity">
 
@@ -15,6 +16,12 @@
 
         <include layout="@layout/toolbar" />
     </LinearLayout>
+
+    <include
+        layout="@layout/filter"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
 
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -31,50 +38,6 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <!-- kilometer seekbar layout -->
-    <LinearLayout
-        android:id="@+id/km_seekbar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="?attr/drawerBg"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/margin_5"
 
-        android:paddingRight="@dimen/margin_5"
-        android:visibility="gone">
 
-        <!-- within text -->
-        <com.groomer.customviews.CustomTextViewMarkNovaSemibold
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="Within"
-            android:textSize="@dimen/textsize_15sp" />
-
-        <!-- selected kilometers text -->
-        <com.groomer.customviews.CustomTextViewMarkNovaSemibold
-            android:id="@+id/txt_km"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/margin_5"
-            android:text="5 km:"
-            android:textColor="@color/colorWhite" />
-
-        <!-- seekbar to select kilometers -->
-        <SeekBar
-            android:id="@+id/seekbar_km"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/margin_10"
-            android:max="25"
-            android:maxHeight="@dimen/margin_1"
-            android:minHeight="@dimen/margin_1"
-            android:progressDrawable="@drawable/layerlist_km_seekbar"
-            android:splitTrack="false"
-            android:thumb="@drawable/green_dragger" />
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

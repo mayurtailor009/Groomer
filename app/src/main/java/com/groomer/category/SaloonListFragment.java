@@ -109,7 +109,7 @@ public class SaloonListFragment extends BaseFragment {
                                 Utils.ShowLog(Constants.TAG, "Response=>" + response.toString());
                                 Type type = new TypeToken<ArrayList<CategoryDTO>>() {
                                 }.getType();
-                                List<CategoryDTO> categoryList = new Gson().fromJson(response.getJSONArray("category").toString(), type);
+                                ArrayList<CategoryDTO> categoryList = new Gson().fromJson(response.getJSONArray("category").toString(), type);
                                 setAdapter(categoryList);
 
                             } catch (Exception e) {
@@ -132,7 +132,7 @@ public class SaloonListFragment extends BaseFragment {
     }
 
 
-    private void setAdapter(final List<CategoryDTO> categoryList) {
+    private void setAdapter(final ArrayList<CategoryDTO> categoryList) {
         GridAdapter gridAdapter = new GridAdapter(getActivity(), categoryList);
         gridView.setAdapter(gridAdapter);
 
@@ -141,6 +141,7 @@ public class SaloonListFragment extends BaseFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("dto", categoryList.get(position));
+                bundle.putSerializable("dtoList",categoryList);
                 Intent intent = new Intent(getActivity(), VendorListActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -157,6 +158,7 @@ public class SaloonListFragment extends BaseFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("dto", categoryList.get(position));
+                bundle.putSerializable("dtoList",categoryList);
                 Intent intent = new Intent(getActivity(), VendorListActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -168,10 +170,10 @@ public class SaloonListFragment extends BaseFragment {
     class GridAdapter extends BaseAdapter {
         private Context mContext;
         LayoutInflater inflater;
-        private List<CategoryDTO> categoryList;
+        private ArrayList<CategoryDTO> categoryList;
         private DisplayImageOptions options;
 
-        public GridAdapter(Context c, List<CategoryDTO> list) {
+        public GridAdapter(Context c, ArrayList<CategoryDTO> list) {
             mContext = c;
             inflater = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -242,10 +244,10 @@ public class SaloonListFragment extends BaseFragment {
     class ListAdapter extends BaseAdapter {
         private Context mContext;
         LayoutInflater inflater;
-        private List<CategoryDTO> categoryList;
+        private ArrayList<CategoryDTO> categoryList;
         private DisplayImageOptions options;
 
-        public ListAdapter(Context c, List<CategoryDTO> list) {
+        public ListAdapter(Context c, ArrayList<CategoryDTO> list) {
             mContext = c;
             inflater = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
