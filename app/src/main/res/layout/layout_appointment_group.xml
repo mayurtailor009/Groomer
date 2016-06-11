@@ -96,7 +96,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/margin_5"
             android:text="11:00 PM"
-            android:textColor="@color/light_green"
+            android:textColor="?attr/drawerBg"
             android:textSize="@dimen/textsize_12sp" />
     </LinearLayout>
 

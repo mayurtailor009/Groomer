@@ -30,6 +30,7 @@ import com.groomer.reschedule.RescheduleDialogNewFragment;
 import com.groomer.shareexperience.ShareExperienceActivity;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.HelpMe;
+import com.groomer.utillity.Theme;
 import com.groomer.utillity.Utils;
 import com.groomer.vendordetails.VendorDetailsActivity;
 import com.groomer.volley.CustomJsonRequest;
@@ -182,7 +183,16 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
 
         } else {
             gHolder.dateLayout.setEnabled(true);
-            gHolder.dateLayout.setBackgroundColor(context.getResources().getColor(R.color.green));
+            Theme theme = Utils.getObjectFromPref(context, Constants.CURRENT_THEME);
+
+            if (theme.equals(Theme.Blue)) {
+                gHolder.dateLayout.setBackgroundColor(context.getResources().getColor(R.color.blue_light));
+            } else if (theme.equals(Theme.Red)) {
+                gHolder.dateLayout.setBackgroundColor(context.getResources().getColor(R.color.red));
+            } else {
+                gHolder.dateLayout.setBackgroundColor(context.getResources().getColor(R.color.green));
+            }
+
         }
 
         if (mBean.getReview() != null) {

@@ -32,6 +32,7 @@ import com.groomer.utillity.Constants;
 import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.HelpMe;
 import com.groomer.utillity.SessionManager;
+import com.groomer.utillity.Theme;
 import com.groomer.utillity.Utils;
 import com.groomer.vendordetails.adapter.ViewPagerAdapter;
 import com.groomer.vendordetails.fragments.AboutFragment;
@@ -153,7 +154,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
         pdialog.show();
         GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
         jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         );
     }
 
@@ -344,7 +345,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                                 e.printStackTrace();
                                 Utils.showExceptionDialog(mActivity);
                             }
-                        }else{
+                        } else {
                             ReviewFragment fragment = ReviewFragment.newInstance();
                             Bundle reviewBundle = new Bundle();
                             reviewBundle.putSerializable("reviewList", reviewList);
@@ -466,25 +467,57 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
     private void buttonSelected(boolean servicesSelected,
                                 boolean aboutSelected,
                                 boolean reviewSelected) {
+
+
+        Theme theme = Utils.getObjectFromPref(mActivity, Constants.CURRENT_THEME);
         if (reviewSelected) {
-            findViewById(R.id.btn_reviews_tab).
-                    setBackgroundColor(getResources().getColor(R.color.green));
+
+            if (theme.equals(Theme.Blue)) {
+                findViewById(R.id.btn_reviews_tab).
+                        setBackgroundColor(getResources().getColor(R.color.blue_light));
+
+            } else if (theme.equals(Theme.Red)) {
+                findViewById(R.id.btn_reviews_tab).
+                        setBackgroundColor(getResources().getColor(R.color.red));
+            } else {
+                findViewById(R.id.btn_reviews_tab).
+                        setBackgroundColor(getResources().getColor(R.color.green));
+            }
         } else {
             findViewById(R.id.btn_reviews_tab).
                     setBackgroundColor(getResources().getColor(R.color.grey));
 
         }
         if (aboutSelected) {
-            findViewById(R.id.btn_about_tab).
-                    setBackgroundColor(getResources().getColor(R.color.green));
+
+            if (theme.equals(Theme.Blue)) {
+                findViewById(R.id.btn_about_tab).
+                        setBackgroundColor(getResources().getColor(R.color.blue_light));
+
+            } else if (theme.equals(Theme.Red)) {
+                findViewById(R.id.btn_about_tab).
+                        setBackgroundColor(getResources().getColor(R.color.red));
+            } else {
+                findViewById(R.id.btn_about_tab).
+                        setBackgroundColor(getResources().getColor(R.color.green));
+            }
 
         } else {
             findViewById(R.id.btn_about_tab).
                     setBackgroundColor(getResources().getColor(R.color.grey));
         }
         if (servicesSelected) {
-            findViewById(R.id.btn_services_tab).
-                    setBackgroundColor(getResources().getColor(R.color.green));
+            if (theme.equals(Theme.Blue)) {
+                findViewById(R.id.btn_services_tab).
+                        setBackgroundColor(getResources().getColor(R.color.blue_light));
+
+            } else if (theme.equals(Theme.Red)) {
+                findViewById(R.id.btn_services_tab).
+                        setBackgroundColor(getResources().getColor(R.color.red));
+            } else {
+                findViewById(R.id.btn_services_tab).
+                        setBackgroundColor(getResources().getColor(R.color.green));
+            }
 
         } else {
             findViewById(R.id.btn_services_tab).

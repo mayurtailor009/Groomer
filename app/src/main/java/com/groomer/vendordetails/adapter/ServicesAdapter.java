@@ -14,8 +14,10 @@ import android.widget.TextView;
 
 import com.groomer.R;
 import com.groomer.model.ServiceDTO;
+import com.groomer.utillity.Constants;
 import com.groomer.utillity.HelpMe;
 import com.groomer.utillity.SessionManager;
+import com.groomer.utillity.Theme;
 import com.groomer.utillity.Utils;
 import com.groomer.vendordetails.priceserviceinterface.PriceServiceInterface;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -170,7 +172,18 @@ public class ServicesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             btn.setTextColor(context.getResources().getColor(R.color.black));
 
         } else {
-            btn.setBackgroundColor(context.getResources().getColor(R.color.green));
+            Theme theme = Utils.getObjectFromPref(context, Constants.CURRENT_THEME);
+
+            if (theme.equals(Theme.Red)) {
+                btn.setBackgroundColor(context.getResources().getColor(R.color.red));
+
+            } else if (theme.equals(Theme.Blue)) {
+                btn.setBackgroundColor(context.getResources().getColor(R.color.blue_light));
+            } else {
+                btn.setBackgroundColor(context.getResources().getColor(R.color.green));
+            }
+
+
             btn.setTextColor(context.getResources().getColor(R.color.colorWhite));
         }
     }
