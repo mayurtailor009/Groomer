@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 
 import com.andressantibanez.ranger.Ranger;
+import com.groomer.R;
 import com.groomer.model.UserDTO;
 
 import org.joda.time.LocalDateTime;
@@ -380,12 +381,21 @@ public class Utils {
         }
     }
 
+    public static boolean IsSkipLogin(Activity mActivity) {
+        final UserDTO userDTO = GroomerPreference.getObjectFromPref(mActivity, Constants.USER_INFO);
+        if (userDTO != null) {
+            return false;
+        } else
+            return true;
+
+    }
 
     /**
      * this method first checks for the month and do the increament in date
      * according to the days in the current month. if month is february then it will check for
      * that the current year is leap year or not.
      */
+
     public static void increaseDate(Ranger date_picker) {
         LocalDateTime dateTime = new LocalDateTime();
         int i = dateTime.getMonthOfYear();

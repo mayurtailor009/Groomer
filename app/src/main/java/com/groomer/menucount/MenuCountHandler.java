@@ -78,7 +78,7 @@ public class MenuCountHandler implements Runnable {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    // CustomProgressDialog.hideProgressDialog();
+                     //CustomProgressDialog.hideProgressDialog();
                     // Utils.showExceptionDialog(mActivity);
                     //setUpMenu();
                     //       CustomProgressDialog.hideProgressDialog();

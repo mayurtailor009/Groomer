@@ -132,11 +132,11 @@ public class LoginActivity extends BaseActivity {
                 params.put("action", Constants.LOGIN_METHOD);
                 params.put("email", getEditTextText(R.id.et_emailid));
                 params.put("password", getEditTextText(R.id.et_passowrd));
-                params.put("device", "android");
+                params.put("device", "Android");
                 params.put("device_id", GroomerPreference.getPushRegistrationId(mActivity));
                 params.put("lat", GroomerPreference.getLatitude(mActivity) + "");
                 params.put("lng", GroomerPreference.getLongitude(mActivity) + "");
-                params.put("address", "abc");
+                params.put("address", "");
 
                 final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
                 CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constants.SERVICE_URL, params,

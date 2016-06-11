@@ -35,7 +35,7 @@ public class ChangePasswordActivity extends BaseActivity {
 
     private void init() {
         setLeftClick(R.drawable.back_btn, true);
-        setHeader("Change Password");
+        setHeader(getString(R.string.change_password_header));
         setTouchNClick(R.id.btn_changepassword);
     }
 

@@ -1,28 +1,22 @@
 package com.groomer.category;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
-import android.app.SearchManager;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -43,7 +37,7 @@ import com.groomer.utillity.FetchPopUpSelectValue;
 import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.HelpMe;
 import com.groomer.utillity.PopUpFragment;
-import com.groomer.utillity.Theme;
+import com.groomer.utillity.SessionManager;
 import com.groomer.utillity.Utils;
 import com.groomer.vendordetails.VendorDetailsActivity;
 import com.groomer.volley.CustomJsonRequest;
@@ -58,7 +52,7 @@ import java.util.List;
 public class VendorListActivity extends BaseActivity implements FetchPopUpSelectValue {
 
 
-    private Context mActivity;
+    private Activity mActivity;
     private List<VendorListDTO> vendorList;
     private RecyclerView vendorRecyclerView;
     private VendorListAdapter vendorListAdapter;
@@ -192,16 +186,22 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
                         break;
 
                     case R.id.img_fav:
-
-                        if (vendorList.get(position).getFavourite().equalsIgnoreCase("1")) {
-
-                            addRemoveFromFavourite("0", vendorList.get(position).getStore_id(), position);
-
+                        if (Utils.IsSkipLogin(mActivity)) {
+                            Utils.showDialog(mActivity,
+                                    getString(R.string.message_title),
+                                    getString(R.string.for_access_this_please_login),
+                                    getString(R.string.txt_login),
+                                    getString(R.string.canceled), login);
                         } else {
-                            addRemoveFromFavourite("1", vendorList.get(position).getStore_id(), position);
+                            if (vendorList.get(position).getFavourite().equalsIgnoreCase("1")) {
 
+                                addRemoveFromFavourite("0", vendorList.get(position).getStore_id(), position);
+
+                            } else {
+                                addRemoveFromFavourite("1", vendorList.get(position).getStore_id(), position);
+
+                            }
                         }
-
                         break;
 
 
@@ -210,6 +210,14 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
         });
 
     }
+
+    DialogInterface.OnClickListener login = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            SessionManager.logoutUser(mActivity);
+            ;
+        }
+    };
 
 
     public void showErrorTextAnimation(final int id) {

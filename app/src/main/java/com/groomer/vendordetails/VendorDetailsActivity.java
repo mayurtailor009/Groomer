@@ -2,6 +2,7 @@ package com.groomer.vendordetails;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import com.groomer.model.ServiceDTO;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.HelpMe;
+import com.groomer.utillity.SessionManager;
 import com.groomer.utillity.Utils;
 import com.groomer.vendordetails.adapter.ViewPagerAdapter;
 import com.groomer.vendordetails.fragments.AboutFragment;
@@ -151,7 +153,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
         pdialog.show();
         GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
         jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         );
     }
 
@@ -179,7 +181,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
 
         if (saloonDetailsDTO.getRating() != null && !saloonDetailsDTO.getRating().equalsIgnoreCase("")) {
             String strReview = getViewText(R.id.btn_reviews_tab);
-            setViewText(R.id.btn_reviews_tab, strReview+"(" + saloonDetailsDTO.getRating() + ")");
+            setViewText(R.id.btn_reviews_tab, strReview + "(" + saloonDetailsDTO.getRating() + ")");
         }
 
         ImageView img_fav = (ImageView) findViewById(R.id.img_fav);
@@ -342,6 +344,16 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                                 e.printStackTrace();
                                 Utils.showExceptionDialog(mActivity);
                             }
+                        }else{
+                            ReviewFragment fragment = ReviewFragment.newInstance();
+                            Bundle reviewBundle = new Bundle();
+                            reviewBundle.putSerializable("reviewList", reviewList);
+                            fragment.setArguments(reviewBundle);
+
+                            getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.vendor_details_container, fragment)
+                                    .commit();
                         }
                     }
                 },
@@ -389,26 +401,42 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                 setTextColor(R.id.btn_services_tab, R.color.black);
                 break;
             case R.id.btn_set_appointment:
-                if (selectedList != null && selectedList.size() > 0) {
-                    Intent intent = new Intent(mActivity, ConfirmAppointmentActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("serviceDTO", (Serializable) selectedList);
-                    intent.putExtras(bundle);
-                    intent.putExtra("saloonName", saloonDetailsDTO.getStorename_eng());
-                    intent.putExtra("saloonAddress", saloonDetailsDTO.getAddress());
-                    intent.putExtra("totalPrice", totalPrice);
-                    intent.putExtra("store_id", getIntent().getStringExtra("store_id"));
-                    mActivity.startActivity(intent);
+                if (Utils.IsSkipLogin(mActivity)) {
+                    Utils.showDialog(mActivity,
+                            getString(R.string.message_title),
+                            getString(R.string.for_access_this_please_login),
+                            getString(R.string.txt_login),
+                            getString(R.string.canceled), login);
                 } else {
-                    Toast.makeText(mActivity, "Select atleast one service.", Toast.LENGTH_SHORT).show();
+                    if (selectedList != null && selectedList.size() > 0) {
+                        Intent intent = new Intent(mActivity, ConfirmAppointmentActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("serviceDTO", (Serializable) selectedList);
+                        intent.putExtras(bundle);
+                        intent.putExtra("saloonName", saloonDetailsDTO.getStorename_eng());
+                        intent.putExtra("saloonAddress", saloonDetailsDTO.getAddress());
+                        intent.putExtra("totalPrice", totalPrice);
+                        intent.putExtra("store_id", getIntent().getStringExtra("store_id"));
+                        mActivity.startActivity(intent);
+                    } else {
+                        Toast.makeText(mActivity, "Select atleast one service.", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 break;
 
             case R.id.img_fav:
-                if (saloonDetailsDTO.getFavourite().equalsIgnoreCase("1")) {
-                    addRemoveFromFavourite("0", saloonDetailsDTO.getStore_id());
+                if (Utils.IsSkipLogin(mActivity)) {
+                    Utils.showDialog(mActivity,
+                            getString(R.string.message_title),
+                            getString(R.string.for_access_this_please_login),
+                            getString(R.string.txt_login),
+                            getString(R.string.canceled), login);
                 } else {
-                    addRemoveFromFavourite("1", saloonDetailsDTO.getStore_id());
+                    if (saloonDetailsDTO.getFavourite().equalsIgnoreCase("1")) {
+                        addRemoveFromFavourite("0", saloonDetailsDTO.getStore_id());
+                    } else {
+                        addRemoveFromFavourite("1", saloonDetailsDTO.getStore_id());
+                    }
                 }
 
                 break;
@@ -542,7 +570,8 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
     public void getServiceCount(String serviceCount) {
         if (!GroomerPreference.getAPP_LANG(mActivity).equals("ara")) {
             setViewText(R.id.service_count, serviceCount
-                    + (serviceCount.equals("1") ? " Service" : " Services"));
+                    + (serviceCount.equals("1") ? " " + getString(R.string.txt_service) :
+                    " " + getString(R.string.txt_services)));
         } else {
             setViewText(R.id.service_count, " خدمات " + serviceCount);
         }
@@ -561,6 +590,16 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
         }
 
         setViewText(R.id.service_count, selectedList.size() +
-                (selectedList.size() == 1 ? " Service" : " Services"));
+                (selectedList.size() == 1 ? " " + getString(R.string.txt_service) :
+                        " " + getString(R.string.txt_services)));
     }
+
+    DialogInterface.OnClickListener login = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            SessionManager.logoutUser(mActivity);
+            ;
+        }
+    };
+
 }

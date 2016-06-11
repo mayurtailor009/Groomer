@@ -86,8 +86,11 @@ public class HomeActivity extends BaseActivity {
 
         navigationView = (NavigationView) findViewById(R.id.navigationview);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open,
                 R.string.drawer_close);
+
         drawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
@@ -99,6 +102,7 @@ public class HomeActivity extends BaseActivity {
             public void onDrawerOpened(View drawerView) {
                 new Thread(new MenuCountHandler(menuHandler,
                         HomeActivity.this)).start();
+
             }
 
             @Override
@@ -111,7 +115,6 @@ public class HomeActivity extends BaseActivity {
 
             }
         });
-
 
         options = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
@@ -132,10 +135,19 @@ public class HomeActivity extends BaseActivity {
         final UserDTO userDTO = GroomerPreference.getObjectFromPref(this, Constants.USER_INFO);
         if (userDTO != null) {
             setHeadersValues(userDTO);
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+            // enable home button click navigation
+
+            getSupportActionBar().setHomeButtonEnabled(true);
+
         } else {
             View headerLayout = navigationView.getHeaderView(0);
             TextView txt_name = (TextView) headerLayout.findViewById(R.id.nav_header_user_name);
             txt_name.setText(getResources().getString(R.string.navigation_menu_username));
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+
+            getSupportActionBar().setHomeButtonEnabled(false);
         }
 
 
@@ -146,20 +158,10 @@ public class HomeActivity extends BaseActivity {
                 drawerLayout.closeDrawer(GravityCompat.START);
                 switch (item.getItemId()) {
                     case R.id.nav_services:
-
                         displayFragment(0);
                         break;
                     case R.id.nav_alerts:
-                        if (userDTO != null) {
-                            displayFragment(1);
-                        } else {
-                            // TODO login dialog like exap for skip functionality
-//                            Utils.showDialog(mActivity,
-//                                    getString(R.string.message),
-//                                    getString(R.string.for_access_this_please_login),
-//                                    getString(R.string.tw__login_btn_txt), "Cancel", login);
-
-                        }
+                        displayFragment(1);
                         break;
                     case R.id.nav_appointments:
                         displayFragment(2);
@@ -236,9 +238,9 @@ public class HomeActivity extends BaseActivity {
     public void changeMenuCount(MenuDTO menuDto) {
 
 
-        setMenuCounter(R.id.nav_alerts, Integer.parseInt(menuDto.getAlert()));
-        setMenuCounter(R.id.nav_appointments, Integer.parseInt(menuDto.getAppointment()));
-        setMenuCounter(R.id.nav_favourite, Integer.parseInt(menuDto.getFavorite()));
+        setMenuCounter(R.id.nav_alerts, menuDto.getAlert());
+        setMenuCounter(R.id.nav_appointments, menuDto.getAppointment());
+        setMenuCounter(R.id.nav_favourite, menuDto.getFavorite());
         //TODO
         // Set menu count
 //        menuListAdapter.setAlertCount(menuDTO.getAlert());
@@ -311,17 +313,19 @@ public class HomeActivity extends BaseActivity {
 
         View headerLayout = navigationView.getHeaderView(0);
         TextView txt_name = (TextView) headerLayout.findViewById(R.id.nav_header_user_name);
-        txt_name.setText(userDTO.getName_eng());
+        txt_name.setText(userDTO.getName_eng() + " ");
 
         StringBuffer stringBuffer = new StringBuffer();
         if (userDTO.getGender() != null && !userDTO.getGender().equalsIgnoreCase("")) {
             stringBuffer.append(userDTO.getGender());
         }
-        if (userDTO.getAge() != null && !userDTO.getAge().equalsIgnoreCase("")) {
-            stringBuffer.append(" " + userDTO.getAge());
+        if (userDTO.getAge() != null && !userDTO.getAge().equalsIgnoreCase("")
+                && !userDTO.getAge().equalsIgnoreCase("0")) {
+            stringBuffer.append(userDTO.getAge());
         }
         if (userDTO.getIs_location_service() != null
-                && !userDTO.getIs_location_service().equalsIgnoreCase("")) {
+                && !userDTO.getIs_location_service().equalsIgnoreCase("")
+                && !userDTO.getIs_location_service().equalsIgnoreCase("0")) {
             if (!stringBuffer.equals("")) {
                 stringBuffer.append(" | ");
             }
@@ -341,8 +345,10 @@ public class HomeActivity extends BaseActivity {
 
 
     private void setMenuCounter(@IdRes int itemId, int count) {
-        TextView view = (TextView) navigationView.getMenu().findItem(itemId).getActionView();
-        view.setText(String.valueOf(count));
+        if (count != 0) {
+            TextView view = (TextView) navigationView.getMenu().findItem(itemId).getActionView();
+            view.setText(String.valueOf(count));
+        }
     }
 
 }

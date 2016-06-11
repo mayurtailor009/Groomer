@@ -55,10 +55,14 @@ public class ReviewFragment extends BaseFragment {
     private void setUpRecycler() {
         mReviewList = (RecyclerView) view.findViewById(R.id.vendor_review_list);
         mReviewList.setLayoutManager(new LinearLayoutManager(mActivity));
-        if (getReviewsList() != null) {
+        List<ReviewDTO> reviewDTOList = getReviewsList();
+        if (reviewDTOList != null && reviewDTOList.size() != 0) {
+            mReviewList.setVisibility(View.VISIBLE);
+            setViewVisibility(R.id.txt_no_data_found, view, View.GONE);
             mReviewList.setAdapter(new ReviewsAdapter(mActivity, getReviewsList()));
         } else {
-            Toast.makeText(mActivity, "List is empty.", Toast.LENGTH_SHORT).show();
+            mReviewList.setVisibility(View.INVISIBLE);
+            setViewVisibility(R.id.txt_no_data_found, view, View.VISIBLE);
         }
     }
 

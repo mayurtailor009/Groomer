@@ -42,7 +42,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:padding="@dimen/margin_10"
-                        android:src="@drawable/next_arrow"
+                        android:src="@drawable/back_arrow"
                         android:tint="@color/colorWhite" />
 
                     <!-- zoom button -->
@@ -68,9 +68,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:padding="@dimen/margin_10"
                     android:layout_centerVertical="true"
                     android:foregroundGravity="right|bottom"
+                    android:padding="@dimen/margin_10"
                     app:fillColor="@color/colorWhite"
                     app:pageColor="@color/divider_color" />
 
@@ -91,10 +91,17 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/margin_10">
 
+            <ImageView
+                android:id="@+id/directions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/root_icon" />
             <!-- vendor name and address details layout -->
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/directions"
                 android:layout_alignParentRight="true">
 
                 <!-- vendor name -->
@@ -112,26 +119,26 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_below="@id/txt_vendor_name"
-                    android:weightSum="1"
-                    android:layout_marginTop="@dimen/margin_3">
+                    android:layout_marginTop="@dimen/margin_3"
+                    android:weightSum="1">
 
                     <com.groomer.customviews.CustomTextViewMarkNovaRegular
                         android:id="@+id/txt_vendor_address"
                         android:layout_width="0dp"
-                        android:layout_weight=".8"
                         android:layout_height="wrap_content"
+                        android:layout_weight=".8"
+                        android:singleLine="false"
                         android:text="@string/txt_vendor_address"
-                        android:singleLine="true"
                         android:textSize="12sp" />
 
                     <com.groomer.customviews.CustomTextViewMarkNovaRegular
                         android:id="@+id/txt_vendor_distance"
                         android:layout_width="0dp"
-                        android:layout_weight=".2"
                         android:layout_height="wrap_content"
-                        android:text="@string/txt_vendor_distance"
-                        android:singleLine="true"
+                        android:layout_weight=".2"
                         android:gravity="right"
+                        android:singleLine="true"
+                        android:text="@string/txt_vendor_distance"
                         android:textSize="12sp" />
 
                 </LinearLayout>
@@ -139,12 +146,7 @@
             </RelativeLayout>
 
             <!-- root icon -->
-            <ImageView
-                android:id="@+id/directions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:src="@drawable/root_icon" />
+
         </RelativeLayout>
 
         <!-- tabs for vendor's details -->
@@ -233,6 +235,7 @@
                 android:textColor="@color/colorWhite"
                 android:textSize="15sp" />
 
+
             <!-- services seleted -->
             <com.groomer.customviews.CustomTextViewMarkNovaRegular
                 android:id="@+id/service_count"
@@ -245,13 +248,17 @@
                 android:textSize="15sp" />
         </LinearLayout>
 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/black" />
         <!-- set appointment button -->
         <Button
             android:id="@+id/btn_set_appointment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.4"
-            android:background="@color/dark_green"
+            android:background="?attr/drawerBg"
             android:gravity="center"
             android:padding="@dimen/margin_10"
             android:text="@string/set_appointment"

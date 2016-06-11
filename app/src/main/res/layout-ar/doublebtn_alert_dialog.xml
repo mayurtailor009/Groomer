@@ -33,8 +33,8 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="15dp"
             android:layout_weight="1"
-            android:background="@color/light_green"
-            android:text="Cancel"
+            android:background="?attr/drawerBg"
+            android:text="@string/canceled"
             android:textAllCaps="false"
             android:textColor="@color/colorWhite" />
 
@@ -45,8 +45,8 @@
             android:layout_marginRight="5dp"
             android:layout_marginTop="15dp"
             android:layout_weight="1"
-            android:background="@color/light_green"
-            android:text="Ok"
+            android:background="?attr/drawerBg"
+            android:text="@string/ok_button"
             android:textAllCaps="false"
             android:textColor="@color/colorWhite" />
     </LinearLayout>

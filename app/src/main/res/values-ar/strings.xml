@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Groomer</string>
-    <string name="app_name_capital">GROOMER</string>
+    <string name="app_name">Dourik</string>
+    <string name="app_name_capital">DOURIK</string>
     <string name="action_settings">الإعدادات</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="drawer_open">Open</string>
@@ -20,6 +20,7 @@
     <string name="txt_reschedule">إعادة جدولة</string>
     <string name="txt_rebook">ريبوك</string>
     <string name="txt_submit">عرض</string>
+    <string name="navigation_menu_username">ضيف</string>
 
 
     <!-- login screen -->
@@ -28,6 +29,7 @@
     <string name="txt_password">كلمه السر</string>
     <string name="txt_login">تسجيل الدخول</string>
     <string name="txt_forgot_password">هل نسيت كلمة المرور ؟</string>
+    <string name="txt_skip">تخطى</string>
 
     <!-- start for categories -->
     <string name="txt_category">اختر الفئة</string>
@@ -48,6 +50,11 @@
     <string name="txt_dob">دوب</string>
     <string name="txt_hint_dob">dd-MM-yyy</string>
     <string name="txt_gender">جنس</string>
+    <string name="txt_select_country_code">اختار</string>
+
+    <string name="txt_choose_gender">اختر الجنس</string>
+    <string name="txt_male">ذكر</string>
+    <string name="txt_female">أنثى</string>
 
 
     <!-- start for Change password screen -->
@@ -66,15 +73,20 @@
     <!--END For Forget password  screen -->
 
 
-
     <!--For alert screen -->
     <string name="txt_alert_msg">وقد مقبول ديف تنفجر تعيين الخاص بك!</string>
     <string name="txt_date_time">الثلاثاء 2 أغسطس في 23:00</string>
+    <string name="press_again_to_exit">اضغط مرة أخرى للخروج</string>
+    <string name="txt_no_alerts">لا تنبيهات</string>
     <!--END For alert screen -->
+
+    <!--For Share your Experience screen -->s
+    <string name="hint_write_something">أكتب شيئا...</string>
+
 
     <!--For vendor list screen and vendor details screen -->
     <string name="txt_vendor_name">تبدو جميلة</string>
-    <string name="txt_vendor_address">21 ماجون الشارع، بالقرب من الأمازون بارك</string>
+    <string name="txt_vendor_address">21 Magon Street, Near Amazon Park , Hotel Marriotr Jaipur, Rajasthan , India</string>
     <string name="txt_vendor_price_unit">ريال</string>
     <string name="txt_remove">نزع</string>
     <string name="txt_select_date">التاريخ حدد</string>
@@ -88,6 +100,8 @@
     <string name="txt_start_from">يبدأ من</string>
     <string name="btn_add_date">انقر هنا ل إضافة التاريخ</string>
     <string name="btn_add_time">انقر هنا لإضافة الوقت</string>
+    <string name="txt_service">خدمة</string>
+    <string name="txt_services">خدمات</string>
 
     <!-- vendor details about tab screen -->
     <string name="txt_about_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac orci quis odilo bibendum mattis.</string>
@@ -100,10 +114,16 @@
 
     <!-- alert texts -->
     <string name="you_logout">وسوف يتم تسجيل الخروج !!</string>
+    <string name="for_access_this_please_login">للوصول إلى هذا الرجاء تسجيل الدخول</string>
+    <string name="message_title">الرسالة</string>
     <string name="ok_button">حسنا</string>
     <string name="canceled">إلغاء</string>
 
 
+    <!-- Camera choose fragment -->
+    <string name="choose_gallery">اختيار معرض</string>
+    <string name="choose_camera">اختيار الكاميرا</string>
+    <string name="title_dialog_photo_choose">إضافة صورة</string>
 
     <string name="lbl_review">مراجعة</string>
     <string name="txt_low_to_high">ASC</string>
@@ -114,4 +134,7 @@
     <string name="lbl_distance">المسافات</string>
     <string name="lbl_apply">تطبيق</string>
     <string name="lbl_cancel">إلغاء</string>
+
+    <!-- Review fragment -->
+    <string name="txt_no_reviews">لا يوجد تعليقات</string>
 </resources>

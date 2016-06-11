@@ -12,6 +12,9 @@
         <item name="android:textColor">@color/black</item>
         <item name="editTextStyle">@style/et_style_blue</item>
         <item name="drawerBg">@color/colorBlueDark</item>
+        <item name="filterLeftButton">@drawable/toggle_left_blue</item>
+        <item name="filterRightButton">@drawable/toggle_right_blue</item>
+        <item name="filterTextView">@drawable/et_bg_outer_blue</item>
     </style>
 
     <style name="AppThemeGreen" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -27,6 +30,10 @@
         <item name="editTextStyle">@style/et_style_white</item>
         <item name="drawerBg">@color/green</item>
 
+        <item name="filterLeftButton">@drawable/toggle_left_green</item>
+        <item name="filterRightButton">@drawable/toggle_right_green</item>
+        <item name="filterTextView">@drawable/et_bg_outer_green</item>
+
     </style>
 
     <style name="AppThemeRed" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -41,6 +48,10 @@
         <item name="android:textColor">@color/black</item>
         <item name="editTextStyle">@style/et_style_gray</item>
         <item name="drawerBg">@color/red</item>
+
+        <item name="filterLeftButton">@drawable/toggle_left_red</item>
+        <item name="filterRightButton">@drawable/toggle_right_red</item>
+        <item name="filterTextView">@drawable/et_bg_outer_red</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

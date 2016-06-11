@@ -4,32 +4,31 @@ import java.io.Serializable;
 
 public class MenuDTO implements Serializable {
 
-    private String appointment;
-    private String favorite;
-    private String alert;
+    private int appointment;
+    private int favorite;
+    private int alert;
 
-    public String getAlert() {
-        return alert;
-    }
-
-    public void setAlert(String alert) {
-        this.alert = alert;
-    }
-
-
-    public String getAppointment() {
+    public int getAppointment() {
         return appointment;
     }
 
-    public void setAppointment(String appointment) {
+    public void setAppointment(int appointment) {
         this.appointment = appointment;
     }
 
-    public String getFavorite() {
+    public int getFavorite() {
         return favorite;
     }
 
-    public void setFavorite(String favorite) {
+    public void setFavorite(int favorite) {
         this.favorite = favorite;
+    }
+
+    public int getAlert() {
+        return alert;
+    }
+
+    public void setAlert(int alert) {
+        this.alert = alert;
     }
 }

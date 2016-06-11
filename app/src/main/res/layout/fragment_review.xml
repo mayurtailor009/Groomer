@@ -9,4 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <com.groomer.customviews.CustomTextViewMarkNovaRegular
+        android:id="@+id/txt_no_data_found"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/txt_no_reviews"
+        android:textSize="@dimen/textsize_18sp"
+        android:visibility="gone" />
+
 </FrameLayout>

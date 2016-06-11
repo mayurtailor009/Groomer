@@ -178,7 +178,7 @@ public class SettingFragment extends BaseFragment {
     private void settingAllProfileValues() {
         UserDTO userDTO = GroomerPreference.getObjectFromPref(mActivity, Constants.USER_INFO);
 
-        if(userDTO!=null) {
+        if (userDTO != null) {
             setViewText(R.id.et_name, userDTO.getName_eng(), view);
             if (userDTO.getEmail() != null) {
                 setViewText(R.id.et_emailid, userDTO.getEmail(), view);
@@ -342,9 +342,9 @@ public class SettingFragment extends BaseFragment {
 
 
     public void showSexDialog() {
-        final CharSequence[] items = {"Male", "Female"};
+        final CharSequence[] items = {getString(R.string.txt_male), getString(R.string.txt_female)};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Choose Gender");
+        builder.setTitle(getString(R.string.txt_choose_gender));
         builder.setItems(items, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
                 // Do something with the selection
@@ -407,7 +407,8 @@ public class SettingFragment extends BaseFragment {
         try {
             Intent cameraIntent = new Intent(
                     MediaStore.ACTION_IMAGE_CAPTURE);
-            cameraIntent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            cameraIntent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION,
+                    ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             startActivityForResult(cameraIntent, CAMERA_REQUEST);
         } catch (Exception e) {
             e.printStackTrace();

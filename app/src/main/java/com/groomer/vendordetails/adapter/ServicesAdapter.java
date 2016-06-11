@@ -1,6 +1,8 @@
 package com.groomer.vendordetails.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +15,8 @@ import android.widget.TextView;
 import com.groomer.R;
 import com.groomer.model.ServiceDTO;
 import com.groomer.utillity.HelpMe;
+import com.groomer.utillity.SessionManager;
+import com.groomer.utillity.Utils;
 import com.groomer.vendordetails.priceserviceinterface.PriceServiceInterface;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -95,11 +99,11 @@ public class ServicesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         mHolder.mServiceTime.setText(servicesDTO.getDuration());
         if (serviceDTOList.get(position).isSelected()) {
             buttonSelected(true, mHolder.btnService);
-            mHolder.btnService.setText("Selected");
+            mHolder.btnService.setText(context.getString(R.string.txt_selected));
             //serviceCount++;
         } else {
             buttonSelected(false, mHolder.btnService);
-            mHolder.btnService.setText("Select");
+            mHolder.btnService.setText(context.getString(R.string.txt_select));
         }
         mHolder.btnService.setTag(position);
         mHolder.btnService.setOnClickListener(selectClick);
@@ -108,47 +112,64 @@ public class ServicesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     View.OnClickListener selectClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Button btn = (Button) v;
-            int pos = Integer.parseInt(v.getTag().toString());
-            ServiceDTO servicesDTO = serviceDTOList.get(pos);
-            //mHolder.clicked = mHolder.clicked ? false : true;
-            if (!serviceDTOList.get(pos).isSelected()) {
-                // v.setSelected(true);
-                buttonSelected(true, btn);
-
-                btn.setText("Selected");
-                priceSum += Double.parseDouble(servicesDTO.getPrice());
-                serviceCount++;
-                selectedList.add(servicesDTO);
-                serviceDTOList.get(pos).setIsSelected(true);
-
+            if (Utils.IsSkipLogin((Activity) context)) {
+                Utils.showDialog(context,
+                        context.getString(R.string.message_title),
+                        context.getString(R.string.for_access_this_please_login),
+                        context.getString(R.string.txt_login),
+                        context.getString(R.string.canceled), login);
             } else {
-                buttonSelected(false, btn);
-                //v.setSelected(false);
-                btn.setText("Select");
-                if (priceSum > 0 && serviceCount > 0) {
-                    priceSum -= Double.parseDouble(servicesDTO.getPrice());
-                    serviceCount--;
-                    selectedList.remove(servicesDTO);
-                    serviceDTOList.get(pos).setIsSelected(false);
-                }
-            }
-            mInterface.getPriceSum(priceSum + "");
-            mInterface.getServiceCount(serviceCount + "");
+                Button btn = (Button) v;
+                int pos = Integer.parseInt(v.getTag().toString());
+                ServiceDTO servicesDTO = serviceDTOList.get(pos);
+                //mHolder.clicked = mHolder.clicked ? false : true;
+                if (!serviceDTOList.get(pos).isSelected()) {
+                    // v.setSelected(true);
+                    buttonSelected(true, btn);
 
-            mInterface.getSelectedServiceList(serviceDTOList);
-            //serviceCount=0;
-            notifyDataSetChanged();
+                    btn.setText(context.getString(R.string.txt_selected));
+                    priceSum += Double.parseDouble(servicesDTO.getPrice());
+                    serviceCount++;
+                    selectedList.add(servicesDTO);
+                    serviceDTOList.get(pos).setIsSelected(true);
+
+                } else {
+                    buttonSelected(false, btn);
+                    //v.setSelected(false);
+                    btn.setText(context.getString(R.string.txt_select));
+                    if (priceSum > 0 && serviceCount > 0) {
+                        priceSum -= Double.parseDouble(servicesDTO.getPrice());
+                        serviceCount--;
+                        selectedList.remove(servicesDTO);
+                        serviceDTOList.get(pos).setIsSelected(false);
+                    }
+                }
+                mInterface.getPriceSum(priceSum + "");
+                mInterface.getServiceCount(serviceCount + "");
+
+                mInterface.getSelectedServiceList(serviceDTOList);
+                //serviceCount=0;
+                notifyDataSetChanged();
+            }
         }
     };
 
+    DialogInterface.OnClickListener login = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            SessionManager.logoutUser(context);
+            ;
+        }
+    };
+
+
+    // TODO for change theme based color
     private void buttonSelected(boolean isSelected, Button btn) {
         if (isSelected) {
             btn.setBackgroundColor(context.getResources().getColor(R.color.grey));
             btn.setTextColor(context.getResources().getColor(R.color.black));
 
         } else {
-
             btn.setBackgroundColor(context.getResources().getColor(R.color.green));
             btn.setTextColor(context.getResources().getColor(R.color.colorWhite));
         }

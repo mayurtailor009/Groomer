@@ -12,8 +12,7 @@
         android:layout_alignParentTop="true"
         android:orientation="vertical">
 
-        <include
-            layout="@layout/toolbar" />
+        <include layout="@layout/toolbar" />
     </LinearLayout>
 
     <!-- share experience item layout -->
@@ -43,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/margin_10"
-                android:text="David Dud"
+                android:text=""
                 android:textSize="@dimen/textsize_15sp" />
         </LinearLayout>
 
@@ -55,7 +54,7 @@
             android:layout_weight="0.68"
             android:background="@android:color/transparent"
             android:gravity="top"
-            android:hint="Write Something..."
+            android:hint="@string/hint_write_something"
             android:padding="@dimen/margin_10" />
 
         <!-- you can rating us here -->

@@ -64,6 +64,7 @@
                         android:textSize="12sp" />
 
                     <ImageView
+                        android:id="@+id/img_rating_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignTop="@id/txt_vendor_rating"
@@ -73,7 +74,7 @@
                         android:src="@drawable/star_icon" />
 
 
-                    <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                    <com.groomer.customviews.CustomTextViewMarkNovaSemibold
                         android:id="@+id/txt_vendor_price_unit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -91,7 +92,7 @@
                         android:layout_marginLeft="@dimen/margin_5"
                         android:text="55"
                         android:textColor="@color/colorBlue"
-                        android:textSize="15sp" />
+                        android:textSize="12sp" />
                 </RelativeLayout>
 
 
@@ -105,8 +106,8 @@
                         android:id="@+id/txt_vendor_address"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="7"
-                        android:singleLine="true"
+                        android:layout_weight="6.9"
+                        android:singleLine="false"
                         android:text="@string/txt_vendor_address"
                         android:textSize="12sp" />
 
@@ -125,8 +126,9 @@
                         android:id="@+id/txt_starts_from"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.7"
-                        android:gravity="right"
+                        android:layout_gravity="end"
+                        android:layout_weight="1.8"
+                        android:gravity="center_horizontal"
                         android:text="@string/txt_start_from"
                         android:textSize="12sp" />
 
