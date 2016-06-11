@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,10 +18,14 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
 
-    <com.groomer.customviews.CustomTextViewMarkNovaRegular
-        android:id="@+id/txt_no_data_found"
+    <!-- No data text -->
+    <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+        android:id="@+id/no_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
+        android:layout_centerInParent="true"
+        android:text="@string/no_favourities"
+        android:textSize="@dimen/textsize_17sp"
+        android:visibility="gone" />
 
-</FrameLayout>
+</RelativeLayout>

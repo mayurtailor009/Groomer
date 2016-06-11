@@ -10,6 +10,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -145,6 +147,7 @@ public class SettingFragment extends BaseFragment {
     }
 
     private void init() {
+        setViewsColor();
         settingAllProfileValues();
 
         setClick(R.id.view_blue, view);
@@ -157,6 +160,19 @@ public class SettingFragment extends BaseFragment {
         setClick(R.id.btn_save, view);
         setClick(R.id.txt_country_code, view);
 
+    }
+
+    private void setViewsColor() {
+        View greenView = view.findViewById(R.id.view_green);
+        View blueView = view.findViewById(R.id.view_blue);
+        View redView = view.findViewById(R.id.view_red);
+        GradientDrawable greenDrawable = (GradientDrawable) greenView.getBackground();
+        GradientDrawable blueDrawable = (GradientDrawable) blueView.getBackground();
+        GradientDrawable redDrawale = (GradientDrawable) redView.getBackground();
+
+        greenDrawable.setColor(Color.parseColor("#558A2E"));
+        blueDrawable.setColor(Color.parseColor("#05319C"));
+        redDrawale.setColor(Color.parseColor("#A52A2A"));
     }
 
     private void settingAllProfileValues() {
@@ -181,7 +197,7 @@ public class SettingFragment extends BaseFragment {
             }
 
             if (userDTO.getIs_location_service() != null) {
-                swh_location.setChecked(userDTO.getIs_location_service().equals("1") ? true : false);
+                swh_location.setChecked(userDTO.getIs_location_service().equals("1"));
             }
             if (userDTO.getCountry_code() != null) {
                 setViewText(R.id.txt_country_code, "+" + userDTO.getCountry_code(), view);

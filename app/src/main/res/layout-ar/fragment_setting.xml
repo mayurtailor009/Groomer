@@ -155,8 +155,8 @@
                     <com.groomer.customviews.CustomTextViewMarkNovaRegular
                         android:id="@+id/edt_gender"
                         style="@style/et_login_style"
-                        android:gravity="right"
                         android:layout_marginTop="5dp"
+                        android:gravity="right"
                         android:hint="@string/txt_gender" />
                 </LinearLayout>
 
@@ -201,29 +201,42 @@
                 android:orientation="horizontal"
                 android:weightSum="1">
 
-                <com.groomer.customviews.CustomButtonMarkNovaRegular
-                    android:id="@+id/btn_select_english"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight=".5"
-                    android:background="?attr/drawerBg"
-                    android:gravity="center"
-                    android:text="@string/txt_english"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="16sp" />
-
-
-                <com.groomer.customviews.CustomButtonMarkNovaRegular
-                    android:id="@+id/btn_select_arabic"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".5"
-                    android:background="@color/grid_color"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="@string/txt_arabic"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:background="@color/grey"
+                    android:padding="@dimen/margin_1">
+
+                    <com.groomer.customviews.CustomButtonMarkNovaRegular
+                        android:id="@+id/btn_select_english"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="?attr/drawerBg"
+                        android:gravity="center"
+                        android:text="@string/txt_english"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:background="@color/grey"
+                    android:padding="@dimen/margin_1">
+
+                    <com.groomer.customviews.CustomButtonMarkNovaRegular
+                        android:id="@+id/btn_select_arabic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/grid_color"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="@string/txt_arabic"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
             </LinearLayout>
 
 
@@ -247,21 +260,21 @@
                     android:id="@+id/view_green"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@color/green" />
+                    android:background="@drawable/circle_background" />
 
                 <View
                     android:id="@+id/view_blue"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginRight="10dp"
-                    android:background="@color/colorBlue" />
+                    android:background="@drawable/circle_background" />
 
                 <View
                     android:id="@+id/view_red"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginRight="10dp"
-                    android:background="@color/red" />
+                    android:background="@drawable/circle_background" />
             </LinearLayout>
 
         </LinearLayout>

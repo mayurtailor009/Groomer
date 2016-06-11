@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -21,7 +20,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
-import com.groomer.category.VendorListActivity;
 import com.groomer.category.adapter.VendorListAdapter;
 import com.groomer.fragments.BaseFragment;
 import com.groomer.home.HomeActivity;
@@ -37,7 +35,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class FavouriteFragment extends BaseFragment {
@@ -117,7 +114,8 @@ public class FavouriteFragment extends BaseFragment {
                                     e.printStackTrace();
                                 }
                             } else {
-
+                                setViewVisibility(R.id.no_data, view, View.VISIBLE);
+                                setViewVisibility(R.id.recycle_favourite, view, View.GONE);
                             }
                         }
                     },
@@ -139,6 +137,9 @@ public class FavouriteFragment extends BaseFragment {
 
 
     private void setUpListAdapter(final List<VendorListDTO> vendorList) {
+        setViewVisibility(R.id.no_data, view, View.GONE);
+        setViewVisibility(R.id.recycle_favourite, view, View.VISIBLE);
+
         vendorListAdapter = new VendorListAdapter(mActivity, vendorList);
         favouriteRecyclerView.setAdapter(vendorListAdapter);
 

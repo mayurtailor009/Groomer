@@ -76,6 +76,8 @@
     <string name="txt_date_time">tue 2 Aug at 11:00 PM</string>
     <!--END For alert screen -->
 
+    <string name="no_favourities">No Favourities.</string>
+
 
     <!--For vendor list screen and vendor details screen -->
     <string name="txt_vendor_name">Pretty Looks</string>
@@ -94,6 +96,7 @@
     <string name="btn_add_date">Click here to add date</string>
     <string name="btn_add_time">Click here to add time</string>
     <string name="txt_confirm_appointment">CONFIRM APPOINTMENT</string>
+    <string name="txt_no_saloon">No Saloon Found.</string>
     <!--END For vendor list screen -->
 
     <!-- vendor details about tab screen -->
@@ -104,11 +107,13 @@
     <string name="share_experience">Share your experience</string>
     <string name="share_title">Share Experience</string>
     <string name="confirm">Confirm</string>
+    <string name="no_appointment">No Appointments.</string>
 
     <!-- alert texts -->
     <string name="you_logout">You will be Logged out !!</string>
     <string name="ok_button">Ok</string>
     <string name="canceled">Cancel</string>
+    <string name="no_alerts">No Alerts.</string>
 
 
     <!-- Camera choose fragment -->

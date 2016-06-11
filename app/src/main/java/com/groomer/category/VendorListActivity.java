@@ -152,6 +152,10 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
         if (vendorListAdapter != null) {
             vendorListAdapter = null;
         }
+
+        setViewVisibility(R.id.no_saloon, View.GONE);
+        setViewVisibility(R.id.recycle_vendor, View.VISIBLE);
+
         vendorListAdapter = new VendorListAdapter(mActivity, vendorList);
         vendorRecyclerView.setAdapter(vendorListAdapter);
 
@@ -204,6 +208,7 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
                 }
             }
         });
+
     }
 
 
@@ -344,7 +349,8 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
                                     e.printStackTrace();
                                 }
                             } else {
-
+                                setViewVisibility(R.id.no_saloon, View.VISIBLE);
+                                setViewVisibility(R.id.recycle_vendor, View.GONE);
                             }
                         }
                     },

@@ -72,6 +72,9 @@ public class AppointmentFragment extends BaseFragment {
     }
 
     private void setUpExpandableListVIew(final List<AppointmentDTO> appointmentList) {
+        setViewVisibility(R.id.no_appointment, view, View.GONE);
+        setViewVisibility(R.id.appointment_list, view, View.VISIBLE);
+
         mExpandableListView.setChoiceMode(ExpandableListView.CHOICE_MODE_SINGLE);
         mExpandableListView.setAdapter(new AppointmentListAdapter(
                         this.getActivity(), appointmentList, mExpandableListView)
@@ -118,6 +121,9 @@ public class AppointmentFragment extends BaseFragment {
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
+                        } else {
+                            setViewVisibility(R.id.no_appointment, view, View.VISIBLE);
+                            setViewVisibility(R.id.appointment_list, view, View.GONE);
                         }
                     }
                 },

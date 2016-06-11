@@ -36,6 +36,16 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
+    <!-- No saloon text -->
+    <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+        android:id="@+id/no_saloon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/txt_no_saloon"
+        android:textSize="@dimen/textsize_17sp"
+        android:visibility="gone" />
+
     <!-- kilometer seekbar layout -->
     <LinearLayout
         android:id="@+id/km_seekbar_layout"
