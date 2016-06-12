@@ -695,22 +695,28 @@ public class SettingFragment extends BaseFragment {
     public boolean validateForm() {
 
         if (getViewText(R.id.et_name, view).equals("")) {
-            Utils.showDialog(mActivity, "Message", "Please enter name.");
+            Utils.showDialog(mActivity, mActivity.getString(R.string.message_title),
+                    mActivity.getString(R.string.enter_name));
             return false;
         } else if (getViewText(R.id.et_emailid, view).equals("")) {
-            Utils.showDialog(mActivity, "Message", "Please enter email id.");
+            Utils.showDialog(mActivity, mActivity.getString(R.string.message_title),
+                    mActivity.getString(R.string.alert_please_enter_emailid));
             return false;
         } else if (getViewText(R.id.txt_country_code, view).equals("")) {
-            Utils.showDialog(mActivity, "Message", "Please select c ountry code.");
+            Utils.showDialog(mActivity, mActivity.getString(R.string.message_title),
+                    mActivity.getString(R.string.enter_country_code));
             return false;
         } else if (getViewText(R.id.et_mobile_no, view).equals("")) {
-            Utils.showDialog(mActivity, "Message", "Please enter mobile number.");
+            Utils.showDialog(mActivity, mActivity.getString(R.string.message_title),
+                    mActivity.getString(R.string.enter_mobile));
             return false;
         } else if (getViewText(R.id.edt_dob, view).equals("")) {
-            Utils.showDialog(mActivity, "Message", "Please select dob.");
+            Utils.showDialog(mActivity, mActivity.getString(R.string.message_title),
+                    mActivity.getString(R.string.enter_dob));
             return false;
         } else if (getViewText(R.id.edt_gender, view).equals("")) {
-            Utils.showDialog(mActivity, "Message", "Please select gender.");
+            Utils.showDialog(mActivity, mActivity.getString(R.string.message_title),
+                    mActivity.getString(R.string.enter_gender));
             return false;
         }
         return true;

@@ -58,6 +58,12 @@
     <string name="txt_male">ذكر</string>
     <string name="txt_female">أنثى</string>
 
+    <string name="enter_name">الرجاء إدخال اسم</string>
+    <string name="enter_mobile">الرجاء إدخال رقم الجوال</string>
+    <string name="enter_country_code">يرجى تحديد رمز البلد</string>
+    <string name="enter_dob">يرجى تحديد تاريخ الميلاد</string>
+    <string name="enter_gender">يرجى تحديد الجنس</string>
+
 
     <!-- start for Change password screen -->
     <string name="change_password_header">تغيير كلمة المرور</string>

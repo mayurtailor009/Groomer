@@ -58,6 +58,12 @@
     <string name="txt_male">Male</string>
     <string name="txt_female">Female</string>
 
+    <string name="enter_name">Please enter name.</string>
+    <string name="enter_mobile">Please enter mobile number.</string>
+    <string name="enter_country_code">Please select country code.</string>
+    <string name="enter_dob">Please select DOB.</string>
+    <string name="enter_gender">Please select gender.</string>
+
     <!--END For settings screen -->
 
 
