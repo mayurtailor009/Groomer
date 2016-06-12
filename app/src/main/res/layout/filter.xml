@@ -4,223 +4,203 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:visibility="gone"
-    android:padding="@dimen/margin_10">
+    android:padding="@dimen/margin_10"
+    android:visibility="visible">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_10"
-        android:orientation="horizontal"
-        android:weightSum="4">
-
-        <com.groomer.customviews.CustomTextViewMarkNovaRegular
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/lbl_search"
-            android:textSize="20sp" />
-
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <com.groomer.customviews.CustomEditTextMarkNovaRegular
-                android:id="@+id/et_search"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="?attr/filterTextView"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_10"
-        android:orientation="horizontal"
-        android:weightSum="4">
-
-        <com.groomer.customviews.CustomTextViewMarkNovaRegular
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/lbl_category"
-            android:textSize="20sp" />
-
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <com.groomer.customviews.CustomTextViewMarkNovaRegular
-                android:id="@+id/txt_category"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="?attr/filterTextView"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_weight="4"
+        android:layout_gravity="center_vertical"
         android:orientation="horizontal">
 
         <com.groomer.customviews.CustomTextViewMarkNovaRegular
-            android:layout_width="0dp"
+
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
+            android:layout_alignBottom="@+id/et_search"
+            android:layout_alignLeft="@+id/txt_category_lbl"
+            android:layout_alignTop="@+id/et_search"
+            android:gravity="center_vertical"
+            android:text="@string/lbl_search"
+            android:textSize="@dimen/textsize_17sp" />
+
+
+        <com.groomer.customviews.CustomEditTextMarkNovaRegular
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/txt_category"
+            android:background="?attr/filterTextView"
+            android:textSize="@dimen/textsize_17sp" />
+
+
+        <com.groomer.customviews.CustomTextViewMarkNovaRegular
+            android:id="@+id/txt_category_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/txt_category"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@+id/txt_category"
+            android:gravity="center_vertical"
+            android:text="@string/lbl_category"
+            android:textSize="@dimen/textsize_17sp" />
+
+        <com.groomer.customviews.CustomTextViewMarkNovaRegular
+            android:id="@+id/txt_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/seekbar_km"
+            android:layout_below="@+id/et_search"
+            android:layout_marginTop="@dimen/margin_10"
+
+            android:layout_toRightOf="@+id/txt_category_lbl"
+            android:background="?attr/filterTextView"
+            android:textSize="@dimen/textsize_17sp" />
+
+        <com.groomer.customviews.CustomTextViewMarkNovaRegular
+            android:id="@+id/txt_review_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/linear_review"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@+id/linear_review"
+            android:gravity="center_vertical"
             android:text="@string/lbl_review"
-            android:textSize="20sp" />
+            android:textSize="@dimen/textsize_17sp" />
 
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:id="@+id/linear_review"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="center_horizontal"
+            android:layout_alignLeft="@+id/seekbar_km"
+            android:layout_below="@+id/txt_category"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_toRightOf="@id/txt_review_lbl"
             android:orientation="horizontal">
+
 
             <Button
                 android:id="@+id/btn_review_asc"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="?attr/filterLeftButton"
-                android:minHeight="0dp"
                 android:text="@string/txt_low_to_high"
                 android:textAllCaps="false"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="@dimen/textsize_15sp" />
 
             <Button
                 android:id="@+id/btn_review_desc"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="?attr/filterRightButton"
-                android:minHeight="0dp"
                 android:text="@string/txt_high_to_low"
                 android:textAllCaps="false"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="@dimen/textsize_15sp" />
+
         </LinearLayout>
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_weight="4"
-        android:orientation="horizontal">
 
         <com.groomer.customviews.CustomTextViewMarkNovaRegular
-            android:layout_width="0dp"
+            android:id="@+id/txt_rating_lbl"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
+            android:layout_alignBottom="@+id/linear_rating"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@+id/linear_rating"
+            android:gravity="center_vertical"
             android:text="@string/lbl_rating"
-            android:textSize="20sp" />
-
+            android:textSize="@dimen/textsize_17sp" />
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:id="@+id/linear_rating"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="center_horizontal"
+            android:layout_alignLeft="@+id/seekbar_km"
+            android:layout_below="@+id/linear_review"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_toRightOf="@id/txt_rating_lbl"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_rating_asc"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="?attr/filterLeftButton"
-                android:minHeight="0dp"
                 android:text="@string/txt_low_to_high"
                 android:textAllCaps="false"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="@dimen/textsize_15sp" />
 
             <Button
                 android:id="@+id/btn_rating_desc"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="?attr/filterRightButton"
-                android:minHeight="0dp"
                 android:text="@string/txt_high_to_low"
                 android:textAllCaps="false"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="@dimen/textsize_15sp" />
         </LinearLayout>
-    </LinearLayout>
 
-
-    <!-- kilometer seekbar layout -->
-    <LinearLayout
-        android:id="@+id/km_seekbar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_10"
-        android:orientation="horizontal">
-
-        <!-- within text -->
         <com.groomer.customviews.CustomTextViewMarkNovaRegular
+            android:id="@+id/txt_distance_lbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/lbl_distance"
-            android:textSize="@dimen/textsize_15sp" />
+            android:layout_alignBottom="@+id/seekbar_km"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@+id/seekbar_km"
 
-        <!-- selected kilometers text -->
+            android:gravity="center_vertical"
+            android:text="@string/lbl_distance"
+            android:textSize="@dimen/textsize_17sp" />
+
         <com.groomer.customviews.CustomTextViewMarkNovaRegular
             android:id="@+id/txt_km"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/seekbar_km"
+            android:layout_alignTop="@+id/seekbar_km"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/margin_5"
+            android:layout_toRightOf="@id/txt_distance_lbl"
+            android:gravity="center_vertical"
             android:text="5 KM"
-            android:textColor="@color/black" />
+            android:maxEms="2"
+            android:minEms="3"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textsize_17sp" />
 
-        <!-- seekbar to select kilometers -->
+
         <SeekBar
             android:id="@+id/seekbar_km"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_below="@+id/linear_rating"
             android:layout_marginLeft="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_toRightOf="@id/txt_km"
             android:max="25"
             android:maxHeight="@dimen/margin_1"
             android:minHeight="@dimen/margin_1"
             android:progressDrawable="?attr/drawerBg"
             android:splitTrack="false"
             android:thumb="@drawable/green_dragger" />
-    </LinearLayout>
+
+
+    </RelativeLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_20"
         android:orientation="horizontal"
         android:weightSum="2">
 
@@ -231,7 +211,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:padding="@dimen/margin_15"
+            android:padding="@dimen/margin_5"
             android:text="@string/lbl_apply"
             android:textAllCaps="false"
             android:textColor="@color/black"
@@ -245,12 +225,11 @@
             android:layout_weight="1"
             android:background="@color/grey"
             android:gravity="center"
-            android:padding="@dimen/margin_15"
+            android:padding="@dimen/margin_5"
             android:text="@string/lbl_cancel"
             android:textAllCaps="false"
             android:textColor="@color/black"
             android:textSize="15sp" />
-
 
     </LinearLayout>
 

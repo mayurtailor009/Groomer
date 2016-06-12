@@ -21,7 +21,7 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="@string/lbl_search"
-            android:textSize="20sp" />
+            android:textSize="@dimen/textsize_17sp" />
 
 
         <LinearLayout
@@ -34,9 +34,9 @@
             <com.groomer.customviews.CustomEditTextMarkNovaRegular
                 android:id="@+id/et_search"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:background="?attr/filterTextView"
-                android:textSize="20sp" />
+                android:textSize="@dimen/textsize_17sp" />
 
         </LinearLayout>
 
@@ -58,7 +58,7 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="@string/lbl_category"
-            android:textSize="20sp" />
+            android:textSize="@dimen/textsize_17sp" />
 
 
         <LinearLayout
@@ -71,9 +71,9 @@
             <com.groomer.customviews.CustomTextViewMarkNovaRegular
                 android:id="@+id/txt_category"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:background="?attr/filterTextView"
-                android:textSize="20sp" />
+                android:textSize="@dimen/textsize_17sp" />
 
         </LinearLayout>
 
@@ -95,7 +95,7 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="@string/lbl_review"
-            android:textSize="20sp" />
+            android:textSize="@dimen/textsize_17sp" />
 
 
         <LinearLayout
@@ -103,12 +103,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <Button
                 android:id="@+id/btn_review_asc"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="?attr/filterRightButton"
                 android:minHeight="0dp"
                 android:text="@string/txt_low_to_high"
@@ -117,8 +119,9 @@
 
             <Button
                 android:id="@+id/btn_review_desc"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="?attr/filterLeftButton"
                 android:minHeight="0dp"
                 android:text="@string/txt_high_to_low"
@@ -142,20 +145,22 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="@string/lbl_rating"
-            android:textSize="20sp" />
+            android:textSize="@dimen/textsize_17sp" />
 
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
+            android:weightSum="2"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_rating_asc"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:background="?attr/filterRightButton"
                 android:minHeight="0dp"
                 android:text="@string/txt_low_to_high"
@@ -164,8 +169,9 @@
 
             <Button
                 android:id="@+id/btn_rating_desc"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:background="?attr/filterLeftButton"
                 android:minHeight="0dp"
                 android:text="@string/txt_high_to_low"
@@ -189,7 +195,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="@string/lbl_distance"
-            android:textSize="@dimen/textsize_15sp" />
+            android:textSize="@dimen/textsize_17sp" />
 
         <!-- selected kilometers text -->
         <com.groomer.customviews.CustomTextViewMarkNovaRegular

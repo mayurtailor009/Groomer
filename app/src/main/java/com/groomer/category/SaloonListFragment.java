@@ -141,7 +141,7 @@ public class SaloonListFragment extends BaseFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("dto", categoryList.get(position));
-                bundle.putSerializable("dtoList",categoryList);
+                bundle.putSerializable("dtoList", categoryList);
                 Intent intent = new Intent(getActivity(), VendorListActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -158,7 +158,7 @@ public class SaloonListFragment extends BaseFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("dto", categoryList.get(position));
-                bundle.putSerializable("dtoList",categoryList);
+                bundle.putSerializable("dtoList", categoryList);
                 Intent intent = new Intent(getActivity(), VendorListActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -304,8 +304,8 @@ public class SaloonListFragment extends BaseFragment {
             } else {
                 holder.txtCategoryName.setText(categoryList.get(position).getName_eng());
             }
-
-            holder.tvCount.setText(categoryList.get(position).getService_count());
+            String count = categoryList.get(position).getService_count();
+            holder.tvCount.setText(count.equalsIgnoreCase("0") ? "" : count);
             ImageLoader.getInstance().displayImage(categoryList.get(position).getImage(),
                     holder.ivThumb,
                     options);

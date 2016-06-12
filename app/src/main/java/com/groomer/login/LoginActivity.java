@@ -188,10 +188,10 @@ public class LoginActivity extends BaseActivity {
     public boolean validateForm() {
 
         if (getEditTextText(R.id.et_emailid).equals("")) {
-            Utils.showDialog(this, "Message", "Please enter emailid");
+            Utils.showDialog(this, getString(R.string.message_title),  getString(R.string.alert_please_enter_emailid));
             return false;
         } else if (getEditTextText(R.id.et_passowrd).equals("")) {
-            Utils.showDialog(this, "Message", "Please enter password");
+            Utils.showDialog(this,  getString(R.string.message_title),  getString(R.string.alert_please_enter_password));
             return false;
         }
         return true;
