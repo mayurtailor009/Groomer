@@ -137,6 +137,7 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
         setTouchNClick(R.id.btn_cancel);
         setTouchNClick(R.id.txt_category);
 
+        llFilter.setVisibility(View.GONE);
     }
 
     private void setUpListAdapter(final List<VendorListDTO> vendorList) {
