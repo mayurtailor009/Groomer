@@ -164,16 +164,16 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
 //                })
 //        );
 
-        vendorRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                //setViewVisibility(R.id.km_seekbar_layout, View.VISIBLE);
-                showErrorTextAnimation(R.id.km_seekbar_layout);
-
-
-            }
-        });
+//        vendorRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
+//                //setViewVisibility(R.id.km_seekbar_layout, View.VISIBLE);
+//                showErrorTextAnimation(R.id.km_seekbar_layout);
+//
+//
+//            }
+//        });
 
         vendorListAdapter.setOnItemClickListener(new VendorListAdapter.MyClickListener() {
             @Override
@@ -220,33 +220,33 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
     };
 
 
-    public void showErrorTextAnimation(final int id) {
-        final View mView = findViewById(id);
-        mView.setVisibility(View.VISIBLE);
-
-
-        // fade out view nicely after 5 seconds
-        AlphaAnimation alphaAnim = new AlphaAnimation(1.0f, 0.0f);
-        alphaAnim.setStartOffset(5000);
-        alphaAnim.setDuration(400);
-        alphaAnim.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            public void onAnimationEnd(Animation animation) {
-                mView.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-
-        mView.setAnimation(alphaAnim);
-    }
+//    public void showErrorTextAnimation(final int id) {
+//        final View mView = findViewById(id);
+//        mView.setVisibility(View.VISIBLE);
+//
+//
+//        // fade out view nicely after 5 seconds
+//        AlphaAnimation alphaAnim = new AlphaAnimation(1.0f, 0.0f);
+//        alphaAnim.setStartOffset(5000);
+//        alphaAnim.setDuration(400);
+//        alphaAnim.setAnimationListener(new Animation.AnimationListener() {
+//            @Override
+//            public void onAnimationStart(Animation animation) {
+//
+//            }
+//
+//            public void onAnimationEnd(Animation animation) {
+//                mView.setVisibility(View.INVISIBLE);
+//            }
+//
+//            @Override
+//            public void onAnimationRepeat(Animation animation) {
+//
+//            }
+//        });
+//
+//        mView.setAnimation(alphaAnim);
+//    }
 
 
     @Override
