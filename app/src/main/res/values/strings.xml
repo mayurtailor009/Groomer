@@ -30,6 +30,8 @@
     <string name="txt_forget_password">Forget Password?</string>
     <string name="txt_login">LOGIN</string>
     <string name="txt_skip">Skip</string>
+    <string name="alert_please_enter_password">Please Enter Password</string>
+    <string name="alert_please_enter_emailid">Please Enter EmailId</string>
 
     <!-- start for categories -->
     <string name="txt_category">Select Category</string>

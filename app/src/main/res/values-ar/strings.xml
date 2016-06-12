@@ -30,6 +30,8 @@
     <string name="txt_login">تسجيل الدخول</string>
     <string name="txt_forgot_password">هل نسيت كلمة المرور ؟</string>
     <string name="txt_skip">تخطى</string>
+    <string name="alert_please_enter_password">الرجاء إدخال كلمة المرور</string>
+    <string name="alert_please_enter_emailid">الرجاء أدخل البريد الإلكتروني معرف</string>
 
     <!-- start for categories -->
     <string name="txt_category">اختر الفئة</string>

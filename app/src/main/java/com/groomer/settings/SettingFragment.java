@@ -561,7 +561,7 @@ public class SettingFragment extends BaseFragment {
 
     private void selectedButton(String STATUS_CODE) {
 
-        Button btn_select_english = (Button) view.findViewById(R.id.btn_select_english);
+        /*Button btn_select_english = (Button) view.findViewById(R.id.btn_select_english);
         Button btn_select_arabic = (Button) view.findViewById(R.id.btn_select_arabic);
         Theme theme = Utils.getObjectFromPref(mActivity, Constants.CURRENT_THEME);
 
@@ -591,6 +591,27 @@ public class SettingFragment extends BaseFragment {
             }
 
 
+            btn_select_english.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+
+            btn_select_arabic.setTextColor(getResources().getColor(R.color.colorWhite));
+            btn_select_english.setTextColor(getResources().getColor(R.color.black));
+        }*/
+
+        Button btn_select_english = (Button) view.findViewById(R.id.btn_select_english);
+        Button btn_select_arabic = (Button) view.findViewById(R.id.btn_select_arabic);
+
+        if (STATUS_CODE.contains(Constants.LANG_ENGLISH_CODE)) {
+
+            btn_select_english.setBackgroundColor(getResources().getColor(R.color.green));
+            btn_select_arabic.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+
+            btn_select_english.setTextColor(getResources().getColor(R.color.colorWhite));
+            btn_select_arabic.setTextColor(getResources().getColor(R.color.black));
+
+
+        } else {
+
+            btn_select_arabic.setBackgroundColor(getResources().getColor(R.color.green));
             btn_select_english.setBackgroundColor(getResources().getColor(R.color.colorWhite));
 
             btn_select_arabic.setTextColor(getResources().getColor(R.color.colorWhite));

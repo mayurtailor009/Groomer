@@ -12,8 +12,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -261,10 +259,15 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
 
         switch (item.getItemId()) {
             case R.id.action_search:
-                if (llFilter.getVisibility() == View.GONE)
-                    llFilter.setVisibility(View.VISIBLE);
-                else
-                    llFilter.setVisibility(View.GONE);
+                if (vendorList == null || vendorList.isEmpty()) {
+                    item.setEnabled(false);
+                } else {
+                    item.setEnabled(true);
+                    if (llFilter.getVisibility() == View.GONE)
+                        llFilter.setVisibility(View.VISIBLE);
+                    else
+                        llFilter.setVisibility(View.GONE);
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -357,8 +360,10 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
                                     e.printStackTrace();
                                 }
                             } else {
+                                checkForEmptyList();
                                 setViewVisibility(R.id.no_saloon, View.VISIBLE);
                                 setViewVisibility(R.id.recycle_vendor, View.GONE);
+                                setTextViewText(R.id.no_saloon, Utils.getWebServiceMessage(response));
                             }
                         }
                     },
@@ -375,6 +380,12 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
             GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
             jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        }
+    }
+
+    private void checkForEmptyList() {
+        if (vendorList == null || vendorList.isEmpty()) {
+            llFilter.setVisibility(View.GONE);
         }
     }
 
