@@ -363,7 +363,7 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
                             } else {
                                 checkForEmptyList();
                                 setViewVisibility(R.id.no_saloon, View.VISIBLE);
-                                setViewVisibility(R.id.recycle_vendor, View.GONE);
+                                setViewVisibility(R.id.active_swipe_refresh_layout, View.GONE);
                                 setTextViewText(R.id.no_saloon, Utils.getWebServiceMessage(response));
                             }
                         }

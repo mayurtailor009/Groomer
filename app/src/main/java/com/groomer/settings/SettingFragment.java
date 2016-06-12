@@ -600,6 +600,12 @@ public class SettingFragment extends BaseFragment {
         Button btn_select_english = (Button) view.findViewById(R.id.btn_select_english);
         Button btn_select_arabic = (Button) view.findViewById(R.id.btn_select_arabic);
 
+
+        Theme theme = Utils.getObjectFromPref(mActivity, Constants.CURRENT_THEME);
+
+
+
+
         if (STATUS_CODE.contains(Constants.LANG_ENGLISH_CODE)) {
 
             btn_select_english.setBackgroundColor(getResources().getColor(R.color.green));
@@ -608,6 +614,13 @@ public class SettingFragment extends BaseFragment {
             btn_select_english.setTextColor(getResources().getColor(R.color.colorWhite));
             btn_select_arabic.setTextColor(getResources().getColor(R.color.black));
 
+            if (theme.equals(Theme.Blue)) {
+                btn_select_english.setBackgroundColor(getResources().getColor(R.color.blue_light));
+            } else if (theme.equals(Theme.Red)) {
+                btn_select_english.setBackgroundColor(getResources().getColor(R.color.red));
+            } else {
+                btn_select_english.setBackgroundColor(getResources().getColor(R.color.green));
+            }
 
         } else {
 
@@ -616,6 +629,14 @@ public class SettingFragment extends BaseFragment {
 
             btn_select_arabic.setTextColor(getResources().getColor(R.color.colorWhite));
             btn_select_english.setTextColor(getResources().getColor(R.color.black));
+
+            if (theme.equals(Theme.Blue)) {
+                btn_select_arabic.setBackgroundColor(getResources().getColor(R.color.blue_light));
+            } else if (theme.equals(Theme.Red)) {
+                btn_select_arabic.setBackgroundColor(getResources().getColor(R.color.red));
+            } else {
+                btn_select_arabic.setBackgroundColor(getResources().getColor(R.color.green));
+            }
         }
 
 

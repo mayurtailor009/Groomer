@@ -73,7 +73,15 @@ public class HomeActivity extends BaseActivity {
         findViewById(R.id.hamburgur_img_icon).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawerLayout.openDrawer(GravityCompat.START);
+                if (!Utils.IsSkipLogin(mActivity)) {
+                    drawerLayout.openDrawer(GravityCompat.START);
+                } else {
+                    Utils.showDialog(mActivity,
+                            getString(R.string.message_title),
+                            getString(R.string.for_access_this_please_login),
+                            getString(R.string.txt_login),
+                            getString(R.string.canceled), login);
+                }
             }
         });
 
@@ -351,4 +359,11 @@ public class HomeActivity extends BaseActivity {
         }
     }
 
+    DialogInterface.OnClickListener login = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            SessionManager.logoutUser(mActivity);
+            ;
+        }
+    };
 }
