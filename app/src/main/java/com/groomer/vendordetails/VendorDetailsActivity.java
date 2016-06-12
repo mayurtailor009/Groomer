@@ -414,7 +414,11 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("serviceDTO", (Serializable) selectedList);
                         intent.putExtras(bundle);
-                        intent.putExtra("saloonName", saloonDetailsDTO.getStorename_eng());
+                        if(!HelpMe.isArabic(mActivity)) {
+                            intent.putExtra("saloonName", saloonDetailsDTO.getStorename_eng());
+                        }else{
+                            intent.putExtra("saloonName", saloonDetailsDTO.getStorename_ara());
+                        }
                         intent.putExtra("saloonAddress", saloonDetailsDTO.getAddress());
                         intent.putExtra("totalPrice", totalPrice);
                         intent.putExtra("store_id", getIntent().getStringExtra("store_id"));

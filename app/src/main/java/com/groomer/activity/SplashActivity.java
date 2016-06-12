@@ -22,6 +22,7 @@ import com.groomer.signup.SignupActivity;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.HelpMe;
+import com.groomer.utillity.Theme;
 import com.groomer.utillity.Utils;
 
 import java.security.MessageDigest;
@@ -43,6 +44,9 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         mContext = SplashActivity.this;
+
+        //First time set Theme green in preferences
+        Utils.putObjectIntoPref(mContext, Theme.Green, Constants.CURRENT_THEME);
 
         UserDTO userDTO = GroomerPreference.getObjectFromPref(mContext, Constants.USER_INFO);
         HelpMe.setLocale(GroomerPreference.getAPP_LANG(mContext), getApplicationContext());

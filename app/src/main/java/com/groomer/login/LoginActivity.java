@@ -31,6 +31,7 @@ import com.groomer.model.UserDTO;
 import com.groomer.signup.SignupActivity;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.GroomerPreference;
+import com.groomer.utillity.Theme;
 import com.groomer.utillity.Utils;
 import com.groomer.volley.CustomJsonRequest;
 import com.twitter.sdk.android.core.Callback;
@@ -61,11 +62,16 @@ public class LoginActivity extends BaseActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
         mActivity = this;
+
+        //First time set Theme green in preferences
+        Utils.putObjectIntoPref(mActivity, Theme.Green, Constants.CURRENT_THEME);
+
         init();
         GPSTracker gpsTracker = new GPSTracker(mActivity);
     }
 
     private void init() {
+
 
         setTouchNClick(R.id.btn_login);
         setClick(R.id.tv_forgotpassword);
@@ -188,10 +194,10 @@ public class LoginActivity extends BaseActivity {
     public boolean validateForm() {
 
         if (getEditTextText(R.id.et_emailid).equals("")) {
-            Utils.showDialog(this, getString(R.string.message_title),  getString(R.string.alert_please_enter_emailid));
+            Utils.showDialog(this, getString(R.string.message_title), getString(R.string.alert_please_enter_emailid));
             return false;
         } else if (getEditTextText(R.id.et_passowrd).equals("")) {
-            Utils.showDialog(this,  getString(R.string.message_title),  getString(R.string.alert_please_enter_password));
+            Utils.showDialog(this, getString(R.string.message_title), getString(R.string.alert_please_enter_password));
             return false;
         }
         return true;
@@ -331,7 +337,7 @@ public class LoginActivity extends BaseActivity {
             callbackmanager.onActivityResult(requestCode, resultCode, data);
         } else {
             //
-             btnTwitterLogin.onActivityResult(requestCode, resultCode, data);
+            btnTwitterLogin.onActivityResult(requestCode, resultCode, data);
         }
     }
 
