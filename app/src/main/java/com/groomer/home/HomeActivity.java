@@ -249,7 +249,7 @@ public class HomeActivity extends BaseActivity {
         setMenuCounter(R.id.nav_alerts, menuDto.getAlert());
         setMenuCounter(R.id.nav_appointments, menuDto.getAppointment());
         setMenuCounter(R.id.nav_favourite, menuDto.getFavorite());
-        //TODO
+
         // Set menu count
 //        menuListAdapter.setAlertCount(menuDTO.getAlert());
 //        menuListAdapter.notifyDataSetChanged();

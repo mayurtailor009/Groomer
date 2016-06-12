@@ -58,6 +58,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
+import com.nostra13.universalimageloader.utils.MemoryCacheUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -125,7 +126,7 @@ public class SettingFragment extends BaseFragment {
         selectedButton(GroomerPreference.getAPP_LANG(getActivity().getApplicationContext()));
         options = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
-                .cacheOnDisk(true)
+                .cacheOnDisk(false)
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .considerExifParams(true)
@@ -193,7 +194,8 @@ public class SettingFragment extends BaseFragment {
             }
 
             if (userDTO.getGender() != null) {
-                setViewText(R.id.edt_gender, userDTO.getGender().equalsIgnoreCase("M") ? "Male" : "Female", view);
+                setViewText(R.id.edt_gender, userDTO.getGender().equalsIgnoreCase("M") ?
+                        getString(R.string.txt_male) : getString(R.string.txt_female), view);
             }
 
             if (userDTO.getIs_location_service() != null) {
@@ -378,7 +380,6 @@ public class SettingFragment extends BaseFragment {
             FragmentManager fm = getActivity().getSupportFragmentManager();
             dFragment.show(fm, "Dialog Fragment");
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -473,10 +474,8 @@ public class SettingFragment extends BaseFragment {
 
 
                 } catch (FileNotFoundException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
 
@@ -604,8 +603,6 @@ public class SettingFragment extends BaseFragment {
         Theme theme = Utils.getObjectFromPref(mActivity, Constants.CURRENT_THEME);
 
 
-
-
         if (STATUS_CODE.contains(Constants.LANG_ENGLISH_CODE)) {
 
             btn_select_english.setBackgroundColor(getResources().getColor(R.color.green));
@@ -671,9 +668,24 @@ public class SettingFragment extends BaseFragment {
 
                                     Toast.makeText(mActivity, "Success", Toast.LENGTH_SHORT).show();
 
-                                    UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
+                                    UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").
+                                            toString(), UserDTO.class);
                                     GroomerPreference.putObjectIntoPref(getActivity(),
                                             userDTO, Constants.USER_INFO);
+
+                                    // delete cache image
+                                    File imageFile = ImageLoader.getInstance().getDiscCache().
+                                            get(userDTO.getImage());
+                                    if (imageFile.exists()) {
+                                        imageFile.delete();
+                                    }
+                                    MemoryCacheUtils.removeFromCache(userDTO.getImage(),
+                                            ImageLoader.getInstance().getMemoryCache());
+
+                                    ImageLoader.getInstance().displayImage(userDTO.getImage(), ivProfile,
+                                            options);
+
+
                                     Intent intent = new Intent(getActivity(), HomeActivity.class);
                                     intent.putExtra("fragmentNumber", 4);
                                     startActivity(intent);
