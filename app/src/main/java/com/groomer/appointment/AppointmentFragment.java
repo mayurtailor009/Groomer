@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.ListView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -39,6 +41,9 @@ public class AppointmentFragment extends BaseFragment {
     private ExpandableListView mExpandableListView;
     private Activity mActivity;
     private int lastExpandedPosition = -1;
+    private ExpandableListView mExpandableCompleteListView;
+    private Button btn_appointment_complete;
+    private Button btn_appointment;
 
     public static AppointmentFragment newInstance() {
         AppointmentFragment fragment = new AppointmentFragment();
@@ -65,11 +70,45 @@ public class AppointmentFragment extends BaseFragment {
         super.onActivityCreated(savedInstanceState);
         mActivity = getActivity();
         mExpandableListView = (ExpandableListView) view.findViewById(R.id.appointment_list);
+        mExpandableCompleteListView = (ExpandableListView) view.findViewById(R.id.listview_complete_appointment);
+        btn_appointment = (Button) view.findViewById(R.id.btn_appointment);
+        btn_appointment_complete = (Button) view.findViewById(R.id.btn_appointment_complete);
 
+        init();
+        btn_appointment.setSelected(true);
         getAppointmentList();
 
 
     }
+
+    private void init() {
+        setTouchNClick(R.id.btn_appointment, view);
+        setTouchNClick(R.id.btn_appointment_complete, view);
+
+    }
+
+    @Override
+    public void onClick(View arg0) {
+        switch (arg0.getId()) {
+            case R.id.btn_appointment:
+                btn_appointment.setSelected(true);
+                btn_appointment_complete.setSelected(false);
+                mExpandableListView.setVisibility(View.VISIBLE);
+                mExpandableCompleteListView.setVisibility(View.GONE);
+                getAppointmentList();
+
+                break;
+            case R.id.btn_appointment_complete:
+                btn_appointment.setSelected(false);
+                btn_appointment_complete.setSelected(true);
+                mExpandableListView.setVisibility(View.GONE);
+                mExpandableCompleteListView.setVisibility(View.VISIBLE);
+                getAppointmentCompleteList();
+
+                break;
+        }
+    }
+
 
     private void setUpExpandableListVIew(final List<AppointmentDTO> appointmentList) {
         setViewVisibility(R.id.no_appointment, view, View.GONE);
@@ -77,7 +116,7 @@ public class AppointmentFragment extends BaseFragment {
 
         mExpandableListView.setChoiceMode(ExpandableListView.CHOICE_MODE_SINGLE);
         mExpandableListView.setAdapter(new AppointmentListAdapter(
-                        this.getActivity(), appointmentList, mExpandableListView)
+                this.getActivity(), appointmentList, mExpandableListView)
         );
 
         mExpandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
@@ -96,50 +135,131 @@ public class AppointmentFragment extends BaseFragment {
         });
     }
 
-    private void getAppointmentList() {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("action", Constants.APPOINTMENTS);
-        params.put("user_id", Utils.getUserId(mActivity));
-        params.put("lang", Utils.getSelectedLanguage(mActivity));
+    private void setUpCompleteExpandableListVIew(final List<AppointmentDTO> appointmentList) {
+        setViewVisibility(R.id.no_appointment, view, View.GONE);
+        setViewVisibility(R.id.listview_complete_appointment, view, View.VISIBLE);
 
-        final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
-        CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
-                Constants.SERVICE_URL, params,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.i("Groomer info", response.toString());
-                        pdialog.dismiss();
-                        if (Utils.getWebServiceStatus(response)) {
-                            try {
-                                Type type = new TypeToken<ArrayList<AppointmentDTO>>() {
-                                }.getType();
-                                List<AppointmentDTO> appointmentList = new Gson()
-                                        .fromJson(response
-                                                .getJSONArray("appointment").toString(), type);
-                                setUpExpandableListVIew(appointmentList);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        } else {
-                            setViewVisibility(R.id.no_appointment, view, View.VISIBLE);
-                            setViewVisibility(R.id.appointment_list, view, View.GONE);
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i("Groomer info", error.toString());
-                        pdialog.dismiss();
-                        Utils.showExceptionDialog(mActivity);
-                    }
-                }
+        mExpandableCompleteListView.setChoiceMode(ExpandableListView.CHOICE_MODE_SINGLE);
+        mExpandableCompleteListView.setAdapter(new AppointmentListAdapter(
+                this.getActivity(), appointmentList, mExpandableCompleteListView)
         );
 
-        pdialog.show();
-        GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
-        jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        mExpandableCompleteListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if (lastExpandedPosition != -1
+                        && groupPosition != lastExpandedPosition) {
+                    mExpandableCompleteListView.collapseGroup(lastExpandedPosition);
+                }
+                if (appointmentList.get(groupPosition).isPassedDateFlag()) {
+                    mExpandableCompleteListView.collapseGroup(groupPosition);
+                }
+                lastExpandedPosition = groupPosition;
+            }
+        });
+    }
+
+
+    private void getAppointmentCompleteList() {
+        try {
+            HashMap<String, String> params = new HashMap<>();
+            params.put("action", Constants.APPOINTMENTS);
+            params.put("user_id", Utils.getUserId(mActivity));
+            params.put("lang", Utils.getSelectedLanguage(mActivity));
+
+            final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
+            CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
+                    Constants.SERVICE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.i("Groomer info", response.toString());
+                            pdialog.dismiss();
+                            if (Utils.getWebServiceStatus(response)) {
+                                try {
+                                    Type type = new TypeToken<ArrayList<AppointmentDTO>>() {
+                                    }.getType();
+                                    List<AppointmentDTO> appointmentList = new Gson()
+                                            .fromJson(response
+                                                    .getJSONArray("completed").toString(), type);
+                                    setUpCompleteExpandableListVIew(appointmentList);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
+                                setViewVisibility(R.id.no_appointment, view, View.VISIBLE);
+                                setViewVisibility(R.id.appointment_list, view, View.GONE);
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.i("Groomer info", error.toString());
+                            pdialog.dismiss();
+                            Utils.showExceptionDialog(mActivity);
+                        }
+                    }
+            );
+
+            pdialog.show();
+            GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
+            jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getAppointmentList() {
+        try {
+            HashMap<String, String> params = new HashMap<>();
+            params.put("action", Constants.APPOINTMENTS);
+            params.put("user_id", Utils.getUserId(mActivity));
+            params.put("lang", Utils.getSelectedLanguage(mActivity));
+
+            final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
+            CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
+                    Constants.SERVICE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.i("Groomer info", response.toString());
+                            pdialog.dismiss();
+                            if (Utils.getWebServiceStatus(response)) {
+                                try {
+                                    Type type = new TypeToken<ArrayList<AppointmentDTO>>() {
+                                    }.getType();
+                                    List<AppointmentDTO> appointmentList = new Gson()
+                                            .fromJson(response
+                                                    .getJSONArray("appointment").toString(), type);
+                                    setUpExpandableListVIew(appointmentList);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
+                                setViewVisibility(R.id.no_appointment, view, View.VISIBLE);
+                                setViewVisibility(R.id.appointment_list, view, View.GONE);
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.i("Groomer info", error.toString());
+                            pdialog.dismiss();
+                            Utils.showExceptionDialog(mActivity);
+                        }
+                    }
+            );
+
+            pdialog.show();
+            GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
+            jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

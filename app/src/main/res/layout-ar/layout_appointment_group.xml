@@ -111,11 +111,13 @@
         android:id="@+id/layout_rating_review"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_below="@id/user_appointed_name_layout"
         android:layout_marginRight="@dimen/margin_10"
         android:layout_marginTop="@dimen/margin_3"
+        android:layout_toLeftOf="@+id/date_layout"
         android:orientation="horizontal"
-        android:visibility="gone">
+        android:visibility="visible">
         <!-- Rating text -->
         <com.groomer.customviews.CustomTextViewMarkNovaRegular
             android:id="@+id/txt_user_rating"
@@ -129,8 +131,19 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/margin_10"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:contentDescription="@string/app_name"
             android:src="@drawable/star_icon" />
+
+        <com.groomer.customviews.CustomTextViewMarkNovaRegular
+            android:id="@+id/txt_user_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/margin_10"
+            android:text=""
+
+            android:textSize="@dimen/textsize_12sp" />
     </LinearLayout>
 
     <LinearLayout

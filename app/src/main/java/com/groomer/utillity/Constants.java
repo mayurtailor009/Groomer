@@ -14,6 +14,7 @@ public class Constants {
     public static final String DISTANCE_UNIT_MILES_ENG = "MILES";
     public static final String DISTANCE_UNIT_MILES_ARA = "ميل";
 
+    public static final String COMPLETED = "3";
 
     public static String SERVICE_URL = "http://128.199.234.133/groomer/webservices";
     public static String LOGIN_METHOD = "login";

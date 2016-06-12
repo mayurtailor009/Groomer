@@ -17,4 +17,6 @@
     <color name="green">#558A2E</color>
     <color name="red">#A52A2A</color>
     <color name="grey">#E0E0E0</color>
+    <color name="switch_off_color">#bdbdbd</color>
+    <color name="switch_on_color">#558A2E</color>
 </resources>

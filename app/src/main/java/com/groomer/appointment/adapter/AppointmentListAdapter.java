@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,12 +35,18 @@ import com.groomer.utillity.Theme;
 import com.groomer.utillity.Utils;
 import com.groomer.vendordetails.VendorDetailsActivity;
 import com.groomer.volley.CustomJsonRequest;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import org.joda.time.DateTime;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Deepak Singh on 29-Mar-16.
@@ -49,6 +56,7 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<AppointmentDTO> appointsParentList;
     private ExpandableListView mExpandableListView;
+    private DisplayImageOptions options;
 
     /**
      * this class acts like a holder for group of expandable list.
@@ -62,10 +70,12 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         TextView month;
         Button shareBtn;
         TextView rating;
+        TextView review;
         LinearLayout addressLayout;
         LinearLayout timeLayout;
         LinearLayout dateLayout;
         LinearLayout reviewLayout;
+        CircleImageView img_user_image;
 
         public GroupViewHoler(View view) {
             mUserName = (TextView) view.findViewById(R.id.txt_appointed_user_name);
@@ -80,6 +90,8 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
             month = (TextView) view.findViewById(R.id.txt_month);
             reviewLayout = (LinearLayout) view.findViewById(R.id.layout_rating_review);
             rating = (TextView) view.findViewById(R.id.txt_user_rating);
+            review = (TextView) view.findViewById(R.id.txt_user_review);
+            img_user_image = (CircleImageView) view.findViewById(R.id.img_user_image);
 
         }
     }
@@ -101,10 +113,25 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         }
     }
 
-    public AppointmentListAdapter(Context context, List<AppointmentDTO> appointmentList, ExpandableListView mExpandableListView) {
+    public AppointmentListAdapter(Context context,
+                                  List<AppointmentDTO> appointmentList,
+                                  ExpandableListView mExpandableListView) {
         this.context = context;
         this.appointsParentList = appointmentList;
         this.mExpandableListView = mExpandableListView;
+
+        options = new DisplayImageOptions.Builder()
+                .resetViewBeforeLoading(true)
+                .cacheOnDisk(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .considerExifParams(true)
+                .displayer(new SimpleBitmapDisplayer())
+                .showImageOnLoading(R.drawable.avater)
+                .showImageOnFail(R.drawable.avater)
+                .showImageForEmptyUri(R.drawable.avater)
+                .build();
+
     }
 
 
@@ -115,7 +142,7 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return 1;
+        return appointsParentList.get(groupPosition).getService().size();
     }
 
     @Override
@@ -165,7 +192,10 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         gHolder.address.setText(mBean.getAddress());
         gHolder.time.setText(mBean.getTime());
 
-        if (appointsParentList.get(groupPosition).getStatus().equals("2")) {
+        ImageLoader.getInstance().displayImage(mBean.getImage(),
+                gHolder.img_user_image, options);
+
+        if (appointsParentList.get(groupPosition).getStatus().equals(Constants.COMPLETED)) {
             gHolder.addressLayout.setVisibility(View.GONE);
             gHolder.timeLayout.setVisibility(View.GONE);
             gHolder.shareBtn.setVisibility(View.VISIBLE);
@@ -196,11 +226,13 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         }
 
         if (mBean.getReview() != null) {
+
             gHolder.reviewLayout.setVisibility(View.VISIBLE);
             gHolder.addressLayout.setVisibility(View.GONE);
             gHolder.timeLayout.setVisibility(View.GONE);
             gHolder.shareBtn.setVisibility(View.GONE);
             gHolder.rating.setText(mBean.getReview().getRating());
+            gHolder.review.setText(mBean.getReview().getReview());
 
         } else {
             gHolder.reviewLayout.setVisibility(View.GONE);

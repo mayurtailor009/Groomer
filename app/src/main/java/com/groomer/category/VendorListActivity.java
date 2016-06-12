@@ -307,6 +307,11 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
 
             case R.id.btn_apply:
                 llFilter.setVisibility(View.GONE);
+                if (HelpMe.isArabic(this)) {
+                    setHeader(categoryDTO.getName_ara());
+                } else {
+                    setHeader(categoryDTO.getName_eng());
+                }
                 getVendorsList(categoryDTO, distance, rating, review);
                 break;
 
