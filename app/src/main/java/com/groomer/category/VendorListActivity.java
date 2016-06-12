@@ -63,8 +63,8 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
     private ArrayList<CategoryDTO> categoryList;
 
     private String distance = "5";
-    private String review = "ASC";
-    private String rating = "ASC";
+    private String review = "";
+    private String rating = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -126,8 +126,8 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
         btnRatingDesc = (Button) findViewById(R.id.btn_rating_desc);
         btnReviewAsc = (Button) findViewById(R.id.btn_review_asc);
         btnReviewDesc = (Button) findViewById(R.id.btn_review_desc);
-        btnRatingAsc.setSelected(true);
-        btnReviewAsc.setSelected(true);
+       // btnRatingAsc.setSelected(true);
+       // btnReviewAsc.setSelected(true);
 
         setTouchNClick(R.id.btn_review_desc);
         setTouchNClick(R.id.btn_review_asc);
