@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_horizontal"
-                    android:text="SIGN IN"
+                    android:text="@string/txt_sign_in"
                     android:textColor="@color/blue_light"
                     android:textSize="20sp" />
 
@@ -62,9 +62,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center_horizontal"
-                    android:text="SIGN UP"
+                    android:text="@string/txt_sign_up"
                     android:textColor="@color/blue_light"
-
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -78,37 +77,37 @@
                 <com.groomer.customviews.CustomTextViewMarkNovaRegular
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Name"
+                    android:text="@string/txt_name"
                     android:textSize="20sp" />
 
                 <com.groomer.customviews.CustomEditTextMarkNovaRegular
                     android:id="@+id/et_name"
                     style="@style/et_login_style"
                     android:layout_marginTop="5dp"
-                    android:hint="Enter Here"
-                    android:drawableRight="@drawable/email_field_icon"
+                    android:drawableRight="@drawable/name_icon"
+                    android:hint="@string/hint_enter_here"
                     android:inputType="textCapWords" />
 
                 <com.groomer.customviews.CustomTextViewMarkNovaRegular
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Phone No"
+                    android:text="@string/txt_phone_no"
                     android:textSize="20sp" />
 
                 <com.groomer.customviews.CustomEditTextMarkNovaRegular
                     android:id="@+id/et_phone"
                     style="@style/et_login_style"
                     android:layout_marginTop="5dp"
-                    android:hint="Enter Here"
-                    android:drawableRight="@drawable/email_field_icon"
+                    android:drawableRight="@drawable/phone_icon"
+                    android:hint="@string/hint_enter_here"
                     android:inputType="number" />
 
                 <com.groomer.customviews.CustomTextViewMarkNovaRegular
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Email Id"
+                    android:text="@string/txt_email_id"
                     android:textSize="20sp" />
 
                 <com.groomer.customviews.CustomEditTextMarkNovaRegular
@@ -116,13 +115,13 @@
                     style="@style/et_login_style"
                     android:layout_marginTop="5dp"
                     android:drawableRight="@drawable/email_field_icon"
-                    android:hint="Enter Here" />
+                    android:hint="@string/hint_enter_here" />
 
                 <com.groomer.customviews.CustomTextViewMarkNovaRegular
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Password"
+                    android:text="@string/txt_password"
                     android:textSize="20sp" />
 
                 <com.groomer.customviews.CustomEditTextMarkNovaRegular
@@ -130,17 +129,17 @@
                     style="@style/et_login_style"
                     android:layout_marginTop="5dp"
                     android:drawableRight="@drawable/lock_field_icon"
-                    android:hint="Enter here"
+                    android:hint="@string/hint_enter_here"
                     android:inputType="textPassword"
                     android:typeface="monospace" />
 
                 <Button
-                    style="@style/btnStyleLogin"
                     android:id="@+id/btn_signup"
+                    style="@style/btnStyleLogin"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="SIGNUP" />
+                    android:text="@string/txt_sign_up" />
 
             </LinearLayout>
 

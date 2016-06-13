@@ -32,7 +32,7 @@ public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.De
     public static class DetailsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView thumbnail, img_fav;
-        TextView txt_vendor_name, txt_vendor_rating, txt_vendor_address, txt_vendor_price, txt_vendor_price_unit,txt_vendor_distance;
+        TextView txt_vendor_name, txt_vendor_rating, txt_vendor_address, txt_vendor_price, txt_vendor_price_unit, txt_vendor_distance;
 
 
         public DetailsViewHolder(View itemView) {
@@ -46,7 +46,7 @@ public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.De
             txt_vendor_price = (TextView) itemView.findViewById(R.id.txt_vendor_price);
             txt_vendor_price_unit = (TextView) itemView.findViewById(R.id.txt_vendor_price_unit);
             img_fav = (ImageView) itemView.findViewById(R.id.img_fav);
-            txt_vendor_distance =(TextView)itemView.findViewById(R.id.txt_vendor_distance);
+            txt_vendor_distance = (TextView) itemView.findViewById(R.id.txt_vendor_distance);
 
 
             thumbnail.setOnClickListener(this);
@@ -109,7 +109,8 @@ public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.De
         holder.txt_vendor_address.setText(vendorListDTO.getAddress());
         holder.txt_vendor_rating.setText(vendorListDTO.getRating());
 
-      holder.txt_vendor_distance.setText("(" + vendorListDTO.getDistance() + " Km.)");
+        holder.txt_vendor_distance.setText("(" + vendorListDTO.getDistance() + " " +
+                context.getString(R.string.distance_unit_km) + " )");
         if (vendorListDTO.getFavourite().equalsIgnoreCase("1")) {
             holder.img_fav.setImageResource(R.drawable.fav_active_icon);
         } else {

@@ -32,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/txt_category"
             android:background="?attr/filterTextView"
+            android:maxLines="1"
             android:textSize="@dimen/textsize_17sp" />
 
 

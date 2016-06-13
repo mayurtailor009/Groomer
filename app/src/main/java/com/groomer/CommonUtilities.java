@@ -11,7 +11,7 @@ public final class CommonUtilities {
 
     // Google project id
     public static final String SENDER_ID = "921049770663";
-    //Api KEY
+    //Api KEY Deepak gupta credential Android Push Notification project
     public static final String API_KEY = "AIzaSyCGw-YcRFJTyR0KCIXArsUcZ56VvQVPH7M";
     /**
      * Tag used on log messages.

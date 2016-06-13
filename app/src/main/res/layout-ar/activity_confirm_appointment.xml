@@ -38,11 +38,13 @@
                 <!-- service name text -->
                 <com.groomer.customviews.CustomTextViewMarkNovaSemibold
                     android:id="@+id/confirm_appoint_txt_service_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/confirm_appoint_txt_service_price"
                     android:layout_marginTop="@dimen/margin_3"
                     android:text="@string/txt_vendor_name"
+                    android:gravity="right"
+                    android:layout_toRightOf="@+id/confirm_appoint_cross_button"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/textsize_15sp" />
                 <!-- cross button -->
@@ -51,6 +53,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="@dimen/margin_5"
                     android:layout_centerVertical="true"
                     android:src="@drawable/close_btn"
                     android:tint="@color/colorWhite" />
@@ -62,6 +66,7 @@
                     android:layout_below="@id/confirm_appoint_txt_service_name"
                     android:layout_marginLeft="@dimen/margin_3"
                     android:layout_marginTop="@dimen/margin_3"
+                    android:gravity="right"
                     android:layout_toRightOf="@id/confirm_appoint_cross_button"
                     android:text="@string/txt_vendor_address"
                     android:textColor="@color/colorWhite"

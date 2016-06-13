@@ -154,7 +154,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
         pdialog.show();
         GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
         jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         );
     }
 
@@ -177,7 +177,8 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
             setViewText(R.id.txt_vendor_name, saloonDetailsDTO.getStorename_eng());
         }
         setViewText(R.id.txt_vendor_address, saloonDetailsDTO.getAddress());
-        setViewText(R.id.txt_vendor_distance, "(" + saloonDetailsDTO.getDistance() + ")");
+        setViewText(R.id.txt_vendor_distance, "(" + saloonDetailsDTO.getDistance() +
+                " "+ getString(R.string.distance_unit_km) + " )");
 
 
         if (saloonDetailsDTO.getRating() != null && !saloonDetailsDTO.getRating().equalsIgnoreCase("")) {
@@ -414,9 +415,9 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("serviceDTO", (Serializable) selectedList);
                         intent.putExtras(bundle);
-                        if(!HelpMe.isArabic(mActivity)) {
+                        if (!HelpMe.isArabic(mActivity)) {
                             intent.putExtra("saloonName", saloonDetailsDTO.getStorename_eng());
-                        }else{
+                        } else {
                             intent.putExtra("saloonName", saloonDetailsDTO.getStorename_ara());
                         }
                         intent.putExtra("saloonAddress", saloonDetailsDTO.getAddress());

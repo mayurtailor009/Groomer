@@ -26,20 +26,24 @@
                 <!-- service price text -->
                 <com.groomer.customviews.CustomTextViewMarkNovaExtrabold
                     android:id="@+id/confirm_appoint_txt_service_price"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/confirm_appoint_cross_button"
                     android:text=""
+                    android:gravity="left"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/textsize_15sp" />
 
                 <!-- service name text -->
                 <com.groomer.customviews.CustomTextViewMarkNovaSemibold
                     android:id="@+id/confirm_appoint_txt_service_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/confirm_appoint_txt_service_price"
                     android:layout_marginTop="@dimen/margin_3"
+                    android:layout_toLeftOf="@+id/confirm_appoint_cross_button"
                     android:text=""
+                    android:gravity="left"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/textsize_15sp" />
                 <!-- cross button -->
@@ -47,7 +51,9 @@
                     android:id="@+id/confirm_appoint_cross_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
+                    android:layout_marginLeft="@dimen/margin_5"
                     android:layout_centerVertical="true"
                     android:src="@drawable/close_btn"
                     android:tint="@color/colorWhite" />
@@ -55,7 +61,7 @@
                 <!-- service name text -->
                 <com.groomer.customviews.CustomTextViewMarkNovaThin
                     android:id="@+id/confirm_appoint_txt_service_address"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/confirm_appoint_txt_service_name"
                     android:layout_marginRight="@dimen/margin_3"

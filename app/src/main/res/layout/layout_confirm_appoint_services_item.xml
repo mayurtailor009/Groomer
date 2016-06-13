@@ -2,51 +2,64 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/grid_color"
-    android:orientation="horizontal"
-    android:layout_marginBottom="@dimen/margin_1"
-    android:weightSum="1">
+    android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.7"
-        android:background="@color/colorWhite"
-        android:padding="@dimen/margin_15">
+        android:layout_marginBottom="@dimen/margin_1"
+        android:background="@color/grid_color"
+        android:orientation="horizontal"
+        android:weightSum="1">
 
-        <!-- item's service name -->
-        <com.groomer.customviews.CustomTextViewMarkNovaSemibold
-            android:id="@+id/confirm_appoint_item_service_name"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="Service 1"
-            android:textSize="@dimen/textsize_15sp" />
+            android:layout_weight="0.7"
+            android:background="@color/colorWhite"
+            android:padding="@dimen/margin_15">
 
-        <!-- item's service time -->
-        <com.groomer.customviews.CustomTextViewMarkNovaLight
-            android:id="@+id/confirm_appoint_item_service_time"
-            android:layout_width="wrap_content"
+            <!-- item's service name -->
+            <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+                android:id="@+id/confirm_appoint_item_service_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Service 1"
+                android:textSize="@dimen/textsize_15sp" />
+
+            <!-- item's service time -->
+            <com.groomer.customviews.CustomTextViewMarkNovaLight
+                android:id="@+id/confirm_appoint_item_service_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="30 MIN"
+                android:textSize="@dimen/textsize_15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="30 MIN"
-            android:textSize="@dimen/textsize_15sp" />
-    </RelativeLayout>
+            android:layout_marginLeft="@dimen/margin_1"
+            android:layout_weight="0.3"
+            android:background="@color/colorWhite"
+            android:padding="@dimen/margin_15">
 
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_1"
-        android:padding="@dimen/margin_15"
-        android:background="@color/colorWhite"
-        android:layout_weight="0.3">
+            <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                android:id="@+id/confirm_appoint_item_service_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="SAR 65"
+                android:textSize="@dimen/textsize_15sp" />
+        </RelativeLayout>
 
-        <com.groomer.customviews.CustomTextViewMarkNovaRegular
-            android:id="@+id/confirm_appoint_item_service_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="@dimen/textsize_15sp"
-            android:text="SAR 65" />
-    </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey" />
 </LinearLayout>

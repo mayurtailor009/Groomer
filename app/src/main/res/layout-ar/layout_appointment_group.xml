@@ -41,6 +41,8 @@
         android:layout_marginLeft="@dimen/margin_5"
         android:layout_marginTop="@dimen/margin_5"
         android:text="@string/share_experience"
+        android:descendantFocusability="blocksDescendants"
+        android:focusable="false"
         android:textAllCaps="false"
         android:textSize="@dimen/textsize_12sp"
         android:visibility="gone" />

@@ -36,6 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/filterTextView"
+                android:maxLines="1"
                 android:textSize="@dimen/textsize_17sp" />
 
         </LinearLayout>
@@ -152,15 +153,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:weightSum="2"
             android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <Button
                 android:id="@+id/btn_rating_asc"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="?attr/filterRightButton"
                 android:minHeight="0dp"
                 android:text="@string/txt_low_to_high"
@@ -170,8 +171,8 @@
             <Button
                 android:id="@+id/btn_rating_desc"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:background="?attr/filterLeftButton"
                 android:minHeight="0dp"
                 android:text="@string/txt_high_to_low"

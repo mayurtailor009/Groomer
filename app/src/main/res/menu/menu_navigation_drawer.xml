@@ -13,7 +13,7 @@
             app:actionLayout="@layout/notification_counter"/>
         <item
             android:id="@+id/nav_appointments"
-            android:icon="@drawable/thumb_icon"
+            android:icon="@drawable/menu_appointment"
             android:title="@string/menu_appointments"
             app:actionLayout="@layout/notification_counter"/>
         <item

@@ -86,7 +86,7 @@
                     android:id="@+id/et_name"
                     style="@style/et_login_style"
                     android:layout_marginTop="5dp"
-                    android:drawableLeft="@drawable/email_field_icon"
+                    android:drawableLeft="@drawable/name_icon"
                     android:gravity="right"
                     android:hint="@string/hint_enter_here"
                     android:inputType="textCapWords" />
@@ -103,7 +103,7 @@
                     android:id="@+id/et_phone"
                     style="@style/et_login_style"
                     android:layout_marginTop="5dp"
-                    android:drawableLeft="@drawable/email_field_icon"
+                    android:drawableLeft="@drawable/phone_icon"
                     android:gravity="right"
                     android:hint="@string/hint_enter_here"
                     android:inputType="number" />
