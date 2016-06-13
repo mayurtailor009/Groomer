@@ -666,7 +666,7 @@ public class SettingFragment extends BaseFragment {
                             try {
                                 if (Utils.getWebServiceStatus(response)) {
 
-                                    Toast.makeText(mActivity, "Success", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(mActivity, "Profile Successfully Updated", Toast.LENGTH_SHORT).show();
 
                                     UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").
                                             toString(), UserDTO.class);
@@ -676,7 +676,7 @@ public class SettingFragment extends BaseFragment {
                                     // delete cache image
                                     File imageFile = ImageLoader.getInstance().getDiscCache().
                                             get(userDTO.getImage());
-                                    if (imageFile.exists()) {
+                                    if (imageFile!=null && imageFile.exists()) {
                                         imageFile.delete();
                                     }
                                     MemoryCacheUtils.removeFromCache(userDTO.getImage(),
@@ -684,7 +684,10 @@ public class SettingFragment extends BaseFragment {
 
                                     ImageLoader.getInstance().displayImage(userDTO.getImage(), ivProfile,
                                             options);
-
+                                    Activity activity = getActivity();
+                                    if(activity instanceof HomeActivity){
+                                        ((HomeActivity) activity).setProfilePic(userDTO);
+                                    }
 
                                     Intent intent = new Intent(getActivity(), HomeActivity.class);
                                     intent.putExtra("fragmentNumber", 4);

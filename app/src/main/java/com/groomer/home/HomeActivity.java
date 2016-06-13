@@ -53,6 +53,7 @@ public class HomeActivity extends BaseActivity {
     private MenuDTO menuDTO;
     private NavigationView navigationView;
     private DisplayImageOptions options;
+    private ImageView ivProfile;
 
 
     @Override
@@ -339,18 +340,19 @@ public class HomeActivity extends BaseActivity {
             }
             stringBuffer.append(userDTO.getIs_location_service());
         }
-
-        ImageView imageView = (ImageView) headerLayout.findViewById(R.id.img_user_image);
-        ImageLoader.getInstance().displayImage(userDTO.getImage(), imageView,
-                options);
-
-
+        ivProfile = (ImageView) headerLayout.findViewById(R.id.img_user_image);
+        setProfilePic(userDTO);
         TextView txt_age_gender = (TextView) headerLayout.findViewById(R.id.nav_header_age);
         txt_age_gender.setText(stringBuffer.toString());
 
 
     }
 
+    public void setProfilePic(UserDTO userDTO){
+
+        ImageLoader.getInstance().displayImage(userDTO.getImage(), ivProfile,
+                options);
+    }
 
     private void setMenuCounter(@IdRes int itemId, int count) {
         if (count != 0) {
