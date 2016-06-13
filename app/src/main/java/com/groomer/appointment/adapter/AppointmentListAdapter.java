@@ -104,12 +104,14 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         LinearLayout rescheduleLayout;
         LinearLayout rebookLayout;
         LinearLayout cancelLayout;
+        LinearLayout llOpteration;
 
         public ChildViewHolder(View view) {
             mRecyclerView = (RecyclerView) view.findViewById(R.id.children_services_list);
             cancelLayout = (LinearLayout) view.findViewById(R.id.layout_cancel);
             rescheduleLayout = (LinearLayout) view.findViewById(R.id.layout_reschedule);
             rebookLayout = (LinearLayout) view.findViewById(R.id.layout_rebook);
+            llOpteration = (LinearLayout) view.findViewById(R.id.bottom_button_layout);
         }
     }
 
@@ -208,7 +210,7 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
 
         if (Utils.isFromDateGreater(appointsParentList.get(groupPosition).getDate(), Utils.getCurrentDate())) {
             gHolder.dateLayout.setEnabled(false);
-            mBean.setPassedDateFlag(true);
+            //mBean.setPassedDateFlag(true);
             gHolder.dateLayout.setBackgroundColor(context.getResources().getColor(R.color.divider_color));
 
         } else {
@@ -268,6 +270,10 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         performClickOnRebook(cHolder.rebookLayout, groupPosition);
         performClickOnCancel(cHolder.cancelLayout, groupPosition);
         performClickOnReschedule(cHolder.rescheduleLayout, groupPosition);
+
+        if((appointsParentList.get(groupPosition).getStatus().equals(Constants.COMPLETED))){
+            cHolder.llOpteration.setVisibility(View.GONE);
+        }
         return convertView;
     }
 
