@@ -61,7 +61,7 @@ public class ReviewFragment extends BaseFragment {
             setViewVisibility(R.id.txt_no_data_found, view, View.GONE);
             mReviewList.setAdapter(new ReviewsAdapter(mActivity, getReviewsList()));
         } else {
-            mReviewList.setVisibility(View.INVISIBLE);
+            mReviewList.setVisibility(View.GONE);
             setViewVisibility(R.id.txt_no_data_found, view, View.VISIBLE);
         }
     }

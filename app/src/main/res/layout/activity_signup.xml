@@ -15,19 +15,18 @@
             android:layout_height="fill_parent"
             android:orientation="vertical">
 
-            <com.groomer.customviews.CustomTextViewMarkNovaBold
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/app_name_capital"
-                android:textColor="@color/btn_color_blue"
-                android:textSize="@dimen/logo_size"
-                android:textStyle="bold" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="@dimen/margin_20"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginRight="@dimen/margin_10"
+                android:src="@drawable/text_logo" />
 
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/margin_5"
                 android:background="@color/divider_color" />
 
             <LinearLayout

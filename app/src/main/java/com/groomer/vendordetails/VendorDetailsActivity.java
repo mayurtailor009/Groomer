@@ -178,12 +178,14 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
         }
         setViewText(R.id.txt_vendor_address, saloonDetailsDTO.getAddress());
         setViewText(R.id.txt_vendor_distance, "(" + saloonDetailsDTO.getDistance() +
-                " "+ getString(R.string.distance_unit_km) + " )");
+                " " + getString(R.string.distance_unit_km) + " )");
 
 
         if (saloonDetailsDTO.getRating() != null && !saloonDetailsDTO.getRating().equalsIgnoreCase("")) {
             String strReview = getViewText(R.id.btn_reviews_tab);
-            setViewText(R.id.btn_reviews_tab, strReview + "(" + saloonDetailsDTO.getRating() + ")");
+            String reviewCount = saloonDetailsDTO.getRating().equalsIgnoreCase("0")
+                    ? "" : "("+saloonDetailsDTO.getRating()+")";
+            setViewText(R.id.btn_reviews_tab, strReview + reviewCount);
         }
 
         ImageView img_fav = (ImageView) findViewById(R.id.img_fav);
@@ -201,7 +203,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
      */
     private void setUpViewPager() {
         listImages = new ArrayList<>();
-        listImages.add(saloonDetailsDTO.getImage());
+//        listImages.add(saloonDetailsDTO.getImage());
 
         for (int i = 0; i < saloonDetailsDTO.getImages().size(); i++) {
             listImages.add(saloonDetailsDTO.getImages().get(i).getImage());
@@ -559,9 +561,9 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                                         img_fav.setImageResource(R.drawable.fav_icon);
                                         saloonDetailsDTO.setFavourite("0");
                                     }
-                                    Toast.makeText(mActivity,
-                                            Utils.getWebServiceMessage(response),
-                                            Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(mActivity,
+//                                            Utils.getWebServiceMessage(response),
+//                                            Toast.LENGTH_SHORT).show();
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }

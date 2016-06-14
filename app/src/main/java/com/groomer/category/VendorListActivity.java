@@ -65,6 +65,7 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
     private String distance = "5";
     private String review = "";
     private String rating = "";
+    private String searchKeyword = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,7 +81,7 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
         init(categoryDTO);
 
 
-        getVendorsList(categoryDTO, distance, rating, review);
+        getVendorsList(categoryDTO, distance, rating, review, searchKeyword);
 
         if (HelpMe.isArabic(mActivity)) {
             setTextViewText(R.id.txt_category, categoryDTO.getName_ara());
@@ -93,7 +94,7 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
 
             @Override
             public void onRefresh() {
-                getVendorsList(categoryDTO, distance, rating, review);
+                getVendorsList(categoryDTO, distance, rating, review, searchKeyword);
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -312,7 +313,8 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
                 } else {
                     setHeader(categoryDTO.getName_eng());
                 }
-                getVendorsList(categoryDTO, distance, rating, review);
+                searchKeyword=getViewText(R.id.et_search);
+                getVendorsList(categoryDTO, distance, rating, review, searchKeyword);
                 break;
 
             case R.id.btn_cancel:
@@ -334,7 +336,8 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
     }
 
 
-    private void getVendorsList(CategoryDTO categoryDTO, String distances, String rating, String review) {
+    private void getVendorsList(CategoryDTO categoryDTO, String distances,
+                                String rating, String review, String searchKeyword) {
         if (Utils.isOnline(mActivity)) {
             HashMap<String, String> params = new HashMap<>();
             params.put("action", Constants.VENDOR_LIST);
@@ -346,6 +349,7 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
             params.put("review", review);
             params.put("lang", Utils.getSelectedLanguage(mActivity));
             params.put("distance", distances);
+            params.put("keyword", searchKeyword);
 
             final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
             CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,

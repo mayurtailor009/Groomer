@@ -30,12 +30,12 @@ public class CustomTextViewMarkNovaSemibold extends TextView {
 
     private void init(Context context) {
         Typeface tf = null;
-      //  if (!HelpMe.isArabic(context)) {
+        if (!HelpMe.isArabic(context)) {
             tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/Mark Simonson - Proxima Nova Semibold.ttf");
-//        } else {
-//            tf = Typeface.createFromAsset(getContext().getAssets(),
-//                    "fonts/majalla.ttf");
-//        }
+        } else {
+            tf = Typeface.createFromAsset(getContext().getAssets(),
+                    "fonts/majalla.ttf");
+        }
         setTypeface(tf);
     }
 
