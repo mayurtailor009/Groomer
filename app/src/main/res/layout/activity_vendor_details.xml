@@ -95,7 +95,8 @@
             <!-- vendor name and address details layout -->
             <RelativeLayout
                 android:id="@+id/relative_vendor_name_address"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:gravity="left"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/directions">
 

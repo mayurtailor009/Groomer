@@ -335,7 +335,8 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
         for (int i = 0; i < serviceDTOList.size(); i++) {
             amount = Double.valueOf(serviceDTOList.get(i).getPrice());
         }
-        setViewText(R.id.confirm_appoint_txt_service_price, "SAR " + amount + "");
+        setViewText(R.id.confirm_appoint_txt_service_price, getString(R.string.txt_vendor_price_unit) +
+                " " + amount + "");
     }
 
 

@@ -58,7 +58,8 @@ public class ServiceInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             mHolder.mServiceName.setText(servicesDTO.getName_eng());
         }
 
-        mHolder.mServicePrice.setText("SRA " + servicesDTO.getPrice());
+        mHolder.mServicePrice.setText(context.getString(R.string.txt_vendor_price_unit) +
+                " " + servicesDTO.getPrice());
     }
 
     @Override

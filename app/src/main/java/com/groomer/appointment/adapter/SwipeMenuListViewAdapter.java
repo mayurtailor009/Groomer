@@ -82,7 +82,8 @@ public class SwipeMenuListViewAdapter extends BaseAdapter {
             holder.mServiceName.setText(servicesDTO.getName_eng());
         }
 
-        holder.mServicePrice.setText("SRA " + servicesDTO.getPrice());
+        holder.mServicePrice.setText(context.getString(R.string.txt_vendor_price_unit)
+                + " " + servicesDTO.getPrice());
 
         return convertView;
     }

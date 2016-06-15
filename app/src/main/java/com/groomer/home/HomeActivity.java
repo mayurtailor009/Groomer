@@ -330,16 +330,10 @@ public class HomeActivity extends BaseActivity {
         }
         if (userDTO.getAge() != null && !userDTO.getAge().equalsIgnoreCase("")
                 && !userDTO.getAge().equalsIgnoreCase("0")) {
+            stringBuffer.append(" ");
             stringBuffer.append(userDTO.getAge());
         }
-        if (userDTO.getIs_location_service() != null
-                && !userDTO.getIs_location_service().equalsIgnoreCase("")
-                && !userDTO.getIs_location_service().equalsIgnoreCase("0")) {
-            if (!stringBuffer.equals("")) {
-                stringBuffer.append(" | ");
-            }
-            stringBuffer.append(userDTO.getIs_location_service());
-        }
+
         ivProfile = (ImageView) headerLayout.findViewById(R.id.img_user_image);
         setProfilePic(userDTO);
         TextView txt_age_gender = (TextView) headerLayout.findViewById(R.id.nav_header_age);

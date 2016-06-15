@@ -184,7 +184,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
         if (saloonDetailsDTO.getRating() != null && !saloonDetailsDTO.getRating().equalsIgnoreCase("")) {
             String strReview = getViewText(R.id.btn_reviews_tab);
             String reviewCount = saloonDetailsDTO.getRating().equalsIgnoreCase("0")
-                    ? "" : "("+saloonDetailsDTO.getRating()+")";
+                    ? "" : "(" + saloonDetailsDTO.getRating() + ")";
             setViewText(R.id.btn_reviews_tab, strReview + reviewCount);
         }
 
@@ -601,8 +601,8 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
 
     @Override
     public void getPriceSum(String sum) {
-        totalPrice = "SAR " + sum;
-        setViewText(R.id.services_total_amount, "SAR " + sum);
+        totalPrice =  getString(R.string.txt_vendor_price_unit) + " " + sum;
+        setViewText(R.id.services_total_amount, getString(R.string.txt_vendor_price_unit) + " " + sum);
 
     }
 

@@ -60,7 +60,8 @@ public class AppointListChildAdapter extends RecyclerView.Adapter<RecyclerView.V
             mHolder.mServiceName.setText(servicesDTO.getService_name_eng());
 
         }
-        mHolder.mServicePrice.setText("SRA " + servicesDTO.getPrice());
+        mHolder.mServicePrice.setText(context.getString(R.string.txt_vendor_price_unit) +
+                " " + servicesDTO.getPrice());
     }
 
     @Override
