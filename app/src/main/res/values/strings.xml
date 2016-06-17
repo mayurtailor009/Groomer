@@ -1,8 +1,9 @@
 <resources>
 
     <string name="facebook_app_id">1679155815668745</string>
-    <string name="app_name">Dourik</string>
-    <string name="app_name_capital">DOURIK</string>
+    <string name="app_name_launcher">Dorik | دورك</string>
+    <string name="app_name">Dorik | دورك</string>
+    <string name="app_name_capital">DORIK</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="drawer_open">Open</string>
@@ -29,9 +30,17 @@
     <string name="txt_password">Password</string>
     <string name="txt_forget_password">Forget Password?</string>
     <string name="txt_login">LOGIN</string>
+    <string name="txt_or_login_via">or login via</string>
     <string name="txt_skip">Skip</string>
-    <string name="alert_please_enter_password">Please Enter Password</string>
-    <string name="alert_please_enter_emailid">Please Enter EmailId</string>
+
+
+    <!-- Sign up screen -->
+    <string name="txt_phone_no">Phone no</string>
+    <string name="alert_please_enter_name">Please enter name</string>
+    <string name="alert_please_enter_phone_no">Please enter phone no</string>
+    <string name="alert_please_enter_emailid">Please enter emailid</string>
+    <string name="alert_please_enter_password">Please enter password</string>
+
 
     <!-- start for categories -->
     <string name="txt_category">Select Category</string>
@@ -73,6 +82,11 @@
     <string name="confirm_password_lbl">Confirm Password</string>
     <string name="submit_btn">Submit</string>
     <string name="password_hint">********</string>
+    <string name="alert_please_enter_previous_password">Please enter previous password.</string>
+    <string name="alert_please_enter_new_password">Please enter new password.</string>
+    <string name="alert_please_enter_confirm_password">Please enter confirm password.</string>
+    <string name="alert_new_and_confirm_password_are_not_same">New and confirm password are not same.</string>
+
     <!--END For Change password  screen -->
 
     <!-- start for Forget password screen -->
@@ -96,12 +110,19 @@
     <string name="hint_write_something">Write Something...</string>
 
 
+    <!--For Filter screen -->
+    <string name="search_hint">Service, Store &amp; location</string>
+
+
+
+
     <!--For vendor list screen and vendor details screen -->
     <string name="txt_vendor_name">Pretty Looks</string>
-    <string name="txt_vendor_address">21 Magon Street, Near Amazon Park , Hotel Marriotr Jaipur, Rajasthan , India</string>
+    <string name="txt_vendor_address">21 Magon Street, Near Amazon Park ,</string>
     <string name="txt_vendor_distance">(2 Km.)</string>
+    <string name="distance_unit_km">KM</string>
     <string name="txt_vendor_price_unit">SAR</string>
-    <string name="txt_start_from">Starts From</string>
+    <string name="txt_start_from">Start From</string>
     <string name="txt_about">About</string>
     <string name="txt_review">Reviews</string>
     <string name="set_appointment">Set Appointment</string>
@@ -116,7 +137,7 @@
     <string name="txt_service">Service</string>
     <string name="txt_services">Services</string>
     <string name="txt_no_saloon">No Saloon Found.</string>
-    <!--END For vendor list screen -->
+    <!--END For vendor list screen -->w
 
     <!-- vendor details about tab screen -->
     <string name="txt_about_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac orci quis odilo bibendum mattis.</string>
@@ -127,6 +148,8 @@
     <string name="share_title">Share Experience</string>
     <string name="confirm">Confirm</string>
     <string name="no_appointment">No Appointments.</string>
+    <string name="open_appointment">Open</string>
+    <string name="complete_appointment">Completed</string>
 
     <!-- alert texts -->
     <string name="you_logout">You will be Logged out !!</string>
@@ -146,7 +169,6 @@
     <string name="txt_no_reviews">No Reviews</string>
 
 
-
     <!-- for push notifications -->
     <string name="title_activity_main">Push Notifications</string>
     <string name="error_config">Please set the %1$s constant and recompile the app.</string>
@@ -164,8 +186,6 @@
     <string name="server_unregister_error">Could not unregister device on Demo Server (%1$s).</string>
 
 
-
-
     <string name="lbl_review">Review</string>
     <string name="txt_low_to_high">ASC</string>
     <string name="txt_high_to_low">DESC</string>
@@ -175,6 +195,4 @@
     <string name="lbl_distance">Distance</string>
     <string name="lbl_apply">Apply</string>
     <string name="lbl_cancel">Cancel</string>
-    <string name="open_appointment">Open</string>
-    <string name="complete_appointment">Completed</string>
 </resources>

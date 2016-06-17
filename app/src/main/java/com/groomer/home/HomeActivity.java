@@ -116,7 +116,8 @@ public class HomeActivity extends BaseActivity {
 
             @Override
             public void onDrawerClosed(View drawerView) {
-
+                new Thread(new MenuCountHandler(menuHandler,
+                        HomeActivity.this)).start();
             }
 
             @Override
@@ -349,9 +350,11 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void setMenuCounter(@IdRes int itemId, int count) {
+        TextView view = (TextView) navigationView.getMenu().findItem(itemId).getActionView();
         if (count != 0) {
-            TextView view = (TextView) navigationView.getMenu().findItem(itemId).getActionView();
             view.setText(String.valueOf(count));
+        }else{
+            view.setText("");
         }
     }
 
@@ -359,7 +362,7 @@ public class HomeActivity extends BaseActivity {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             SessionManager.logoutUser(mActivity);
-            ;
+
         }
     };
 }

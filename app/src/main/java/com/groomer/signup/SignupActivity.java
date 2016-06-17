@@ -126,17 +126,17 @@ public class SignupActivity extends BaseActivity {
 
     public boolean validateForm() {
         if (getEditTextText(R.id.et_name).equals("")) {
-            Utils.showDialog(this, "Message", "Please enter name");
+            Utils.showDialog(this, getString(R.string.message_title), getString(R.string.alert_please_enter_name));
             return false;
         } else if (getEditTextText(R.id.et_phone).equals("")) {
-            Utils.showDialog(this, "Message", "Please enter phone no");
+            Utils.showDialog(this, getString(R.string.message_title), getString(R.string.alert_please_enter_phone_no));
             return false;
         }
         else if (getEditTextText(R.id.et_emailid).equals("")) {
-            Utils.showDialog(this, "Message", "Please enter emailid");
+            Utils.showDialog(this, getString(R.string.message_title), getString(R.string.alert_please_enter_emailid));
             return false;
         } else if (getEditTextText(R.id.et_passowrd).equals("")) {
-            Utils.showDialog(this, "Message", "Please enter password");
+            Utils.showDialog(this, getString(R.string.message_title), getString(R.string.alert_please_enter_password));
             return false;
         }
         return true;

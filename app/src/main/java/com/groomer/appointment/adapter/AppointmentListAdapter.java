@@ -23,6 +23,8 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
 import com.groomer.model.AppointServicesDTO;
@@ -43,6 +45,8 @@ import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import org.joda.time.DateTime;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -136,6 +140,9 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
 
     }
 
+    private void setAppointsParentList(List<AppointmentDTO> appointmentList) {
+        this.appointsParentList = appointmentList;
+    }
 
     @Override
     public int getGroupCount() {
@@ -208,7 +215,8 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
             gHolder.shareBtn.setVisibility(View.GONE);
         }
 
-        if (Utils.isFromDateGreater(appointsParentList.get(groupPosition).getDate(), Utils.getCurrentDate())) {
+        if (Utils.isFromDateGreater(appointsParentList.get(groupPosition).getDate(), Utils.getCurrentDate())
+                || appointsParentList.get(groupPosition).getStatus().equals(Constants.CANCELLED)) {
             gHolder.dateLayout.setEnabled(false);
             //mBean.setPassedDateFlag(true);
             gHolder.dateLayout.setBackgroundColor(context.getResources().getColor(R.color.divider_color));
@@ -271,9 +279,14 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         performClickOnCancel(cHolder.cancelLayout, groupPosition);
         performClickOnReschedule(cHolder.rescheduleLayout, groupPosition);
 
-        if((appointsParentList.get(groupPosition).getStatus().equals(Constants.COMPLETED))){
+
+        if ((appointsParentList.get(groupPosition).getStatus().equals(Constants.COMPLETED))
+                || (appointsParentList.get(groupPosition).getStatus().equals(Constants.CANCELLED))) {
             cHolder.llOpteration.setVisibility(View.GONE);
+        }else{
+            cHolder.llOpteration.setVisibility(View.VISIBLE);
         }
+
         return convertView;
     }
 
@@ -353,18 +366,19 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
                         pdialog.dismiss();
                         if (Utils.getWebServiceStatus(response)) {
                             try {
-                                Toast.makeText(context, Utils.getWebServiceMessage(response),
-                                        Toast.LENGTH_SHORT).show();
-                                for (int i = 0; i < appointsParentList.size(); i++) {
-                                    if (orderID.equals(appointsParentList.get(position)
-                                            .getOrder_id())) {
-                                        appointsParentList.remove(i);
-                                        notifyDataSetChanged();
-                                    }
-                                }
-                                int count = getGroupCount();
-                                for (int i = 0; i < count; i++)
-                                    mExpandableListView.collapseGroup(i);
+                                getAppointmentList();
+//                                Toast.makeText(context, Utils.getWebServiceMessage(response),
+//                                        Toast.LENGTH_SHORT).show();
+//                                for (int i = 0; i < appointsParentList.size(); i++) {
+//                                    if (orderID.equals(appointsParentList.get(position)
+//                                            .getOrder_id())) {
+//                                        appointsParentList.remove(i);
+//                                        notifyDataSetChanged();
+//                                    }
+//                                }
+//                                int count = getGroupCount();
+//                                for (int i = 0; i < count; i++)
+//                                    mExpandableListView.collapseGroup(i);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -385,5 +399,54 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
         jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+    }
+
+    private void getAppointmentList() {
+        try {
+            HashMap<String, String> params = new HashMap<>();
+            params.put("action", Constants.APPOINTMENTS);
+            params.put("user_id", Utils.getUserId(context));
+            params.put("lang", Utils.getSelectedLanguage(context));
+
+            final ProgressDialog pdialog = Utils.createProgressDialog(context, null, false);
+            CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
+                    Constants.SERVICE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.i("Groomer info", response.toString());
+                            pdialog.dismiss();
+                            if (Utils.getWebServiceStatus(response)) {
+                                try {
+                                    Type type = new TypeToken<ArrayList<AppointmentDTO>>() {
+                                    }.getType();
+                                    List<AppointmentDTO> appointmentList = new Gson()
+                                            .fromJson(response
+                                                    .getJSONArray("appointment").toString(), type);
+                                    setAppointsParentList(appointmentList);
+                                    notifyDataSetChanged();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.i("Groomer info", error.toString());
+                            pdialog.dismiss();
+                            Utils.showExceptionDialog(context);
+                        }
+                    }
+            );
+
+            pdialog.show();
+            GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
+            jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -13,6 +14,7 @@ import com.groomer.GroomerApplication;
 import com.groomer.R;
 import com.groomer.activity.BaseActivity;
 import com.groomer.utillity.Constants;
+import com.groomer.utillity.Theme;
 import com.groomer.utillity.Utils;
 import com.groomer.volley.CustomJsonRequest;
 
@@ -31,6 +33,16 @@ public class ChangePasswordActivity extends BaseActivity {
         setContentView(R.layout.activity_changepassword);
         mActivity = this;
         init();
+
+        Button btn_changepassword = (Button) findViewById(R.id.btn_changepassword);
+        Theme theme = Utils.getObjectFromPref(mActivity, Constants.CURRENT_THEME);
+        if (theme.equals(Theme.Blue)) {
+            btn_changepassword.setBackgroundColor(getResources().getColor(R.color.blue_light));
+        } else if (theme.equals(Theme.Red)) {
+            btn_changepassword.setBackgroundColor(getResources().getColor(R.color.red));
+        } else {
+            btn_changepassword.setBackgroundColor(getResources().getColor(R.color.green));
+        }
     }
 
     private void init() {
@@ -109,17 +121,17 @@ public class ChangePasswordActivity extends BaseActivity {
     public boolean validateForm() {
 
         if (getEditTextText(R.id.edt_password).equals("")) {
-            Utils.showDialog(this, "Message", "Please enter previous password.");
+            Utils.showDialog(this, getString(R.string.message_title), getString(R.string.alert_please_enter_previous_password));
             return false;
         } else if (getEditTextText(R.id.edt_new_password).equals("")) {
-            Utils.showDialog(this, "Message", "Please enter new password.");
+            Utils.showDialog(this, getString(R.string.message_title), getString(R.string.alert_please_enter_new_password));
             return false;
         } else if (getEditTextText(R.id.edt_confirm_password).equals("")) {
-            Utils.showDialog(this, "Message", "Please enter confirm password.");
+            Utils.showDialog(this, getString(R.string.message_title), getString(R.string.alert_please_enter_confirm_password));
             return false;
         } else if (!getEditTextText(R.id.edt_confirm_password).equals
                 (getEditTextText(R.id.edt_new_password))) {
-            Utils.showDialog(this, "Message", "New and confirm password are not same.");
+            Utils.showDialog(this, getString(R.string.message_title), getString(R.string.alert_new_and_confirm_password_are_not_same));
             return false;
         }
         return true;

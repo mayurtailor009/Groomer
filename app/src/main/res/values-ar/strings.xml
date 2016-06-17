@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="app_name">Dourik</string>
-    <string name="app_name_capital">DOURIK</string>
+    <string name="app_name_launcher">Dorik | دورك</string>
+    <string name="app_name">Dorik | دورك</string>
+    <string name="app_name_capital">DORIK</string>
     <string name="action_settings">الإعدادات</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="drawer_open">Open</string>
@@ -11,14 +11,14 @@
 
     <!-- navigation drawer screen -->
     <string name="menu_favorite">المفضلة</string>
-    <string name="menu_services">خدمات</string>
-    <string name="menu_alerts">التنبيهات</string>
-    <string name="menu_appointments">التعيينات</string>
+    <string name="menu_services">الخدمات</string>
+    <string name="menu_alerts">الرسائل والتنبيهات</string>
+    <string name="menu_appointments">المواعيد المجدولة</string>
     <string name="menu_settings">الإعدادات</string>
     <string name="menu_logout">خروج</string>
     <string name="txt_cancel">إلغاء</string>
-    <string name="txt_reschedule">إعادة جدولة</string>
-    <string name="txt_rebook">ريبوك</string>
+    <string name="txt_reschedule">تغيير التوقيت</string>
+    <string name="txt_rebook">إعادة التسجيل</string>
     <string name="txt_submit">عرض</string>
     <string name="navigation_menu_username">ضيف</string>
 
@@ -26,25 +26,37 @@
     <!-- login screen -->
     <string name="txt_sign_up">التسجيل</string>
     <string name="txt_sign_in">تسجيل الدخول</string>
-    <string name="txt_password">كلمه السر</string>
-    <string name="txt_login">تسجيل الدخول</string>
-    <string name="txt_forgot_password">هل نسيت كلمة المرور ؟</string>
+    <string name="txt_password">كلمة المرور</string>
+    <string name="txt_forget_password">نسيت كلمة المرور؟</string>
+    <string name="txt_or_login_via">تسجيل الدخول بواسطة</string>
+    <string name="txt_login">دخول</string>
     <string name="txt_skip">تخطى</string>
+
+
+    <!-- Signup screen -->
+    <string name="txt_phone_no">رقم الهاتف</string>
+    <string name="alert_please_enter_name">الرجاء إدخال اسم</string>
+    <string name="alert_please_enter_phone_no">يرجى إدخال رقم الهاتف</string>
+    <string name="alert_please_enter_emailid">الرجاء إدخال اسم المستخدم البريد</string>
     <string name="alert_please_enter_password">الرجاء إدخال كلمة المرور</string>
-    <string name="alert_please_enter_emailid">الرجاء أدخل البريد الإلكتروني معرف</string>
 
     <!-- start for categories -->
-    <string name="txt_category">اختر الفئة</string>
+    <string name="txt_category">اختيار التصنيف</string>
+
+    <!--For Filter screen -->
+    <string name="search_hint">خدمة، البقالة والموقع</string>
+
+
 
     <!--Start For settings screen -->
     <string name="txt_name">الإسم</string>
     <string name="txt_email">البريد الإلكتروني</string>
-    <string name="txt_email_id">البريد الإلكتروني معرف</string>
-    <string name="txt_mobile_no">رقم الجوال</string>
+    <string name="txt_email_id">البريد الإلكتروني</string>
+    <string name="txt_mobile_no">رقم الهاتف</string>
     <string name="txt_location">الموقع</string>
     <string name="hint_enter_here">أدخل هنا</string>
     <string name="hint_email">john@gmail.com</string>
-    <string name="txt_change_language">تغيير اللغة </string>
+    <string name="txt_change_language">تغيير اللغة</string>
     <string name="txt_english">English</string>
     <string name="txt_arabic">العربية</string>
     <string name="btn_text_save">حفظ</string>
@@ -69,8 +81,14 @@
     <string name="change_password_header">تغيير كلمة المرور</string>
     <string name="new_password">كلمة السر الجديدة</string>
     <string name="confirm_password_lbl">تأكيد كلمة المرور</string>
-    <string name="submit_btn">عرض</string>
+    <string name="submit_btn">إرسال</string>
     <string name="password_hint">********</string>
+
+    <string name="alert_please_enter_previous_password">يرجى إدخال كلمة المرور السابقة</string>
+    <string name="alert_please_enter_new_password">يرجى إدخال كلمة المرور الجديدة</string>
+    <string name="alert_please_enter_confirm_password">الرجاء إدخال تأكيد كلمة</string>
+    <string name="alert_new_and_confirm_password_are_not_same">الجديدة وتأكيد كلمة المرور ليست نفسها</string>
+
     <!--END For Change password  screen -->
 
     <!-- start for Forget password screen -->
@@ -89,27 +107,28 @@
     <!--END For alert screen -->
 
     <!--For Share your Experience screen -->s
-    <string name="hint_write_something">أكتب شيئا...</string>
+    <string name="hint_write_something">اكتب تعليقك...</string>
 
 
     <!--For vendor list screen and vendor details screen -->
     <string name="txt_vendor_name">تبدو جميلة</string>
     <string name="txt_vendor_address">21 Magon Street, Near Amazon Park , Hotel Marriotr Jaipur, Rajasthan , India</string>
     <string name="txt_vendor_price_unit">ريال</string>
+    <string name="distance_unit_km">كم</string>
     <string name="txt_remove">نزع</string>
-    <string name="txt_select_date">التاريخ حدد</string>
-    <string name="txt_select_time">حدد وقت</string>
+    <string name="txt_select_date">اختر اليوم</string>
+    <string name="txt_select_time">اختر التوقيت</string>
     <string name="txt_confirm_appointment">تأكيد الموعد</string>
-    <string name="set_appointment">مجموعة تعيين</string>
-    <string name="txt_select">اختار</string>
-    <string name="txt_selected">مختارة</string>
-    <string name="txt_about">حول</string>
+    <string name="set_appointment">حجز موعد</string>
+    <string name="txt_select">اختيار</string>
+    <string name="txt_selected">مختاره</string>
+    <string name="txt_about">معلومات المنشأة</string>
     <string name="txt_review">التعليقات</string>
-    <string name="txt_start_from">يبدأ من</string>
+    <string name="txt_start_from">ابدأ من</string>
     <string name="btn_add_date">انقر هنا ل إضافة التاريخ</string>
     <string name="btn_add_time">انقر هنا لإضافة الوقت</string>
-    <string name="txt_service">خدمة</string>
-    <string name="txt_services">خدمات</string>
+    <string name="txt_service">الخدمات</string>
+    <string name="txt_services">الخدمات</string>
 
     <!-- vendor details about tab screen -->
     <string name="txt_about_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac orci quis odilo bibendum mattis.</string>
@@ -117,8 +136,11 @@
 
     <!-- appointment screen -->
     <string name="share_experience">شارك برأيك </string>
-    <string name="share_title">حصة الخبرة</string>
+    <string name="share_title">شارك برأيك </string>
     <string name="confirm">تأكيد</string>
+    <string name="no_appointment">لا تعيينات</string>
+    <string name="open_appointment">فتح</string>
+    <string name="complete_appointment">منجز</string>
 
     <!-- alert texts -->
     <string name="you_logout">وسوف يتم تسجيل الخروج !!</string>
