@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.SeekBar;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -85,6 +84,7 @@ public class RescheduleDialogNewFragment extends DialogFragment {
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.show();
+                datePickerDialog.getDatePicker().setMinDate(c.getTimeInMillis());
             }
         });
 

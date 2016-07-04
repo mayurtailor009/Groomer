@@ -188,6 +188,7 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
 
                             }
                         }, mYear, mMonth, mDay);
+                datePickerDialog.getDatePicker().setMinDate(c.getTimeInMillis());
                 datePickerDialog.show();
                 break;
             case R.id.confirm_appointment_btn:
