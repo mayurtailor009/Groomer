@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_launcher">Dorik | دورك</string>
-    <string name="app_name">Dorik | دورك</string>
-    <string name="app_name_capital">DORIK</string>
+    <string name="app_name_launcher">Dourik | دورك</string>
+    <string name="app_name">Dourik | دورك</string>
+    <string name="app_name_capital">DOURIK</string>
     <string name="action_settings">الإعدادات</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="drawer_open">Open</string>

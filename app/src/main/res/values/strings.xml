@@ -1,9 +1,9 @@
 <resources>
 
     <string name="facebook_app_id">1679155815668745</string>
-    <string name="app_name_launcher">Dorik | دورك</string>
-    <string name="app_name">Dorik | دورك</string>
-    <string name="app_name_capital">DORIK</string>
+    <string name="app_name_launcher">Dourik | دورك</string>
+    <string name="app_name">Dourik | دورك</string>
+    <string name="app_name_capital">DOURIK</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="drawer_open">Open</string>

@@ -2,19 +2,25 @@ package com.groomer.category;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -81,7 +87,7 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
         init(categoryDTO);
 
 
-        getVendorsList(categoryDTO, distance, rating, review, searchKeyword);
+        getVendorsList(categoryDTO.getId(), distance, rating, review, searchKeyword);
 
         if (HelpMe.isArabic(mActivity)) {
             setTextViewText(R.id.txt_category, categoryDTO.getName_ara());
@@ -94,7 +100,7 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
 
             @Override
             public void onRefresh() {
-                getVendorsList(categoryDTO, distance, rating, review, searchKeyword);
+                getVendorsList(categoryDTO.getId(), distance, rating, review, searchKeyword);
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -127,8 +133,8 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
         btnRatingDesc = (Button) findViewById(R.id.btn_rating_desc);
         btnReviewAsc = (Button) findViewById(R.id.btn_review_asc);
         btnReviewDesc = (Button) findViewById(R.id.btn_review_desc);
-       // btnRatingAsc.setSelected(true);
-       // btnReviewAsc.setSelected(true);
+        // btnRatingAsc.setSelected(true);
+        // btnReviewAsc.setSelected(true);
 
         setTouchNClick(R.id.btn_review_desc);
         setTouchNClick(R.id.btn_review_asc);
@@ -252,15 +258,49 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_vendor_list, menu);
+        SearchManager searchManager = (SearchManager) mActivity.getSystemService(SEARCH_SERVICE);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //vendorListAdapter.getFilteredList(newText);
+                return true;
+            }
+        });
+        searchView.setQueryHint(Html.fromHtml("<font color = #d7e6f0>"
+                + "Search..." + "</font>"));
+        changeSearchViewTextColor(searchView);
         return true;
     }
+
+    private void changeSearchViewTextColor(View view) {
+        if (view != null) {
+            if (view instanceof TextView) {
+                ((TextView) view).setTextColor(Color.BLACK);
+                return;
+            } else if (view instanceof ViewGroup) {
+                ViewGroup viewGroup = (ViewGroup) view;
+                for (int i = 0; i < viewGroup.getChildCount(); i++) {
+                    changeSearchViewTextColor(viewGroup.getChildAt(i));
+                }
+            }
+        }
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.action_search:
+            case R.id.action_filter:
                 if (vendorList == null || vendorList.isEmpty()) {
                     item.setEnabled(false);
                 } else {
@@ -313,8 +353,11 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
                 } else {
                     setHeader(categoryDTO.getName_eng());
                 }
-                searchKeyword=getViewText(R.id.et_search);
-                getVendorsList(categoryDTO, distance, rating, review, searchKeyword);
+                searchKeyword = getViewText(R.id.et_search);
+                MyThread thread= new MyThread(categoryDTO.getId(), distance,
+                        rating, review, searchKeyword);
+                thread.start();
+                //getVendorsList(categoryDTO.getId(), distance, rating, review, searchKeyword);
                 break;
 
             case R.id.btn_cancel:
@@ -336,7 +379,8 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
     }
 
 
-    private void getVendorsList(CategoryDTO categoryDTO, String distances,
+    private void getVendorsList( String categoryId,
+                                String distances,
                                 String rating, String review, String searchKeyword) {
         if (Utils.isOnline(mActivity)) {
             HashMap<String, String> params = new HashMap<>();
@@ -344,7 +388,7 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
             params.put("lat", GroomerPreference.getLatitude(mActivity) + "");
             params.put("lng", GroomerPreference.getLongitude(mActivity) + "");
             params.put("user_id", Utils.getUserId(mActivity));
-            params.put("category_id", categoryDTO.getId());
+            params.put("category_id", categoryId);
             params.put("rating", rating);
             params.put("review", review);
             params.put("lang", Utils.getSelectedLanguage(mActivity));
@@ -490,5 +534,34 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
         else
             setTextViewText(R.id.txt_category, categoryDTO.getName_eng());
 
+    }
+
+    public class MyThread extends  Thread{
+
+        private String categoryId;
+        private String distance;
+        private String rating;
+        private String review;
+        private String searchKeyword;
+
+        public MyThread(String categoryId, String distance,
+                        String rating, String review,
+                        String searchKeyword){
+            this.categoryId=categoryId;
+            this.distance=distance;
+            this.rating=rating;
+            this.review=review;
+            this.searchKeyword=searchKeyword;
+
+        }
+
+        @Override
+        public void run() {
+            try{
+                getVendorsList(categoryDTO.getId(), distance, rating, review, searchKeyword);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 }
