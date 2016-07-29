@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -42,8 +41,11 @@ public class AppointmentFragment extends BaseFragment {
     private Activity mActivity;
     private int lastExpandedPosition = -1;
     private ExpandableListView mExpandableCompleteListView;
+    private ExpandableListView mExpandableCancelListView;
     private Button btn_appointment_complete;
     private Button btn_appointment;
+    private Button btn_appointment_cancel;
+    private List<AppointmentDTO> canceledAppoints;
 
     public static AppointmentFragment newInstance() {
         AppointmentFragment fragment = new AppointmentFragment();
@@ -71,8 +73,10 @@ public class AppointmentFragment extends BaseFragment {
         mActivity = getActivity();
         mExpandableListView = (ExpandableListView) view.findViewById(R.id.appointment_list);
         mExpandableCompleteListView = (ExpandableListView) view.findViewById(R.id.listview_complete_appointment);
+        mExpandableCancelListView = (ExpandableListView) view.findViewById(R.id.listview_cancel_appointment);
         btn_appointment = (Button) view.findViewById(R.id.btn_appointment);
         btn_appointment_complete = (Button) view.findViewById(R.id.btn_appointment_complete);
+        btn_appointment_cancel = (Button) view.findViewById(R.id.btn_appointment_cancel);
 
         init();
         btn_appointment.setSelected(true);
@@ -84,7 +88,7 @@ public class AppointmentFragment extends BaseFragment {
     private void init() {
         setTouchNClick(R.id.btn_appointment, view);
         setTouchNClick(R.id.btn_appointment_complete, view);
-
+        setTouchNClick(R.id.btn_appointment_cancel, view);
     }
 
     @Override
@@ -93,6 +97,7 @@ public class AppointmentFragment extends BaseFragment {
             case R.id.btn_appointment:
                 btn_appointment.setSelected(true);
                 btn_appointment_complete.setSelected(false);
+                btn_appointment_cancel.setSelected(false);
                 mExpandableListView.setVisibility(View.VISIBLE);
                 mExpandableCompleteListView.setVisibility(View.GONE);
                 getAppointmentList();
@@ -101,22 +106,44 @@ public class AppointmentFragment extends BaseFragment {
             case R.id.btn_appointment_complete:
                 btn_appointment.setSelected(false);
                 btn_appointment_complete.setSelected(true);
+                btn_appointment_cancel.setSelected(false);
                 mExpandableListView.setVisibility(View.GONE);
                 mExpandableCompleteListView.setVisibility(View.VISIBLE);
                 getAppointmentCompleteList();
-
+                break;
+            case R.id.btn_appointment_cancel:
+                btn_appointment.setSelected(false);
+                btn_appointment_complete.setSelected(false);
+                btn_appointment_cancel.setSelected(true);
+                mExpandableCancelListView.setVisibility(View.VISIBLE);
+                if (canceledAppoints != null) {
+                    setUpCancelExpandableListVIew(canceledAppoints);
+                }
                 break;
         }
     }
 
 
-    private void setUpExpandableListVIew(final List<AppointmentDTO> appointmentList) {
+    private void setUpExpandableListVIew(List<AppointmentDTO> appointmentList) {
         setViewVisibility(R.id.no_appointment, view, View.GONE);
+        setViewVisibility(R.id.listview_cancel_appointment, view, View.GONE);
+        setViewVisibility(R.id.listview_complete_appointment, view, View.GONE);
         setViewVisibility(R.id.appointment_list, view, View.VISIBLE);
+
+        //filtering canceled appointments
+        canceledAppoints = new ArrayList<>();
+        final List<AppointmentDTO> appoints = new ArrayList<>();
+        for (int i = 0; i < appointmentList.size(); i++) {
+            if (appointmentList.get(i).getStatus().equalsIgnoreCase("4")) {
+                canceledAppoints.add(appointmentList.get(i));
+            } else {
+                appoints.add(appointmentList.get(i));
+            }
+        }
 
         mExpandableListView.setChoiceMode(ExpandableListView.CHOICE_MODE_SINGLE);
         mExpandableListView.setAdapter(new AppointmentListAdapter(
-                this.getActivity(), appointmentList, mExpandableListView)
+                this.getActivity(), appoints, mExpandableListView)
         );
 
         mExpandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
@@ -127,7 +154,7 @@ public class AppointmentFragment extends BaseFragment {
                         && groupPosition != lastExpandedPosition) {
                     mExpandableListView.collapseGroup(lastExpandedPosition);
                 }
-                if (appointmentList.get(groupPosition).isPassedDateFlag()) {
+                if (appoints.get(groupPosition).isPassedDateFlag()) {
                     mExpandableListView.collapseGroup(groupPosition);
                 }
                 lastExpandedPosition = groupPosition;
@@ -138,6 +165,8 @@ public class AppointmentFragment extends BaseFragment {
     private void setUpCompleteExpandableListVIew(final List<AppointmentDTO> appointmentList) {
         setViewVisibility(R.id.no_appointment, view, View.GONE);
         setViewVisibility(R.id.listview_complete_appointment, view, View.VISIBLE);
+        setViewVisibility(R.id.listview_cancel_appointment, view, View.GONE);
+        setViewVisibility(R.id.appointment_list, view, View.GONE);
 
         mExpandableCompleteListView.setChoiceMode(ExpandableListView.CHOICE_MODE_SINGLE);
         mExpandableCompleteListView.setAdapter(new AppointmentListAdapter(
@@ -154,6 +183,33 @@ public class AppointmentFragment extends BaseFragment {
                 }
                 if (appointmentList.get(groupPosition).isPassedDateFlag()) {
                     mExpandableCompleteListView.collapseGroup(groupPosition);
+                }
+                lastExpandedPosition = groupPosition;
+            }
+        });
+    }
+
+    private void setUpCancelExpandableListVIew(final List<AppointmentDTO> appointmentList) {
+        setViewVisibility(R.id.no_appointment, view, View.GONE);
+        setViewVisibility(R.id.listview_cancel_appointment, view, View.VISIBLE);
+        setViewVisibility(R.id.listview_complete_appointment, view, View.GONE);
+        setViewVisibility(R.id.appointment_list, view, View.GONE);
+
+        mExpandableCancelListView.setChoiceMode(ExpandableListView.CHOICE_MODE_SINGLE);
+        mExpandableCancelListView.setAdapter(new AppointmentListAdapter(
+                this.getActivity(), appointmentList, mExpandableCancelListView)
+        );
+
+        mExpandableCancelListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if (lastExpandedPosition != -1
+                        && groupPosition != lastExpandedPosition) {
+                    mExpandableCancelListView.collapseGroup(lastExpandedPosition);
+                }
+                if (appointmentList.get(groupPosition).isPassedDateFlag()) {
+                    mExpandableCancelListView.collapseGroup(groupPosition);
                 }
                 lastExpandedPosition = groupPosition;
             }

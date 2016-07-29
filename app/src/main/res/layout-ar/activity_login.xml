@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:layout_marginTop="10dp"
-                    android:text="Password"
+                    android:text="@string/txt_password"
                     android:textSize="20sp" />
 
                 <com.groomer.customviews.CustomEditTextMarkNovaRegular
@@ -118,6 +118,16 @@
 
 
             </LinearLayout>
+
+            <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                android:id="@+id/tv_forgotpassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="@dimen/margin_15"
+                android:text="@string/txt_forget_password"
+                android:textColor="@color/blue_light"
+                android:textSize="20sp" />
 
 
             <com.groomer.customviews.CustomTextViewMarkNovaRegular
@@ -162,16 +172,6 @@
                     android:layout_centerInParent="true"
                     android:visibility="gone" />
             </LinearLayout>
-
-            <com.groomer.customviews.CustomTextViewMarkNovaRegular
-                android:id="@+id/tv_forgotpassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"
-                android:text="@string/txt_forget_password"
-                android:textColor="@color/blue_light"
-                android:textSize="20sp" />
 
             <com.groomer.customviews.CustomTextViewMarkNovaRegular
                 android:id="@+id/tv_skip"

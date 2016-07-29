@@ -31,6 +31,7 @@
     <string name="txt_or_login_via">تسجيل الدخول بواسطة</string>
     <string name="txt_login">دخول</string>
     <string name="txt_skip">تخطى</string>
+    <string name="capital_ltr_skip">تخطى</string>
 
 
     <!-- Signup screen -->
@@ -141,6 +142,7 @@
     <string name="no_appointment">لا تعيينات</string>
     <string name="open_appointment">فتح</string>
     <string name="complete_appointment">منجز</string>
+    <string name="canceled_appointment">ألغيت</string>
 
     <!-- alert texts -->
     <string name="you_logout">وسوف يتم تسجيل الخروج !!</string>

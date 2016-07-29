@@ -16,6 +16,7 @@
         <item name="filterRightButton">@drawable/toggle_right_blue</item>
         <item name="filterTextView">@drawable/et_bg_outer_blue</item>
         <item name="filterTextColor">@drawable/toggle_text_blue</item>
+        <item name="simpleGreenStroke">@drawable/simple_rect_blue_stroke</item>
     </style>
 
     <style name="AppThemeGreen" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -35,6 +36,7 @@
         <item name="filterRightButton">@drawable/toggle_right_green</item>
         <item name="filterTextView">@drawable/et_bg_outer_green</item>
         <item name="filterTextColor">@drawable/toggle_text_green</item>
+        <item name="simpleGreenStroke">@drawable/simple_rect_green_stroke</item>
 
     </style>
 
@@ -55,6 +57,7 @@
         <item name="filterRightButton">@drawable/toggle_right_red</item>
         <item name="filterTextView">@drawable/et_bg_outer_red</item>
         <item name="filterTextColor">@drawable/toggle_text_red</item>
+        <item name="simpleGreenStroke">@drawable/simple_rect_red_stroke</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

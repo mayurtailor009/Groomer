@@ -32,6 +32,7 @@
     <string name="txt_login">LOGIN</string>
     <string name="txt_or_login_via">or login via</string>
     <string name="txt_skip">Skip</string>
+    <string name="capital_ltr_skip">SKIP</string>
 
 
     <!-- Sign up screen -->
@@ -150,6 +151,7 @@
     <string name="no_appointment">No Appointments.</string>
     <string name="open_appointment">Open</string>
     <string name="complete_appointment">Completed</string>
+    <string name="canceled_appointment">Canceled</string>
 
     <!-- alert texts -->
     <string name="you_logout">You will be Logged out !!</string>
