@@ -414,7 +414,6 @@ public class SettingFragment extends BaseFragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     private void selectImageFromGallery() {

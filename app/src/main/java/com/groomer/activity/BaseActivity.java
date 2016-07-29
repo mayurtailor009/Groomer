@@ -307,5 +307,8 @@ public class BaseActivity extends AppCompatActivity implements OnClickListener,
                 }
                 break;
         }
+
+
+
     }
 }
