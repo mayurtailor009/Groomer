@@ -41,6 +41,7 @@
     <string name="alert_please_enter_phone_no">Please enter phone no</string>
     <string name="alert_please_enter_emailid">Please enter emailid</string>
     <string name="alert_please_enter_password">Please enter password</string>
+    <string name="txt_country_code">Country code</string>
 
 
     <!-- start for categories -->

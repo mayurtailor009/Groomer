@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -53,6 +54,8 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
     private SwipeMenuListViewAdapter adapter;
     private int mYear, mMonth, mDay, mHour, mMinute;
     private Button btnSubmit, btnDate, btnTime;
+    private SeekBar timeSeekbar;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +64,36 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
         mActivity = ConfirmAppointmentActivity.this;
 
         init();
+        seekbarListener();
         setUpRecyclerView();
+    }
+
+    private void seekbarListener() {
+        timeSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (progress < 12) {
+                    setTextViewText(R.id.seek_time,
+                            progress < 10 ? "0" + progress + ":00 AM"
+                                    : progress + ":00 AM");
+                } else {
+                    int prog = progress - 12;
+                    setTextViewText(R.id.seek_time,
+                            prog < 10 ? "0" + prog + ":00 PM"
+                                    : prog + ":00 PM");
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
     /**
@@ -72,6 +104,8 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
         btnSubmit = (Button) findViewById(R.id.confirm_appointment_btn);
         btnDate = (Button) findViewById(R.id.btn_date);
         btnTime = (Button) findViewById(R.id.btn_time);
+        timeSeekbar = (SeekBar) findViewById(R.id.time_seekbar);
+        timeSeekbar.setProgress(9);
 
         serviceDTOList = (List<ServiceDTO>) getIntent()
                 .getSerializableExtra("serviceDTO");
@@ -154,17 +188,17 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
-                                if(mDay!=0)
+                                if (mDay != 0)
                                     btnSubmit.setEnabled(true);
-                                String AM_PM ;
-                                if(hourOfDay < 12) {
+                                String AM_PM;
+                                if (hourOfDay < 12) {
                                     AM_PM = "AM";
                                 } else {
                                     AM_PM = "PM";
                                 }
-                                if(hourOfDay>11)
-                                    hourOfDay = hourOfDay-12;
-                                btnTime.setText(hourOfDay + ":" + (minute<10?"0"+minute:minute) +" "+AM_PM);
+                                if (hourOfDay > 11)
+                                    hourOfDay = hourOfDay - 12;
+                                btnTime.setText(hourOfDay + ":" + (minute < 10 ? "0" + minute : minute) + " " + AM_PM);
                             }
                         }, mHour, mMinute, false);
                 timePickerDialog.show();
@@ -181,9 +215,11 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
-                                mMonth = monthOfYear; mDay = dayOfMonth; mYear = year;
+                                mMonth = monthOfYear;
+                                mDay = dayOfMonth;
+                                mYear = year;
                                 btnDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                                if(mHour!=0)
+                                //if (mHour != 0)
                                     btnSubmit.setEnabled(true);
 
                             }
@@ -235,7 +271,9 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
      */
     private void confirmAppointment() {
         String amount = getAmount();
-        if (validateForm(btnDate.getText().toString() + " " + btnTime.getText().toString())) {
+        //if (validateForm(btnDate.getText().toString() + " " + btnTime.getText().toString())) {
+        if (validateForm(btnDate.getText().toString() + " "
+                + getTextViewText(R.id.seek_time).toString())) {
 
             HashMap<String, String> params = new HashMap<>();
             params.put("action", "confirm_appointment");
@@ -244,7 +282,8 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
             params.put("store_id", getIntent().getStringExtra("store_id"));
             params.put("services", getServices());
             params.put("date", btnDate.getText().toString());
-            params.put("time", btnTime.getText().toString());
+            params.put("time", getTextViewText(R.id.seek_time).toString());
+            //params.put("time2", btnTime.getText().toString());
             params.put("amount", amount);
 
             final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
@@ -262,7 +301,7 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
                                     Intent intent = new Intent(mActivity, HomeActivity.class);
                                     intent.putExtra("fragmentNumber", 2);
                                     startActivity(intent);
-                                }else{
+                                } else {
                                     Toast.makeText(ConfirmAppointmentActivity.this,
                                             Utils.getWebServiceMessage(response), Toast.LENGTH_LONG).show();
                                 }

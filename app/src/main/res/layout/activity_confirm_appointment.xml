@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -29,8 +28,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/confirm_appoint_cross_button"
-                    android:text=""
                     android:gravity="left"
+                    android:text=""
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/textsize_15sp" />
 
@@ -42,8 +41,8 @@
                     android:layout_below="@id/confirm_appoint_txt_service_price"
                     android:layout_marginTop="@dimen/margin_3"
                     android:layout_toLeftOf="@+id/confirm_appoint_cross_button"
-                    android:text=""
                     android:gravity="left"
+                    android:text=""
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/textsize_15sp" />
                 <!-- cross button -->
@@ -51,10 +50,10 @@
                     android:id="@+id/confirm_appoint_cross_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
-                    android:layout_marginLeft="@dimen/margin_5"
+                    android:layout_alignParentTop="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/margin_5"
                     android:src="@drawable/close_btn"
                     android:tint="@color/colorWhite" />
 
@@ -119,7 +118,52 @@
                 android:layout_margin="@dimen/margin_10"
                 android:background="?attr/drawerBg"
                 android:padding="@dimen/margin_15"
-                android:text="@string/btn_add_time" />
+                android:text="@string/btn_add_time"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/time_seekbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/label_select_time"
+                android:layout_margin="@dimen/margin_10"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.1"
+                    android:src="@drawable/day_icon" />
+
+                <SeekBar
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:max="24"
+                    android:id="@+id/time_seekbar"
+                    android:progressDrawable="@drawable/gradient_dragger"
+                    android:splitTrack="false"
+                    android:thumb="@drawable/pointer_icon" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.1"
+                    android:src="@drawable/night_icon" />
+            </LinearLayout>
+
+            <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                android:id="@+id/seek_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/time_seekbar_layout"
+                android:layout_centerHorizontal="true"
+                android:text="09:00 AM"
+                android:textSize="@dimen/textsize_15sp" />
+
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
 

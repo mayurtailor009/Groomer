@@ -151,7 +151,8 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return appointsParentList.get(groupPosition).getService().size();
+        //return appointsParentList.get(groupPosition).getService().size();
+        return 1;
     }
 
     @Override

@@ -40,6 +40,7 @@
     <string name="alert_please_enter_phone_no">يرجى إدخال رقم الهاتف</string>
     <string name="alert_please_enter_emailid">الرجاء إدخال اسم المستخدم البريد</string>
     <string name="alert_please_enter_password">الرجاء إدخال كلمة المرور</string>
+    <string name="txt_country_code">Country code</string>
 
     <!-- start for categories -->
     <string name="txt_category">اختيار التصنيف</string>

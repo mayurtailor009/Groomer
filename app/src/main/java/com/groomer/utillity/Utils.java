@@ -15,6 +15,7 @@ import com.groomer.R;
 import com.groomer.model.UserDTO;
 
 import org.joda.time.LocalDateTime;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,7 +23,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -253,6 +258,25 @@ public class Utils {
             return null;
         }
         return json;
+    }
+
+    public static List<Map<String, String>> getCountryCode(Context context) {
+        List<Map<String, String>> list = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(Utils.loadJSONFromAsset(context));
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                Map<String, String> map = new HashMap<>();
+                map.put("name", jsonObject.getString("name"));
+                map.put("dial_code", jsonObject.getString("dial_code"));
+                list.add(map);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 
     public static String secondsToDate(long seconds) {

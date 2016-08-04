@@ -1,10 +1,15 @@
 package com.groomer.signup;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -13,10 +18,12 @@ import com.google.gson.Gson;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
 import com.groomer.activity.BaseActivity;
+import com.groomer.activity.SplashActivity;
 import com.groomer.gps.GPSTracker;
 import com.groomer.home.HomeActivity;
 import com.groomer.login.LoginActivity;
 import com.groomer.model.UserDTO;
+import com.groomer.settings.adapter.CountryCodeAdapter;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.Utils;
@@ -25,24 +32,28 @@ import com.groomer.volley.CustomJsonRequest;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SignupActivity extends BaseActivity {
 
     private Activity mActivity;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        mActivity=this;
+        mActivity = this;
 
-        GPSTracker gpstracker= new GPSTracker(mActivity);
+        GPSTracker gpstracker = new GPSTracker(mActivity);
         init();
     }
 
     private void init() {
         setTouchNClick(R.id.btn_signup);
         setClick(R.id.tv_signin);
+        setClick(R.id.back_btn);
+        setClick(R.id.txt_country_code);
     }
 
     @Override
@@ -55,7 +66,42 @@ public class SignupActivity extends BaseActivity {
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 break;
+            case R.id.txt_country_code:
+                openCountryCodeDialog();
+                break;
+            case R.id.back_btn:
+                openSkipScreen();
+                break;
         }
+    }
+
+    private void openSkipScreen() {
+        Intent skipIntent = new Intent(mActivity, SplashActivity.class);
+        startActivity(skipIntent);
+        this.finish();
+    }
+
+    private void openCountryCodeDialog() {
+        final List<Map<String, String>> countryCodeList = Utils.getCountryCode(mActivity);
+        final Dialog dialogCountryCode = new Dialog(mActivity);
+        dialogCountryCode.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogCountryCode.setContentView(R.layout.layout_country_code);
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        ListView listView = (ListView) dialogCountryCode.findViewById(R.id.list);
+        CountryCodeAdapter adapter = new CountryCodeAdapter(mActivity, countryCodeList);
+        listView.setAdapter(adapter);
+        dialogCountryCode.show();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                setViewText(R.id.txt_country_code,
+                        countryCodeList.get(position).get("dial_code"));
+                dialogCountryCode.dismiss();
+            }
+        });
+
     }
 
     public void performSignUp() {
@@ -74,8 +120,8 @@ public class SignupActivity extends BaseActivity {
                 params.put("dob", "08/21/1989");
                 params.put("confirm_password", getEditTextText(R.id.et_passowrd));
                 params.put("device_id", GroomerPreference.getPushRegistrationId(mActivity));
-                params.put("lat", GroomerPreference.getLatitude(mActivity)+"");
-                params.put("lng", GroomerPreference.getLongitude(mActivity)+"");
+                params.put("lat", GroomerPreference.getLatitude(mActivity) + "");
+                params.put("lng", GroomerPreference.getLongitude(mActivity) + "");
                 params.put("image", "");
                 params.put("device", "android");
 
@@ -131,8 +177,7 @@ public class SignupActivity extends BaseActivity {
         } else if (getEditTextText(R.id.et_phone).equals("")) {
             Utils.showDialog(this, getString(R.string.message_title), getString(R.string.alert_please_enter_phone_no));
             return false;
-        }
-        else if (getEditTextText(R.id.et_emailid).equals("")) {
+        } else if (getEditTextText(R.id.et_emailid).equals("")) {
             Utils.showDialog(this, getString(R.string.message_title), getString(R.string.alert_please_enter_emailid));
             return false;
         } else if (getEditTextText(R.id.et_passowrd).equals("")) {
