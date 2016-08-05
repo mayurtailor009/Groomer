@@ -62,14 +62,18 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
     private VendorListAdapter vendorListAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private CategoryDTO categoryDTO;
-    private SeekBar distanceSeekBar;
-    private Button btnRatingAsc,
-            btnRatingDesc, btnReviewAsc, btnReviewDesc;
+    //private SeekBar distanceSeekBar;
+    private Button btnRatingAsc;
+    private Button btnRatingDesc;
+    private Button btnPriceAsc;
+    private Button btnPriceDesc;
+    private Button btnDistanceAsc;
+    private Button btnDistanceDesc;
     private LinearLayout llFilter;
     private ArrayList<CategoryDTO> categoryList;
 
-    private String distance = "5";
-    private String review = "";
+    private String distance = "";
+    private String price = "";
     private String rating = "";
     private String searchKeyword = "";
 
@@ -87,7 +91,7 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
         init(categoryDTO);
 
 
-        getVendorsList(categoryDTO.getId(), distance, rating, review, searchKeyword);
+        getVendorsList(categoryDTO.getId(), distance, rating, price, searchKeyword);
 
         if (HelpMe.isArabic(mActivity)) {
             setTextViewText(R.id.txt_category, categoryDTO.getName_ara());
@@ -100,13 +104,13 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
 
             @Override
             public void onRefresh() {
-                getVendorsList(categoryDTO.getId(), distance, rating, review, searchKeyword);
+                getVendorsList(categoryDTO.getId(), distance, rating, price, searchKeyword);
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
-        distanceSeekBar = (SeekBar) findViewById(R.id.seekbar_km);
-        distanceSeekBar.setProgress(5);
-        distanceSeekBar.setOnSeekBarChangeListener(seekBarChangeListener);
+//        distanceSeekBar = (SeekBar) findViewById(R.id.seekbar_km);
+//        distanceSeekBar.setProgress(5);
+//        distanceSeekBar.setOnSeekBarChangeListener(seekBarChangeListener);
     }
 
     private void init(CategoryDTO categoryDTO) {
@@ -131,15 +135,19 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
         llFilter = (LinearLayout) findViewById(R.id.ll_filter);
         btnRatingAsc = (Button) findViewById(R.id.btn_rating_asc);
         btnRatingDesc = (Button) findViewById(R.id.btn_rating_desc);
-        btnReviewAsc = (Button) findViewById(R.id.btn_review_asc);
-        btnReviewDesc = (Button) findViewById(R.id.btn_review_desc);
+        btnPriceAsc = (Button) findViewById(R.id.btn_price_asc);
+        btnPriceDesc = (Button) findViewById(R.id.btn_price_desc);
+        btnDistanceAsc = (Button) findViewById(R.id.btn_distance_asc);
+        btnDistanceDesc = (Button) findViewById(R.id.btn_distance_desc);
         // btnRatingAsc.setSelected(true);
         // btnReviewAsc.setSelected(true);
 
-        setTouchNClick(R.id.btn_review_desc);
-        setTouchNClick(R.id.btn_review_asc);
+        setTouchNClick(R.id.btn_price_asc);
+        setTouchNClick(R.id.btn_price_desc);
         setTouchNClick(R.id.btn_rating_desc);
         setTouchNClick(R.id.btn_rating_asc);
+        setTouchNClick(R.id.btn_distance_asc);
+        setTouchNClick(R.id.btn_distance_desc);
         setTouchNClick(R.id.btn_apply);
         setTouchNClick(R.id.btn_cancel);
         setTouchNClick(R.id.txt_category);
@@ -334,16 +342,28 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
                 rating = "DESC";
                 break;
 
-            case R.id.btn_review_asc:
-                btnReviewDesc.setSelected(false);
-                btnReviewAsc.setSelected(true);
-                review = "ASC";
+            case R.id.btn_price_asc:
+                btnPriceDesc.setSelected(false);
+                btnPriceAsc.setSelected(true);
+                price = "ASC";
                 break;
 
-            case R.id.btn_review_desc:
-                btnReviewDesc.setSelected(true);
-                btnReviewAsc.setSelected(false);
-                review = "DESC";
+            case R.id.btn_price_desc:
+                btnPriceDesc.setSelected(true);
+                btnPriceAsc.setSelected(false);
+                price = "DESC";
+                break;
+
+            case R.id.btn_distance_asc:
+                btnDistanceDesc.setSelected(false);
+                btnDistanceAsc.setSelected(true);
+                distance = "ASC";
+                break;
+
+            case R.id.btn_distance_desc:
+                btnDistanceDesc.setSelected(true);
+                btnDistanceAsc.setSelected(false);
+                distance = "DESC";
                 break;
 
             case R.id.btn_apply:
@@ -353,11 +373,12 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
                 } else {
                     setHeader(categoryDTO.getName_eng());
                 }
-                searchKeyword = getViewText(R.id.et_search);
-                MyThread thread= new MyThread(categoryDTO.getId(), distance,
-                        rating, review, searchKeyword);
-                thread.start();
-                //getVendorsList(categoryDTO.getId(), distance, rating, review, searchKeyword);
+
+
+//                MyThread thread= new MyThread(categoryDTO.getId(), distance,
+//                        rating, price, distance);
+//                thread.start();
+                getVendorsList(categoryDTO.getId(), distance, rating, price, searchKeyword);
                 break;
 
             case R.id.btn_cancel:
@@ -379,9 +400,9 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
     }
 
 
-    private void getVendorsList( String categoryId,
-                                String distances,
-                                String rating, String review, String searchKeyword) {
+    private void getVendorsList(String categoryId,
+                                String distance,
+                                String rating, String price, String searchKeyword) {
         if (Utils.isOnline(mActivity)) {
             HashMap<String, String> params = new HashMap<>();
             params.put("action", Constants.VENDOR_LIST);
@@ -390,10 +411,10 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
             params.put("user_id", Utils.getUserId(mActivity));
             params.put("category_id", categoryId);
             params.put("rating", rating);
-            params.put("review", review);
             params.put("lang", Utils.getSelectedLanguage(mActivity));
-            params.put("distance", distances);
-            params.put("keyword", searchKeyword);
+            params.put("distance", distance);
+            params.put("price", price);
+            //params.put("keyword", searchKeyword);
 
             final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
             CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
@@ -536,30 +557,30 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
 
     }
 
-    public class MyThread extends  Thread{
+    public class MyThread extends Thread {
 
         private String categoryId;
         private String distance;
         private String rating;
-        private String review;
+        private String price;
         private String searchKeyword;
 
         public MyThread(String categoryId, String distance,
-                        String rating, String review,
-                        String searchKeyword){
-            this.categoryId=categoryId;
-            this.distance=distance;
-            this.rating=rating;
-            this.review=review;
-            this.searchKeyword=searchKeyword;
+                        String rating, String price,
+                        String searchKeyword) {
+            this.categoryId = categoryId;
+            this.distance = distance;
+            this.rating = rating;
+            this.price = price;
+            this.searchKeyword = searchKeyword;
 
         }
 
         @Override
         public void run() {
-            try{
-                getVendorsList(categoryDTO.getId(), distance, rating, review, searchKeyword);
-            }catch (Exception e){
+            try {
+                getVendorsList(categoryId, distance, rating, price, searchKeyword);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
