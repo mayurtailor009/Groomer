@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -27,6 +26,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
+import com.groomer.customviews.alert.CustomAlert;
 import com.groomer.model.AppointServicesDTO;
 import com.groomer.model.AppointmentDTO;
 import com.groomer.reschedule.RescheduleDialogNewFragment;
@@ -276,16 +276,25 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         cHolder.mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         cHolder.mRecyclerView.setAdapter(new AppointListChildAdapter(context, servicesDTO));
 
-        performClickOnRebook(cHolder.rebookLayout, groupPosition);
-        performClickOnCancel(cHolder.cancelLayout, groupPosition);
-        performClickOnReschedule(cHolder.rescheduleLayout, groupPosition);
+        if (appointsParentList.get(groupPosition).getStatus().equals(Constants.CANCELLED)) {
+            cHolder.cancelLayout.setVisibility(View.GONE);
+            cHolder.rebookLayout.setVisibility(View.VISIBLE);
+            cHolder.rescheduleLayout.setVisibility(View.GONE);
+            performClickOnRebook(cHolder.rebookLayout, groupPosition);
+        } else {
+            cHolder.cancelLayout.setVisibility(View.VISIBLE);
+            cHolder.rebookLayout.setVisibility(View.GONE);
+            cHolder.rescheduleLayout.setVisibility(View.VISIBLE);
+            performClickOnCancel(cHolder.cancelLayout, groupPosition);
+            performClickOnReschedule(cHolder.rescheduleLayout, groupPosition);
+        }
 
 
         if ((appointsParentList.get(groupPosition).getStatus().equals(Constants.COMPLETED))
                 || (appointsParentList.get(groupPosition).getStatus().equals(Constants.CANCELLED))) {
-            cHolder.llOpteration.setVisibility(View.GONE);
-        }else{
-            cHolder.llOpteration.setVisibility(View.VISIBLE);
+            //cHolder.llOpteration.setVisibility(View.GONE);
+        } else {
+            //cHolder.llOpteration.setVisibility(View.VISIBLE);
         }
 
         return convertView;
@@ -328,9 +337,25 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         cancelLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestForCancel(groupPosition);
+                new CustomAlert(context)
+                        .doubleButtonAlertDialog(
+                                context.getString(R.string.cancel_confirmation),
+                                context.getString(R.string.ok_button),
+                                context.getString(R.string.canceled), "dblBtnCallbackResponse", groupPosition);
             }
         });
+    }
+
+    /**
+     * callback method of double button alert box.
+     *
+     * @param flag true if Ok button pressed otherwise false.
+     * @param code is requestCode.
+     */
+    public void dblBtnCallbackResponse(Boolean flag, int groupPosition) {
+        if (flag) {
+            requestForCancel(groupPosition);
+        }
     }
 
     //handles click on share button.

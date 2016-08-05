@@ -1,6 +1,7 @@
 package com.groomer.category.adapter;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.groomer.R;
 import com.groomer.model.VendorListDTO;
 import com.groomer.utillity.HelpMe;
+import com.groomer.utillity.Utils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -111,10 +113,15 @@ public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.De
 
         holder.txt_vendor_distance.setText("(" + vendorListDTO.getDistance() + " " +
                 context.getString(R.string.distance_unit_km) + " )");
-        if (vendorListDTO.getFavourite().equalsIgnoreCase("1")) {
-            holder.img_fav.setImageResource(R.drawable.fav_active_icon);
+        if (!Utils.IsSkipLogin((Activity) context)) {
+            holder.img_fav.setVisibility(View.VISIBLE);
+            if (vendorListDTO.getFavourite().equalsIgnoreCase("1")) {
+                holder.img_fav.setImageResource(R.drawable.fav_active_icon);
+            } else {
+                holder.img_fav.setImageResource(R.drawable.fav_icon);
+            }
         } else {
-            holder.img_fav.setImageResource(R.drawable.fav_icon);
+            holder.img_fav.setVisibility(View.GONE);
         }
 
     }

@@ -18,6 +18,7 @@
     <string name="menu_logout">Logout</string>
     <string name="txt_cancel">CANCEL</string>
     <string name="txt_reschedule">RESCHEDULE</string>
+    <string name="txt_modify">MODIFY</string>
     <string name="txt_rebook">REBOOK</string>
     <string name="txt_submit">SUBMIT</string>
     <string name="navigation_menu_username">Guest</string>
@@ -48,6 +49,7 @@
     <string name="txt_category">Select Category</string>
 
     <!--Start For settings screen -->
+    <string name="txt_edit_profile">Edit Profile</string>
     <string name="txt_name">Name</string>
     <string name="txt_email">Email</string>
     <string name="txt_email_id">Email ID</string>
@@ -116,8 +118,6 @@
     <string name="search_hint">Service, Store &amp; location</string>
 
 
-
-
     <!--For vendor list screen and vendor details screen -->
     <string name="txt_vendor_name">Pretty Looks</string>
     <string name="txt_vendor_address">21 Magon Street, Near Amazon Park ,</string>
@@ -161,6 +161,7 @@
     <string name="ok_button">Ok</string>
     <string name="canceled">Cancel</string>
     <string name="no_alerts">No Alerts.</string>
+    <string name="cancel_confirmation">Do you want to cancel?</string>
 
 
     <!-- Camera choose fragment -->

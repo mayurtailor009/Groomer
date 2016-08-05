@@ -80,11 +80,10 @@ public class SplashActivity extends BaseActivity {
                 startActivity(new Intent(mContext, SignupActivity.class));
                 finish();
                 break;
-
             case R.id.txt_skip:
-                Intent intent = new Intent(mContext, HomeActivity.class);
-                intent.putExtra("fragmentNumber", 0);
-                startActivity(intent);
+                Intent home = new Intent(mContext, HomeActivity.class);
+                home.putExtra("fragmentNumber", 0);
+                startActivity(home);
                 finish();
                 break;
         }

@@ -85,8 +85,14 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
         setClick(R.id.btn_about_tab);
         setClick(R.id.btn_reviews_tab);
         setClick(R.id.btn_set_appointment);
-        setClick(R.id.img_fav);
         setClick(R.id.directions);
+
+        if (!Utils.IsSkipLogin(mActivity)) {
+            setViewVisibility(R.id.img_fav, View.VISIBLE);
+            setClick(R.id.img_fav);
+        } else {
+            setViewVisibility(R.id.img_fav, View.GONE);
+        }
 
         buttonSelected(true, false, false);
 

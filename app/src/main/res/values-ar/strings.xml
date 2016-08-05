@@ -18,6 +18,7 @@
     <string name="menu_logout">خروج</string>
     <string name="txt_cancel">إلغاء</string>
     <string name="txt_reschedule">تغيير التوقيت</string>
+    <string name="txt_modify">MODIFY</string>
     <string name="txt_rebook">إعادة التسجيل</string>
     <string name="txt_submit">عرض</string>
     <string name="navigation_menu_username">ضيف</string>
@@ -51,6 +52,7 @@
 
 
     <!--Start For settings screen -->
+    <string name="txt_edit_profile">Edit Profile</string>
     <string name="txt_name">الإسم</string>
     <string name="txt_email">البريد الإلكتروني</string>
     <string name="txt_email_id">البريد الإلكتروني</string>
@@ -151,6 +153,7 @@
     <string name="message_title">الرسالة</string>
     <string name="ok_button">حسنا</string>
     <string name="canceled">إلغاء</string>
+    <string name="cancel_confirmation">Do you want to cancel?</string>
 
 
     <!-- Camera choose fragment -->
