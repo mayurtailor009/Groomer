@@ -116,8 +116,13 @@ public class AppointmentFragment extends BaseFragment {
                 btn_appointment_complete.setSelected(false);
                 btn_appointment_cancel.setSelected(true);
                 mExpandableCancelListView.setVisibility(View.VISIBLE);
-                if (canceledAppoints != null) {
+                if (canceledAppoints != null && !canceledAppoints.isEmpty()) {
                     setUpCancelExpandableListVIew(canceledAppoints);
+                    setViewVisibility(R.id.no_appointment, view, View.GONE);
+                    setViewVisibility(R.id.listview_cancel_appointment, view, View.VISIBLE);
+                } else {
+                    setViewVisibility(R.id.no_appointment, view, View.VISIBLE);
+                    setViewVisibility(R.id.listview_cancel_appointment, view, View.GONE);
                 }
                 break;
         }
@@ -125,7 +130,6 @@ public class AppointmentFragment extends BaseFragment {
 
 
     private void setUpExpandableListVIew(List<AppointmentDTO> appointmentList) {
-        setViewVisibility(R.id.no_appointment, view, View.GONE);
         setViewVisibility(R.id.listview_cancel_appointment, view, View.GONE);
         setViewVisibility(R.id.listview_complete_appointment, view, View.GONE);
         setViewVisibility(R.id.appointment_list, view, View.VISIBLE);
@@ -141,29 +145,35 @@ public class AppointmentFragment extends BaseFragment {
             }
         }
 
-        mExpandableListView.setChoiceMode(ExpandableListView.CHOICE_MODE_SINGLE);
-        mExpandableListView.setAdapter(new AppointmentListAdapter(
-                this.getActivity(), appoints, mExpandableListView)
-        );
+        if (appoints != null && !appoints.isEmpty()) {
+            setViewVisibility(R.id.no_appointment, view, View.GONE);
+            setViewVisibility(R.id.appointment_list, view, View.VISIBLE);
+            mExpandableListView.setChoiceMode(ExpandableListView.CHOICE_MODE_SINGLE);
+            mExpandableListView.setAdapter(new AppointmentListAdapter(
+                    this.getActivity(), appoints, mExpandableListView)
+            );
 
-        mExpandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            mExpandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                if (lastExpandedPosition != -1
-                        && groupPosition != lastExpandedPosition) {
-                    mExpandableListView.collapseGroup(lastExpandedPosition);
+                @Override
+                public void onGroupExpand(int groupPosition) {
+                    if (lastExpandedPosition != -1
+                            && groupPosition != lastExpandedPosition) {
+                        mExpandableListView.collapseGroup(lastExpandedPosition);
+                    }
+                    if (appoints.get(groupPosition).isPassedDateFlag()) {
+                        mExpandableListView.collapseGroup(groupPosition);
+                    }
+                    lastExpandedPosition = groupPosition;
                 }
-                if (appoints.get(groupPosition).isPassedDateFlag()) {
-                    mExpandableListView.collapseGroup(groupPosition);
-                }
-                lastExpandedPosition = groupPosition;
-            }
-        });
+            });
+        } else {
+            setViewVisibility(R.id.no_appointment, view, View.VISIBLE);
+            setViewVisibility(R.id.appointment_list, view, View.GONE);
+        }
     }
 
     private void setUpCompleteExpandableListVIew(final List<AppointmentDTO> appointmentList) {
-        setViewVisibility(R.id.no_appointment, view, View.GONE);
         setViewVisibility(R.id.listview_complete_appointment, view, View.VISIBLE);
         setViewVisibility(R.id.listview_cancel_appointment, view, View.GONE);
         setViewVisibility(R.id.appointment_list, view, View.GONE);
@@ -190,7 +200,6 @@ public class AppointmentFragment extends BaseFragment {
     }
 
     private void setUpCancelExpandableListVIew(final List<AppointmentDTO> appointmentList) {
-        setViewVisibility(R.id.no_appointment, view, View.GONE);
         setViewVisibility(R.id.listview_cancel_appointment, view, View.VISIBLE);
         setViewVisibility(R.id.listview_complete_appointment, view, View.GONE);
         setViewVisibility(R.id.appointment_list, view, View.GONE);
@@ -239,13 +248,23 @@ public class AppointmentFragment extends BaseFragment {
                                     List<AppointmentDTO> appointmentList = new Gson()
                                             .fromJson(response
                                                     .getJSONArray("completed").toString(), type);
-                                    setUpCompleteExpandableListVIew(appointmentList);
+                                    if (appointmentList != null && !appointmentList.isEmpty()) {
+                                        setUpCompleteExpandableListVIew(appointmentList);
+                                        setViewVisibility(R.id.no_appointment, view, View.GONE);
+                                        setViewVisibility(R.id.listview_complete_appointment, view,
+                                                View.VISIBLE);
+                                    } else {
+                                        setViewVisibility(R.id.no_appointment, view, View.VISIBLE);
+                                        setViewVisibility(R.id.listview_complete_appointment, view,
+                                                View.GONE);
+                                    }
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
                             } else {
                                 setViewVisibility(R.id.no_appointment, view, View.VISIBLE);
-                                setViewVisibility(R.id.appointment_list, view, View.GONE);
+                                setViewVisibility(R.id.listview_complete_appointment,
+                                        view, View.GONE);
                             }
                         }
                     },
@@ -290,6 +309,7 @@ public class AppointmentFragment extends BaseFragment {
                                     List<AppointmentDTO> appointmentList = new Gson()
                                             .fromJson(response
                                                     .getJSONArray("appointment").toString(), type);
+
                                     setUpExpandableListVIew(appointmentList);
                                 } catch (Exception e) {
                                     e.printStackTrace();
