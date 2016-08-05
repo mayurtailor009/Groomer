@@ -2,6 +2,7 @@ package com.groomer.home;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Message;
@@ -25,6 +26,7 @@ import com.groomer.appointment.AppointmentFragment;
 import com.groomer.category.SaloonListFragment;
 import com.groomer.customviews.alert.CustomAlert;
 import com.groomer.favourite.FavouriteFragment;
+import com.groomer.login.LoginActivity;
 import com.groomer.menucount.MenuCountHandler;
 import com.groomer.model.MenuDTO;
 import com.groomer.model.UserDTO;
@@ -262,7 +264,12 @@ public class HomeActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         if (backPressedToExitOnce) {
-            super.onBackPressed();
+            if (!Utils.IsSkipLogin(mActivity)) {
+                super.onBackPressed();
+            }else{
+                startActivity(new Intent(mActivity, LoginActivity.class));
+                finish();
+            }
             //SessionManager.logoutUser(mActivity);
         } else {
             this.backPressedToExitOnce = true;

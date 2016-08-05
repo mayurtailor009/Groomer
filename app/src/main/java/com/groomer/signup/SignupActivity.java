@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
 import com.groomer.activity.BaseActivity;
+import com.groomer.activity.SplashActivity;
 import com.groomer.gps.GPSTracker;
 import com.groomer.home.HomeActivity;
 import com.groomer.login.LoginActivity;
@@ -43,6 +44,8 @@ public class SignupActivity extends BaseActivity {
     private void init() {
         setTouchNClick(R.id.btn_signup);
         setClick(R.id.tv_signin);
+        setClick(R.id.img_back);
+
     }
 
     @Override
@@ -53,6 +56,10 @@ public class SignupActivity extends BaseActivity {
                 break;
             case R.id.tv_signin:
                 startActivity(new Intent(this, LoginActivity.class));
+                finish();
+                break;
+            case R.id.img_back:
+                startActivity(new Intent(this, SplashActivity.class));
                 finish();
                 break;
         }

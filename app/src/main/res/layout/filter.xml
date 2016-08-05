@@ -14,27 +14,27 @@
         android:layout_gravity="center_vertical"
         android:orientation="horizontal">
 
-        <com.groomer.customviews.CustomTextViewMarkNovaRegular
+        <!--<com.groomer.customviews.CustomTextViewMarkNovaRegular-->
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/et_search"
-            android:layout_alignLeft="@+id/txt_category_lbl"
-            android:layout_alignTop="@+id/et_search"
-            android:gravity="center_vertical"
-            android:text="@string/lbl_search"
-            android:textSize="@dimen/textsize_17sp" />
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignBottom="@+id/et_search"-->
+        <!--android:layout_alignLeft="@+id/txt_category_lbl"-->
+        <!--android:layout_alignTop="@+id/et_search"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:text="@string/lbl_search"-->
+        <!--android:textSize="@dimen/textsize_17sp" />-->
 
 
-        <com.groomer.customviews.CustomEditTextMarkNovaRegular
-            android:id="@+id/et_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/txt_category"
-            android:background="?attr/filterTextView"
-            android:maxLines="1"
-            android:hint="@string/search_hint"
-            android:textSize="@dimen/textsize_17sp" />
+        <!--<com.groomer.customviews.CustomEditTextMarkNovaRegular-->
+        <!--android:id="@+id/et_search"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignLeft="@+id/txt_category"-->
+        <!--android:background="?attr/filterTextView"-->
+        <!--android:maxLines="1"-->
+        <!--android:hint="@string/search_hint"-->
+        <!--android:textSize="@dimen/textsize_17sp" />-->
 
 
         <com.groomer.customviews.CustomTextViewMarkNovaRegular
@@ -52,60 +52,12 @@
             android:id="@+id/txt_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/seekbar_km"
-            android:layout_below="@+id/et_search"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="@dimen/margin_10"
-
             android:layout_toRightOf="@+id/txt_category_lbl"
             android:background="?attr/filterTextView"
             android:textSize="@dimen/textsize_17sp" />
 
-        <com.groomer.customviews.CustomTextViewMarkNovaRegular
-            android:id="@+id/txt_review_lbl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/linear_review"
-            android:layout_alignParentLeft="true"
-            android:layout_alignTop="@+id/linear_review"
-            android:gravity="center_vertical"
-            android:text="@string/lbl_review"
-            android:textSize="@dimen/textsize_17sp" />
-
-
-        <LinearLayout
-            android:id="@+id/linear_review"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/seekbar_km"
-            android:layout_below="@+id/txt_category"
-            android:layout_marginTop="@dimen/margin_10"
-            android:layout_toRightOf="@id/txt_review_lbl"
-            android:orientation="horizontal">
-
-
-            <Button
-                android:id="@+id/btn_review_asc"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="?attr/filterLeftButton"
-                android:text="@string/txt_low_to_high"
-                android:textAllCaps="false"
-                android:textColor="?attr/filterTextColor"
-                android:textSize="@dimen/textsize_15sp" />
-
-            <Button
-                android:id="@+id/btn_review_desc"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="?attr/filterRightButton"
-                android:text="@string/txt_high_to_low"
-                android:textAllCaps="false"
-                android:textColor="?attr/filterTextColor"
-                android:textSize="@dimen/textsize_15sp" />
-
-        </LinearLayout>
 
         <com.groomer.customviews.CustomTextViewMarkNovaRegular
             android:id="@+id/txt_rating_lbl"
@@ -122,8 +74,8 @@
             android:id="@+id/linear_rating"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/seekbar_km"
-            android:layout_below="@+id/linear_review"
+            android:layout_alignLeft="@+id/txt_category"
+            android:layout_below="@+id/txt_category"
             android:layout_marginTop="@dimen/margin_10"
             android:layout_toRightOf="@id/txt_rating_lbl"
             android:orientation="horizontal">
@@ -155,45 +107,89 @@
             android:id="@+id/txt_distance_lbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/seekbar_km"
+            android:layout_alignBottom="@+id/linear_distance"
             android:layout_alignParentLeft="true"
-            android:layout_alignTop="@+id/seekbar_km"
-
+            android:layout_alignTop="@+id/linear_distance"
             android:gravity="center_vertical"
             android:text="@string/lbl_distance"
             android:textSize="@dimen/textsize_17sp" />
 
-        <com.groomer.customviews.CustomTextViewMarkNovaRegular
-            android:id="@+id/txt_km"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/seekbar_km"
-            android:layout_alignTop="@+id/seekbar_km"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/margin_5"
-            android:layout_toRightOf="@id/txt_distance_lbl"
-            android:gravity="center_vertical"
-            android:text="5 KM"
-            android:maxEms="2"
-            android:minEms="3"
-            android:textColor="@color/black"
-            android:textSize="@dimen/textsize_17sp" />
-
-
-        <SeekBar
-            android:id="@+id/seekbar_km"
+        <LinearLayout
+            android:id="@+id/linear_distance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/linear_rating"
-            android:layout_marginLeft="@dimen/margin_10"
+            android:layout_alignLeft="@+id/txt_category"
+            android:layout_below="@+id/txt_rating_lbl"
             android:layout_marginTop="@dimen/margin_10"
-            android:layout_toRightOf="@id/txt_km"
-            android:max="100"
-            android:maxHeight="@dimen/margin_1"
-            android:minHeight="@dimen/margin_1"
-            android:progressDrawable="?attr/drawerBg"
-            android:splitTrack="false"
-            android:thumb="@drawable/green_dragger" />
+            android:layout_toRightOf="@id/txt_distance_lbl"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_distance_asc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?attr/filterLeftButton"
+                android:text="@string/txt_low_to_high"
+                android:textAllCaps="false"
+                android:textColor="?attr/filterTextColor"
+                android:textSize="@dimen/textsize_15sp" />
+
+            <Button
+                android:id="@+id/btn_distance_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?attr/filterRightButton"
+                android:text="@string/txt_high_to_low"
+                android:textAllCaps="false"
+                android:textColor="?attr/filterTextColor"
+                android:textSize="@dimen/textsize_15sp" />
+        </LinearLayout>
+
+        <com.groomer.customviews.CustomTextViewMarkNovaRegular
+            android:id="@+id/txt_price_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/linear_price"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@+id/linear_price"
+            android:gravity="center_vertical"
+            android:text="@string/lbl_price"
+            android:textSize="@dimen/textsize_17sp" />
+
+        <LinearLayout
+            android:id="@+id/linear_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/txt_category"
+            android:layout_below="@+id/txt_distance_lbl"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_toRightOf="@id/txt_price_lbl"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_price_asc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?attr/filterLeftButton"
+                android:text="@string/txt_low_to_high"
+                android:textAllCaps="false"
+                android:textColor="?attr/filterTextColor"
+                android:textSize="@dimen/textsize_15sp" />
+
+            <Button
+                android:id="@+id/btn_price_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?attr/filterRightButton"
+                android:text="@string/txt_high_to_low"
+                android:textAllCaps="false"
+                android:textColor="?attr/filterTextColor"
+                android:textSize="@dimen/textsize_15sp" />
+        </LinearLayout>
 
 
     </RelativeLayout>

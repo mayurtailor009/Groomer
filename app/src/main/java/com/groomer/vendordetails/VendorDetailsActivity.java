@@ -302,6 +302,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                     fragment = AboutFragment.newInstance(saloonDetailsDTO.getStoredesc_eng());
                 }
                 break;
+
         }
 
         getSupportFragmentManager()

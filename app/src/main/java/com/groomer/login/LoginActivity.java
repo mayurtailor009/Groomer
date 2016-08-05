@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
 import com.groomer.activity.BaseActivity;
+import com.groomer.activity.SplashActivity;
 import com.groomer.forgetpassword.ForgetpasswordActivity;
 import com.groomer.gps.GPSTracker;
 import com.groomer.home.HomeActivity;
@@ -77,6 +78,8 @@ public class LoginActivity extends BaseActivity {
         setClick(R.id.tv_forgotpassword);
         setClick(R.id.tv_signup);
         setClick(R.id.tv_skip);
+        setClick(R.id.img_back);
+
 
         ImageView img_facebook_login = (ImageView) findViewById(R.id.img_facebook_login);
         btnFbLogin = (LoginButton) findViewById(R.id.btnFb);
@@ -125,6 +128,10 @@ public class LoginActivity extends BaseActivity {
                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                 intent.putExtra("fragmentNumber", 0);
                 startActivity(intent);
+                break;
+            case R.id.img_back:
+                startActivity(new Intent(LoginActivity.this, SplashActivity.class));
+                finish();
                 break;
         }
     }

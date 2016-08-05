@@ -60,6 +60,7 @@ public class SplashActivity extends BaseActivity {
     private void init() {
         setClick(R.id.tv_signin);
         setClick(R.id.tv_signup);
+        setClick(R.id.txt_skip);
         showHashKey(mContext);
 
         String pushRegistrationId = GroomerPreference.getPushRegistrationId(mContext);
@@ -77,6 +78,13 @@ public class SplashActivity extends BaseActivity {
                 break;
             case R.id.tv_signup:
                 startActivity(new Intent(mContext, SignupActivity.class));
+                finish();
+                break;
+
+            case R.id.txt_skip:
+                Intent intent = new Intent(mContext, HomeActivity.class);
+                intent.putExtra("fragmentNumber", 0);
+                startActivity(intent);
                 finish();
                 break;
         }

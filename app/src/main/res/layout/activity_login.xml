@@ -4,7 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
+    android:orientation="vertical"
     tools:context=".login.LoginActivity">
+
+    <ImageView
+        android:id="@+id/img_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_20"
+        android:layout_marginTop="@dimen/margin_10"
+        android:src="@drawable/back_btn" />
+
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -18,9 +28,9 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_marginTop="@dimen/margin_20"
                 android:layout_marginLeft="@dimen/margin_10"
                 android:layout_marginRight="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_20"
                 android:src="@drawable/text_logo" />
 
             <View
@@ -33,7 +43,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="15dp"
+                android:padding="10dp"
                 android:weightSum="7">
 
                 <com.groomer.customviews.CustomTextViewMarkNovaSemibold
@@ -69,16 +79,15 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:orientation="vertical"
-                android:padding="15dp">
+                android:padding="10dp">
 
                 <com.groomer.customviews.CustomTextViewMarkNovaRegular
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/email_id"
-                    android:textStyle="bold"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
 
                 <com.groomer.customviews.CustomEditTextMarkNovaRegular
@@ -93,9 +102,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:textStyle="bold"
                     android:text="@string/txt_password"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <com.groomer.customviews.CustomEditTextMarkNovaRegular
                     android:id="@+id/et_passowrd"
@@ -117,30 +126,50 @@
 
             </LinearLayout>
 
-            <com.groomer.customviews.CustomTextViewMarkNovaRegular
-                android:id="@+id/tv_forgotpassword"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginRight="@dimen/margin_15"
-                android:text="@string/txt_forget_password"
-                android:textColor="@color/blue_light"
-                android:textSize="20sp" />
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                    android:id="@+id/tv_skip"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_weight="1"
+                    android:text="@string/txt_skip"
+                    android:textColor="@color/blue_light"
+                    android:textSize="20sp" />
+
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                    android:id="@+id/tv_forgotpassword"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="@dimen/margin_10"
+                    android:layout_weight="2"
+                    android:gravity="right"
+                    android:text="@string/txt_forget_password"
+                    android:textColor="@color/blue_light"
+                    android:textSize="20sp" />
 
 
+            </LinearLayout>
 
             <com.groomer.customviews.CustomTextViewMarkNovaRegular
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:text="@string/txt_or_login_via"
                 android:textSize="18sp" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="5dp"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal">
 
@@ -173,15 +202,7 @@
                     android:visibility="gone" />
             </LinearLayout>
 
-            <com.groomer.customviews.CustomTextViewMarkNovaRegular
-                android:id="@+id/tv_skip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"
-                android:text="@string/txt_skip"
-                android:textColor="@color/blue_light"
-                android:textSize="20sp" />
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -192,6 +192,7 @@
     <string name="txt_low_to_high">ASC</string>
     <string name="txt_high_to_low">DESC</string>
     <string name="lbl_rating">Rating</string>
+    <string name="lbl_price">Price</string>
     <string name="lbl_search">Search</string>
     <string name="lbl_category">Category</string>
     <string name="lbl_distance">Distance</string>

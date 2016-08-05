@@ -4,7 +4,16 @@
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
+    android:orientation="vertical"
     tools:context=".login.LoginActivity">
+
+    <ImageView
+        android:id="@+id/img_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_20"
+        android:layout_marginTop="@dimen/margin_10"
+        android:src="@drawable/back_btn" />
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -18,7 +27,6 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_marginTop="@dimen/margin_20"
                 android:layout_marginLeft="@dimen/margin_10"
                 android:layout_marginRight="@dimen/margin_10"
                 android:src="@drawable/text_logo" />
@@ -33,7 +41,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="15dp"
+                android:padding="5dp"
                 android:weightSum="7">
 
                 <com.groomer.customviews.CustomTextViewMarkNovaThin
@@ -69,16 +77,15 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:orientation="vertical"
-                android:padding="15dp">
+                android:padding="10dp">
 
                 <com.groomer.customviews.CustomTextViewMarkNovaRegular
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/txt_name"
-                    android:textStyle="bold"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <com.groomer.customviews.CustomEditTextMarkNovaRegular
                     android:id="@+id/et_name"
@@ -93,8 +100,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="@string/txt_phone_no"
-                    android:textStyle="bold"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <com.groomer.customviews.CustomEditTextMarkNovaRegular
                     android:id="@+id/et_phone"
@@ -109,8 +116,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="@string/txt_email_id"
-                    android:textStyle="bold"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <com.groomer.customviews.CustomEditTextMarkNovaRegular
                     android:id="@+id/et_emailid"
@@ -124,8 +131,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="@string/txt_password"
-                    android:textStyle="bold"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <com.groomer.customviews.CustomEditTextMarkNovaRegular
                     android:id="@+id/et_passowrd"
