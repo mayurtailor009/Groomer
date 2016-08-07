@@ -88,6 +88,7 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
 
         btnSubmit = (Button) findViewById(R.id.confirm_appointment_btn);
         btnDate = (TextView) findViewById(R.id.btn_date);
+        btnDate.setText(Utils.getCurrentDate());
        // btnTime = (Button) findViewById(R.id.btn_time);
 
         serviceDTOList = (List<ServiceDTO>) getIntent()
@@ -239,33 +240,7 @@ private void setSlotedList()
             case R.id.confirm_appoint_cross_button:
                 finish();
                 break;
-            case R.id.btn_time:
 
-                mHour = c.get(Calendar.HOUR_OF_DAY);
-                mMinute = c.get(Calendar.MINUTE);
-
-                // Launch Time Picker Dialog
-                TimePickerDialog timePickerDialog = new TimePickerDialog(ConfirmAppointmentActivity.this,
-                        new TimePickerDialog.OnTimeSetListener() {
-
-                            @Override
-                            public void onTimeSet(TimePicker view, int hourOfDay,
-                                                  int minute) {
-                                if(mDay!=0)
-                                    btnSubmit.setEnabled(true);
-                                String AM_PM ;
-                                if(hourOfDay < 12) {
-                                    AM_PM = "AM";
-                                } else {
-                                    AM_PM = "PM";
-                                }
-                                if(hourOfDay>11)
-                                    hourOfDay = hourOfDay-12;
-                                //btnTime.setText(hourOfDay + ":" + (minute<10?"0"+minute:minute) +" "+AM_PM);
-                            }
-                        }, mHour, mMinute, false);
-                timePickerDialog.show();
-                break;
             case R.id.btn_date:
                 mYear = c.get(Calendar.YEAR);
                 mMonth = c.get(Calendar.MONTH);
@@ -279,9 +254,9 @@ private void setSlotedList()
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
                                 mMonth = monthOfYear; mDay = dayOfMonth; mYear = year;
-                                btnDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                                if(mHour!=0)
-                                    btnSubmit.setEnabled(true);
+                             //   btnDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                                btnDate.setText(year + "-" + (monthOfYear + 1) + "-" +dayOfMonth );
+                                getTimeSlotes();
 
                             }
                         }, mYear, mMonth, mDay);
@@ -342,6 +317,7 @@ private void setSlotedList()
             params.put("services", getServices());
             params.put("date", btnDate.getText().toString());
             params.put("amount", amount);
+            params.put("slot_id",selectedSlot);
 
             final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
             CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,

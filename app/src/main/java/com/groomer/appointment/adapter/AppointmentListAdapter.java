@@ -325,6 +325,7 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
                 RescheduleDialogNewFragment dialog = RescheduleDialogNewFragment.getInstance();
                 Bundle bundle = new Bundle();
                 bundle.putString("order_id", appointsParentList.get(groupPosition).getOrder_id());
+                bundle.putString("store_id",appointsParentList.get(groupPosition).getStore_id());
                 dialog.setArguments(bundle);
                 dialog.show(((Activity) context).getFragmentManager(), "");
             }
