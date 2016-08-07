@@ -24,25 +24,71 @@
         android:padding="@dimen/margin_20"
         android:src="@drawable/close_btn" />
 
-    <com.groomer.customviews.CustomButtonMarkNovaRegular
-        android:id="@+id/btn_date"
+
+    <RelativeLayout
+        android:id="@+id/ll_date"
+        android:layout_marginTop="@dimen/margin_10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/txt_dialog_select_date"
-        android:layout_margin="@dimen/margin_10"
-        android:background="?attr/drawerBg"
-        android:padding="@dimen/margin_15"
-        android:text="@string/txt_select_date" />
+        android:background="@color/colorWhite"
+        android:padding="@dimen/margin_15">
 
-    <com.groomer.customviews.CustomButtonMarkNovaRegular
-        android:id="@+id/btn_time"
+        <com.groomer.customviews.CustomTextViewMarkNovaRegular
+            android:id="@+id/label_select_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_alignParentLeft="true"
+            android:text="@string/txt_select_date"
+            android:textSize="@dimen/textsize_15sp" />
+
+
+        <com.groomer.customviews.CustomTextViewMarkNovaRegular
+            android:id="@+id/btn_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:textColor="?attr/drawerBg"
+            android:layout_alignParentRight="true"
+            android:textSize="@dimen/textsize_15sp"
+            android:text="@string/btn_add_date" />
+
+
+    </RelativeLayout>
+
+
+    <!-- select date text -->
+
+
+    <LinearLayout
+        android:id="@+id/ll_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btn_date"
-        android:layout_margin="@dimen/margin_10"
-        android:background="?attr/drawerBg"
-        android:padding="@dimen/margin_15"
-        android:text="@string/txt_select_time" />
+        android:layout_below="@+id/ll_date"
+        android:layout_marginTop="@dimen/margin_10"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+        <com.groomer.customviews.CustomTextViewMarkNovaRegular
+            android:id="@+id/label_select_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_15"
+            android:text="@string/txt_select_time"
+            android:textSize="@dimen/textsize_15sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycle_time_slot"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="horizontal">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+    </LinearLayout>
+
 
 
     <!-- press this confirm button after selecting date -->
@@ -50,10 +96,8 @@
         android:id="@+id/btn_dialog_date_confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:enabled="false"
-        android:layout_below="@id/btn_time"
+        android:layout_below="@id/ll_time"
         android:layout_marginTop="@dimen/margin_20"
-        android:background="@drawable/def_selector"
         android:text="@string/confirm"
         android:textColor="@color/colorWhite" />
 </RelativeLayout>

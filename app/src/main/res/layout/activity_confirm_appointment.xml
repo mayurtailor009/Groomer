@@ -154,7 +154,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="@dimen/margin_5"
-        android:enabled="false"
         android:padding="@dimen/margin_15"
         android:text="@string/txt_confirm_appointment" />
 

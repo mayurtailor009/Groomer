@@ -41,12 +41,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:background="@drawable/circle_shape"
-                        android:paddingBottom="8dp"
-                        android:paddingLeft="@dimen/margin_12"
-                        android:paddingRight="@dimen/margin_12"
-                        android:paddingTop="8dp"
-                        android:src="@drawable/white_back_btn"
+                        android:padding="@dimen/margin_10"
+                        android:src="@drawable/back_arrow"
                         android:tint="@color/colorWhite" />
 
                     <!-- zoom button -->
@@ -56,7 +52,6 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:padding="@dimen/margin_10"
-                        android:background="@drawable/circle_shape"
                         android:src="@drawable/zoom_icon" />
                 </RelativeLayout>
             </FrameLayout>

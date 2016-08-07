@@ -307,7 +307,7 @@ private void setSlotedList()
      */
     private void confirmAppointment() {
         String amount = getAmount();
-        if (validateForm(btnDate.getText().toString() + " ")) {
+        if (validateForm()) {
 
             HashMap<String, String> params = new HashMap<>();
             params.put("action", "confirm_appointment");
@@ -413,24 +413,12 @@ private void setSlotedList()
     }
 
 
-    private boolean validateForm(String datetime) {
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm a");
-//        try {
-//            Date date = simpleDateFormat.parse(datetime);
-//            Date currentDate = new Date();
-//            String date1 = simpleDateFormat.format(currentDate);
-//            Date date2 = simpleDateFormat.parse(date1);
-//
-//            if (date2.after(date)) {
-//                Utils.showDialog(mActivity, "Message", "Please select valid date time");
-//                return false;
-//            }
-//
-//
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//
+    private boolean validateForm() {
+
+        if(selectedSlot.equalsIgnoreCase(""))
+        {
+            return false;
+        }
 
         return true;
     }

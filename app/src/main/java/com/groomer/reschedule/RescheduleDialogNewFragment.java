@@ -7,6 +7,7 @@ import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -110,7 +111,10 @@ public class RescheduleDialogNewFragment extends DialogFragment {
     }
 
     private void init(Dialog dialog) {
-
+        recyclerViewSlots = (RecyclerView)dialog.findViewById(R.id.recycle_time_slot);
+        final LinearLayoutManager manager = new LinearLayoutManager(mActivity,
+                LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewSlots.setLayoutManager(manager);
         order_id = getArguments().getString("order_id");
         store_id = getArguments().getString("store_id");
         btnDate = (TextView) dialog.findViewById(R.id.btn_date);
@@ -126,7 +130,7 @@ public class RescheduleDialogNewFragment extends DialogFragment {
         params.put("action", Constants.RESCHEDULE_APPOINTMENT);
         params.put("user_id", Utils.getUserId(mActivity));
         params.put("lang", Utils.getSelectedLanguage(mActivity));
-        params.put("date", date);
+        params.put("date", btnDate.getText().toString());
         params.put("slot_id", selectedSlot);
         params.put("order_id", order_id);
 
