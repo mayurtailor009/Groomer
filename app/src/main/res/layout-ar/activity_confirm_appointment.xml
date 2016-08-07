@@ -82,46 +82,67 @@
                 android:layout_below="@id/confirm_appoint_servicedetailslayout"
                 android:dividerHeight="0dp" />
 
-
-            <!-- select date text -->
-            <com.groomer.customviews.CustomTextViewMarkNovaExtrabold
-                android:id="@+id/label_select_date"
+            <RelativeLayout
+                android:id="@+id/ll_date"
+                android:layout_marginTop="@dimen/margin_10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/confirm_appoint_service_list"
-                android:padding="@dimen/margin_15"
-                android:text="@string/txt_select_date"
-                android:textSize="@dimen/textsize_15sp" />
+                android:background="@color/colorWhite"
+                android:padding="@dimen/margin_15">
 
-            <com.groomer.customviews.CustomButtonMarkNovaRegular
-                android:id="@+id/btn_date"
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                    android:id="@+id/label_select_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/txt_select_date"
+                    android:textSize="@dimen/textsize_15sp" />
+
+
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                    android:id="@+id/btn_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/drawerBg"
+                    android:layout_alignParentLeft="true"
+                    android:textSize="@dimen/textsize_15sp"
+                    android:text="@string/btn_add_date" />
+
+
+            </RelativeLayout>
+
+
+            <!-- select date text -->
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/label_select_date"
-                android:layout_margin="@dimen/margin_10"
-                android:background="?attr/drawerBg"
-                android:padding="@dimen/margin_15"
-                android:text="@string/btn_add_date" />
+                android:layout_below="@+id/ll_date"
+                android:layout_marginTop="@dimen/margin_10"
+                android:background="@color/colorWhite"
+                android:orientation="vertical">
 
-            <!-- label select time text -->
-            <com.groomer.customviews.CustomTextViewMarkNovaExtrabold
-                android:id="@+id/label_select_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/btn_date"
-                android:padding="@dimen/margin_15"
-                android:text="@string/txt_select_time"
-                android:textSize="@dimen/textsize_15sp" />
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                    android:id="@+id/label_select_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_15"
+                    android:text="@string/txt_select_time"
+                    android:textSize="@dimen/textsize_15sp" />
 
-            <com.groomer.customviews.CustomButtonMarkNovaRegular
-                android:id="@+id/btn_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/label_select_time"
-                android:layout_margin="@dimen/margin_10"
-                android:background="?attr/drawerBg"
-                android:padding="@dimen/margin_15"
-                android:text="@string/btn_add_time" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycle_time_slot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                </android.support.v7.widget.RecyclerView>
+
+
+            </LinearLayout>
+
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
 

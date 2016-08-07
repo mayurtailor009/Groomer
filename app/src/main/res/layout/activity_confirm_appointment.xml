@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -28,8 +29,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/confirm_appoint_cross_button"
-                    android:gravity="left"
                     android:text=""
+                    android:gravity="left"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/textsize_15sp" />
 
@@ -41,8 +42,8 @@
                     android:layout_below="@id/confirm_appoint_txt_service_price"
                     android:layout_marginTop="@dimen/margin_3"
                     android:layout_toLeftOf="@+id/confirm_appoint_cross_button"
-                    android:gravity="left"
                     android:text=""
+                    android:gravity="left"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/textsize_15sp" />
                 <!-- cross button -->
@@ -50,10 +51,10 @@
                     android:id="@+id/confirm_appoint_cross_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
-                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
                     android:layout_marginLeft="@dimen/margin_5"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/close_btn"
                     android:tint="@color/colorWhite" />
 
@@ -79,36 +80,70 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/confirm_appoint_servicedetailslayout" />
 
-
-            <!-- select date text -->
-            <com.groomer.customviews.CustomTextViewMarkNovaExtrabold
-                android:id="@+id/label_select_date"
+            <RelativeLayout
+                android:id="@+id/ll_date"
+                android:layout_marginTop="@dimen/margin_10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/confirm_appoint_service_list"
-                android:padding="@dimen/margin_15"
-                android:text="@string/txt_select_date"
-                android:textSize="@dimen/textsize_15sp" />
+                android:background="@color/colorWhite"
+                android:padding="@dimen/margin_15">
 
-            <com.groomer.customviews.CustomButtonMarkNovaRegular
-                android:id="@+id/btn_date"
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                    android:id="@+id/label_select_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/txt_select_date"
+                    android:textSize="@dimen/textsize_15sp" />
+
+
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                    android:id="@+id/btn_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:textColor="?attr/drawerBg"
+                    android:layout_alignParentRight="true"
+                    android:textSize="@dimen/textsize_15sp"
+                    android:text="@string/btn_add_date" />
+
+
+            </RelativeLayout>
+
+
+            <!-- select date text -->
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/label_select_date"
-                android:layout_margin="@dimen/margin_10"
-                android:background="?attr/drawerBg"
-                android:padding="@dimen/margin_15"
-                android:text="@string/btn_add_date" />
+                android:layout_below="@+id/ll_date"
+                android:layout_marginTop="@dimen/margin_10"
+                android:background="@color/colorWhite"
+                android:orientation="vertical">
+
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                    android:id="@+id/label_select_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_15"
+                    android:text="@string/txt_select_time"
+                    android:textSize="@dimen/textsize_15sp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycle_time_slot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                </android.support.v7.widget.RecyclerView>
+
+
+            </LinearLayout>
 
             <!-- label select time text -->
-            <com.groomer.customviews.CustomTextViewMarkNovaExtrabold
-                android:id="@+id/label_select_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/btn_date"
-                android:padding="@dimen/margin_15"
-                android:text="@string/txt_select_time"
-                android:textSize="@dimen/textsize_15sp" />
 
             <com.groomer.customviews.CustomButtonMarkNovaRegular
                 android:id="@+id/btn_time"
@@ -118,52 +153,7 @@
                 android:layout_margin="@dimen/margin_10"
                 android:background="?attr/drawerBg"
                 android:padding="@dimen/margin_15"
-                android:text="@string/btn_add_time"
-                android:visibility="gone" />
-
-            <LinearLayout
-                android:id="@+id/time_seekbar_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/label_select_time"
-                android:layout_margin="@dimen/margin_10"
-                android:orientation="horizontal"
-                android:weightSum="1">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="0.1"
-                    android:src="@drawable/day_icon" />
-
-                <SeekBar
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
-                    android:max="24"
-                    android:id="@+id/time_seekbar"
-                    android:progressDrawable="@drawable/gradient_dragger"
-                    android:splitTrack="false"
-                    android:thumb="@drawable/pointer_icon" />
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="0.1"
-                    android:src="@drawable/night_icon" />
-            </LinearLayout>
-
-            <com.groomer.customviews.CustomTextViewMarkNovaRegular
-                android:id="@+id/seek_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/time_seekbar_layout"
-                android:layout_centerHorizontal="true"
-                android:text="09:00 AM"
-                android:textSize="@dimen/textsize_15sp" />
-
+                android:text="@string/btn_add_time" />
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
 
@@ -174,7 +164,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="@dimen/margin_5"
-        android:background="@drawable/def_selector"
         android:enabled="false"
         android:padding="@dimen/margin_15"
         android:text="@string/txt_confirm_appointment" />

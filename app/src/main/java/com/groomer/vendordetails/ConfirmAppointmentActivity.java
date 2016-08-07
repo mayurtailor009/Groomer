@@ -7,6 +7,8 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.DatePicker;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -27,20 +30,29 @@ import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
 import com.groomer.activity.BaseActivity;
 import com.groomer.appointment.adapter.SwipeMenuListViewAdapter;
 import com.groomer.home.HomeActivity;
+import com.groomer.model.AppointmentDTO;
 import com.groomer.model.ServiceDTO;
+import com.groomer.model.SloteDTO;
+import com.groomer.recyclerviewitemclick.MyOnClickListener;
+import com.groomer.recyclerviewitemclick.RecyclerTouchListener;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.Utils;
+import com.groomer.vendordetails.adapter.TimeSlotesAdater;
 import com.groomer.volley.CustomJsonRequest;
 
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -54,8 +66,6 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
     private SwipeMenuListViewAdapter adapter;
     private int mYear, mMonth, mDay, mHour, mMinute;
     private Button btnSubmit, btnDate, btnTime;
-    private SeekBar timeSeekbar;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,36 +74,7 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
         mActivity = ConfirmAppointmentActivity.this;
 
         init();
-        seekbarListener();
         setUpRecyclerView();
-    }
-
-    private void seekbarListener() {
-        timeSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (progress < 12) {
-                    setTextViewText(R.id.seek_time,
-                            progress < 10 ? "0" + progress + ":00 AM"
-                                    : progress + ":00 AM");
-                } else {
-                    int prog = progress - 12;
-                    setTextViewText(R.id.seek_time,
-                            prog < 10 ? "0" + prog + ":00 PM"
-                                    : prog + ":00 PM");
-                }
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
     }
 
     /**
@@ -102,17 +83,14 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
     private void init() {
 
         btnSubmit = (Button) findViewById(R.id.confirm_appointment_btn);
-        btnDate = (Button) findViewById(R.id.btn_date);
-        btnTime = (Button) findViewById(R.id.btn_time);
-        timeSeekbar = (SeekBar) findViewById(R.id.time_seekbar);
-        timeSeekbar.setProgress(9);
+        btnDate = (TextView) findViewById(R.id.btn_date);
+       // btnTime = (Button) findViewById(R.id.btn_time);
 
         serviceDTOList = (List<ServiceDTO>) getIntent()
                 .getSerializableExtra("serviceDTO");
 
         setClick(R.id.confirm_appoint_cross_button);
         setClick(R.id.btn_date);
-        setClick(R.id.btn_time);
         setClick(R.id.confirm_appointment_btn);
 
         setViewText(R.id.confirm_appoint_txt_service_price,
@@ -121,7 +99,88 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
                 getIntent().getStringExtra("saloonName"));
         setViewText(R.id.confirm_appoint_txt_service_address,
                 getIntent().getStringExtra("saloonAddress"));
+        recyclerViewSlots = (RecyclerView) findViewById(R.id.recycle_time_slot);
+        final LinearLayoutManager manager = new LinearLayoutManager(mActivity,
+                LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewSlots.setLayoutManager(manager);
+
+        getTimeSlotes();
     }
+
+
+    private void getTimeSlotes()
+    {
+       if(Utils.isOnline(mActivity)) {
+            HashMap<String, String> params = new HashMap<>();
+            params.put("action", "available_schedule");
+            params.put("lang", Utils.getSelectedLanguage(mActivity));
+            params.put("store_id", getIntent().getStringExtra("store_id"));
+            params.put("date", btnDate.getText().toString());
+
+            final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
+            CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
+                    Constants.SERVICE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.i("Groomer info", response.toString());
+                            pdialog.dismiss();
+                            try {
+                                if (Utils.getWebServiceStatus(response)) {
+                                    Type type = new TypeToken<ArrayList<SloteDTO>>() {
+                                    }.getType();
+                                    sloteList = new Gson()
+                                            .fromJson(response
+                                                    .getJSONArray("schedule").toString(), type);
+
+                                    setSlotedList();
+                                }else{
+                                    Toast.makeText(ConfirmAppointmentActivity.this,
+                                            Utils.getWebServiceMessage(response), Toast.LENGTH_LONG).show();
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.i("Groomer info", error.toString());
+                            pdialog.dismiss();
+                            Utils.showExceptionDialog(mActivity);
+                        }
+                    }
+            );
+
+            pdialog.show();
+            GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
+            jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        }
+
+
+    }
+
+private void setSlotedList()
+{
+
+    TimeSlotesAdater timeSlotesAdater= new  TimeSlotesAdater(mActivity,sloteList);
+    recyclerViewSlots.setAdapter(timeSlotesAdater);
+
+
+    recyclerViewSlots.addOnItemTouchListener(new RecyclerTouchListener(mActivity, recyclerViewSlots, new MyOnClickListener() {
+        @Override
+        public void onItemClick(View view, int position) {
+
+            selectedSlot = "";
+            selectedSlot = sloteList.get(position).getId();
+        }
+    }));
+}
+
+
+
 
     private void setUpRecyclerView() {
         mRecyclerView = (SwipeMenuListView) findViewById(R.id.confirm_appoint_service_list);
@@ -188,17 +247,17 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
-                                if (mDay != 0)
+                                if(mDay!=0)
                                     btnSubmit.setEnabled(true);
-                                String AM_PM;
-                                if (hourOfDay < 12) {
+                                String AM_PM ;
+                                if(hourOfDay < 12) {
                                     AM_PM = "AM";
                                 } else {
                                     AM_PM = "PM";
                                 }
-                                if (hourOfDay > 11)
-                                    hourOfDay = hourOfDay - 12;
-                                btnTime.setText(hourOfDay + ":" + (minute < 10 ? "0" + minute : minute) + " " + AM_PM);
+                                if(hourOfDay>11)
+                                    hourOfDay = hourOfDay-12;
+                                btnTime.setText(hourOfDay + ":" + (minute<10?"0"+minute:minute) +" "+AM_PM);
                             }
                         }, mHour, mMinute, false);
                 timePickerDialog.show();
@@ -215,11 +274,9 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
-                                mMonth = monthOfYear;
-                                mDay = dayOfMonth;
-                                mYear = year;
+                                mMonth = monthOfYear; mDay = dayOfMonth; mYear = year;
                                 btnDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                                //if (mHour != 0)
+                                if(mHour!=0)
                                     btnSubmit.setEnabled(true);
 
                             }
@@ -271,9 +328,7 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
      */
     private void confirmAppointment() {
         String amount = getAmount();
-        //if (validateForm(btnDate.getText().toString() + " " + btnTime.getText().toString())) {
-        if (validateForm(btnDate.getText().toString() + " "
-                + getTextViewText(R.id.seek_time).toString())) {
+        if (validateForm(btnDate.getText().toString() + " " + btnTime.getText().toString())) {
 
             HashMap<String, String> params = new HashMap<>();
             params.put("action", "confirm_appointment");
@@ -282,8 +337,7 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
             params.put("store_id", getIntent().getStringExtra("store_id"));
             params.put("services", getServices());
             params.put("date", btnDate.getText().toString());
-            params.put("time", getTextViewText(R.id.seek_time).toString());
-            //params.put("time2", btnTime.getText().toString());
+            params.put("time", btnTime.getText().toString());
             params.put("amount", amount);
 
             final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
@@ -301,7 +355,7 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
                                     Intent intent = new Intent(mActivity, HomeActivity.class);
                                     intent.putExtra("fragmentNumber", 2);
                                     startActivity(intent);
-                                } else {
+                                }else{
                                     Toast.makeText(ConfirmAppointmentActivity.this,
                                             Utils.getWebServiceMessage(response), Toast.LENGTH_LONG).show();
                                 }
@@ -381,23 +435,23 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
 
 
     private boolean validateForm(String datetime) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm a");
-        try {
-            Date date = simpleDateFormat.parse(datetime);
-            Date currentDate = new Date();
-            String date1 = simpleDateFormat.format(currentDate);
-            Date date2 = simpleDateFormat.parse(date1);
-
-            if (date2.after(date)) {
-                Utils.showDialog(mActivity, "Message", "Please select valid date time");
-                return false;
-            }
-
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm a");
+//        try {
+//            Date date = simpleDateFormat.parse(datetime);
+//            Date currentDate = new Date();
+//            String date1 = simpleDateFormat.format(currentDate);
+//            Date date2 = simpleDateFormat.parse(date1);
+//
+//            if (date2.after(date)) {
+//                Utils.showDialog(mActivity, "Message", "Please select valid date time");
+//                return false;
+//            }
+//
+//
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//
 
         return true;
     }
