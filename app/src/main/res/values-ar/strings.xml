@@ -174,4 +174,6 @@
 
     <!-- Review fragment -->
     <string name="txt_no_reviews">لا يوجد تعليقات</string>
+
+    <string name="lbl_to">إلى</string>
 </resources>
