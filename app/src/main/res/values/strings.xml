@@ -132,7 +132,7 @@
     <string name="txt_selected">SELECTED</string>
     <string name="txt_remove">Remove</string>
     <string name="txt_select_date">SELECT DATE</string>
-    <string name="txt_select_time">SELECT TIME</string>
+    <string name="txt_select_time">SELECT TIME SLOT</string>
     <string name="btn_add_date">Click here to add date</string>
     <string name="btn_add_time">Click here to add time</string>
     <string name="txt_confirm_appointment">CONFIRM APPOINTMENT</string>

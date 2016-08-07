@@ -31,12 +31,14 @@
             android:id="@+id/txt_to"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
             android:layout_gravity="center_horizontal"
             android:text="@string/lbl_to"
             android:textSize="15sp" />
 
         <com.groomer.customviews.CustomTextViewMarkNovaRegular
             android:id="@+id/txt_end_time"
+            android:layout_marginTop="@dimen/margin_10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
