@@ -143,17 +143,7 @@
 
             </LinearLayout>
 
-            <!-- label select time text -->
 
-            <com.groomer.customviews.CustomButtonMarkNovaRegular
-                android:id="@+id/btn_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/label_select_time"
-                android:layout_margin="@dimen/margin_10"
-                android:background="?attr/drawerBg"
-                android:padding="@dimen/margin_15"
-                android:text="@string/btn_add_time" />
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
 

@@ -65,7 +65,11 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
     private List<ServiceDTO> serviceDTOList;
     private SwipeMenuListViewAdapter adapter;
     private int mYear, mMonth, mDay, mHour, mMinute;
-    private Button btnSubmit, btnDate, btnTime;
+    private Button btnSubmit;
+    private TextView btnDate;
+    private RecyclerView recyclerViewSlots;
+    private List<SloteDTO> sloteList;
+    private String selectedSlot;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -257,7 +261,7 @@ private void setSlotedList()
                                 }
                                 if(hourOfDay>11)
                                     hourOfDay = hourOfDay-12;
-                                btnTime.setText(hourOfDay + ":" + (minute<10?"0"+minute:minute) +" "+AM_PM);
+                                //btnTime.setText(hourOfDay + ":" + (minute<10?"0"+minute:minute) +" "+AM_PM);
                             }
                         }, mHour, mMinute, false);
                 timePickerDialog.show();
@@ -328,7 +332,7 @@ private void setSlotedList()
      */
     private void confirmAppointment() {
         String amount = getAmount();
-        if (validateForm(btnDate.getText().toString() + " " + btnTime.getText().toString())) {
+        if (validateForm(btnDate.getText().toString() + " ")) {
 
             HashMap<String, String> params = new HashMap<>();
             params.put("action", "confirm_appointment");
@@ -337,7 +341,6 @@ private void setSlotedList()
             params.put("store_id", getIntent().getStringExtra("store_id"));
             params.put("services", getServices());
             params.put("date", btnDate.getText().toString());
-            params.put("time", btnTime.getText().toString());
             params.put("amount", amount);
 
             final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
