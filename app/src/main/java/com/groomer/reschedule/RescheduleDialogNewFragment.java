@@ -241,7 +241,18 @@ public class RescheduleDialogNewFragment extends DialogFragment {
                 selectedSlot = "";
                 selectedSlot = sloteList.get(position).getId();
 
-                sloteList.get(position).setSelected(selectedSlot);
+                for(int i =0 ;i< sloteList.size();i++)
+                {
+                    if(i == position)
+                    {
+                        sloteList.get(i).setSelected(selectedSlot);
+                    }
+                    else
+                    {
+                        sloteList.get(i).setSelected("");
+                    }
+                }
+
 
 
                 timeSlotesAdater.setServiceDTOList(sloteList);

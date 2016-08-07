@@ -181,8 +181,17 @@ private void setSlotedList()
             selectedSlot = "";
             selectedSlot = sloteList.get(position).getId();
 
+            for(int i =0 ;i< sloteList.size();i++)
+            {
+                if(i == position) {
+                    sloteList.get(i).setSelected(selectedSlot);
+                }
+                else
+                {
+                    sloteList.get(i).setSelected("");
+                }
+            }
 
-            sloteList.get(position).setSelected(selectedSlot);
             timeSlotesAdater.setServiceDTOList(sloteList);
             timeSlotesAdater.notifyDataSetChanged();
 
