@@ -170,7 +170,7 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
 private void setSlotedList()
 {
 
-    TimeSlotesAdater timeSlotesAdater= new  TimeSlotesAdater(mActivity,sloteList);
+  final   TimeSlotesAdater timeSlotesAdater= new  TimeSlotesAdater(mActivity,sloteList);
     recyclerViewSlots.setAdapter(timeSlotesAdater);
 
 
@@ -180,6 +180,13 @@ private void setSlotedList()
 
             selectedSlot = "";
             selectedSlot = sloteList.get(position).getId();
+
+
+            sloteList.get(position).setSelected(selectedSlot);
+            timeSlotesAdater.setServiceDTOList(sloteList);
+            timeSlotesAdater.notifyDataSetChanged();
+
+
         }
     }));
 }

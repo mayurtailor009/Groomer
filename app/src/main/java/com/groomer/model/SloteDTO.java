@@ -12,6 +12,7 @@ public class SloteDTO implements Serializable {
     private  String max_booking;
     private String id;
     private  String slot_id;
+    private String selected = "";
 
     public String getStart_time() {
         return start_time;
@@ -51,5 +52,13 @@ public class SloteDTO implements Serializable {
 
     public void setSlot_id(String slot_id) {
         this.slot_id = slot_id;
+    }
+
+    public String getSelected() {
+        return selected;
+    }
+
+    public void setSelected(String selected) {
+        this.selected = selected;
     }
 }

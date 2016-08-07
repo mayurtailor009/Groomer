@@ -230,7 +230,7 @@ public class RescheduleDialogNewFragment extends DialogFragment {
     private void setSlotedList()
     {
 
-        TimeSlotesAdater timeSlotesAdater= new  TimeSlotesAdater(mActivity,sloteList);
+      final  TimeSlotesAdater timeSlotesAdater= new  TimeSlotesAdater(mActivity,sloteList);
         recyclerViewSlots.setAdapter(timeSlotesAdater);
 
 
@@ -240,6 +240,14 @@ public class RescheduleDialogNewFragment extends DialogFragment {
 
                 selectedSlot = "";
                 selectedSlot = sloteList.get(position).getId();
+
+                sloteList.get(position).setSelected(selectedSlot);
+
+
+                timeSlotesAdater.setServiceDTOList(sloteList);
+                timeSlotesAdater.notifyDataSetChanged();
+
+
             }
         }));
     }

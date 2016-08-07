@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.groomer.R;
@@ -41,13 +42,16 @@ public class TimeSlotesAdater extends RecyclerView.Adapter<RecyclerView.ViewHold
     public static class ServiceHolder extends RecyclerView.ViewHolder {
 
         TextView startTime;
-        TextView endTime;
+        TextView endTime, to;
+        LinearLayout llDateTime;
 
 
         public ServiceHolder(View view) {
             super(view);
             startTime = (TextView) view.findViewById(R.id.txt_start_time);
             endTime = (TextView) view.findViewById(R.id.txt_end_time);
+            llDateTime = (LinearLayout) view.findViewById(R.id.ll_date_time);
+            to = (TextView) view.findViewById(R.id.txt_to);
 
         }
     }
@@ -73,9 +77,46 @@ public class TimeSlotesAdater extends RecyclerView.Adapter<RecyclerView.ViewHold
         final SloteDTO servicesDTO = serviceDTOList.get(position);
         mHolder.startTime.setText(servicesDTO.getStart_time());
         mHolder.endTime.setText(servicesDTO.getEnd_time());
+        if (servicesDTO.getSelected().equalsIgnoreCase("")) {
+            buttonSelected(false, mHolder.llDateTime, mHolder.startTime, mHolder.endTime, mHolder.to);
+        } else {
+            buttonSelected(true, mHolder.llDateTime, mHolder.startTime, mHolder.endTime, mHolder.to);
+        }
 
     }
 
+
+    private void buttonSelected(boolean isSelected, LinearLayout btn, TextView startDate, TextView endDate, TextView to) {
+        if (isSelected) {
+
+            Theme theme = Utils.getObjectFromPref(context, Constants.CURRENT_THEME);
+            startDate.setTextColor(context.getResources().getColor(R.color.colorWhite));
+            endDate.setTextColor(context.getResources().getColor(R.color.colorWhite));
+            to.setTextColor(context.getResources().getColor(R.color.colorWhite));
+
+
+            if (theme.equals(Theme.Red)) {
+                btn.setBackgroundColor(context.getResources().getColor(R.color.red));
+
+            } else if (theme.equals(Theme.Blue)) {
+                btn.setBackgroundColor(context.getResources().getColor(R.color.blue_light));
+            } else {
+                btn.setBackgroundColor(context.getResources().getColor(R.color.green));
+            }
+        } else {
+            btn.setBackgroundColor(context.getResources().getColor(R.color.grey));
+            startDate.setTextColor(context.getResources().getColor(R.color.black));
+            endDate.setTextColor(context.getResources().getColor(R.color.black));
+            to.setTextColor(context.getResources().getColor(R.color.black));
+
+        }
+    }
+
+
+    public void setServiceDTOList(List<SloteDTO> mList)
+    {
+        serviceDTOList = mList;
+    }
 
     @Override
     public int getItemCount() {
