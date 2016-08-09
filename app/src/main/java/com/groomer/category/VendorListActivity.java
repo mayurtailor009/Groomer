@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.Html;
+import android.widget.AbsListView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -169,6 +170,7 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
 
         vendorListAdapter = new VendorListAdapter(mActivity, vendorList);
         vendorRecyclerView.setAdapter(vendorListAdapter);
+
 
 //        vendorRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(mActivity,
 //                        vendorRecyclerView, new MyOnClickListener() {

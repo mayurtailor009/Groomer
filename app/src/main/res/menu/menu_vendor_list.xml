@@ -12,7 +12,7 @@
 
     <item
         android:id="@+id/action_filter"
-        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:icon="@drawable/layer_0"
         android:orderInCategory="100"
         android:title="filter"
         app:showAsAction="always" />
