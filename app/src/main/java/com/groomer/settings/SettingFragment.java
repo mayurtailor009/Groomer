@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -92,6 +93,12 @@ public class SettingFragment extends BaseFragment {
         setClick(R.id.btn_edit_profile, view);
         //setClick(R.id.btn_signout, view);
 
+        setClick(R.id.img_facebook_icon, view);
+        setClick(R.id.img_twitter_icon, view);
+        setClick(R.id.img_instagram_icon, view);
+        setClick(R.id.img_linkdin_icon,view);
+
+
     }
 
     private void setViewsColor() {
@@ -114,6 +121,20 @@ public class SettingFragment extends BaseFragment {
         super.onClick(arg0);
         Theme theme;
         switch (arg0.getId()) {
+
+            case R.id.img_facebook_icon:
+                redirectToSocialMedia("facebook");
+                break;
+            case R.id.img_twitter_icon:
+                redirectToSocialMedia("instagram");
+                break;
+            case R.id.img_instagram_icon:
+                redirectToSocialMedia("twitter");
+                break;
+            case R.id.img_linkdin_icon:
+                redirectToSocialMedia("linkdin");
+                break;
+
             case R.id.view_blue:
                 theme = Theme.Blue;
                 Utils.putObjectIntoPref(getContext(), theme, Constants.CURRENT_THEME);
@@ -286,4 +307,31 @@ public class SettingFragment extends BaseFragment {
         intent.putExtra("fragmentNumber", 4);
         startActivity(intent);
     }
+
+
+    private void redirectToSocialMedia(String socialMediaName) {
+
+        Uri uri = null;
+        switch (socialMediaName)
+
+        {
+            case "facebook":
+                uri = Uri.parse("https://www.instagram.com/exapsa/");
+                break;
+            case "instagram":
+                uri = Uri.parse("https://www.instagram.com/exapsa/");
+                break;
+            case "twitter":
+                uri = Uri.parse("https://www.instagram.com/exapsa/");
+                break;
+            case "linkdin":
+                uri = Uri.parse("https://www.instagram.com/exapsa/");
+                break;
+
+        }
+
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+    }
+
 }
