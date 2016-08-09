@@ -187,7 +187,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:src="@drawable/twiiter_icon" />
+                    android:src="@drawable/_facebook_icon" />
 
 
                 <ImageView
@@ -195,19 +195,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:src="@drawable/facebook_icon" />
+                    android:src="@drawable/_linked_in" />
                 <ImageView
                     android:id="@+id/img_instagram_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:src="@drawable/facebook_icon" />
+                    android:src="@drawable/_pinterest" />
                 <ImageView
                     android:id="@+id/img_linkdin_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:src="@drawable/facebook_icon" />
+                    android:src="@drawable/twiiter" />
             </LinearLayout>
 
         </LinearLayout>
