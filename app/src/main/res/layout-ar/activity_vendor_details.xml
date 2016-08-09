@@ -42,7 +42,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:padding="@dimen/margin_10"
-                        android:src="@drawable/back_arrow"
+                        android:src="@drawable/back_arrow_right"
                         android:tint="@color/colorWhite" />
 
                     <!-- zoom button -->

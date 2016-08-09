@@ -164,6 +164,8 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/margin_20"
                 android:src="@mipmap/ic_launcher" />
+
+
         </LinearLayout>
     </ScrollView>
 

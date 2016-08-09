@@ -121,12 +121,15 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
 */
         if (HelpMe.isArabic(this)) {
             setHeader(categoryDTO.getName_ara());
+            setLeftClick(R.drawable.back_btn_right, true);
+
         } else {
             setHeader(categoryDTO.getName_eng());
+            setLeftClick(R.drawable.back_btn, true);
+
         }
 
 
-        setLeftClick(R.drawable.back_btn, true);
 
         vendorRecyclerView = (RecyclerView) findViewById(R.id.recycle_vendor);
 

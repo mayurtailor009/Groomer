@@ -43,6 +43,7 @@ import com.groomer.model.SloteDTO;
 import com.groomer.recyclerviewitemclick.MyOnClickListener;
 import com.groomer.recyclerviewitemclick.RecyclerTouchListener;
 import com.groomer.utillity.Constants;
+import com.groomer.utillity.HelpMe;
 import com.groomer.utillity.Utils;
 import com.groomer.vendordetails.adapter.TimeSlotesAdater;
 import com.groomer.volley.CustomJsonRequest;
@@ -220,7 +221,7 @@ private void setSlotedList()
                 SwipeMenuItem remove = new SwipeMenuItem(mActivity);
                 remove.setWidth(convert_dp_to_px(100));
                 remove.setBackground(R.color.theme_red);
-                remove.setTitle("Remove");
+                remove.setTitle(mActivity.getResources().getString(R.string.txt_remove));
                 remove.setTitleSize(15);
                 remove.setTitleColor(Color.WHITE);
                 menu.addMenuItem(remove);
