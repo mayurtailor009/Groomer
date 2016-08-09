@@ -41,7 +41,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:padding="@dimen/margin_10"
+                        android:layout_margin="@dimen/margin_10"
+                        android:background="@drawable/circle_shape"
+                        android:paddingBottom="@dimen/margin_5"
+                        android:paddingLeft="@dimen/margin_10"
+                        android:paddingRight="@dimen/margin_10"
+                        android:paddingTop="@dimen/margin_5"
                         android:src="@drawable/back_arrow_right"
                         android:tint="@color/colorWhite" />
 
@@ -51,6 +56,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:layout_margin="@dimen/margin_10"
+                        android:background="@drawable/circle_shape"
                         android:padding="@dimen/margin_10"
                         android:src="@drawable/zoom_icon" />
                 </RelativeLayout>

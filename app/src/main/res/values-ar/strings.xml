@@ -168,8 +168,8 @@
     <string name="title_dialog_photo_choose">إضافة صورة</string>
 
     <string name="lbl_review">مراجعة</string>
-    <string name="txt_low_to_high">ASC</string>
-    <string name="txt_high_to_low">DESC</string>
+    <string name="txt_low_to_high">تصاعدي</string>
+    <string name="txt_high_to_low">تنازلي</string>
     <string name="lbl_rating">تصنيف</string>
     <string name="lbl_price">السعر</string>
     <string name="lbl_search">بحث</string>

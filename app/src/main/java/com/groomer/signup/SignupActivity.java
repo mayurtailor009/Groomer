@@ -182,7 +182,7 @@ public class SignupActivity extends BaseActivity {
         } else if (getEditTextText(R.id.et_passowrd).equals("")) {
             Utils.showDialog(mActivity, getString(R.string.message_title), getString(R.string.alert_please_enter_password));
             return false;
-        }else if (Utils.isValidEmail(getEditTextText(R.id.et_emailid))) {
+        }else if (!Utils.isValidEmail(getEditTextText(R.id.et_emailid))) {
             Utils.showDialog(this, getString(R.string.message_title),
                     getString(R.string.alert_please_enter_valid_email_id));
             return false;
