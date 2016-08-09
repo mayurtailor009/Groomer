@@ -21,8 +21,8 @@
 
     <style name="AppThemeGreen" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/green</item>
-        <item name="colorPrimaryDark">@color/green</item>
+        <item name="colorPrimary">@color/theme_green</item>
+        <item name="colorPrimaryDark">@color/theme_green</item>
         <item name="windowNoTitle">true</item>
         <!--<item name="android:background">@color/colorWhite</item>-->
         <item name="windowActionBar">false</item>
@@ -30,7 +30,7 @@
         <item name="splashLogo">@drawable/avater</item>
         <item name="android:textColor">@color/black</item>
         <item name="editTextStyle">@style/et_style_white</item>
-        <item name="drawerBg">@color/green</item>
+        <item name="drawerBg">@color/theme_green</item>
 
         <item name="filterLeftButton">@drawable/toggle_left_green</item>
         <item name="filterRightButton">@drawable/toggle_right_green</item>
@@ -42,8 +42,8 @@
 
     <style name="AppThemeRed" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/red</item>
-        <item name="colorPrimaryDark">@color/red</item>
+        <item name="colorPrimary">@color/theme_red</item>
+        <item name="colorPrimaryDark">@color/theme_red</item>
         <!--<item name="android:background">@color/colorGray</item>-->
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
@@ -51,7 +51,7 @@
         <item name="splashLogo">@drawable/avater</item>
         <item name="android:textColor">@color/black</item>
         <item name="editTextStyle">@style/et_style_gray</item>
-        <item name="drawerBg">@color/red</item>
+        <item name="drawerBg">@color/theme_red</item>
 
         <item name="filterLeftButton">@drawable/toggle_left_red</item>
         <item name="filterRightButton">@drawable/toggle_right_red</item>

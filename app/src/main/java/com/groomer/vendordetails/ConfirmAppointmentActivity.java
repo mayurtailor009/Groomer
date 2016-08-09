@@ -219,7 +219,7 @@ private void setSlotedList()
             public void create(SwipeMenu menu) {
                 SwipeMenuItem remove = new SwipeMenuItem(mActivity);
                 remove.setWidth(convert_dp_to_px(100));
-                remove.setBackground(R.color.red);
+                remove.setBackground(R.color.theme_red);
                 remove.setTitle("Remove");
                 remove.setTitleSize(15);
                 remove.setTitleColor(Color.WHITE);

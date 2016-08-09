@@ -39,7 +39,7 @@ public class SettingFragment extends BaseFragment {
 
     private View view;
     private Context mActivity;
-    private Switch swh_location;
+
 
 
     public SettingFragment() {
@@ -74,24 +74,23 @@ public class SettingFragment extends BaseFragment {
 
         selectedButton(GroomerPreference.getAPP_LANG(getActivity().getApplicationContext()));
 
-        swh_location = (Switch) view.findViewById(R.id.swh_location);
         init();
         //selectedButton(GroomerPreference.getAPP_LANG(getActivity().getApplicationContext()));
     }
 
     private void init() {
         setViewsColor();
-        settingAllProfileValues();
+        //settingAllProfileValues();
 
         setClick(R.id.view_blue, view);
         setClick(R.id.view_red, view);
         setClick(R.id.view_green, view);
         setClick(R.id.btn_select_english, view);
         setClick(R.id.btn_select_arabic, view);
-        setClick(R.id.btn_save, view);
+        //setClick(R.id.btn_save, view);
         setClick(R.id.btn_change_password, view);
         setClick(R.id.btn_edit_profile, view);
-        setClick(R.id.btn_signout, view);
+        //setClick(R.id.btn_signout, view);
 
     }
 
@@ -104,20 +103,11 @@ public class SettingFragment extends BaseFragment {
         GradientDrawable redDrawale = (GradientDrawable) redView.getBackground();
 
         greenDrawable.setColor(Color.parseColor("#558A2E"));
-        blueDrawable.setColor(Color.parseColor("#05319C"));
+        blueDrawable.setColor(Color.parseColor("#1156D5"));
         redDrawale.setColor(Color.parseColor("#A52A2A"));
     }
 
-    private void settingAllProfileValues() {
-        UserDTO userDTO = GroomerPreference.getObjectFromPref(mActivity, Constants.USER_INFO);
 
-        if (userDTO != null) {
-
-            if (userDTO.getIs_location_service() != null) {
-                swh_location.setChecked(userDTO.getIs_location_service().equals("1"));
-            }
-        }
-    }
 
     @Override
     public void onClick(View arg0) {
@@ -154,12 +144,11 @@ public class SettingFragment extends BaseFragment {
                 break;
             case R.id.btn_edit_profile:
                 Intent edit_profile = new Intent(mActivity, EditProfile.class);
-                edit_profile.putExtra("location_switch", swh_location.isChecked());
                 startActivity(edit_profile);
                 break;
-            case R.id.btn_signout:
-                logoutFromApp();
-                break;
+//            case R.id.btn_signout:
+//                logoutFromApp();
+//                break;
         }
     }
 
@@ -260,34 +249,34 @@ public class SettingFragment extends BaseFragment {
 
         if (STATUS_CODE.contains(Constants.LANG_ENGLISH_CODE)) {
 
-            btn_select_english.setBackgroundColor(getResources().getColor(R.color.green));
+            btn_select_english.setBackgroundColor(getResources().getColor(R.color.theme_green));
             btn_select_arabic.setBackgroundColor(getResources().getColor(R.color.colorWhite));
 
             btn_select_english.setTextColor(getResources().getColor(R.color.colorWhite));
             btn_select_arabic.setTextColor(getResources().getColor(R.color.black));
 
             if (theme.equals(Theme.Blue)) {
-                btn_select_english.setBackgroundColor(getResources().getColor(R.color.blue_light));
+                btn_select_english.setBackgroundColor(getResources().getColor(R.color.theme_blue));
             } else if (theme.equals(Theme.Red)) {
-                btn_select_english.setBackgroundColor(getResources().getColor(R.color.red));
+                btn_select_english.setBackgroundColor(getResources().getColor(R.color.theme_red));
             } else {
-                btn_select_english.setBackgroundColor(getResources().getColor(R.color.green));
+                btn_select_english.setBackgroundColor(getResources().getColor(R.color.theme_green));
             }
 
         } else {
 
-            btn_select_arabic.setBackgroundColor(getResources().getColor(R.color.green));
+            btn_select_arabic.setBackgroundColor(getResources().getColor(R.color.theme_green));
             btn_select_english.setBackgroundColor(getResources().getColor(R.color.colorWhite));
 
             btn_select_arabic.setTextColor(getResources().getColor(R.color.colorWhite));
             btn_select_english.setTextColor(getResources().getColor(R.color.black));
 
             if (theme.equals(Theme.Blue)) {
-                btn_select_arabic.setBackgroundColor(getResources().getColor(R.color.blue_light));
+                btn_select_arabic.setBackgroundColor(getResources().getColor(R.color.theme_blue));
             } else if (theme.equals(Theme.Red)) {
-                btn_select_arabic.setBackgroundColor(getResources().getColor(R.color.red));
+                btn_select_arabic.setBackgroundColor(getResources().getColor(R.color.theme_red));
             } else {
-                btn_select_arabic.setBackgroundColor(getResources().getColor(R.color.green));
+                btn_select_arabic.setBackgroundColor(getResources().getColor(R.color.theme_green));
             }
         }
     }

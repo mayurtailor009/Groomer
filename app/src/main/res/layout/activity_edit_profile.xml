@@ -18,8 +18,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/container_toolbar"
-        android:layout_above="@+id/btn_save">
+        android:layout_above="@+id/btn_save"
+        android:layout_below="@id/container_toolbar">
 
 
         <LinearLayout
@@ -170,8 +170,29 @@
                         android:hint="@string/txt_gender" />
                 </LinearLayout>
 
-            </LinearLayout>
 
+            </LinearLayout>
+            <!-- location layout -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_20"
+                android:orientation="horizontal">
+
+
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/txt_location"
+                    android:textSize="20sp" />
+
+                <Switch
+                    android:id="@+id/swh_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true" />
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 

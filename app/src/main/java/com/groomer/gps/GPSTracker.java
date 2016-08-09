@@ -1,14 +1,20 @@
 package com.groomer.gps;
 
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -16,6 +22,7 @@ import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.groomer.utillity.Constants;
 import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.Utils;
 
@@ -178,8 +185,24 @@ public class GPSTracker implements ConnectionCallbacks,
         // The final argument to {@code requestLocationUpdates()} is a LocationListener
         // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
         try {
-            LocationServices.FusedLocationApi.requestLocationUpdates(
-                    mGoogleApiClient, mLocationRequest, this);
+
+            if (Build.VERSION.SDK_INT >= 23 &&
+                    ContextCompat.checkSelfPermission(mActivity,
+                            android.Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(mActivity, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+
+
+                LocationServices.FusedLocationApi.requestLocationUpdates(
+                        mGoogleApiClient, mLocationRequest, this);
+            } else {
+                ActivityCompat.requestPermissions((Activity) mActivity,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.ACCESS_COARSE_LOCATION},
+                        Constants.REQUEST_LOCATION_PERMISSION);
+
+            }
         } catch (SecurityException e) {
             e.printStackTrace();
         }
@@ -202,14 +225,29 @@ public class GPSTracker implements ConnectionCallbacks,
     public void onConnected(Bundle bundle) {
         try {
             if (mCurrentLocation == null) {
-                mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-                if (mCurrentLocation != null) {
-                    canGetLocation = true;
-                    GroomerPreference.setLatitude(mActivity, mCurrentLocation.getLatitude());
-                    GroomerPreference.setLongitude(mActivity, mCurrentLocation.getLongitude());
-                    // mLocationChangedListener.onReceiveLocation(mCurrentLocation, 1);
+                if (Build.VERSION.SDK_INT >= 23 &&
+                        ContextCompat.checkSelfPermission(mActivity, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                                == PackageManager.PERMISSION_GRANTED &&
+                        ContextCompat.checkSelfPermission(mActivity, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                                == PackageManager.PERMISSION_GRANTED) {
+
+
+                    mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                    if (mCurrentLocation != null) {
+                        canGetLocation = true;
+                        GroomerPreference.setLatitude(mActivity, mCurrentLocation.getLatitude());
+                        GroomerPreference.setLongitude(mActivity, mCurrentLocation.getLongitude());
+                        // mLocationChangedListener.onReceiveLocation(mCurrentLocation, 1);
+                    } else {
+                        stopLocationUpdates();
+                    }
+
                 } else {
-                    stopLocationUpdates();
+                    ActivityCompat.requestPermissions((Activity)mActivity,
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                                    Manifest.permission.ACCESS_COARSE_LOCATION},
+                            Constants.REQUEST_LOCATION_PERMISSION);
+
                 }
             } else {
                 startLocationUpdates();

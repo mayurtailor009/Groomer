@@ -53,7 +53,7 @@ public class SignupActivity extends BaseActivity {
         setTouchNClick(R.id.btn_signup);
         setClick(R.id.tv_signin);
         setClick(R.id.back_btn);
-        setClick(R.id.txt_country_code);
+        //setClick(R.id.txt_country_code);
     }
 
     @Override
@@ -66,9 +66,9 @@ public class SignupActivity extends BaseActivity {
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 break;
-            case R.id.txt_country_code:
-                openCountryCodeDialog();
-                break;
+//            case R.id.txt_country_code:
+//                openCountryCodeDialog();
+//                break;
             case R.id.back_btn:
                 openSkipScreen();
                 break;
@@ -81,28 +81,28 @@ public class SignupActivity extends BaseActivity {
         this.finish();
     }
 
-    private void openCountryCodeDialog() {
-        final List<Map<String, String>> countryCodeList = Utils.getCountryCode(mActivity);
-        final Dialog dialogCountryCode = new Dialog(mActivity);
-        dialogCountryCode.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogCountryCode.setContentView(R.layout.layout_country_code);
-        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-
-        ListView listView = (ListView) dialogCountryCode.findViewById(R.id.list);
-        CountryCodeAdapter adapter = new CountryCodeAdapter(mActivity, countryCodeList);
-        listView.setAdapter(adapter);
-        dialogCountryCode.show();
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                setViewText(R.id.txt_country_code,
-                        countryCodeList.get(position).get("dial_code"));
-                dialogCountryCode.dismiss();
-            }
-        });
-
-    }
+//    private void openCountryCodeDialog() {
+//        final List<Map<String, String>> countryCodeList = Utils.getCountryCode(mActivity);
+//        final Dialog dialogCountryCode = new Dialog(mActivity);
+//        dialogCountryCode.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        dialogCountryCode.setContentView(R.layout.layout_country_code);
+//        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//
+//        ListView listView = (ListView) dialogCountryCode.findViewById(R.id.list);
+//        CountryCodeAdapter adapter = new CountryCodeAdapter(mActivity, countryCodeList);
+//        listView.setAdapter(adapter);
+//        dialogCountryCode.show();
+//
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                setViewText(R.id.txt_country_code,
+//                        countryCodeList.get(position).get("dial_code"));
+//                dialogCountryCode.dismiss();
+//            }
+//        });
+//
+//    }
 
     public void performSignUp() {
 
@@ -115,9 +115,8 @@ public class SignupActivity extends BaseActivity {
                 params.put("email", getEditTextText(R.id.et_emailid));
                 params.put("password", getEditTextText(R.id.et_passowrd));
                 params.put("mobile", getEditTextText(R.id.et_phone));
-                params.put("mobie_countrycode", "+91");
-                params.put("gender", "M");
-                params.put("dob", "08/21/1989");
+                params.put("gender", "");
+                params.put("dob", "");
                 params.put("confirm_password", getEditTextText(R.id.et_passowrd));
                 params.put("device_id", GroomerPreference.getPushRegistrationId(mActivity));
                 params.put("lat", GroomerPreference.getLatitude(mActivity) + "");
@@ -172,18 +171,31 @@ public class SignupActivity extends BaseActivity {
 
     public boolean validateForm() {
         if (getEditTextText(R.id.et_name).equals("")) {
-            Utils.showDialog(this, getString(R.string.message_title), getString(R.string.alert_please_enter_name));
+            Utils.showDialog(mActivity, getString(R.string.message_title), getString(R.string.alert_please_enter_name));
             return false;
         } else if (getEditTextText(R.id.et_phone).equals("")) {
-            Utils.showDialog(this, getString(R.string.message_title), getString(R.string.alert_please_enter_phone_no));
+            Utils.showDialog(mActivity, getString(R.string.message_title), getString(R.string.alert_please_enter_phone_no));
             return false;
         } else if (getEditTextText(R.id.et_emailid).equals("")) {
-            Utils.showDialog(this, getString(R.string.message_title), getString(R.string.alert_please_enter_emailid));
+            Utils.showDialog(mActivity, getString(R.string.message_title), getString(R.string.alert_please_enter_emailid));
             return false;
         } else if (getEditTextText(R.id.et_passowrd).equals("")) {
-            Utils.showDialog(this, getString(R.string.message_title), getString(R.string.alert_please_enter_password));
+            Utils.showDialog(mActivity, getString(R.string.message_title), getString(R.string.alert_please_enter_password));
+            return false;
+        }else if (Utils.isValidEmail(getEditTextText(R.id.et_emailid))) {
+            Utils.showDialog(this, getString(R.string.message_title),
+                    getString(R.string.alert_please_enter_valid_email_id));
             return false;
         }
+//        else if (getViewText(R.id.edt_confirm_password).equals("")) {
+//            Utils.showDialog(mActivity, getString(R.string.message_title),
+//                    getString(R.string.alert_please_confirm_password));
+//            return false;
+//        } else if (!getViewText(R.id.edt_password).equals(getViewText(R.id.edt_confirm_password))) {
+//            Utils.showDialog(mActivity, getString(R.string.message_title),
+//                    getString(R.string.alert_password_not_match));
+//            return false;
+//        }
         return true;
     }
 }

@@ -5,7 +5,7 @@
     <item android:color="@color/colorWhite" android:state_focused="true" android:state_pressed="false" />
     <item android:color="@color/colorWhite" android:state_selected="true"></item>
 
-    <item android:color="@color/green" />
+    <item android:color="@color/theme_green" />
 
 
 </selector>

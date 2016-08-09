@@ -42,7 +42,7 @@
                         android:id="@+id/txt_service_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Hair Cut"
+                        android:text=""
                         android:textSize="15sp" />
 
                     <!-- service price and time details -->
@@ -57,7 +57,7 @@
                             android:id="@+id/txt_service_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="SAR 65"
+                            android:text=""
                             android:textSize="12sp" />
 
                         <com.groomer.customviews.CustomTextViewMarkNovaLight
@@ -80,7 +80,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/margin_5"
-                            android:text="30 MIN"
+                            android:text=""
+                            android:textSize="10sp" />
+
+                        <com.groomer.customviews.CustomTextViewMarkNovaLight
+                            android:id="@+id/txt_service_time_unit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_5"
+                            android:text="@string/txt_time_unit"
                             android:textSize="10sp" />
                     </LinearLayout>
                 </LinearLayout>

@@ -81,7 +81,9 @@
             android:screenOrientation="portrait" />
         <activity android:name=".shareexperience.ShareExperienceActivity" />
         <activity android:name=".vendordetails.FullScreenImageActivity" />
-        <activity android:name=".settings.editprofile.EditProfile"
+
+        <activity
+            android:name=".settings.editprofile.EditProfile"
             android:screenOrientation="portrait"></activity>
         <!-- Start Facebook -->
         <activity android:name="com.facebook.FacebookActivity" />

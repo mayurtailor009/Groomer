@@ -227,11 +227,11 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
             Theme theme = Utils.getObjectFromPref(context, Constants.CURRENT_THEME);
 
             if (theme.equals(Theme.Blue)) {
-                gHolder.dateLayout.setBackgroundColor(context.getResources().getColor(R.color.blue_light));
+                gHolder.dateLayout.setBackgroundColor(context.getResources().getColor(R.color.theme_blue));
             } else if (theme.equals(Theme.Red)) {
-                gHolder.dateLayout.setBackgroundColor(context.getResources().getColor(R.color.red));
+                gHolder.dateLayout.setBackgroundColor(context.getResources().getColor(R.color.theme_red));
             } else {
-                gHolder.dateLayout.setBackgroundColor(context.getResources().getColor(R.color.green));
+                gHolder.dateLayout.setBackgroundColor(context.getResources().getColor(R.color.theme_green));
             }
 
         }
@@ -249,12 +249,14 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
             gHolder.reviewLayout.setVisibility(View.GONE);
         }
 
-
-        DateTime dateTime = DateTime.parse(mBean.getDate());
-        gHolder.month.setText(dateTime.toString("MMM"));
-        gHolder.dayName.setText(dateTime.toString("E"));
-        gHolder.dayNumber.setText(dateTime.toString("dd"));
-
+        try {
+            DateTime dateTime = DateTime.parse(mBean.getDate());
+            gHolder.month.setText(dateTime.toString("MMM"));
+            gHolder.dayName.setText(dateTime.toString("E"));
+            gHolder.dayNumber.setText(dateTime.toString("dd"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return convertView;
     }
 
@@ -325,7 +327,7 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
                 RescheduleDialogNewFragment dialog = RescheduleDialogNewFragment.getInstance();
                 Bundle bundle = new Bundle();
                 bundle.putString("order_id", appointsParentList.get(groupPosition).getOrder_id());
-                bundle.putString("store_id",appointsParentList.get(groupPosition).getStore_id());
+                bundle.putString("store_id", appointsParentList.get(groupPosition).getStore_id());
                 dialog.setArguments(bundle);
                 dialog.show(((Activity) context).getFragmentManager(), "");
             }

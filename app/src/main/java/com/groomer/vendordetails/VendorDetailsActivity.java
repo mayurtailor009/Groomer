@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -46,6 +47,7 @@ import com.viewpagerindicator.CirclePageIndicator;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,6 +70,11 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
     private ArrayList<String> listImages;
     private HashMap<String, Fragment> fragmentList = new HashMap<String, Fragment>();
 
+    private final ReviewResponseHandler myHandler =
+            new ReviewResponseHandler(VendorDetailsActivity.this);
+
+    private boolean isReviewSelected;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +84,8 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
         mActivity = VendorDetailsActivity.this;
 
         GPSTracker gpstracker = new GPSTracker(mActivity);
-        getVendorDetails();
+        final String storeId = getIntent().getStringExtra("store_id");
+        getVendorDetails(storeId);
 
         //setting click operations on views
         setClick(R.id.vendor_details_iv_back);
@@ -100,15 +108,27 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
         setTextColor(R.id.btn_services_tab, R.color.colorWhite);
         setTextColor(R.id.btn_about_tab, R.color.black);
         setTextColor(R.id.btn_reviews_tab, R.color.black);
+
+        Thread t = new Thread(
+                new Runnable() {
+
+                    @Override
+                    public void run() {
+
+                        // Request for reviews
+                        requestForReviews(storeId);
+                    }
+                });
+        t.start();
     }
 
-    private void getVendorDetails() {
+    private void getVendorDetails(final String storeId) {
         HashMap<String, String> params = new HashMap<>();
         params.put("action", Constants.VENDOR_DETAILS);
         params.put("lat", "" + GroomerPreference.getLatitude(mActivity));
         params.put("lng", "" + GroomerPreference.getLongitude(mActivity));
         params.put("user_id", Utils.getUserId(mActivity));
-        params.put("store_id", getIntent().getStringExtra("store_id"));
+        params.put("store_id", storeId);
         params.put("lang", Utils.getSelectedLanguage(mActivity));
 
         final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
@@ -169,8 +189,10 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
      */
     private void showServiesFragment() {
         //displaying services fragment after getting list of service.
+
         displayFragment(0);
     }
+
 
     /**
      * this method sets the saloon name and address details.
@@ -282,6 +304,8 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
         String tag = null;
         switch (position) {
             case 0:
+                isReviewSelected = false;
+
                 tag = "service";
                 buttonSelected(true, false, false);
                 setTextColor(R.id.btn_services_tab, R.color.colorWhite);
@@ -292,11 +316,11 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                     fragment = ServicesFragment.newInstance();
                     fragmentList.put(tag, fragment);
                 }
-//                Bundle serviceBundle = new Bundle();
-//                serviceBundle.putSerializable("serviceList", serviceList);
-//                fragment.setArguments(serviceBundle);
                 break;
+
             case 1:
+                isReviewSelected = false;
+
                 tag = "about";
                 buttonSelected(false, true, false);
                 setTextColor(R.id.btn_about_tab, R.color.colorWhite);
@@ -309,6 +333,13 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                 }
                 break;
 
+            case 2:
+                tag = "review";
+                isReviewSelected = true;
+                fragment = ReviewFragment.newInstance(reviewList);
+                break;
+
+
         }
 
         getSupportFragmentManager()
@@ -318,20 +349,44 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
         getSupportFragmentManager().executePendingTransactions();
     }
 
-    private void requestForReviews() {
+
+    public static class ReviewResponseHandler extends Handler {
+
+        public final WeakReference<VendorDetailsActivity> mActivity;
+
+        ReviewResponseHandler(VendorDetailsActivity activity) {
+            mActivity = new WeakReference<VendorDetailsActivity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            VendorDetailsActivity activity = mActivity.get();
+            if (msg.what == Constants.REVIEW_LIST_HANDLER) {
+                activity.reviewList = ((ArrayList<ReviewDTO>) msg.obj);
+                if (activity.isReviewSelected) {
+                    activity.displayFragment(2);
+                }
+            }
+
+
+        }
+    }
+
+
+    private void requestForReviews(String storeId) {
         HashMap<String, String> params = new HashMap<>();
         params.put("action", Constants.REVIEWLIST);
-        params.put("store_id", saloonDetailsDTO.getStore_id());
+        params.put("store_id", storeId);
         params.put("lang", Utils.getSelectedLanguage(mActivity));
 
-        final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
+        //final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
         CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
                 Constants.SERVICE_URL, params,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.i("Groomer info", response.toString());
-                        pdialog.dismiss();
+                        //pdialog.dismiss();
                         if (Utils.getWebServiceStatus(response)) {
                             try {
                                 //getting reviews list.
@@ -341,44 +396,47 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                                         response.getJSONArray("review").toString(),
                                         reviewType
                                 );
-                                ReviewFragment fragment = ReviewFragment.newInstance();
-                                Bundle reviewBundle = new Bundle();
-                                reviewBundle.putSerializable("reviewList", reviewList);
-                                fragment.setArguments(reviewBundle);
+                                Message msg = myHandler.obtainMessage(Constants.
+                                        REVIEW_LIST_HANDLER, reviewList);
+                                myHandler.sendMessage(msg);
 
-                                getSupportFragmentManager()
-                                        .beginTransaction()
-                                        .replace(R.id.vendor_details_container, fragment)
-                                        .commit();
+//                                ReviewFragment fragment = ReviewFragment.newInstance(reviewList);
+//
+//
+//                                getSupportFragmentManager()
+//                                        .beginTransaction()
+//                                        .replace(R.id.vendor_details_container, fragment)
+//                                        .commit();
 
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 Utils.showExceptionDialog(mActivity);
                             }
-                        } else {
-                            ReviewFragment fragment = ReviewFragment.newInstance();
-                            Bundle reviewBundle = new Bundle();
-                            reviewBundle.putSerializable("reviewList", reviewList);
-                            fragment.setArguments(reviewBundle);
-
-                            getSupportFragmentManager()
-                                    .beginTransaction()
-                                    .replace(R.id.vendor_details_container, fragment)
-                                    .commit();
                         }
+//                        else {
+//                            ReviewFragment fragment = ReviewFragment.newInstance();
+//                            Bundle reviewBundle = new Bundle();
+//                            reviewBundle.putSerializable("reviewList", reviewList);
+//                            fragment.setArguments(reviewBundle);
+//
+//                            getSupportFragmentManager()
+//                                    .beginTransaction()
+//                                    .replace(R.id.vendor_details_container, fragment)
+//                                    .commit();
+//                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.i("Groomer info", error.toString());
-                        pdialog.dismiss();
+                        //pdialog.dismiss();
                         Utils.showExceptionDialog(mActivity);
                     }
                 }
         );
 
-        pdialog.show();
+        //pdialog.show();
         GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
         jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
@@ -394,22 +452,24 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                 displayFragment(0);
                 break;
             case R.id.btn_about_tab:
-//                setViewText(R.id.services_total_amount, "SAR " + 0);
-//                setViewText(R.id.service_count, 0 + " Service");
+
                 displayFragment(1);
                 break;
             case R.id.btn_reviews_tab:
-                requestForReviews();
+                //if (reviewList != null && reviewList.size() != 0) {
 
-                //setViewText(R.id.services_total_amount, "SAR " + 0);
-                //setViewText(R.id.service_count, 0 + " Service");
+                displayFragment(2);
+                //}
+//                else {
+//
+//                    requestForReviews();
+//                }
                 buttonSelected(false, false, true);
-//                setButtonSelected(R.id.btn_reviews_tab, true);
-//                setButtonSelected(R.id.btn_about_tab, false);
-//                setButtonSelected(R.id.btn_services_tab, false);
                 setTextColor(R.id.btn_reviews_tab, R.color.colorWhite);
                 setTextColor(R.id.btn_about_tab, R.color.black);
                 setTextColor(R.id.btn_services_tab, R.color.black);
+
+
                 break;
             case R.id.btn_set_appointment:
                 if (Utils.IsSkipLogin(mActivity)) {
@@ -488,14 +548,14 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
 
             if (theme.equals(Theme.Blue)) {
                 findViewById(R.id.btn_reviews_tab).
-                        setBackgroundColor(getResources().getColor(R.color.blue_light));
+                        setBackgroundColor(getResources().getColor(R.color.theme_blue));
 
             } else if (theme.equals(Theme.Red)) {
                 findViewById(R.id.btn_reviews_tab).
-                        setBackgroundColor(getResources().getColor(R.color.red));
+                        setBackgroundColor(getResources().getColor(R.color.theme_red));
             } else {
                 findViewById(R.id.btn_reviews_tab).
-                        setBackgroundColor(getResources().getColor(R.color.green));
+                        setBackgroundColor(getResources().getColor(R.color.theme_green));
             }
         } else {
             findViewById(R.id.btn_reviews_tab).
@@ -506,14 +566,14 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
 
             if (theme.equals(Theme.Blue)) {
                 findViewById(R.id.btn_about_tab).
-                        setBackgroundColor(getResources().getColor(R.color.blue_light));
+                        setBackgroundColor(getResources().getColor(R.color.theme_blue));
 
             } else if (theme.equals(Theme.Red)) {
                 findViewById(R.id.btn_about_tab).
-                        setBackgroundColor(getResources().getColor(R.color.red));
+                        setBackgroundColor(getResources().getColor(R.color.theme_red));
             } else {
                 findViewById(R.id.btn_about_tab).
-                        setBackgroundColor(getResources().getColor(R.color.green));
+                        setBackgroundColor(getResources().getColor(R.color.theme_green));
             }
 
         } else {
@@ -523,14 +583,14 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
         if (servicesSelected) {
             if (theme.equals(Theme.Blue)) {
                 findViewById(R.id.btn_services_tab).
-                        setBackgroundColor(getResources().getColor(R.color.blue_light));
+                        setBackgroundColor(getResources().getColor(R.color.theme_blue));
 
             } else if (theme.equals(Theme.Red)) {
                 findViewById(R.id.btn_services_tab).
-                        setBackgroundColor(getResources().getColor(R.color.red));
+                        setBackgroundColor(getResources().getColor(R.color.theme_red));
             } else {
                 findViewById(R.id.btn_services_tab).
-                        setBackgroundColor(getResources().getColor(R.color.green));
+                        setBackgroundColor(getResources().getColor(R.color.theme_green));
             }
 
         } else {
@@ -608,7 +668,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
 
     @Override
     public void getPriceSum(String sum) {
-        totalPrice =  getString(R.string.txt_vendor_price_unit) + " " + sum;
+        totalPrice = getString(R.string.txt_vendor_price_unit) + " " + sum;
         setViewText(R.id.services_total_amount, getString(R.string.txt_vendor_price_unit) + " " + sum);
 
     }

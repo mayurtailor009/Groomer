@@ -1,5 +1,6 @@
 package com.groomer.activity;
 
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -291,24 +292,48 @@ public class BaseActivity extends AppCompatActivity implements OnClickListener,
             case Blue:
                 setTheme(R.style.AppThemeBlue);
                 if (Build.VERSION.SDK_INT >= 21) {
-                    getWindow().setStatusBarColor(getResources().getColor(R.color.colorBlueDark));
+                    getWindow().setStatusBarColor(getResources().getColor(R.color.theme_blue));
                 }
                 break;
             case Green:
                 setTheme(R.style.AppThemeGreen);
                 if (Build.VERSION.SDK_INT >= 21) {
-                    getWindow().setStatusBarColor(getResources().getColor(R.color.green));
+                    getWindow().setStatusBarColor(getResources().getColor(R.color.theme_green));
                 }
                 break;
             case Red:
                 setTheme(R.style.AppThemeRed);
                 if (Build.VERSION.SDK_INT >= 21) {
-                    getWindow().setStatusBarColor(getResources().getColor(R.color.red));
+                    getWindow().setStatusBarColor(getResources().getColor(R.color.theme_red));
                 }
                 break;
         }
-
-
-
     }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case Constants.REQUEST_LOCATION_PERMISSION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+
+
 }

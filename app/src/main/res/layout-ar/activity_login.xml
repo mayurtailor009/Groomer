@@ -7,13 +7,6 @@
     android:orientation="vertical"
     tools:context=".login.LoginActivity">
 
-    <ImageView
-        android:id="@+id/img_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/margin_20"
-        android:layout_marginTop="@dimen/margin_10"
-        android:src="@drawable/back_btn" />
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -127,36 +120,18 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+
+            <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                android:id="@+id/tv_forgotpassword"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:layout_gravity="left"
+                android:gravity="left"
+                android:paddingLeft="15dp"
+                android:text="@string/txt_forget_password"
+                android:textColor="@color/blue_light"
+                android:textSize="20sp" />
 
-                <com.groomer.customviews.CustomTextViewMarkNovaRegular
-                    android:id="@+id/tv_skip"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_marginLeft="@dimen/margin_10"
-                    android:layout_weight="1"
-                    android:text="@string/txt_skip"
-                    android:textColor="@color/blue_light"
-                    android:textSize="20sp" />
-
-                <com.groomer.customviews.CustomTextViewMarkNovaRegular
-                    android:id="@+id/tv_forgotpassword"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_marginLeft="@dimen/margin_15"
-                    android:layout_weight="2"
-                    android:gravity="left"
-                    android:text="@string/txt_forget_password"
-                    android:textColor="@color/blue_light"
-                    android:textSize="20sp" />
-
-            </LinearLayout>
 
             <com.groomer.customviews.CustomTextViewMarkNovaRegular
                 android:layout_width="wrap_content"
@@ -209,6 +184,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/margin_15"
-        android:src="@drawable/back_arrow" />
+        android:src="@drawable/back_btn" />
 
 </FrameLayout>

@@ -30,6 +30,7 @@ public class ChangePasswordActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme();
         setContentView(R.layout.activity_changepassword);
         mActivity = this;
         init();
@@ -37,11 +38,11 @@ public class ChangePasswordActivity extends BaseActivity {
         Button btn_changepassword = (Button) findViewById(R.id.btn_changepassword);
         Theme theme = Utils.getObjectFromPref(mActivity, Constants.CURRENT_THEME);
         if (theme.equals(Theme.Blue)) {
-            btn_changepassword.setBackgroundColor(getResources().getColor(R.color.blue_light));
+            btn_changepassword.setBackgroundColor(getResources().getColor(R.color.theme_blue));
         } else if (theme.equals(Theme.Red)) {
-            btn_changepassword.setBackgroundColor(getResources().getColor(R.color.red));
+            btn_changepassword.setBackgroundColor(getResources().getColor(R.color.theme_red));
         } else {
-            btn_changepassword.setBackgroundColor(getResources().getColor(R.color.green));
+            btn_changepassword.setBackgroundColor(getResources().getColor(R.color.theme_green));
         }
     }
 

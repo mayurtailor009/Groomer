@@ -39,16 +39,16 @@
                 android:textAllCaps="false"
                 android:textColor="@color/colorWhite" />
 
-            <!-- signout button -->
-            <com.groomer.customviews.CustomButtonMarkNovaRegular
-                android:id="@+id/btn_signout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_10"
-                android:background="?attr/drawerBg"
-                android:text="@string/menu_logout"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWhite" />
+            <!--&lt;!&ndash; signout button &ndash;&gt;-->
+            <!--<com.groomer.customviews.CustomButtonMarkNovaRegular-->
+                <!--android:id="@+id/btn_signout"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="@dimen/margin_10"-->
+                <!--android:background="?attr/drawerBg"-->
+                <!--android:text="@string/menu_logout"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:textColor="@color/colorWhite" />-->
 
 
             <!--&lt;!&ndash; change language from here &ndash;&gt;-->
@@ -176,12 +176,12 @@
     </ScrollView>
 
     <!-- confirm appointment button -->
-    <Button
-        android:id="@+id/btn_save"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/margin_5"
-        android:padding="@dimen/margin_15"
-        android:text="@string/btn_text_save" />
+    <!--<Button-->
+        <!--android:id="@+id/btn_save"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginTop="@dimen/margin_5"-->
+        <!--android:padding="@dimen/margin_15"-->
+        <!--android:text="@string/btn_text_save" />-->
 </RelativeLayout>

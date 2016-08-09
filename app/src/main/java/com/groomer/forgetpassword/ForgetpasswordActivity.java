@@ -100,6 +100,10 @@ public class ForgetpasswordActivity extends BaseActivity {
         if (getEditTextText(R.id.et_emailid).equals("")) {
             Utils.showDialog(this, "Message", "Please enter emailid");
             return false;
+        }else if (Utils.isValidEmail(getEditTextText(R.id.et_emailid))) {
+            Utils.showDialog(this, getString(R.string.message_title),
+                    getString(R.string.alert_please_enter_valid_email_id));
+            return false;
         }
         return true;
     }

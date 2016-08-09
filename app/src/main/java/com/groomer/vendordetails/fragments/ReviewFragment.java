@@ -14,6 +14,7 @@ import com.groomer.fragments.BaseFragment;
 import com.groomer.model.ReviewDTO;
 import com.groomer.vendordetails.adapter.ReviewsAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,9 +29,11 @@ public class ReviewFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-    public static ReviewFragment newInstance() {
+    public static ReviewFragment newInstance(ArrayList<ReviewDTO> reviewList) {
         ReviewFragment fragment = new ReviewFragment();
-
+        Bundle reviewBundle = new Bundle();
+        reviewBundle.putSerializable("reviewList", reviewList);
+        fragment.setArguments(reviewBundle);
         return fragment;
     }
 

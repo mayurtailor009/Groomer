@@ -17,6 +17,10 @@ public class Constants {
     public static final String COMPLETED = "3";
     public static final String CANCELLED = "4";
 
+    public static final int REVIEW_LIST_HANDLER = 1001;
+    public static final int REQUEST_LOCATION_PERMISSION = 103;
+
+
     public static String SERVICE_URL = "http://128.199.234.133/groomer/webservices";
     public static String LOGIN_METHOD = "login";
     public static String SOCIAL_LOGIN_METHOD = "social_connect";

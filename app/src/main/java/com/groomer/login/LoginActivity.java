@@ -18,6 +18,7 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.gson.Gson;
@@ -77,7 +78,6 @@ public class LoginActivity extends BaseActivity {
         setTouchNClick(R.id.btn_login);
         setClick(R.id.tv_forgotpassword);
         setClick(R.id.tv_signup);
-        setClick(R.id.tv_skip);
         setClick(R.id.back_btn);
 
         ImageView img_facebook_login = (ImageView) findViewById(R.id.img_facebook_login);
@@ -97,7 +97,7 @@ public class LoginActivity extends BaseActivity {
 
                 String username = session.getUserName();
                 //Long userid = session.getUserId();
-                doSocialLogin("twitter", username, session.getId() + "", username);
+                doSocialLogin("twitter", username, session.getId() + "", username, "");
                 //getEmailidFromTwitter();
 
             }
@@ -122,11 +122,6 @@ public class LoginActivity extends BaseActivity {
             case R.id.tv_signup:
                 startActivity(new Intent(LoginActivity.this, SignupActivity.class));
                 finish();
-                break;
-            case R.id.tv_skip:
-                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                intent.putExtra("fragmentNumber", 0);
-                startActivity(intent);
                 break;
             case R.id.back_btn:
                 openSkipScreen();
@@ -205,17 +200,23 @@ public class LoginActivity extends BaseActivity {
     public boolean validateForm() {
 
         if (getEditTextText(R.id.et_emailid).equals("")) {
-            Utils.showDialog(this, getString(R.string.message_title), getString(R.string.alert_please_enter_emailid));
+            Utils.showDialog(this, getString(R.string.message_title),
+                    getString(R.string.alert_please_enter_emailid));
             return false;
         } else if (getEditTextText(R.id.et_passowrd).equals("")) {
             Utils.showDialog(this, getString(R.string.message_title), getString(R.string.alert_please_enter_password));
+            return false;
+        } else if (Utils.isValidEmail(getEditTextText(R.id.et_emailid))) {
+            Utils.showDialog(this, getString(R.string.message_title),
+                    getString(R.string.alert_please_enter_valid_email_id));
             return false;
         }
         return true;
     }
 
 
-    public void doSocialLogin(String socialType, String username, String socialId, String name) {
+    public void doSocialLogin(final String socialType, String username, String socialId,
+                              String name, String gender) {
         Utils.hideKeyboard(mActivity);
 
         if (Utils.isOnline(mActivity)) {
@@ -233,6 +234,8 @@ public class LoginActivity extends BaseActivity {
             params.put("address", username);
             params.put("device_id", GroomerPreference.
                     getPushRegistrationId(mActivity.getApplicationContext()));
+            if (!gender.equalsIgnoreCase(""))
+                params.put("gender", gender.equalsIgnoreCase("Male") ? "M" : "F");
 
             final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constants.SERVICE_URL, params,
@@ -246,7 +249,13 @@ public class LoginActivity extends BaseActivity {
                                     UserDTO userDTO = new Gson().
                                             fromJson(response.getJSONObject("user").toString(),
                                                     UserDTO.class);
-                                    GroomerPreference.putObjectIntoPref(LoginActivity.this, userDTO, Constants.USER_INFO);
+                                    GroomerPreference.putObjectIntoPref(LoginActivity.this,
+                                            userDTO, Constants.USER_INFO);
+
+                                    // Logout from facebook
+                                    if (socialType.equalsIgnoreCase("facebook")) {
+                                        LoginManager.getInstance().logOut();
+                                    }
 
                                     Intent intent = new Intent(mActivity, HomeActivity.class);
                                     intent.putExtra("fragmentNumber", 0);
@@ -307,7 +316,9 @@ public class LoginActivity extends BaseActivity {
                                         //   successfullFbLogin("facebook", json.getString("email"),
                                         //         json.getString("id"), json.getString("name"));
 
-                                        doSocialLogin("facebook", json.getString("email"), json.getString("id"), json.getString("name"));
+                                        doSocialLogin("facebook", json.getString("email"),
+                                                json.getString("id"), json.getString("name"),
+                                                json.getString("gender"));
 
 
                                     } catch (Exception e) {
@@ -321,7 +332,7 @@ public class LoginActivity extends BaseActivity {
                 );
                 Bundle param = new Bundle();
                 //, gender, birthday, first_name, last_name, link
-                param.putString("fields", "id, name, email");
+                param.putString("fields", "id, name, email,gender, birthday, picture.type(large)");
                 req.setParameters(param);
                 req.executeAsync();
             }

@@ -10,9 +10,12 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.util.CharsetUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,6 +23,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.Map;
 
 public class CustomJsonImageRequest extends Request<JSONObject> {
@@ -62,16 +66,22 @@ public class CustomJsonImageRequest extends Request<JSONObject> {
     }
 
     private HttpEntity buildMultipartEntity(File file) {
-        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-        if (file != null) {
-            String fileName = file.getName();
-
-            FileBody fileBody = new FileBody(file);
-            builder.addPart(KEY_PICTURE, fileBody);
-        }
+        MultipartEntityBuilder builder = null;
         try {
+            builder = MultipartEntityBuilder.create();
+            builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+            builder.setCharset(CharsetUtils.get("UTF-8"));
+            if (file != null) {
+                String fileName = file.getName();
+
+                FileBody fileBody = new FileBody(file);
+                builder.addPart(KEY_PICTURE, fileBody);
+            }
+
             for (String key : params.keySet())
-                builder.addPart(key, new StringBody(params.get(key)));
+                builder.addTextBody(key, params.get(key),
+                        ContentType.create("text/plain", Charset.forName("UTF-8")));
+
 
         } catch (UnsupportedEncodingException e) {
             VolleyLog.e("UnsupportedEncodingException");

@@ -40,10 +40,12 @@
     <string name="txt_phone_no">Phone no</string>
     <string name="alert_please_enter_name">Please enter name</string>
     <string name="alert_please_enter_phone_no">Please enter phone no</string>
-    <string name="alert_please_enter_emailid">Please enter emailid</string>
+    <string name="alert_please_enter_emailid">Please enter email address</string>
     <string name="alert_please_enter_password">Please enter password</string>
     <string name="txt_country_code">Country code</string>
-
+    <string name="alert_please_confirm_password">Please enter confirm password</string>
+    <string name="alert_password_not_match">password not match</string>
+    <string name="alert_please_enter_valid_email_id">Please enter valid email address</string>
 
     <!-- start for categories -->
     <string name="txt_category">Select Category</string>
@@ -139,6 +141,8 @@
     <string name="txt_service">Service</string>
     <string name="txt_services">Services</string>
     <string name="txt_no_saloon">No Saloon Found.</string>
+    <string name="txt_time_unit">MIN</string>
+
     <!--END For vendor list screen -->w
 
     <!-- vendor details about tab screen -->

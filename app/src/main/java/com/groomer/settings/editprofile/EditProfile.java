@@ -15,6 +15,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -66,6 +67,7 @@ public class EditProfile extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme();
         setContentView(R.layout.activity_edit_profile);
         mActivity = EditProfile.this;
 
@@ -117,9 +119,15 @@ public class EditProfile extends BaseActivity {
                         getString(R.string.txt_male) : getString(R.string.txt_female));
             }
 
+            if (userDTO.getIs_location_service() != null) {
+                Switch swh_location = (Switch) findViewById(R.id.swh_location);
+                swh_location.setChecked(userDTO.getIs_location_service().equals("1"));
+            }
+
             ImageLoader.getInstance().displayImage(userDTO.getImage(), ivProfile, options);
         }
     }
+
 
     @Override
     public void onClick(View view) {

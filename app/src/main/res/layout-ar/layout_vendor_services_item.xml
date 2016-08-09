@@ -42,7 +42,7 @@
                         android:id="@+id/txt_service_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Hair Cut"
+                        android:text=""
                         android:textSize="15sp" />
 
                     <!-- service price and time details -->
@@ -52,6 +52,13 @@
                         android:layout_marginTop="@dimen/margin_3"
                         android:orientation="horizontal">
 
+                        <com.groomer.customviews.CustomTextViewMarkNovaLight
+                            android:id="@+id/txt_service_time_unit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_5"
+                            android:text="@string/txt_time_unit"
+                            android:textSize="10sp" />
                         <!-- service time taken -->
                         <com.groomer.customviews.CustomTextViewMarkNovaLight
                             android:id="@+id/txt_service_time"
@@ -83,7 +90,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="left"
                             android:layout_marginRight="@dimen/margin_5"
-                            android:text=" 65 ريال"
+                            android:text=""
                             android:textSize="12sp" />
 
 

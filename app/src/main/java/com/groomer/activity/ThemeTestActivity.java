@@ -59,13 +59,13 @@ public class ThemeTestActivity extends AppCompatActivity {
             case 2:
                 setTheme(R.style.AppThemeGreen);
                 if (Build.VERSION.SDK_INT >= 21) {
-                    getWindow().setStatusBarColor(getResources().getColor(R.color.green));
+                    getWindow().setStatusBarColor(getResources().getColor(R.color.theme_green));
                 }
                 break;
             case 3:
                 setTheme(R.style.AppThemeRed);
                 if (Build.VERSION.SDK_INT >= 21) {
-                    getWindow().setStatusBarColor(getResources().getColor(R.color.red));
+                    getWindow().setStatusBarColor(getResources().getColor(R.color.theme_red));
                 }
                 break;
         }

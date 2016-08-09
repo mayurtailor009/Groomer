@@ -39,16 +39,16 @@
                 android:text="@string/change_password_header"
                 android:textAllCaps="false" />
 
-            <!-- signout button -->
-            <com.groomer.customviews.CustomButtonMarkNovaRegular
-                android:id="@+id/btn_signout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_10"
-                android:background="?attr/drawerBg"
-                android:textColor="@color/colorWhite"
-                android:text="@string/menu_logout"
-                android:textAllCaps="false" />
+            <!--&lt;!&ndash; signout button &ndash;&gt;-->
+            <!--<com.groomer.customviews.CustomButtonMarkNovaRegular-->
+                <!--android:id="@+id/btn_signout"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="@dimen/margin_10"-->
+                <!--android:background="?attr/drawerBg"-->
+                <!--android:textColor="@color/colorWhite"-->
+                <!--android:text="@string/menu_logout"-->
+                <!--android:textAllCaps="false" />-->
 
             <!-- language buttons -->
             <LinearLayout
@@ -97,27 +97,27 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- location layout -->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_20"
-                android:orientation="horizontal">
+            <!--&lt;!&ndash; location layout &ndash;&gt;-->
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="@dimen/margin_20"-->
+                <!--android:orientation="horizontal">-->
 
 
-                <com.groomer.customviews.CustomTextViewMarkNovaRegular
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:text="@string/txt_location"
-                    android:textSize="20sp" />
+                <!--<com.groomer.customviews.CustomTextViewMarkNovaRegular-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_alignParentLeft="true"-->
+                    <!--android:text="@string/txt_location"-->
+                    <!--android:textSize="20sp" />-->
 
-                <Switch
-                    android:id="@+id/swh_location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentRight="true" />
-            </RelativeLayout>
+                <!--<Switch-->
+                    <!--android:id="@+id/swh_location"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_alignParentRight="true" />-->
+            <!--</RelativeLayout>-->
 
             <!-- you can change your theme from here. -->
             <com.groomer.customviews.CustomTextViewMarkNovaRegular
@@ -168,12 +168,12 @@
     </ScrollView>
 
     <!-- confirm appointment button -->
-    <Button
-        android:id="@+id/btn_save"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/margin_5"
-        android:padding="@dimen/margin_15"
-        android:text="@string/btn_text_save" />
+    <!--<Button-->
+        <!--android:id="@+id/btn_save"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginTop="@dimen/margin_5"-->
+        <!--android:padding="@dimen/margin_15"-->
+        <!--android:text="@string/btn_text_save" />-->
 </RelativeLayout>

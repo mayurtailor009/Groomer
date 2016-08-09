@@ -14,8 +14,9 @@
     <color name="logo_text_color">#0d47a1</color>
     <color name="light_green">#558b2f</color>
     <color name="dark_green">#2e7d32</color>
-    <color name="green">#558A2E</color>
-    <color name="red">#A52A2A</color>
+    <color name="theme_green">#558A2E</color>
+    <color name="theme_red">#A52A2A</color>
+    <color name="theme_blue">#1156D5</color>
     <color name="grey">#E0E0E0</color>
     <color name="switch_off_color">#bdbdbd</color>
     <color name="switch_on_color">#558A2E</color>

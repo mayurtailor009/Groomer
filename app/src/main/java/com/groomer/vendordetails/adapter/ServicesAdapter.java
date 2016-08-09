@@ -177,12 +177,12 @@ public class ServicesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             Theme theme = Utils.getObjectFromPref(context, Constants.CURRENT_THEME);
 
             if (theme.equals(Theme.Red)) {
-                btn.setBackgroundColor(context.getResources().getColor(R.color.red));
+                btn.setBackgroundColor(context.getResources().getColor(R.color.theme_red));
 
             } else if (theme.equals(Theme.Blue)) {
-                btn.setBackgroundColor(context.getResources().getColor(R.color.blue_light));
+                btn.setBackgroundColor(context.getResources().getColor(R.color.theme_blue));
             } else {
-                btn.setBackgroundColor(context.getResources().getColor(R.color.green));
+                btn.setBackgroundColor(context.getResources().getColor(R.color.theme_green));
             }
 
 

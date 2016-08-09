@@ -42,6 +42,11 @@
     <string name="alert_please_enter_emailid">الرجاء إدخال اسم المستخدم البريد</string>
     <string name="alert_please_enter_password">الرجاء إدخال كلمة المرور</string>
     <string name="txt_country_code">Country code</string>
+    <string name="alert_please_confirm_password">الرجاء إدخال تأكيد كلمة</string>
+    <string name="alert_password_not_match">كلمة المرور لا تتطابق</string>
+    <string name="alert_please_enter_valid_email_id">الرجاء إدخال عنوان بريد إلكتروني صالح</string>
+
+
 
     <!-- start for categories -->
     <string name="txt_category">اختيار التصنيف</string>
@@ -52,7 +57,7 @@
 
 
     <!--Start For settings screen -->
-    <string name="txt_edit_profile">Edit Profile</string>
+    <string name="txt_edit_profile">تعديل الملف الشخصي</string>
     <string name="txt_name">الإسم</string>
     <string name="txt_email">البريد الإلكتروني</string>
     <string name="txt_email_id">البريد الإلكتروني</string>
@@ -133,6 +138,7 @@
     <string name="btn_add_time">انقر هنا لإضافة الوقت</string>
     <string name="txt_service">الخدمات</string>
     <string name="txt_services">الخدمات</string>
+    <string name="txt_time_unit">MIN</string>
 
     <!-- vendor details about tab screen -->
     <string name="txt_about_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac orci quis odilo bibendum mattis.</string>
