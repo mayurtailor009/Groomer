@@ -34,6 +34,7 @@ public class ForgetpasswordActivity extends BaseActivity {
 
     private void init() {
         setTouchNClick(R.id.btn_forgetpassword);
+        setClick(R.id.back_btn);
     }
 
     @Override
@@ -41,6 +42,9 @@ public class ForgetpasswordActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.btn_forgetpassword:
                 performForgetPassword();
+                break;
+            case R.id.back_btn:
+                onBackPressed();
                 break;
         }
     }
@@ -98,9 +102,10 @@ public class ForgetpasswordActivity extends BaseActivity {
     public boolean validateForm() {
 
         if (getEditTextText(R.id.et_emailid).equals("")) {
-            Utils.showDialog(this, "Message", "Please enter emailid");
+            Utils.showDialog(this, getString(R.string.message_title),
+                    getString(R.string.alert_please_enter_emailid));
             return false;
-        }else if (!Utils.isValidEmail(getEditTextText(R.id.et_emailid))) {
+        } else if (!Utils.isValidEmail(getEditTextText(R.id.et_emailid))) {
             Utils.showDialog(this, getString(R.string.message_title),
                     getString(R.string.alert_please_enter_valid_email_id));
             return false;

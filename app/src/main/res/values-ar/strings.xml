@@ -138,7 +138,7 @@
     <string name="btn_add_time">انقر هنا لإضافة الوقت</string>
     <string name="txt_service">الخدمات</string>
     <string name="txt_services">الخدمات</string>
-    <string name="txt_time_unit">MIN</string>
+    <string name="txt_time_unit">دقيقة</string>
 
     <!-- vendor details about tab screen -->
     <string name="txt_about_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac orci quis odilo bibendum mattis.</string>
