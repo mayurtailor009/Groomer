@@ -78,6 +78,7 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
     private String rating = "";
     private String searchKeyword = "";
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,6 +172,31 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
         vendorListAdapter = new VendorListAdapter(mActivity, vendorList);
         vendorRecyclerView.setAdapter(vendorListAdapter);
 
+
+
+//        vendorRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
+//        {
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
+//            {
+//                if(dy > 0) //check for scroll down
+//                {
+//                    visibleItemCount = mLayoutManager.getChildCount();
+//                    totalItemCount = mLayoutManager.getItemCount();
+//                    pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
+//
+//                    if (loading)
+//                    {
+//                        if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount)
+//                        {
+//                            loading = false;
+//                            Log.v("...", "Last Item Wow !");
+//                            //Do pagination.. i.e. fetch new data
+//                        }
+//                    }
+//                }
+//            }
+//        });
 
 //        vendorRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(mActivity,
 //                        vendorRecyclerView, new MyOnClickListener() {
