@@ -7,11 +7,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.Html;
+import android.view.Gravity;
 import android.widget.AbsListView;
 import android.util.Log;
 import android.view.Menu;
@@ -19,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -299,9 +302,24 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
         getMenuInflater().inflate(R.menu.menu_vendor_list, menu);
         SearchManager searchManager = (SearchManager) mActivity.getSystemService(SEARCH_SERVICE);
         MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) searchItem.getActionView();
+        final SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setMaxWidth(Integer.MAX_VALUE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
+
+        //adding a button in search view
+        searchView.setSubmitButtonEnabled(false);
+        LinearLayout mLayout = (LinearLayout) searchView.getChildAt(0);
+        mLayout.setGravity(Gravity.CENTER_VERTICAL);
+        ImageView mImageview = new ImageView(mActivity);
+        mImageview.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.search_btn));
+        mLayout.addView(mImageview);
+        mImageview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mActivity, searchView.getQuery(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

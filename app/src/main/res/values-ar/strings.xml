@@ -18,7 +18,7 @@
     <string name="menu_logout">خروج</string>
     <string name="txt_cancel">إلغاء</string>
     <string name="txt_reschedule">تغيير التوقيت</string>
-    <string name="txt_modify">MODIFY</string>
+    <string name="txt_modify">تعديل</string>
     <string name="txt_rebook">إعادة التسجيل</string>
     <string name="txt_submit">عرض</string>
     <string name="navigation_menu_username">ضيف</string>
@@ -41,7 +41,7 @@
     <string name="alert_please_enter_phone_no">يرجى إدخال رقم الهاتف</string>
     <string name="alert_please_enter_emailid">الرجاء إدخال اسم المستخدم البريد</string>
     <string name="alert_please_enter_password">الرجاء إدخال كلمة المرور</string>
-    <string name="txt_country_code">Country code</string>
+    <string name="txt_country_code">رقم البلد</string>
     <string name="alert_please_confirm_password">الرجاء إدخال تأكيد كلمة</string>
     <string name="alert_password_not_match">كلمة المرور لا تتطابق</string>
     <string name="alert_please_enter_valid_email_id">الرجاء إدخال عنوان بريد إلكتروني صالح</string>
@@ -159,7 +159,7 @@
     <string name="message_title">الرسالة</string>
     <string name="ok_button">حسنا</string>
     <string name="canceled">إلغاء</string>
-    <string name="cancel_confirmation">Do you want to cancel?</string>
+    <string name="cancel_confirmation">هل تريد إلغاء ؟</string>
 
 
     <!-- Camera choose fragment -->
