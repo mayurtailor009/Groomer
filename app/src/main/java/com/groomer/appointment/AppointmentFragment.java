@@ -109,6 +109,7 @@ public class AppointmentFragment extends BaseFragment {
                 btn_appointment_cancel.setSelected(false);
                 mExpandableListView.setVisibility(View.GONE);
                 mExpandableCompleteListView.setVisibility(View.VISIBLE);
+                mExpandableCancelListView.setVisibility(View.GONE);
                 getAppointmentCompleteList();
                 break;
             case R.id.btn_appointment_cancel:
@@ -129,7 +130,7 @@ public class AppointmentFragment extends BaseFragment {
     }
 
 
-    private void setUpExpandableListVIew(List<AppointmentDTO> appointmentList) {
+    private void setUpExpandableListVIew(final List<AppointmentDTO> appointmentList) {
         setViewVisibility(R.id.listview_cancel_appointment, view, View.GONE);
         setViewVisibility(R.id.listview_complete_appointment, view, View.GONE);
         setViewVisibility(R.id.appointment_list, view, View.VISIBLE);

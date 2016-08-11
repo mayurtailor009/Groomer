@@ -277,16 +277,25 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
 
         cHolder.mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         cHolder.mRecyclerView.setAdapter(new AppointListChildAdapter(context, servicesDTO));
-
         if (appointsParentList.get(groupPosition).getStatus().equals(Constants.CANCELLED)) {
-            cHolder.cancelLayout.setVisibility(View.GONE);
-            cHolder.rebookLayout.setVisibility(View.VISIBLE);
-            cHolder.rescheduleLayout.setVisibility(View.GONE);
+            cHolder.cancelLayout.setEnabled(false);
+            cHolder.rebookLayout.setEnabled(true);
+            cHolder.rescheduleLayout.setEnabled(false);
+            cHolder.cancelLayout
+                    .setBackgroundColor(context.getResources().getColor(R.color.divider_color));
+            cHolder.rescheduleLayout
+                    .setBackgroundColor(context.getResources().getColor(R.color.divider_color));
+
+            changeLayoutColorAsTheme(cHolder.rebookLayout);
             performClickOnRebook(cHolder.rebookLayout, groupPosition);
         } else {
-            cHolder.cancelLayout.setVisibility(View.VISIBLE);
-            cHolder.rebookLayout.setVisibility(View.GONE);
-            cHolder.rescheduleLayout.setVisibility(View.VISIBLE);
+            cHolder.cancelLayout.setEnabled(true);
+            cHolder.rebookLayout.setEnabled(false);
+            cHolder.rescheduleLayout.setEnabled(true);
+            cHolder.rebookLayout
+                    .setBackgroundColor(context.getResources().getColor(R.color.divider_color));
+            changeLayoutColorAsTheme(cHolder.cancelLayout);
+            changeLayoutColorAsTheme(cHolder.rescheduleLayout);
             performClickOnCancel(cHolder.cancelLayout, groupPosition);
             performClickOnReschedule(cHolder.rescheduleLayout, groupPosition);
         }
@@ -300,6 +309,18 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         }
 
         return convertView;
+    }
+
+    private void changeLayoutColorAsTheme(LinearLayout layout) {
+        Theme theme = Utils.getObjectFromPref(context, Constants.CURRENT_THEME);
+
+        if (theme.equals(Theme.Blue)) {
+            layout.setBackgroundColor(context.getResources().getColor(R.color.theme_blue));
+        } else if (theme.equals(Theme.Red)) {
+            layout.setBackgroundColor(context.getResources().getColor(R.color.theme_red));
+        } else {
+            layout.setBackgroundColor(context.getResources().getColor(R.color.theme_green));
+        }
     }
 
     @Override
@@ -353,7 +374,7 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
      * callback method of double button alert box.
      *
      * @param flag true if Ok button pressed otherwise false.
-     * @param code is requestCode.
+     * @param groupPosition is the position of group which is expanded.
      */
     public void dblBtnCallbackResponse(Boolean flag, int groupPosition) {
         if (flag) {
