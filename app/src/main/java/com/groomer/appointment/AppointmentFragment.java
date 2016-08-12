@@ -46,6 +46,8 @@ public class AppointmentFragment extends BaseFragment {
     private Button btn_appointment;
     private Button btn_appointment_cancel;
     private List<AppointmentDTO> canceledAppoints;
+    private List<AppointmentDTO> completedAppointments;
+    private List<AppointmentDTO> openAppointments;
 
     public static AppointmentFragment newInstance() {
         AppointmentFragment fragment = new AppointmentFragment();
@@ -80,7 +82,7 @@ public class AppointmentFragment extends BaseFragment {
 
         init();
         btn_appointment.setSelected(true);
-        getAppointmentList();
+        getOpenAppointmentList();
 
 
     }
@@ -100,7 +102,7 @@ public class AppointmentFragment extends BaseFragment {
                 btn_appointment_cancel.setSelected(false);
                 mExpandableListView.setVisibility(View.VISIBLE);
                 mExpandableCompleteListView.setVisibility(View.GONE);
-                getAppointmentList();
+                getOpenAppointmentList();
 
                 break;
             case R.id.btn_appointment_complete:
@@ -110,7 +112,15 @@ public class AppointmentFragment extends BaseFragment {
                 mExpandableListView.setVisibility(View.GONE);
                 mExpandableCompleteListView.setVisibility(View.VISIBLE);
                 mExpandableCancelListView.setVisibility(View.GONE);
-                getAppointmentCompleteList();
+                //getAppointmentCompleteList();
+                if (completedAppointments != null && !completedAppointments.isEmpty()) {
+                    setUpCompleteExpandableListVIew(completedAppointments);
+                    setViewVisibility(R.id.no_appointment, view, View.GONE);
+                    setViewVisibility(R.id.listview_complete_appointment, view, View.VISIBLE);
+                } else {
+                    setViewVisibility(R.id.no_appointment, view, View.VISIBLE);
+                    setViewVisibility(R.id.listview_complete_appointment, view, View.GONE);
+                }
                 break;
             case R.id.btn_appointment_cancel:
                 btn_appointment.setSelected(false);
@@ -131,164 +141,176 @@ public class AppointmentFragment extends BaseFragment {
 
 
     private void setUpExpandableListVIew(final List<AppointmentDTO> appointmentList) {
-        setViewVisibility(R.id.listview_cancel_appointment, view, View.GONE);
-        setViewVisibility(R.id.listview_complete_appointment, view, View.GONE);
-        setViewVisibility(R.id.appointment_list, view, View.VISIBLE);
-
-        //filtering canceled appointments
-        canceledAppoints = new ArrayList<>();
-        final List<AppointmentDTO> appoints = new ArrayList<>();
-        for (int i = 0; i < appointmentList.size(); i++) {
-            if (appointmentList.get(i).getStatus().equalsIgnoreCase("4")) {
-                canceledAppoints.add(appointmentList.get(i));
-            } else {
-                appoints.add(appointmentList.get(i));
-            }
-        }
-
-        if (appoints != null && !appoints.isEmpty()) {
-            setViewVisibility(R.id.no_appointment, view, View.GONE);
-            setViewVisibility(R.id.appointment_list, view, View.VISIBLE);
-            mExpandableListView.setChoiceMode(ExpandableListView.CHOICE_MODE_SINGLE);
-            mExpandableListView.setAdapter(new AppointmentListAdapter(
-                    this.getActivity(), appoints, mExpandableListView)
-            );
-
-            mExpandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-
-                @Override
-                public void onGroupExpand(int groupPosition) {
-                    if (lastExpandedPosition != -1
-                            && groupPosition != lastExpandedPosition) {
-                        mExpandableListView.collapseGroup(lastExpandedPosition);
-                    }
-                    if (appoints.get(groupPosition).isPassedDateFlag()) {
-                        mExpandableListView.collapseGroup(groupPosition);
-                    }
-                    lastExpandedPosition = groupPosition;
-                }
-            });
-        } else {
-            setViewVisibility(R.id.no_appointment, view, View.VISIBLE);
-            setViewVisibility(R.id.appointment_list, view, View.GONE);
-        }
-    }
-
-    private void setUpCompleteExpandableListVIew(final List<AppointmentDTO> appointmentList) {
-        setViewVisibility(R.id.listview_complete_appointment, view, View.VISIBLE);
-        setViewVisibility(R.id.listview_cancel_appointment, view, View.GONE);
-        setViewVisibility(R.id.appointment_list, view, View.GONE);
-
-        mExpandableCompleteListView.setChoiceMode(ExpandableListView.CHOICE_MODE_SINGLE);
-        mExpandableCompleteListView.setAdapter(new AppointmentListAdapter(
-                this.getActivity(), appointmentList, mExpandableCompleteListView)
-        );
-
-        mExpandableCompleteListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                if (lastExpandedPosition != -1
-                        && groupPosition != lastExpandedPosition) {
-                    mExpandableCompleteListView.collapseGroup(lastExpandedPosition);
-                }
-                if (appointmentList.get(groupPosition).isPassedDateFlag()) {
-                    mExpandableCompleteListView.collapseGroup(groupPosition);
-                }
-                lastExpandedPosition = groupPosition;
-            }
-        });
-    }
-
-    private void setUpCancelExpandableListVIew(final List<AppointmentDTO> appointmentList) {
-        setViewVisibility(R.id.listview_cancel_appointment, view, View.VISIBLE);
-        setViewVisibility(R.id.listview_complete_appointment, view, View.GONE);
-        setViewVisibility(R.id.appointment_list, view, View.GONE);
-
-        mExpandableCancelListView.setChoiceMode(ExpandableListView.CHOICE_MODE_SINGLE);
-        mExpandableCancelListView.setAdapter(new AppointmentListAdapter(
-                this.getActivity(), appointmentList, mExpandableCancelListView)
-        );
-
-        mExpandableCancelListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                if (lastExpandedPosition != -1
-                        && groupPosition != lastExpandedPosition) {
-                    mExpandableCancelListView.collapseGroup(lastExpandedPosition);
-                }
-                if (appointmentList.get(groupPosition).isPassedDateFlag()) {
-                    mExpandableCancelListView.collapseGroup(groupPosition);
-                }
-                lastExpandedPosition = groupPosition;
-            }
-        });
-    }
-
-
-    private void getAppointmentCompleteList() {
         try {
-            HashMap<String, String> params = new HashMap<>();
-            params.put("action", Constants.APPOINTMENTS);
-            params.put("user_id", Utils.getUserId(mActivity));
-            params.put("lang", Utils.getSelectedLanguage(mActivity));
+            setViewVisibility(R.id.listview_cancel_appointment, view, View.GONE);
+            setViewVisibility(R.id.listview_complete_appointment, view, View.GONE);
+            setViewVisibility(R.id.appointment_list, view, View.VISIBLE);
 
-            final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
-            CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
-                    Constants.SERVICE_URL, params,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            Log.i("Groomer info", response.toString());
-                            pdialog.dismiss();
-                            if (Utils.getWebServiceStatus(response)) {
-                                try {
-                                    Type type = new TypeToken<ArrayList<AppointmentDTO>>() {
-                                    }.getType();
-                                    List<AppointmentDTO> appointmentList = new Gson()
-                                            .fromJson(response
-                                                    .getJSONArray("completed").toString(), type);
-                                    if (appointmentList != null && !appointmentList.isEmpty()) {
-                                        setUpCompleteExpandableListVIew(appointmentList);
-                                        setViewVisibility(R.id.no_appointment, view, View.GONE);
-                                        setViewVisibility(R.id.listview_complete_appointment, view,
-                                                View.VISIBLE);
-                                    } else {
-                                        setViewVisibility(R.id.no_appointment, view, View.VISIBLE);
-                                        setViewVisibility(R.id.listview_complete_appointment, view,
-                                                View.GONE);
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            } else {
-                                setViewVisibility(R.id.no_appointment, view, View.VISIBLE);
-                                setViewVisibility(R.id.listview_complete_appointment,
-                                        view, View.GONE);
-                            }
+//        //filtering canceled appointments
+//        canceledAppoints = new ArrayList<>();
+//        final List<AppointmentDTO> appoints = new ArrayList<>();
+//        for (int i = 0; i < appointmentList.size(); i++) {
+//            if (appointmentList.get(i).getStatus().equalsIgnoreCase("4")) {
+//                canceledAppoints.add(appointmentList.get(i));
+//            } else {
+//                appoints.add(appointmentList.get(i));
+//            }
+//        }
+
+            if (appointmentList != null && !appointmentList.isEmpty()) {
+                setViewVisibility(R.id.no_appointment, view, View.GONE);
+                setViewVisibility(R.id.appointment_list, view, View.VISIBLE);
+                mExpandableListView.setChoiceMode(ExpandableListView.CHOICE_MODE_SINGLE);
+                mExpandableListView.setAdapter(new AppointmentListAdapter(
+                        this.getActivity(), appointmentList, mExpandableListView)
+                );
+
+                mExpandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+
+                    @Override
+                    public void onGroupExpand(int groupPosition) {
+                        if (lastExpandedPosition != -1
+                                && groupPosition != lastExpandedPosition) {
+                            mExpandableListView.collapseGroup(lastExpandedPosition);
                         }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.i("Groomer info", error.toString());
-                            pdialog.dismiss();
-                            Utils.showExceptionDialog(mActivity);
+                        if (appointmentList.get(groupPosition).isPassedDateFlag()) {
+                            mExpandableListView.collapseGroup(groupPosition);
                         }
+                        lastExpandedPosition = groupPosition;
                     }
-            );
-
-            pdialog.show();
-            GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
-            jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                });
+            } else {
+                setViewVisibility(R.id.no_appointment, view, View.VISIBLE);
+                setViewVisibility(R.id.appointment_list, view, View.GONE);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void getAppointmentList() {
+    private void setUpCompleteExpandableListVIew(final List<AppointmentDTO> appointmentList) {
+        try {
+            setViewVisibility(R.id.listview_complete_appointment, view, View.VISIBLE);
+            setViewVisibility(R.id.listview_cancel_appointment, view, View.GONE);
+            setViewVisibility(R.id.appointment_list, view, View.GONE);
+
+            mExpandableCompleteListView.setChoiceMode(ExpandableListView.CHOICE_MODE_SINGLE);
+            mExpandableCompleteListView.setAdapter(new AppointmentListAdapter(
+                    this.getActivity(), appointmentList, mExpandableCompleteListView)
+            );
+
+            mExpandableCompleteListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+
+                @Override
+                public void onGroupExpand(int groupPosition) {
+                    if (lastExpandedPosition != -1
+                            && groupPosition != lastExpandedPosition) {
+                        mExpandableCompleteListView.collapseGroup(lastExpandedPosition);
+                    }
+                    if (appointmentList.get(groupPosition).isPassedDateFlag()) {
+                        mExpandableCompleteListView.collapseGroup(groupPosition);
+                    }
+                    lastExpandedPosition = groupPosition;
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setUpCancelExpandableListVIew(final List<AppointmentDTO> appointmentList) {
+        try {
+            setViewVisibility(R.id.listview_cancel_appointment, view, View.VISIBLE);
+            setViewVisibility(R.id.listview_complete_appointment, view, View.GONE);
+            setViewVisibility(R.id.appointment_list, view, View.GONE);
+
+            mExpandableCancelListView.setChoiceMode(ExpandableListView.CHOICE_MODE_SINGLE);
+            mExpandableCancelListView.setAdapter(new AppointmentListAdapter(
+                    this.getActivity(), appointmentList, mExpandableCancelListView)
+            );
+
+            mExpandableCancelListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+
+                @Override
+                public void onGroupExpand(int groupPosition) {
+                    if (lastExpandedPosition != -1
+                            && groupPosition != lastExpandedPosition) {
+                        mExpandableCancelListView.collapseGroup(lastExpandedPosition);
+                    }
+                    if (appointmentList.get(groupPosition).isPassedDateFlag()) {
+                        mExpandableCancelListView.collapseGroup(groupPosition);
+                    }
+                    lastExpandedPosition = groupPosition;
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+//    private void getAppointmentCompleteList() {
+//        try {
+//            HashMap<String, String> params = new HashMap<>();
+//            params.put("action", Constants.APPOINTMENTS);
+//            params.put("user_id", Utils.getUserId(mActivity));
+//            params.put("lang", Utils.getSelectedLanguage(mActivity));
+//
+//            final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
+//            CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
+//                    Constants.SERVICE_URL, params,
+//                    new Response.Listener<JSONObject>() {
+//                        @Override
+//                        public void onResponse(JSONObject response) {
+//                            Log.i("Groomer info", response.toString());
+//                            pdialog.dismiss();
+//                            if (Utils.getWebServiceStatus(response)) {
+//                                try {
+//                                    Type type = new TypeToken<ArrayList<AppointmentDTO>>() {
+//                                    }.getType();
+//                                    List<AppointmentDTO> appointmentList = new Gson()
+//                                            .fromJson(response
+//                                                    .getJSONArray("completed").toString(), type);
+//                                    if (appointmentList != null && !appointmentList.isEmpty()) {
+//                                        setUpCompleteExpandableListVIew(appointmentList);
+//                                        setViewVisibility(R.id.no_appointment, view, View.GONE);
+//                                        setViewVisibility(R.id.listview_complete_appointment, view,
+//                                                View.VISIBLE);
+//                                    } else {
+//                                        setViewVisibility(R.id.no_appointment, view, View.VISIBLE);
+//                                        setViewVisibility(R.id.listview_complete_appointment, view,
+//                                                View.GONE);
+//                                    }
+//                                } catch (Exception e) {
+//                                    e.printStackTrace();
+//                                }
+//                            } else {
+//                                setViewVisibility(R.id.no_appointment, view, View.VISIBLE);
+//                                setViewVisibility(R.id.listview_complete_appointment,
+//                                        view, View.GONE);
+//                            }
+//                        }
+//                    },
+//                    new Response.ErrorListener() {
+//                        @Override
+//                        public void onErrorResponse(VolleyError error) {
+//                            Log.i("Groomer info", error.toString());
+//                            pdialog.dismiss();
+//                            Utils.showExceptionDialog(mActivity);
+//                        }
+//                    }
+//            );
+//
+//            pdialog.show();
+//            GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
+//            jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
+//                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+    private void getOpenAppointmentList() {
         try {
             HashMap<String, String> params = new HashMap<>();
             params.put("action", Constants.APPOINTMENTS);
@@ -307,11 +329,17 @@ public class AppointmentFragment extends BaseFragment {
                                 try {
                                     Type type = new TypeToken<ArrayList<AppointmentDTO>>() {
                                     }.getType();
-                                    List<AppointmentDTO> appointmentList = new Gson()
+                                    openAppointments = new Gson()
                                             .fromJson(response
                                                     .getJSONArray("appointment").toString(), type);
+                                    completedAppointments = new Gson()
+                                            .fromJson(response
+                                                    .getJSONArray("completed").toString(), type);
+                                    canceledAppoints = new Gson()
+                                            .fromJson(response
+                                                    .getJSONArray("cancelled").toString(), type);
 
-                                    setUpExpandableListVIew(appointmentList);
+                                    setUpExpandableListVIew(openAppointments);
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
