@@ -7,15 +7,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.Html;
-import android.view.Gravity;
-import android.widget.AbsListView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -172,6 +170,7 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
         setViewVisibility(R.id.recycle_vendor, View.VISIBLE);
 
         vendorListAdapter = new VendorListAdapter(mActivity, vendorList);
+        vendorRecyclerView.setHasFixedSize(true);
         vendorRecyclerView.setAdapter(vendorListAdapter);
 
 
@@ -179,9 +178,14 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
                 llm) {
             @Override
             public void onLoadMore(int current_page) {
-
-                if (totalCount > vendorList.size())
-                    getVendorsList(categoryDTO.getId(), distance, rating, price, searchKeyword, current_page + "");
+                int lastPos = llm.findLastCompletelyVisibleItemPosition();
+                int itemCount = llm.getItemCount();
+                if (lastPos != -1
+                        && itemCount == (lastPos + 1)) {
+                    if (totalCount > vendorList.size())
+                        getVendorsList(categoryDTO.getId(), distance, rating,
+                                price, searchKeyword, current_page + "");
+                }
             }
 
         });
@@ -227,7 +231,6 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
         @Override
         public void onClick(DialogInterface dialog, int which) {
             SessionManager.logoutUser(mActivity);
-            ;
         }
     };
 
