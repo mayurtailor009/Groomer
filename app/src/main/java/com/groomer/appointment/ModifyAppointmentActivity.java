@@ -1,9 +1,8 @@
-package com.groomer.vendordetails;
+package com.groomer.appointment;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,9 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -35,15 +32,15 @@ import com.google.gson.reflect.TypeToken;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
 import com.groomer.activity.BaseActivity;
+import com.groomer.appointment.adapter.ModifySwipeMenuListViewAdapter;
 import com.groomer.appointment.adapter.SwipeMenuListViewAdapter;
 import com.groomer.home.HomeActivity;
-import com.groomer.model.AppointmentDTO;
+import com.groomer.model.AppointServicesDTO;
 import com.groomer.model.ServiceDTO;
 import com.groomer.model.SloteDTO;
 import com.groomer.recyclerviewitemclick.MyOnClickListener;
 import com.groomer.recyclerviewitemclick.RecyclerTouchListener;
 import com.groomer.utillity.Constants;
-import com.groomer.utillity.HelpMe;
 import com.groomer.utillity.Utils;
 import com.groomer.vendordetails.adapter.TimeSlotesAdater;
 import com.groomer.volley.CustomJsonRequest;
@@ -51,33 +48,31 @@ import com.groomer.volley.CustomJsonRequest;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMenuListView.OnMenuItemClickListener {
+public class ModifyAppointmentActivity extends BaseActivity {
 
-    private SwipeMenuListView mRecyclerView;
+    private ListView listView;
     private Activity mActivity;
-    private List<ServiceDTO> serviceDTOList;
-    private SwipeMenuListViewAdapter adapter;
+    private List<AppointServicesDTO> serviceDTOList;
+    private ModifySwipeMenuListViewAdapter adapter;
     private int mYear, mMonth, mDay, mHour, mMinute;
     private Button btnSubmit;
     private TextView btnDate;
     private RecyclerView recyclerViewSlots;
     private List<SloteDTO> sloteList;
     private String selectedSlot;
+    private double totalPrice = 0.0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme();
-        setContentView(R.layout.activity_confirm_appointment);
-        mActivity = ConfirmAppointmentActivity.this;
+        setContentView(R.layout.activity_modify_appointment);
+        mActivity = ModifyAppointmentActivity.this;
 
         init();
         setUpRecyclerView();
@@ -93,8 +88,10 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
         btnDate.setText(Utils.getCurrentDate());
         // btnTime = (Button) findViewById(R.id.btn_time);
 
-        serviceDTOList = (List<ServiceDTO>) getIntent()
+        serviceDTOList = (List<AppointServicesDTO>) getIntent()
                 .getSerializableExtra("serviceDTO");
+
+
         boolean isModifyAppointment = getIntent().getBooleanExtra("isModifyAppointment", false);
         if (isModifyAppointment) {
             setButtonText(R.id.confirm_appointment_btn,
@@ -146,7 +143,7 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
 
                                     setSlotedList();
                                 } else {
-                                    Toast.makeText(ConfirmAppointmentActivity.this,
+                                    Toast.makeText(ModifyAppointmentActivity.this,
                                             Utils.getWebServiceMessage(response), Toast.LENGTH_LONG).show();
                                 }
                             } catch (Exception e) {
@@ -204,45 +201,13 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
 
 
     private void setUpRecyclerView() {
-        mRecyclerView = (SwipeMenuListView) findViewById(R.id.confirm_appoint_service_list);
-        adapter = new SwipeMenuListViewAdapter(mActivity, serviceDTOList);
-        createSwipeMenu();
-        mRecyclerView.setAdapter(adapter);
-        mRecyclerView.setOnMenuItemClickListener(this);
-        setListViewHeightBasedOnItems(mRecyclerView);
+        listView = (ListView) findViewById(R.id.confirm_appoint_service_list);
+        adapter = new ModifySwipeMenuListViewAdapter(mActivity, serviceDTOList);
+        listView.setAdapter(adapter);
+        setListViewHeightBasedOnItems(listView);
 
     }
 
-    private void createSwipeMenu() {
-        SwipeMenuCreator creator = new SwipeMenuCreator() {
-            @Override
-            public void create(SwipeMenu menu) {
-                SwipeMenuItem remove = new SwipeMenuItem(mActivity);
-                remove.setWidth(convert_dp_to_px(100));
-                remove.setBackground(R.color.theme_red);
-                remove.setTitle(mActivity.getResources().getString(R.string.txt_remove));
-                remove.setTitleSize(15);
-                remove.setTitleColor(Color.WHITE);
-                menu.addMenuItem(remove);
-            }
-        };
-
-        mRecyclerView.setMenuCreator(creator);
-        mRecyclerView.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
-
-            @Override
-            public void onSwipeStart(int position) {
-                // swipe start
-                mRecyclerView.smoothOpenMenu(position);
-            }
-
-            @Override
-            public void onSwipeEnd(int position) {
-                // swipe end
-            }
-        });
-
-    }
 
     private int convert_dp_to_px(int dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
@@ -263,7 +228,7 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
                 mDay = c.get(Calendar.DAY_OF_MONTH);
 
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(ConfirmAppointmentActivity.this,
+                DatePickerDialog datePickerDialog = new DatePickerDialog(ModifyAppointmentActivity.this,
                         new DatePickerDialog.OnDateSetListener() {
 
                             @Override
@@ -353,7 +318,7 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
                                     intent.putExtra("fragmentNumber", 2);
                                     startActivity(intent);
                                 } else {
-                                    Toast.makeText(ConfirmAppointmentActivity.this,
+                                    Toast.makeText(ModifyAppointmentActivity.this,
                                             Utils.getWebServiceMessage(response), Toast.LENGTH_LONG).show();
                                 }
                             } catch (Exception e) {
@@ -385,7 +350,7 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
      */
     private String getAmount() {
         String amount = getIntent().getStringExtra("totalPrice");
-        return amount.split(" ")[1];
+        return amount;
     }
 
     /**
@@ -403,31 +368,6 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
             }
         }
         return services;
-    }
-
-    @Override
-    public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-        Toast.makeText(mActivity, "Remove Clicked", Toast.LENGTH_SHORT).show();
-        removeServiceFromTheList(position);
-        return false;
-    }
-
-    /**
-     * this method removes the service from the list and substract the amount from total amount.
-     *
-     * @param position is the position of selected service.
-     */
-    private void removeServiceFromTheList(int position) {
-        serviceDTOList.remove(position);
-        adapter.setServiceList(serviceDTOList);
-        adapter.notifyDataSetChanged();
-        setListViewHeightBasedOnItems(mRecyclerView);
-        double amount = 0.0;
-        for (int i = 0; i < serviceDTOList.size(); i++) {
-            amount = Double.valueOf(serviceDTOList.get(i).getPrice());
-        }
-        setViewText(R.id.confirm_appoint_txt_service_price, getString(R.string.txt_vendor_price_unit) +
-                " " + amount + "");
     }
 
 

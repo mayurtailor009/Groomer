@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/confirm_appointment_btn"
+        tools:context="com.groomer.vendordetails.ConfirmAppointmentActivity">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- service price, name, address details with close button layout -->
+            <RelativeLayout
+                android:id="@+id/confirm_appoint_servicedetailslayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/drawerBg"
+                android:padding="@dimen/margin_15">
+
+                <!-- service price text -->
+                <com.groomer.customviews.CustomTextViewMarkNovaExtrabold
+                    android:id="@+id/confirm_appoint_txt_service_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_toRightOf="@+id/confirm_appoint_cross_button"
+                    android:gravity="right"
+                    android:text="130  ريال"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/textsize_15sp" />
+
+                <!-- service name text -->
+                <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+                    android:id="@+id/confirm_appoint_txt_service_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/confirm_appoint_txt_service_price"
+                    android:layout_marginTop="@dimen/margin_3"
+                    android:layout_toRightOf="@+id/confirm_appoint_cross_button"
+                    android:gravity="right"
+                    android:text="@string/txt_vendor_name"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/textsize_15sp" />
+                <!-- cross button -->
+                <ImageView
+                    android:id="@+id/confirm_appoint_cross_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/margin_5"
+                    android:src="@drawable/close_btn"
+                    android:tint="@color/colorWhite" />
+                <!-- service name text -->
+                <com.groomer.customviews.CustomTextViewMarkNovaThin
+                    android:id="@+id/confirm_appoint_txt_service_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/confirm_appoint_txt_service_name"
+                    android:layout_marginLeft="@dimen/margin_3"
+                    android:layout_marginTop="@dimen/margin_3"
+                    android:layout_toRightOf="@id/confirm_appoint_cross_button"
+                    android:gravity="right"
+                    android:text="@string/txt_vendor_address"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/textsize_15sp" />
+
+
+            </RelativeLayout>
+
+            <ListView
+                android:id="@+id/confirm_appoint_service_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/confirm_appoint_servicedetailslayout"
+                android:dividerHeight="0dp" />
+
+            <RelativeLayout
+                android:id="@+id/ll_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/confirm_appoint_service_list"
+                android:layout_marginTop="@dimen/margin_10"
+                android:background="@color/colorWhite"
+                android:padding="@dimen/margin_15">
+
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                    android:id="@+id/label_select_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/txt_select_date"
+                    android:textSize="@dimen/textsize_15sp" />
+
+
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                    android:id="@+id/btn_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/btn_add_date"
+                    android:textColor="?attr/drawerBg"
+                    android:textSize="@dimen/textsize_15sp" />
+
+
+            </RelativeLayout>
+
+
+            <!-- select date text -->
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_date"
+                android:layout_marginTop="@dimen/margin_20"
+                android:background="@color/colorWhite"
+                android:orientation="vertical">
+
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                    android:id="@+id/label_select_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_15"
+                    android:text="@string/txt_select_time"
+                    android:textSize="@dimen/textsize_15sp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycle_time_slot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/margin_15">
+
+                </android.support.v7.widget.RecyclerView>
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <!-- confirm appointment button -->
+    <Button
+        android:id="@+id/confirm_appointment_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/margin_5"
+        android:padding="@dimen/margin_15"
+        android:text="@string/btn_reschedule_appointment" />
+</RelativeLayout>

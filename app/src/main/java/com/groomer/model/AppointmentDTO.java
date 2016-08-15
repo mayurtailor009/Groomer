@@ -1,9 +1,10 @@
 package com.groomer.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 
-public class AppointmentDTO {
+public class AppointmentDTO implements Serializable{
 
     private String date;
     private String address;

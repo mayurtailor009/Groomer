@@ -22,6 +22,8 @@
     <string name="txt_rebook">إعادة التسجيل</string>
     <string name="txt_submit">عرض</string>
     <string name="navigation_menu_username">ضيف</string>
+    <string name="btn_reschedule_appointment">تعديل موعد</string>
+
 
 
     <!-- login screen -->

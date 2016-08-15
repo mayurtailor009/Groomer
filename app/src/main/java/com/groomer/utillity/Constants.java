@@ -14,6 +14,7 @@ public class Constants {
     public static final String DISTANCE_UNIT_MILES_ENG = "MILES";
     public static final String DISTANCE_UNIT_MILES_ARA = "ميل";
 
+    public static final String OPEN = "1";
     public static final String COMPLETED = "3";
     public static final String CANCELLED = "4";
 

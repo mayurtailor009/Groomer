@@ -1,6 +1,5 @@
 package com.groomer.appointment.adapter;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -26,10 +25,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
+import com.groomer.appointment.ModifyAppointmentActivity;
 import com.groomer.customviews.alert.CustomAlert;
 import com.groomer.model.AppointServicesDTO;
 import com.groomer.model.AppointmentDTO;
-import com.groomer.reschedule.RescheduleDialogNewFragment;
 import com.groomer.shareexperience.ShareExperienceActivity;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.HelpMe;
@@ -45,6 +44,7 @@ import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import org.joda.time.DateTime;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,6 +61,7 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
     private List<AppointmentDTO> appointsParentList;
     private ExpandableListView mExpandableListView;
     private DisplayImageOptions options;
+    private String totalPrice;
 
     /**
      * this class acts like a holder for group of expandable list.
@@ -301,9 +302,8 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         }
 
 
-        if ((appointsParentList.get(groupPosition).getStatus().equals(Constants.COMPLETED))
-                || (appointsParentList.get(groupPosition).getStatus().equals(Constants.CANCELLED))) {
-            //cHolder.llOpteration.setVisibility(View.GONE);
+        if (appointsParentList.get(groupPosition).getStatus().equals(Constants.COMPLETED)) {
+            cHolder.llOpteration.setVisibility(View.GONE);
         } else {
             //cHolder.llOpteration.setVisibility(View.VISIBLE);
         }
@@ -341,18 +341,54 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
     }
 
     // handles clikc on reschedule layout
-    private void performClickOnReschedule(LinearLayout rescheduleLayout, final int groupPosition) {
-        rescheduleLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RescheduleDialogNewFragment dialog = RescheduleDialogNewFragment.getInstance();
-                Bundle bundle = new Bundle();
-                bundle.putString("order_id", appointsParentList.get(groupPosition).getOrder_id());
-                bundle.putString("store_id", appointsParentList.get(groupPosition).getStore_id());
-                dialog.setArguments(bundle);
-                dialog.show(((Activity) context).getFragmentManager(), "");
-            }
-        });
+    private void performClickOnReschedule(LinearLayout rescheduleLayout,
+                                          final int groupPosition) {
+        rescheduleLayout.
+                setOnClickListener(
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                double totalPrice = 0.0;
+
+                                Intent intent = new Intent(context,
+                                        ModifyAppointmentActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("serviceDTO", (Serializable)
+                                        appointsParentList.get(groupPosition).getService());
+                                intent.putExtras(bundle);
+                                if (!HelpMe.isArabic(context)) {
+                                    intent.putExtra("saloonName", appointsParentList.
+                                            get(groupPosition).getStorename_eng());
+                                } else {
+                                    intent.putExtra("saloonName",
+                                            appointsParentList.get(groupPosition).getStorename_ara());
+                                }
+                                intent.putExtra("saloonAddress",
+                                        appointsParentList.get(groupPosition).getAddress());
+
+                                for (AppointServicesDTO serviceDTO :
+                                        appointsParentList.get(groupPosition).getService()) {
+                                    totalPrice += Double.parseDouble(serviceDTO.getPrice());
+                                }
+                                intent.putExtra("totalPrice", totalPrice + "");
+                                intent.putExtra("store_id", appointsParentList.get(groupPosition).
+
+                                        getStore_id()
+
+                                );
+                                intent.putExtra("isModifyAppointment", true);
+                                context.startActivity(intent);
+
+//                RescheduleDialogNewFragment dialog = RescheduleDialogNewFragment.getInstance();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("order_id", appointsParentList.get(groupPosition).getOrder_id());
+//                bundle.putString("store_id", appointsParentList.get(groupPosition).getStore_id());
+//                dialog.setArguments(bundle);
+//                dialog.show(((Activity) context).getFragmentManager(), "");
+                            }
+                        }
+
+                );
     }
 
 
@@ -373,7 +409,7 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
     /**
      * callback method of double button alert box.
      *
-     * @param flag true if Ok button pressed otherwise false.
+     * @param flag          true if Ok button pressed otherwise false.
      * @param groupPosition is the position of group which is expanded.
      */
     public void dblBtnCallbackResponse(Boolean flag, int groupPosition) {

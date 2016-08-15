@@ -22,6 +22,7 @@
     <string name="txt_rebook">REBOOK</string>
     <string name="txt_submit">SUBMIT</string>
     <string name="navigation_menu_username">Guest</string>
+    <string name="btn_reschedule_appointment">Modify Appointment</string>
 
     <!-- End For navigation drawer-->
 

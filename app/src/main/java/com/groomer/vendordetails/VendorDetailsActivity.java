@@ -85,7 +85,9 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
 
         GPSTracker gpstracker = new GPSTracker(mActivity);
         final String storeId = getIntent().getStringExtra("store_id");
+
         getVendorDetails(storeId);
+
 
         //setting click operations on views
         setClick(R.id.vendor_details_iv_back);
@@ -608,6 +610,8 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
             params.put("user_id", Utils.getUserId(mActivity));
             params.put("store_id", storeID);
             params.put("status", status);
+            params.put("lat", GroomerPreference.getLatitude(mActivity) + "");
+            params.put("lng", GroomerPreference.getLongitude(mActivity) + "");
             params.put("lang", Utils.getSelectedLanguage(mActivity));
 
             final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
