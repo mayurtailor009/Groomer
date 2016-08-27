@@ -89,7 +89,8 @@
                     android:drawableLeft="@drawable/name_icon"
                     android:gravity="right"
                     android:hint="@string/hint_enter_here"
-                    android:inputType="textCapWords" />
+                    android:inputType="textCapWords"
+                    android:paddingRight="0dp" />
 
                 <com.groomer.customviews.CustomTextViewMarkNovaRegular
                     android:layout_width="wrap_content"
@@ -106,7 +107,8 @@
                     android:drawableLeft="@drawable/phone_icon"
                     android:gravity="right"
                     android:hint="@string/hint_enter_here"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:paddingRight="0dp" />
 
                 <com.groomer.customviews.CustomTextViewMarkNovaRegular
                     android:layout_width="wrap_content"
@@ -122,7 +124,8 @@
                     android:layout_marginTop="5dp"
                     android:drawableLeft="@drawable/email_field_icon"
                     android:gravity="right"
-                    android:hint="@string/hint_enter_here" />
+                    android:hint="@string/hint_enter_here"
+                    android:paddingRight="0dp" />
 
                 <com.groomer.customviews.CustomTextViewMarkNovaRegular
                     android:layout_width="wrap_content"
@@ -140,6 +143,7 @@
                     android:gravity="right"
                     android:hint="@string/hint_enter_here"
                     android:inputType="textPassword"
+                    android:paddingRight="0dp"
                     android:typeface="monospace" />
 
                 <com.groomer.customviews.CustomTextViewMarkNovaRegular
@@ -156,8 +160,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:drawableRight="@drawable/down_green"
-                    android:hint="@string/enter_country_code" />
+                    android:drawableLeft="@drawable/down_green"
+                    android:hint="@string/enter_country_code"
+                    android:paddingRight="0dp"
+                    android:text="+966" />
 
 
                 <Button

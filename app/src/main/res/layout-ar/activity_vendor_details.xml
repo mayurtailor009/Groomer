@@ -120,6 +120,28 @@
                     android:text=""
                     android:textSize="15sp" />
 
+                <!-- rating number -->
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                    android:id="@+id/txt_vendor_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/txt_vendor_name"
+                    android:layout_marginBottom="@dimen/margin_1"
+                    android:layout_marginRight="@dimen/margin_10"
+                    android:layout_toLeftOf="@+id/txt_vendor_name"
+                    android:textSize="12sp" />
+
+                <!-- rating start image -->
+                <ImageView
+                    android:id="@+id/img_rating_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/txt_vendor_rating"
+                    android:layout_marginBottom="@dimen/margin_1"
+                    android:layout_marginRight="@dimen/margin_5"
+                    android:layout_toLeftOf="@+id/txt_vendor_rating"
+                    android:src="@drawable/star_icon" />
+
                 <!-- vendor address -->
                 <LinearLayout
                     android:layout_width="wrap_content"

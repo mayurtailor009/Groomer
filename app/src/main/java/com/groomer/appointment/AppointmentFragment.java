@@ -367,4 +367,5 @@ public class AppointmentFragment extends BaseFragment {
             e.printStackTrace();
         }
     }
+
 }

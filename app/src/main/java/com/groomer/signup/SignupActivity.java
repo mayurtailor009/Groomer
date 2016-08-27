@@ -53,7 +53,7 @@ public class SignupActivity extends BaseActivity {
         setTouchNClick(R.id.btn_signup);
         setClick(R.id.tv_signin);
         setClick(R.id.back_btn);
-        //setClick(R.id.txt_country_code);
+        setClick(R.id.txt_country_code);
     }
 
     @Override
@@ -66,9 +66,9 @@ public class SignupActivity extends BaseActivity {
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 break;
-//            case R.id.txt_country_code:
-//                openCountryCodeDialog();
-//                break;
+            case R.id.txt_country_code:
+                openCountryCodeDialog();
+                break;
             case R.id.back_btn:
                 openSkipScreen();
                 break;
@@ -81,28 +81,28 @@ public class SignupActivity extends BaseActivity {
         this.finish();
     }
 
-//    private void openCountryCodeDialog() {
-//        final List<Map<String, String>> countryCodeList = Utils.getCountryCode(mActivity);
-//        final Dialog dialogCountryCode = new Dialog(mActivity);
-//        dialogCountryCode.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        dialogCountryCode.setContentView(R.layout.layout_country_code);
-//        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-//
-//        ListView listView = (ListView) dialogCountryCode.findViewById(R.id.list);
-//        CountryCodeAdapter adapter = new CountryCodeAdapter(mActivity, countryCodeList);
-//        listView.setAdapter(adapter);
-//        dialogCountryCode.show();
-//
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                setViewText(R.id.txt_country_code,
-//                        countryCodeList.get(position).get("dial_code"));
-//                dialogCountryCode.dismiss();
-//            }
-//        });
-//
-//    }
+    private void openCountryCodeDialog() {
+        final List<Map<String, String>> countryCodeList = Utils.getCountryCode(mActivity);
+        final Dialog dialogCountryCode = new Dialog(mActivity);
+        dialogCountryCode.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogCountryCode.setContentView(R.layout.layout_country_code);
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        ListView listView = (ListView) dialogCountryCode.findViewById(R.id.list);
+        CountryCodeAdapter adapter = new CountryCodeAdapter(mActivity, countryCodeList);
+        listView.setAdapter(adapter);
+        dialogCountryCode.show();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                setViewText(R.id.txt_country_code,
+                        countryCodeList.get(position).get("dial_code"));
+                dialogCountryCode.dismiss();
+            }
+        });
+
+    }
 
     public void performSignUp() {
 
@@ -117,6 +117,9 @@ public class SignupActivity extends BaseActivity {
                 params.put("mobile", getEditTextText(R.id.et_phone));
                 params.put("gender", "");
                 params.put("dob", "");
+                params.put("country_code", getViewText(R.id.txt_country_code).contains("+")
+                        ? getViewText(R.id.txt_country_code).replace("+", "")
+                        : getViewText(R.id.txt_country_code));
                 params.put("confirm_password", getEditTextText(R.id.et_passowrd));
                 params.put("device_id", GroomerPreference.getPushRegistrationId(mActivity));
                 params.put("lat", GroomerPreference.getLatitude(mActivity) + "");
@@ -186,12 +189,12 @@ public class SignupActivity extends BaseActivity {
         } else if (getEditTextText(R.id.et_passowrd).equals("")) {
             Utils.showDialog(mActivity, getString(R.string.message_title), getString(R.string.alert_please_enter_password));
             return false;
+        } else if (getViewText(R.id.txt_country_code).equals("")) {
+            Utils.showDialog(mActivity, getString(R.string.message_title),
+                    getString(R.string.enter_country_code));
+            return false;
         }
-//        else if (getViewText(R.id.edt_confirm_password).equals("")) {
-//            Utils.showDialog(mActivity, getString(R.string.message_title),
-//                    getString(R.string.alert_please_confirm_password));
-//            return false;
-//        } else if (!getViewText(R.id.edt_password).equals(getViewText(R.id.edt_confirm_password))) {
+        //else if (!getViewText(R.id.edt_password).equals(getViewText(R.id.edt_confirm_password))) {
 //            Utils.showDialog(mActivity, getString(R.string.message_title),
 //                    getString(R.string.alert_password_not_match));
 //            return false;

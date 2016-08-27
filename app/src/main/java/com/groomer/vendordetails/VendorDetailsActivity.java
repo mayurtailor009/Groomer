@@ -209,6 +209,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
         setViewText(R.id.txt_vendor_address, saloonDetailsDTO.getAddress());
         setViewText(R.id.txt_vendor_distance, "(" + saloonDetailsDTO.getDistance() +
                 " " + getString(R.string.distance_unit_km) + " )");
+        setViewText(R.id.txt_vendor_rating, saloonDetailsDTO.getRating());
 
 
         if (saloonDetailsDTO.getRating() != null && !saloonDetailsDTO.getRating().equalsIgnoreCase("")) {

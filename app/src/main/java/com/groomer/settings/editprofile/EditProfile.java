@@ -2,6 +2,7 @@ package com.groomer.settings.editprofile;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,8 +14,12 @@ import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -31,6 +36,7 @@ import com.groomer.camera.CameraSelectInterface;
 import com.groomer.camera.GallerySelectInterface;
 import com.groomer.home.HomeActivity;
 import com.groomer.model.UserDTO;
+import com.groomer.settings.adapter.CountryCodeAdapter;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.GroomerPreference;
 import com.groomer.utillity.Utils;
@@ -50,6 +56,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class EditProfile extends BaseActivity {
@@ -95,6 +102,7 @@ public class EditProfile extends BaseActivity {
         setClick(R.id.edt_dob);
         setClick(R.id.edt_gender);
         setClick(R.id.btn_save);
+        setClick(R.id.txt_country_code);
     }
 
 
@@ -124,6 +132,10 @@ public class EditProfile extends BaseActivity {
                 swh_location.setChecked(userDTO.getIs_location_service().equals("1"));
             }
 
+            if (userDTO.getCountry_code() != null) {
+                setViewText(R.id.txt_country_code, "+" + userDTO.getCountry_code());
+            }
+
             ImageLoader.getInstance().displayImage(userDTO.getImage(), ivProfile, options);
         }
     }
@@ -138,6 +150,9 @@ public class EditProfile extends BaseActivity {
             case R.id.edt_gender:
                 showSexDialog();
                 break;
+            case R.id.txt_country_code:
+                openCountryCodeDialog();
+                break;
             case R.id.btn_save:
                 if (validateForm()) {
                     updateProfile();
@@ -150,7 +165,7 @@ public class EditProfile extends BaseActivity {
     }
 
     private void updateProfile() {
-        boolean locationChecked = getIntent().getBooleanExtra("location_switch", false);
+        boolean locationChecked = ((Switch) findViewById(R.id.swh_location)).isChecked();
         if (Utils.isOnline(mActivity)) {
 
             Map<String, String> params = new HashMap<>();
@@ -159,7 +174,8 @@ public class EditProfile extends BaseActivity {
             params.put("name", getViewText(R.id.et_name));
             params.put("dob", getViewText(R.id.edt_dob));
             params.put("gender", getViewText(R.id.edt_gender).equals("Male") ? "M" : "F");
-            //params.put("country_code", getViewText(R.id.txt_country_code, view));
+            params.put("country_code", getViewText(R.id.txt_country_code).contains("+")
+                    ? getViewText(R.id.txt_country_code).replace("+", "") : getViewText(R.id.txt_country_code));
             params.put("is_location_service", locationChecked ? "1" : "0");
             params.put("mobile", getViewText(R.id.et_mobile_no));
             params.put("location", getViewText(R.id.et_mobile_no));
@@ -337,6 +353,29 @@ public class EditProfile extends BaseActivity {
         }
     }
 
+    private void openCountryCodeDialog() {
+        final List<Map<String, String>> countryCodeList = Utils.getCountryCode(mActivity);
+        final Dialog dialogCountryCode = new Dialog(mActivity);
+        dialogCountryCode.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogCountryCode.setContentView(R.layout.layout_country_code);
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        ListView listView = (ListView) dialogCountryCode.findViewById(R.id.list);
+        CountryCodeAdapter adapter = new CountryCodeAdapter(mActivity, countryCodeList);
+        listView.setAdapter(adapter);
+        dialogCountryCode.show();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                setViewText(R.id.txt_country_code,
+                        countryCodeList.get(position).get("dial_code"));
+                dialogCountryCode.dismiss();
+            }
+        });
+
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -460,6 +499,10 @@ public class EditProfile extends BaseActivity {
         } else if (getViewText(R.id.edt_gender).equals("")) {
             Utils.showDialog(mActivity, mActivity.getString(R.string.message_title),
                     mActivity.getString(R.string.enter_gender));
+            return false;
+        } else if (getViewText(R.id.txt_country_code).equals("")) {
+            Utils.showDialog(mActivity, mActivity.getString(R.string.message_title),
+                    mActivity.getString(R.string.enter_country_code));
             return false;
         }
         return true;

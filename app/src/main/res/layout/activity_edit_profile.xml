@@ -92,20 +92,20 @@
                 android:orientation="horizontal"
                 android:weightSum="1.3">
 
-                <!--<com.groomer.customviews.CustomTextViewMarkNovaRegular-->
-                <!--android:id="@+id/txt_country_code"-->
-                <!--style="@style/et_login_style"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="5dp"-->
-                <!--android:layout_weight=".3"-->
-                <!--android:drawableRight="@drawable/down_green"-->
-                <!--android:hint="@string/txt_select_country_code" />-->
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                    android:id="@+id/txt_country_code"
+                    style="@style/et_login_style"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight=".3"
+                    android:drawableRight="@drawable/down_green"
+                    android:hint="@string/txt_select_country_code" />
 
-                <!--<View-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="0.15" />-->
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.15" />
 
                 <com.groomer.customviews.CustomEditTextMarkNovaRegular
                     android:id="@+id/et_mobile_no"
@@ -113,7 +113,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:layout_weight="1.3"
+                    android:layout_weight="1.0"
                     android:hint="@string/hint_enter_here"
                     android:inputType="phone" />
 

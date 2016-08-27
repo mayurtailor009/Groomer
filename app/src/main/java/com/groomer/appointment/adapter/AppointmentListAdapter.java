@@ -1,5 +1,6 @@
 package com.groomer.appointment.adapter;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -7,10 +8,12 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
@@ -45,6 +48,7 @@ import org.joda.time.DateTime;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -397,26 +401,50 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
         cancelLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new CustomAlert(context)
-                        .doubleButtonAlertDialog(
-                                context.getString(R.string.cancel_confirmation),
-                                context.getString(R.string.ok_button),
-                                context.getString(R.string.canceled), "dblBtnCallbackResponse", groupPosition);
+                try {
+                    LayoutInflater inflater = LayoutInflater.from(context);
+                    View view = inflater.inflate(R.layout.doublebtn_alert_dialog, null);
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setView(view);
+                    final AlertDialog alertDialog = builder.create();
+                    alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+                    TextView text_msg = (TextView) view.findViewById(R.id.doubleBtnAlertMsg);
+                    text_msg.setText(context.getString(R.string.cancel_confirmation));
+                    Button positive = (Button) view.findViewById(R.id.dblBtnAlert_positveBtn);
+                    Button negative = (Button) view.findViewById(R.id.dblBtnAlert_negativeBtn);
+
+                    positive.setText(context.getString(R.string.ok_button));
+                    negative.setText(context.getString(R.string.canceled));
+
+                    positive.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            requestForCancel(groupPosition);
+                            if (alertDialog != null) {
+                                alertDialog.dismiss();
+                            }
+                        }
+                    });
+
+                    negative.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (alertDialog != null) {
+                                alertDialog.dismiss();
+                            }
+                        }
+                    });
+
+                    alertDialog.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
 
-    /**
-     * callback method of double button alert box.
-     *
-     * @param flag          true if Ok button pressed otherwise false.
-     * @param groupPosition is the position of group which is expanded.
-     */
-    public void dblBtnCallbackResponse(Boolean flag, int groupPosition) {
-        if (flag) {
-            requestForCancel(groupPosition);
-        }
-    }
 
     //handles click on share button.
     private void performClickOnShareButton(Button shareBtn, final int groupPosition) {
@@ -434,7 +462,7 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
 
     }
 
-    private void requestForCancel(final int position) {
+    public void requestForCancel(final int position) {
         final String orderID = appointsParentList.get(position).getOrder_id();
         HashMap<String, String> params = new HashMap<>();
         params.put("action", Constants.CANCEL_APPOINTMENT);

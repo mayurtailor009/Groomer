@@ -433,7 +433,7 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
 
     private boolean validateForm() {
 
-        if (selectedSlot.equalsIgnoreCase("")) {
+        if (selectedSlot == null || selectedSlot.equalsIgnoreCase("")) {
             return false;
         }
 

@@ -137,22 +137,23 @@
                     android:inputType="textPassword"
                     android:typeface="monospace" />
 
-                <!--<com.groomer.customviews.CustomTextViewMarkNovaRegular-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:text="@string/txt_country_code"-->
-                <!--android:textSize="20sp"-->
-                <!--android:textStyle="bold" />-->
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/txt_country_code"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-                <!--<com.groomer.customviews.CustomTextViewMarkNovaRegular-->
-                <!--android:id="@+id/txt_country_code"-->
-                <!--style="@style/et_login_style"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="5dp"-->
-                <!--android:drawableRight="@drawable/down_green"-->
-                <!--android:hint="@string/enter_country_code" />-->
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                    android:id="@+id/txt_country_code"
+                    style="@style/et_login_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="+966"
+                    android:drawableRight="@drawable/down_green"
+                    android:hint="@string/enter_country_code" />
 
                 <Button
                     android:id="@+id/btn_signup"

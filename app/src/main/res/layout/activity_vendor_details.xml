@@ -34,6 +34,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true">
 
+
                     <!-- back arrow button -->
                     <ImageView
                         android:id="@+id/vendor_details_iv_back"
@@ -42,13 +43,6 @@
                         android:layout_alignParentLeft="true"
                         android:layout_margin="@dimen/margin_10"
                         android:background="@drawable/circle_shape"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:paddingBottom="@dimen/margin_5"
-                        android:paddingLeft="@dimen/margin_10"
-                        android:paddingRight="@dimen/margin_10"
-                        android:paddingTop="@dimen/margin_5"
                         android:scaleType="centerCrop"
                         android:src="@drawable/white_back_btn" />
 
@@ -60,7 +54,6 @@
                         android:layout_alignParentRight="true"
                         android:layout_margin="@dimen/margin_10"
                         android:background="@drawable/circle_shape"
-                        android:padding="@dimen/margin_10"
                         android:src="@drawable/zoom_icon" />
                 </RelativeLayout>
             </FrameLayout>
@@ -112,8 +105,30 @@
                     android:id="@+id/txt_vendor_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="kdsjflksdj"
                     android:textSize="15sp" />
+
+                <!-- rating number -->
+                <com.groomer.customviews.CustomTextViewMarkNovaRegular
+                    android:id="@+id/txt_vendor_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/txt_vendor_name"
+                    android:layout_marginBottom="@dimen/margin_1"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_toRightOf="@+id/txt_vendor_name"
+                    android:textSize="12sp" />
+
+                <!-- rating start image -->
+                <ImageView
+                    android:id="@+id/img_rating_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/txt_vendor_rating"
+                    android:layout_marginBottom="@dimen/margin_1"
+                    android:layout_marginLeft="@dimen/margin_5"
+                    android:layout_toRightOf="@+id/txt_vendor_rating"
+                    android:src="@drawable/star_icon" />
 
                 <!-- vendor address -->
 
