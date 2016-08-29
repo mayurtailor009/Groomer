@@ -9,6 +9,15 @@ public class NotificationDTO implements Serializable {
     private String store_id;
     private long timestamp;
     private String image;
+    private String notification_id;
+
+    public String getNotification_id() {
+        return notification_id;
+    }
+
+    public void setNotification_id(String notification_id) {
+        this.notification_id = notification_id;
+    }
 
     public String getType() {
         return type;

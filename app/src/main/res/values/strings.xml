@@ -109,6 +109,7 @@
     <string name="txt_date_time">tue 2 Aug at 11:00 PM</string>
     <string name="txt_no_alerts">No Alerts</string>
     <string name="press_again_to_exit">Press again to exit</string>
+    <string name="delete">Delete</string>
     <!--END For alert screen -->
 
     <string name="no_favourities">No Favourities.</string>

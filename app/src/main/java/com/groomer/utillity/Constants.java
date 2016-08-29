@@ -44,4 +44,5 @@ public class Constants {
     public static String CANCEL_APPOINTMENT = "cancel_appointment";
     public static String APPOINTMENTS = "appointment";
     public static String REVIEWLIST = "reviewlist";
+    public static String DELETE_NOTIFICATION = "deletenotification";
 }

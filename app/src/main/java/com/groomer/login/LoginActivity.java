@@ -79,6 +79,7 @@ public class LoginActivity extends BaseActivity {
         setClick(R.id.tv_forgotpassword);
         setClick(R.id.tv_signup);
         setClick(R.id.back_btn);
+        setClick(R.id.txt_skip);
 
         ImageView img_facebook_login = (ImageView) findViewById(R.id.img_facebook_login);
         btnFbLogin = (LoginButton) findViewById(R.id.btnFb);
@@ -125,6 +126,12 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.back_btn:
                 openSkipScreen();
+                break;
+            case R.id.txt_skip:
+                Intent home = new Intent(mActivity, HomeActivity.class);
+                home.putExtra("fragmentNumber", 0);
+                startActivity(home);
+                finish();
                 break;
         }
     }

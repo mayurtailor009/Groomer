@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SeekBar;
@@ -44,6 +45,7 @@ import com.groomer.recyclerviewitemclick.MyOnClickListener;
 import com.groomer.recyclerviewitemclick.RecyclerTouchListener;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.HelpMe;
+import com.groomer.utillity.Theme;
 import com.groomer.utillity.Utils;
 import com.groomer.vendordetails.adapter.TimeSlotesAdater;
 import com.groomer.volley.CustomJsonRequest;
@@ -219,7 +221,7 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
             public void create(SwipeMenu menu) {
                 SwipeMenuItem remove = new SwipeMenuItem(mActivity);
                 remove.setWidth(convert_dp_to_px(100));
-                remove.setBackground(R.color.theme_red);
+                changeRemoveBtnColorAsTheme(remove);
                 remove.setTitle(mActivity.getResources().getString(R.string.txt_remove));
                 remove.setTitleSize(15);
                 remove.setTitleColor(Color.WHITE);
@@ -242,6 +244,18 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
             }
         });
 
+    }
+
+    private void changeRemoveBtnColorAsTheme(SwipeMenuItem item) {
+        Theme theme = Utils.getObjectFromPref(mActivity, Constants.CURRENT_THEME);
+
+        if (theme.equals(Theme.Blue)) {
+            item.setBackground(R.color.theme_blue);
+        } else if (theme.equals(Theme.Red)) {
+            item.setBackground(R.color.theme_red);
+        } else {
+            item.setBackground(R.color.theme_green);
+        }
     }
 
     private int convert_dp_to_px(int dp) {

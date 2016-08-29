@@ -54,6 +54,7 @@ public class SignupActivity extends BaseActivity {
         setClick(R.id.tv_signin);
         setClick(R.id.back_btn);
         setClick(R.id.txt_country_code);
+        setClick(R.id.txt_skip);
     }
 
     @Override
@@ -71,6 +72,12 @@ public class SignupActivity extends BaseActivity {
                 break;
             case R.id.back_btn:
                 openSkipScreen();
+                break;
+            case R.id.txt_skip:
+                Intent home = new Intent(mActivity, HomeActivity.class);
+                home.putExtra("fragmentNumber", 0);
+                startActivity(home);
+                finish();
                 break;
         }
     }

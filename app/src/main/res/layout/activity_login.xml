@@ -175,6 +175,15 @@
                     android:visibility="gone" />
             </LinearLayout>
 
+            <com.groomer.customviews.CustomTextViewMarkNovaSemibold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_skip"
+                android:text="@string/txt_skip"
+                android:textSize="@dimen/textsize_18sp"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_gravity="center_horizontal"/>
+
 
         </LinearLayout>
     </ScrollView>

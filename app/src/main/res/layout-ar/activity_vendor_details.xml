@@ -58,7 +58,6 @@
                         android:layout_alignParentLeft="true"
                         android:layout_margin="@dimen/margin_10"
                         android:background="@drawable/circle_shape"
-                        android:padding="@dimen/margin_10"
                         android:src="@drawable/zoom_icon" />
                 </RelativeLayout>
             </FrameLayout>
