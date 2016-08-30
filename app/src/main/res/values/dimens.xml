@@ -20,6 +20,7 @@
     <!-- textSizes -->
     <dimen name="textsize_18sp">18sp</dimen>
     <dimen name="textsize_17sp">17sp</dimen>
+    <dimen name="textsize_16sp">16sp</dimen>
     <dimen name="textsize_15sp">15sp</dimen>
     <dimen name="textsize_12sp">12sp</dimen>
     <dimen name="textsize_10sp">10sp</dimen>
