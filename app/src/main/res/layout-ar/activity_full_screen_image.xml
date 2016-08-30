@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -31,9 +32,14 @@
         android:id="@+id/iv_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/back_btn_right" />
+        android:layout_margin="@dimen/margin_10"
+        android:background="@drawable/circle_shape"
+        android:paddingBottom="@dimen/margin_10"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="@dimen/margin_10"
+        android:scaleType="centerCrop"
+        android:src="@drawable/white_back_btn_arabic" />
 
 
 </RelativeLayout>
