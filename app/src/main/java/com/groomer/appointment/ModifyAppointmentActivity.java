@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,20 +22,14 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.baoyz.swipemenulistview.SwipeMenu;
-import com.baoyz.swipemenulistview.SwipeMenuCreator;
-import com.baoyz.swipemenulistview.SwipeMenuItem;
-import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
 import com.groomer.activity.BaseActivity;
 import com.groomer.appointment.adapter.ModifySwipeMenuListViewAdapter;
-import com.groomer.appointment.adapter.SwipeMenuListViewAdapter;
 import com.groomer.home.HomeActivity;
 import com.groomer.model.AppointServicesDTO;
-import com.groomer.model.ServiceDTO;
 import com.groomer.model.SloteDTO;
 import com.groomer.recyclerviewitemclick.MyOnClickListener;
 import com.groomer.recyclerviewitemclick.RecyclerTouchListener;
@@ -301,6 +294,8 @@ public class ModifyAppointmentActivity extends BaseActivity {
             params.put("date", btnDate.getText().toString());
             params.put("amount", amount);
             params.put("slot_id", selectedSlot);
+            params.put("order_id", getIntent().getStringExtra("order_id"));
+
 
             final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
             CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
@@ -373,7 +368,7 @@ public class ModifyAppointmentActivity extends BaseActivity {
 
     private boolean validateForm() {
 
-        if (selectedSlot.equalsIgnoreCase("")) {
+        if (selectedSlot == null || selectedSlot.equalsIgnoreCase("")) {
             return false;
         }
 

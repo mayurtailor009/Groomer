@@ -375,11 +375,10 @@ public class AppointmentListAdapter extends BaseExpandableListAdapter {
                                     totalPrice += Double.parseDouble(serviceDTO.getPrice());
                                 }
                                 intent.putExtra("totalPrice", totalPrice + "");
-                                intent.putExtra("store_id", appointsParentList.get(groupPosition).
-
-                                        getStore_id()
-
+                                intent.putExtra("store_id",
+                                        appointsParentList.get(groupPosition).getStore_id()
                                 );
+                                intent.putExtra("order_id", appointsParentList.get(groupPosition).getOrder_id());
                                 intent.putExtra("isModifyAppointment", true);
                                 context.startActivity(intent);
 

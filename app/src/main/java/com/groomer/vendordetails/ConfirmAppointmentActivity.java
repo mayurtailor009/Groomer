@@ -68,7 +68,7 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
     private List<ServiceDTO> serviceDTOList;
     private SwipeMenuListViewAdapter adapter;
     private int mYear, mMonth, mDay, mHour, mMinute;
-    private Button btnSubmit;
+    //private Button btnSubmit;
     private TextView btnDate;
     private RecyclerView recyclerViewSlots;
     private List<SloteDTO> sloteList;
@@ -90,7 +90,7 @@ public class ConfirmAppointmentActivity extends BaseActivity implements SwipeMen
      */
     private void init() {
 
-        btnSubmit = (Button) findViewById(R.id.confirm_appointment_btn);
+       // btnSubmit = (Button) findViewById(R.id.confirm_appointment_btn);
         btnDate = (TextView) findViewById(R.id.btn_date);
         btnDate.setText(Utils.getCurrentDate());
         // btnTime = (Button) findViewById(R.id.btn_time);
