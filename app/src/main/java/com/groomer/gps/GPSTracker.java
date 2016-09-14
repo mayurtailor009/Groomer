@@ -186,10 +186,9 @@ public class GPSTracker implements ConnectionCallbacks,
         // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
         try {
 
-            if (Build.VERSION.SDK_INT >= 23 &&
-                    ContextCompat.checkSelfPermission(mActivity,
-                            android.Manifest.permission.ACCESS_FINE_LOCATION)
-                            == PackageManager.PERMISSION_GRANTED &&
+            if (ContextCompat.checkSelfPermission(mActivity,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED &&
                     ContextCompat.checkSelfPermission(mActivity, android.Manifest.permission.ACCESS_COARSE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
 
@@ -225,9 +224,8 @@ public class GPSTracker implements ConnectionCallbacks,
     public void onConnected(Bundle bundle) {
         try {
             if (mCurrentLocation == null) {
-                if (Build.VERSION.SDK_INT >= 23 &&
-                        ContextCompat.checkSelfPermission(mActivity, android.Manifest.permission.ACCESS_FINE_LOCATION)
-                                == PackageManager.PERMISSION_GRANTED &&
+                if (ContextCompat.checkSelfPermission(mActivity, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                        == PackageManager.PERMISSION_GRANTED &&
                         ContextCompat.checkSelfPermission(mActivity, android.Manifest.permission.ACCESS_COARSE_LOCATION)
                                 == PackageManager.PERMISSION_GRANTED) {
 
@@ -243,7 +241,7 @@ public class GPSTracker implements ConnectionCallbacks,
                     }
 
                 } else {
-                    ActivityCompat.requestPermissions((Activity)mActivity,
+                    ActivityCompat.requestPermissions((Activity) mActivity,
                             new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
                                     Manifest.permission.ACCESS_COARSE_LOCATION},
                             Constants.REQUEST_LOCATION_PERMISSION);

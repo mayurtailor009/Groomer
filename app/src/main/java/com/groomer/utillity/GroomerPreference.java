@@ -47,7 +47,6 @@ public class GroomerPreference {
     }
 
 
-
     public static void setPushRegistrationId(Context context, String userId) {
         SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
                 Context.MODE_PRIVATE);
@@ -116,7 +115,6 @@ public class GroomerPreference {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(KEY_PHONE,
                 null);
     }
-
 
 
     public static void setAPP_LANG(Context context, String lang) {

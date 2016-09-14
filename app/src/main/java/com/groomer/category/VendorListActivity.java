@@ -494,7 +494,7 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
 //                                        saloonDetailsDTO.setFavourite("0");
                                     }
                                     vendorListAdapter.setVendorsList(vendorList);
-                                    vendorListAdapter.notifyDataSetChanged();
+                                    vendorListAdapter.notifyItemChanged(pos);
                                     Toast.makeText(mActivity, Utils.getWebServiceMessage(response), Toast.LENGTH_SHORT).show();
                                 } catch (Exception e) {
                                     e.printStackTrace();

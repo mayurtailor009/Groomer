@@ -459,20 +459,12 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                 displayFragment(1);
                 break;
             case R.id.btn_reviews_tab:
-                //if (reviewList != null && reviewList.size() != 0) {
 
                 displayFragment(2);
-                //}
-//                else {
-//
-//                    requestForReviews();
-//                }
                 buttonSelected(false, false, true);
                 setTextColor(R.id.btn_reviews_tab, R.color.colorWhite);
                 setTextColor(R.id.btn_about_tab, R.color.black);
                 setTextColor(R.id.btn_services_tab, R.color.black);
-
-
                 break;
             case R.id.btn_set_appointment:
                 if (Utils.IsSkipLogin(mActivity)) {

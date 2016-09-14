@@ -148,6 +148,7 @@ public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.De
                 }
             }
         }
+
         notifyDataSetChanged();
     }
 }
