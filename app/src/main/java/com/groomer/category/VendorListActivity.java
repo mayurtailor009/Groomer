@@ -25,6 +25,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Cache;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -49,8 +50,10 @@ import com.groomer.utillity.Utils;
 import com.groomer.vendordetails.VendorDetailsActivity;
 import com.groomer.volley.CustomJsonRequest;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -392,71 +395,103 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
     private void getVendorsList(String categoryId,
                                 String distance,
                                 String rating, String price, String searchKeyword, String pageNumber) {
-        if (Utils.isOnline(mActivity)) {
-            HashMap<String, String> params = new HashMap<>();
-            params.put("action", Constants.VENDOR_LIST);
-            params.put("lat", GroomerPreference.getLatitude(mActivity) + "");
-            params.put("lng", GroomerPreference.getLongitude(mActivity) + "");
-            params.put("user_id", Utils.getUserId(mActivity));
-            params.put("category_id", categoryId);
-            params.put("rating", rating);
-            params.put("lang", Utils.getSelectedLanguage(mActivity));
-            params.put("distance", distance);
-            params.put("price", price);
-            params.put("page", pageNumber);
-            params.put("keyword", searchKeyword);
+        try {
+            if (Utils.isOnline(mActivity)) {
+                HashMap<String, String> params = new HashMap<>();
+                params.put("action", Constants.VENDOR_LIST);
+                params.put("lat", GroomerPreference.getLatitude(mActivity) + "");
+                params.put("lng", GroomerPreference.getLongitude(mActivity) + "");
+                params.put("user_id", Utils.getUserId(mActivity));
+                params.put("category_id", categoryId);
+                params.put("rating", rating);
+                params.put("lang", Utils.getSelectedLanguage(mActivity));
+                params.put("distance", distance);
+                params.put("price", price);
+                params.put("page", pageNumber);
+                params.put("keyword", searchKeyword);
 
-            final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
-            CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
-                    Constants.SERVICE_URL, params,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            Log.i("Groomer info", response.toString());
-                            pdialog.dismiss();
-                            if (Utils.getWebServiceStatus(response)) {
-                                try {
-                                    totalCount = response.getInt("count");
-                                    Type type = new TypeToken<ArrayList<VendorListDTO>>() {
-                                    }.getType();
-                                    List<VendorListDTO> vendorsList = new Gson()
-                                            .fromJson(response.getJSONArray("saloon").toString(), type);
+                final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
+                CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
+                        Constants.SERVICE_URL, params,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
 
-                                    if (!flag) {
-                                        vendorList.addAll(vendorsList);
-                                        setUpListAdapter(vendorList);
-                                        flag = true;
-                                    } else {
-                                        vendorList.addAll(vendorsList);
-                                        vendorListAdapter.setVendorsList(vendorList);
-                                        vendorListAdapter.notifyDataSetChanged();
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            } else {
-                                checkForEmptyList();
-                                setViewVisibility(R.id.no_saloon, View.VISIBLE);
-                                setViewVisibility(R.id.active_swipe_refresh_layout, View.GONE);
-                                setTextViewText(R.id.no_saloon, Utils.getWebServiceMessage(response));
+                                Log.i("Groomer info", response.toString());
+                                pdialog.dismiss();
+                                showSaloonListResponse(response);
+
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                pdialog.dismiss();
+                                Utils.showExceptionDialog(mActivity);
                             }
                         }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            pdialog.dismiss();
-                            Utils.showExceptionDialog(mActivity);
-                        }
-                    }
-            );
+                );
 
-            pdialog.show();
-            GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
-            jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                pdialog.show();
+                GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
+                jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            } else {
+
+
+                Cache.Entry entry = GroomerApplication.getInstance().getRequestQueue().
+                        getCache().get(Constants.VENDOR_LIST);
+                if (entry != null) {
+                    try {
+                        String data = new String(entry.data, "UTF-8");
+                        JSONObject response = new JSONObject(data);
+                        showSaloonListResponse(response);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    Utils.showNoNetworkDialog(mActivity);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
+
+
+    private void showSaloonListResponse(JSONObject response) {
+        if (Utils.getWebServiceStatus(response)) {
+            try {
+                totalCount = response.getInt("count");
+                Type type = new TypeToken<ArrayList<VendorListDTO>>() {
+                }.getType();
+                List<VendorListDTO> vendorsList = new Gson()
+                        .fromJson(response.getJSONArray("saloon").toString(), type);
+
+                if (!flag) {
+                    vendorList.addAll(vendorsList);
+                    setUpListAdapter(vendorList);
+                    flag = true;
+                } else {
+                    vendorList.addAll(vendorsList);
+                    vendorListAdapter.setVendorsList(vendorList);
+                    vendorListAdapter.notifyDataSetChanged();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            checkForEmptyList();
+            setViewVisibility(R.id.no_saloon, View.VISIBLE);
+            setViewVisibility(R.id.active_swipe_refresh_layout, View.GONE);
+            setTextViewText(R.id.no_saloon, Utils.getWebServiceMessage(response));
+        }
+
+    }
+
 
     private void checkForEmptyList() {
         if (vendorList == null || vendorList.isEmpty()) {
@@ -518,6 +553,8 @@ public class VendorListActivity extends BaseActivity implements FetchPopUpSelect
             GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
             jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        } else {
+
         }
 
 

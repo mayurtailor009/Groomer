@@ -1,5 +1,6 @@
 package com.groomer.category;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.Cache;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -36,12 +38,13 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -49,10 +52,10 @@ import java.util.Map;
  */
 public class SaloonListFragment extends BaseFragment {
 
-    View view;
-    ListView listView;
-    GridView gridView;
-    private Context mActivity;
+    private View view;
+    private ListView listView;
+    private GridView gridView;
+    private Activity mActivity;
 
 
     public static SaloonListFragment newInstance() {
@@ -94,76 +97,101 @@ public class SaloonListFragment extends BaseFragment {
     }
 
     private void getCategoryList() {
+        try {
+            if (Utils.isOnline(mActivity)) {
+                Map<String, String> params = new HashMap<>();
+                params.put("action", Constants.SALOON_LIST_METHOD);
+                params.put("lang", Utils.getSelectedLanguage(mActivity));
+                final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
+                CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constants.SERVICE_URL, params,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    pdialog.dismiss();
+                                    Utils.ShowLog(Constants.TAG, "Response=>" + response.toString());
+                                    setCategoryResponse(response);
 
-        if (Utils.isOnline(getActivity())) {
-            Map<String, String> params = new HashMap<>();
-            params.put("action", Constants.SALOON_LIST_METHOD);
-            params.put("lang", Utils.getSelectedLanguage(mActivity));
-            final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
-            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, Constants.SERVICE_URL, params,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                pdialog.dismiss();
-                                Utils.ShowLog(Constants.TAG, "Response=>" + response.toString());
-                                Type type = new TypeToken<ArrayList<CategoryDTO>>() {
-                                }.getType();
-                                ArrayList<CategoryDTO> categoryList = new Gson().fromJson(response.getJSONArray("category").toString(), type);
-                                setAdapter(categoryList);
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
-                        }
-                    }, new Response.ErrorListener() {
+                        }, new Response.ErrorListener() {
 
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Utils.showExceptionDialog(getActivity());
-                    pdialog.dismiss();
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Utils.showExceptionDialog(mActivity);
+                        pdialog.dismiss();
+                    }
+                });
+                pdialog.show();
+                GroomerApplication.getInstance().getRequestQueue().add(postReq);
+            } else {
+                Cache.Entry entry = GroomerApplication.getInstance().getRequestQueue().
+                        getCache().get(Constants.SALOON_LIST_METHOD);
+                if (entry != null) {
+                    try {
+                        String data = new String(entry.data, "UTF-8");
+                        JSONObject response = new JSONObject(data);
+                        setCategoryResponse(response);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    Utils.showNoNetworkDialog(mActivity);
                 }
-            });
-            pdialog.show();
-            GroomerApplication.getInstance().getRequestQueue().add(postReq);
-        } else {
-            Utils.showNoNetworkDialog(getActivity());
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
 
-    private void setAdapter(final ArrayList<CategoryDTO> categoryList) {
-        GridAdapter gridAdapter = new GridAdapter(getActivity(), categoryList);
-        gridView.setAdapter(gridAdapter);
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("dto", categoryList.get(position));
-                bundle.putSerializable("dtoList", categoryList);
-                Intent intent = new Intent(getActivity(), VendorListActivity.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
+    private void setCategoryResponse(JSONObject response) {
+        try {
+            Type type = new TypeToken<ArrayList<CategoryDTO>>() {
+            }.getType();
+            final ArrayList<CategoryDTO> categoryList = new Gson().fromJson(response.getJSONArray("category").toString(), type);
 
 
-        ListAdapter listAdapter = new ListAdapter(getActivity(), categoryList);
-        listView.setAdapter(listAdapter);
+            GridAdapter gridAdapter = new GridAdapter(mActivity, categoryList);
+            gridView.setAdapter(gridAdapter);
+
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("dto", categoryList.get(position));
+                    bundle.putSerializable("dtoList", categoryList);
+                    Intent intent = new Intent(mActivity, VendorListActivity.class);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+            });
 
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("dto", categoryList.get(position));
-                bundle.putSerializable("dtoList", categoryList);
-                Intent intent = new Intent(getActivity(), VendorListActivity.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
+            ListAdapter listAdapter = new ListAdapter(mActivity, categoryList);
+            listView.setAdapter(listAdapter);
+
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("dto", categoryList.get(position));
+                    bundle.putSerializable("dtoList", categoryList);
+                    Intent intent = new Intent(mActivity, VendorListActivity.class);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 

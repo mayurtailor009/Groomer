@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -21,13 +20,13 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.groomer.GroomerApplication;
 import com.groomer.R;
 import com.groomer.activity.BaseActivity;
 import com.groomer.gps.GPSTracker;
 import com.groomer.model.ReviewDTO;
 import com.groomer.model.SaloonDetailsDTO;
+import com.groomer.model.SaloonDetailsFullDTO;
 import com.groomer.model.ServiceDTO;
 import com.groomer.utillity.Constants;
 import com.groomer.utillity.GroomerPreference;
@@ -41,14 +40,11 @@ import com.groomer.vendordetails.fragments.ReviewFragment;
 import com.groomer.vendordetails.fragments.ServicesFragment;
 import com.groomer.vendordetails.priceserviceinterface.PriceServiceInterface;
 import com.groomer.volley.CustomJsonRequest;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import org.json.JSONObject;
 
 import java.io.Serializable;
-import java.lang.ref.WeakReference;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,9 +53,8 @@ import java.util.TimerTask;
 
 public class VendorDetailsActivity extends BaseActivity implements PriceServiceInterface {
 
-    private DisplayImageOptions options;
     private Activity mActivity;
-    private ArrayList<ReviewDTO> reviewList;
+    private List<ReviewDTO> reviewList;
     private List<ServiceDTO> serviceList;
     private SaloonDetailsDTO saloonDetailsDTO;
     private List<ServiceDTO> selectedList;
@@ -69,11 +64,17 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
     private ViewPager mPager;
     private ArrayList<String> listImages;
     private HashMap<String, Fragment> fragmentList = new HashMap<String, Fragment>();
-
-    private final ReviewResponseHandler myHandler =
-            new ReviewResponseHandler(VendorDetailsActivity.this);
-
     private boolean isReviewSelected;
+
+
+    public List<ServiceDTO> getServiceList() {
+        return serviceList;
+    }
+
+//    public void setServiceList(List<ServiceDTO> serviceList) {
+//        this.serviceList = serviceList;
+//    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -111,79 +112,70 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
         setTextColor(R.id.btn_about_tab, R.color.black);
         setTextColor(R.id.btn_reviews_tab, R.color.black);
 
-        Thread t = new Thread(
-                new Runnable() {
-
-                    @Override
-                    public void run() {
-
-                        // Request for reviews
-                        requestForReviews(storeId);
-                    }
-                });
-        t.start();
     }
 
     private void getVendorDetails(final String storeId) {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("action", Constants.VENDOR_DETAILS);
-        params.put("lat", "" + GroomerPreference.getLatitude(mActivity));
-        params.put("lng", "" + GroomerPreference.getLongitude(mActivity));
-        params.put("user_id", Utils.getUserId(mActivity));
-        params.put("store_id", storeId);
-        params.put("lang", Utils.getSelectedLanguage(mActivity));
+        if (Utils.isOnline(mActivity)) {
+            HashMap<String, String> params = new HashMap<>();
+            params.put("action", Constants.VENDOR_DETAILS);
+            params.put("lat", "" + GroomerPreference.getLatitude(mActivity));
+            params.put("lng", "" + GroomerPreference.getLongitude(mActivity));
+            params.put("user_id", Utils.getUserId(mActivity));
+            params.put("store_id", storeId);
+            params.put("lang", Utils.getSelectedLanguage(mActivity));
 
-        final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
-        CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
-                Constants.SERVICE_URL, params,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.i("Groomer info", response.toString());
-                        pdialog.dismiss();
-                        try {
-                            if (Utils.getWebServiceStatus(response)) {
+            final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
+            CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
+                    Constants.SERVICE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.i("Groomer info", response.toString());
+                            pdialog.dismiss();
+                            try {
+                                if (Utils.getWebServiceStatus(response)) {
 
-                                //getting saloon details
-                                saloonDetailsDTO = new Gson().fromJson(
-                                        response.getJSONObject("Saloon").toString(),
-                                        SaloonDetailsDTO.class
-                                );
+                                    SaloonDetailsFullDTO saloonDetailsFullDTO =
+                                            new Gson().fromJson(response.toString(), SaloonDetailsFullDTO.class);
 
-                                //adding images urls to imagelist to show in viewpager.
-                                setSaloonDetails(); //setting the saloon details
-                                setUpViewPager();
+                                    //getting saloon details
+                                    saloonDetailsDTO = saloonDetailsFullDTO.getSaloon();
+                                    reviewList = saloonDetailsFullDTO.getReview();
 
-                                //getting service list.
-                                Type servieType = new TypeToken<ArrayList<ServiceDTO>>() {
-                                }.getType();
-                                serviceList = new Gson().fromJson(
-                                        response.getJSONArray("Service").toString(), servieType
-                                );
+                                    if (reviewList != null) {
+                                        setSaloonDetails(reviewList.size()); //setting the saloon details
+                                    }
 
-                                showServiesFragment();
+                                    setUpViewPager();
 
+                                    serviceList = saloonDetailsFullDTO.getService();
+
+                                    showServiesFragment();
+
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.i("Groomer info", error.toString());
+                            pdialog.dismiss();
+                            Utils.showExceptionDialog(mActivity);
                         }
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i("Groomer info", error.toString());
-                        pdialog.dismiss();
-                        Utils.showExceptionDialog(mActivity);
-                    }
-                }
-        );
+            );
 
-        pdialog.show();
-        GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
-        jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
-        );
+            pdialog.show();
+            GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
+            jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+            );
+        } else {
+            Utils.showNoNetworkDialog(mActivity);
+        }
     }
 
     /**
@@ -199,7 +191,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
     /**
      * this method sets the saloon name and address details.
      */
-    private void setSaloonDetails() {
+    private void setSaloonDetails(int reviewsCount) {
 
         if (HelpMe.isArabic(mActivity)) {
             setViewText(R.id.txt_vendor_name, saloonDetailsDTO.getStorename_ara());
@@ -212,19 +204,15 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
         setViewText(R.id.txt_vendor_rating, saloonDetailsDTO.getRating());
 
 
-        if (saloonDetailsDTO.getRating() != null && !saloonDetailsDTO.getRating().equalsIgnoreCase("")) {
-            String strReview = getViewText(R.id.btn_reviews_tab);
-            String reviewCount = saloonDetailsDTO.getRating().equalsIgnoreCase("0")
-                    ? "" : "(" + saloonDetailsDTO.getRating() + ")";
-            setViewText(R.id.btn_reviews_tab, strReview + reviewCount);
+        if (reviewsCount != 0) {
+            setViewText(R.id.btn_reviews_tab,
+                    getViewText(R.id.btn_reviews_tab) + " (" + reviewsCount + ")");
         }
 
         ImageView img_fav = (ImageView) findViewById(R.id.img_fav);
         if (saloonDetailsDTO.getFavourite().equals("1")) {
             img_fav.setImageResource(R.drawable.fav_active_icon);
-
         } else {
-
             img_fav.setImageResource(R.drawable.fav_icon);
         }
     }
@@ -233,72 +221,74 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
      * this method initializes the viewpager and set the images in it.
      */
     private void setUpViewPager() {
-        listImages = new ArrayList<>();
-//        listImages.add(saloonDetailsDTO.getImage());
+        try {
+            listImages = new ArrayList<>();
 
-        for (int i = 0; i < saloonDetailsDTO.getImages().size(); i++) {
-            listImages.add(saloonDetailsDTO.getImages().get(i).getImage());
-        }
+            for (int i = 0; i < saloonDetailsDTO.getImages().size(); i++) {
+                listImages.add(saloonDetailsDTO.getImages().get(i).getImage());
+            }
 
-        mPager = (ViewPager) findViewById(R.id.vendor_details_viewpager);
-        mPager.setAdapter(new ViewPagerAdapter(mActivity, listImages));
+            mPager = (ViewPager) findViewById(R.id.vendor_details_viewpager);
+            mPager.setAdapter(new ViewPagerAdapter(mActivity, listImages));
 
-        CirclePageIndicator indicator = (CirclePageIndicator) findViewById(
-                R.id.vendor_details_viewpager_indicators);
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)
-                indicator.getLayoutParams();
-        if (GroomerPreference.getAPP_LANG(mActivity).equals("eng")) {
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-        } else {
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        }
-        indicator.setLayoutParams(layoutParams);
-        indicator.setViewPager(mPager);
+            CirclePageIndicator indicator = (CirclePageIndicator) findViewById(
+                    R.id.vendor_details_viewpager_indicators);
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)
+                    indicator.getLayoutParams();
+            if (GroomerPreference.getAPP_LANG(mActivity).equals("eng")) {
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+            } else {
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            }
+            indicator.setLayoutParams(layoutParams);
+            indicator.setViewPager(mPager);
 
-        final float density = getResources().getDisplayMetrics().density;
-        indicator.setRadius(3 * density);
+            final float density = getResources().getDisplayMetrics().density;
+            indicator.setRadius(3 * density);
 
-        NUM_PAGES = listImages.size();
+            NUM_PAGES = listImages.size();
 
-        // Auto start of viewpager
-        final Handler handler = new Handler();
-        final Runnable Update = new Runnable() {
-            public void run() {
-                if (currentPage == NUM_PAGES) {
-                    currentPage = 0;
+            // Auto start of viewpager
+            final Handler handler = new Handler();
+            final Runnable Update = new Runnable() {
+                public void run() {
+                    if (currentPage == NUM_PAGES) {
+                        currentPage = 0;
+                    }
+                    mPager.setCurrentItem(currentPage, true);
+                    currentPage++;
                 }
-                mPager.setCurrentItem(currentPage, true);
-                currentPage++;
-            }
-        };
-        Timer swipeTimer = new Timer();
-        swipeTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(Update);
-            }
-        }, 3000, 3000);
+            };
+            Timer swipeTimer = new Timer();
+            swipeTimer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    handler.post(Update);
+                }
+            }, 3000, 3000);
 
-        // Pager listener over indicator
-        indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            // Pager listener over indicator
+            indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
-            @Override
-            public void onPageSelected(int position) {
-                currentPage = position;
+                @Override
+                public void onPageSelected(int position) {
+                    currentPage = position;
 
-            }
+                }
 
-            @Override
-            public void onPageScrolled(int pos, float arg1, int arg2) {
+                @Override
+                public void onPageScrolled(int pos, float arg1, int arg2) {
 
-            }
+                }
 
-            @Override
-            public void onPageScrollStateChanged(int pos) {
+                @Override
+                public void onPageScrollStateChanged(int pos) {
 
-            }
-        });
-
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -339,7 +329,7 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
             case 2:
                 tag = "review";
                 isReviewSelected = true;
-                fragment = ReviewFragment.newInstance(reviewList);
+                fragment = ReviewFragment.newInstance((ArrayList) reviewList);
                 break;
 
 
@@ -353,97 +343,99 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
     }
 
 
-    public static class ReviewResponseHandler extends Handler {
-
-        public final WeakReference<VendorDetailsActivity> mActivity;
-
-        ReviewResponseHandler(VendorDetailsActivity activity) {
-            mActivity = new WeakReference<VendorDetailsActivity>(activity);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            VendorDetailsActivity activity = mActivity.get();
-            if (msg.what == Constants.REVIEW_LIST_HANDLER) {
-                activity.reviewList = ((ArrayList<ReviewDTO>) msg.obj);
-                if (activity.isReviewSelected) {
-                    activity.displayFragment(2);
-                }
-            }
-
-
-        }
-    }
-
-
-    private void requestForReviews(String storeId) {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("action", Constants.REVIEWLIST);
-        params.put("store_id", storeId);
-        params.put("lang", Utils.getSelectedLanguage(mActivity));
-
-        //final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
-        CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
-                Constants.SERVICE_URL, params,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.i("Groomer info", response.toString());
-                        //pdialog.dismiss();
-                        if (Utils.getWebServiceStatus(response)) {
-                            try {
-                                //getting reviews list.
-                                Type reviewType = new TypeToken<ArrayList<ReviewDTO>>() {
-                                }.getType();
-                                reviewList = new Gson().fromJson(
-                                        response.getJSONArray("review").toString(),
-                                        reviewType
-                                );
-                                Message msg = myHandler.obtainMessage(Constants.
-                                        REVIEW_LIST_HANDLER, reviewList);
-                                myHandler.sendMessage(msg);
-
-//                                ReviewFragment fragment = ReviewFragment.newInstance(reviewList);
+//    public static class ReviewResponseHandler extends Handler {
+//
+//        public final WeakReference<VendorDetailsActivity> mActivity;
+//
+//        ReviewResponseHandler(VendorDetailsActivity activity) {
+//            mActivity = new WeakReference<VendorDetailsActivity>(activity);
+//        }
+//
+//        @Override
+//        public void handleMessage(Message msg) {
+//            VendorDetailsActivity activity = mActivity.get();
+//            if (msg.what == Constants.REVIEW_LIST_HANDLER) {
+//                activity.reviewList = ((ArrayList<ReviewDTO>) msg.obj);
+//                if (activity.isReviewSelected) {
+//                    activity.displayFragment(2);
+//                }
+//            }
 //
 //
-//                                getSupportFragmentManager()
-//                                        .beginTransaction()
-//                                        .replace(R.id.vendor_details_container, fragment)
-//                                        .commit();
+//        }
+//    }
 
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                Utils.showExceptionDialog(mActivity);
-                            }
-                        }
-//                        else {
-//                            ReviewFragment fragment = ReviewFragment.newInstance();
-//                            Bundle reviewBundle = new Bundle();
-//                            reviewBundle.putSerializable("reviewList", reviewList);
-//                            fragment.setArguments(reviewBundle);
+
+    // private void requestForReviews(String storeId) {
+//        if (Utils.isOnline(mActivity)) {
+//            HashMap<String, String> params = new HashMap<>();
+//            params.put("action", Constants.REVIEWLIST);
+//            params.put("store_id", storeId);
+//            params.put("lang", Utils.getSelectedLanguage(mActivity));
 //
-//                            getSupportFragmentManager()
-//                                    .beginTransaction()
-//                                    .replace(R.id.vendor_details_container, fragment)
-//                                    .commit();
+//            //final ProgressDialog pdialog = Utils.createProgressDialog(mActivity, null, false);
+//            CustomJsonRequest jsonRequest = new CustomJsonRequest(Request.Method.POST,
+//                    Constants.SERVICE_URL, params,
+//                    new Response.Listener<JSONObject>() {
+//                        @Override
+//                        public void onResponse(JSONObject response) {
+//                            Log.i("Groomer info", response.toString());
+//                            //pdialog.dismiss();
+//                            if (Utils.getWebServiceStatus(response)) {
+//                                try {
+//                                    //getting reviews list.
+//                                    Type reviewType = new TypeToken<ArrayList<ReviewDTO>>() {
+//                                    }.getType();
+//                                    reviewList = new Gson().fromJson(
+//                                            response.getJSONArray("review").toString(),
+//                                            reviewType
+//                                    );
+//                                    Message msg = myHandler.obtainMessage(Constants.
+//                                            REVIEW_LIST_HANDLER, reviewList);
+//                                    myHandler.sendMessage(msg);
+//
+////                                ReviewFragment fragment = ReviewFragment.newInstance(reviewList);
+////
+////
+////                                getSupportFragmentManager()
+////                                        .beginTransaction()
+////                                        .replace(R.id.vendor_details_container, fragment)
+////                                        .commit();
+//
+//                                } catch (Exception e) {
+//                                    e.printStackTrace();
+//                                    Utils.showExceptionDialog(mActivity);
+//                                }
+//                            }
+////                        else {
+////                            ReviewFragment fragment = ReviewFragment.newInstance();
+////                            Bundle reviewBundle = new Bundle();
+////                            reviewBundle.putSerializable("reviewList", reviewList);
+////                            fragment.setArguments(reviewBundle);
+////
+////                            getSupportFragmentManager()
+////                                    .beginTransaction()
+////                                    .replace(R.id.vendor_details_container, fragment)
+////                                    .commit();
+////                        }
 //                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i("Groomer info", error.toString());
-                        //pdialog.dismiss();
-                        Utils.showExceptionDialog(mActivity);
-                    }
-                }
-        );
-
-        //pdialog.show();
-        GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
-        jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-    }
+//                    },
+//                    new Response.ErrorListener() {
+//                        @Override
+//                        public void onErrorResponse(VolleyError error) {
+//                            Log.i("Groomer info", error.toString());
+//                            //pdialog.dismiss();
+//                            Utils.showExceptionDialog(mActivity);
+//                        }
+//                    }
+//            );
+//
+//            //pdialog.show();
+//            GroomerApplication.getInstance().addToRequestQueue(jsonRequest);
+//            jsonRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0,
+//                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+//        }
+//    }
 
     @Override
     public void onClick(View view) {
@@ -655,13 +647,6 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
 
     }
 
-    public List<ServiceDTO> getServiceList() {
-        return serviceList;
-    }
-
-    public void setServiceList(List<ServiceDTO> serviceList) {
-        this.serviceList = serviceList;
-    }
 
     @Override
     public void getPriceSum(String sum) {
@@ -683,13 +668,11 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
 
     @Override
     public void getSelectedServiceList(List<ServiceDTO> serviceDTOList) {
-        double buyDouble = 0.0;
         serviceList = serviceDTOList;
         selectedList = new ArrayList<>();
         for (ServiceDTO dto : serviceDTOList) {
             if (dto.isSelected()) {
                 selectedList.add(dto);
-                //buyDouble =buyDouble+ dto.getPrice()
             }
         }
 

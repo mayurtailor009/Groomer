@@ -21,7 +21,7 @@ import java.util.List;
 public class ReviewFragment extends BaseFragment {
 
 
-    private RecyclerView mReviewList;
+    private RecyclerView mRecyclerView;
     private View view;
     private Activity mActivity;
 
@@ -56,15 +56,15 @@ public class ReviewFragment extends BaseFragment {
 
 
     private void setUpRecycler() {
-        mReviewList = (RecyclerView) view.findViewById(R.id.vendor_review_list);
-        mReviewList.setLayoutManager(new LinearLayoutManager(mActivity));
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.vendor_review_list);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         List<ReviewDTO> reviewDTOList = getReviewsList();
         if (reviewDTOList != null && reviewDTOList.size() != 0) {
-            mReviewList.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.VISIBLE);
             setViewVisibility(R.id.txt_no_data_found, view, View.GONE);
-            mReviewList.setAdapter(new ReviewsAdapter(mActivity, getReviewsList()));
+            mRecyclerView.setAdapter(new ReviewsAdapter(mActivity, getReviewsList()));
         } else {
-            mReviewList.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.GONE);
             setViewVisibility(R.id.txt_no_data_found, view, View.VISIBLE);
         }
     }
