@@ -174,10 +174,9 @@ public class LoginActivity extends BaseActivity {
                                         intent.putExtra("fragmentNumber", 0);
                                         startActivity(intent);
 
-
                                         finish();
                                     } else {
-                                        Utils.showDialog(LoginActivity.this, "Error", Utils.getWebServiceMessage(response));
+                                        Utils.showDialog(mActivity, "Error", Utils.getWebServiceMessage(response));
                                     }
 
                                 } catch (Exception e) {

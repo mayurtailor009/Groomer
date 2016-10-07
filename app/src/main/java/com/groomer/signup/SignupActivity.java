@@ -44,9 +44,9 @@ public class SignupActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         mActivity = this;
-
         GPSTracker gpstracker = new GPSTracker(mActivity);
         init();
+
     }
 
     private void init() {

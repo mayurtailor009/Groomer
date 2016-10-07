@@ -142,9 +142,9 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
                                     saloonDetailsDTO = saloonDetailsFullDTO.getSaloon();
                                     reviewList = saloonDetailsFullDTO.getReview();
 
-                                    if (reviewList != null) {
-                                        setSaloonDetails(reviewList.size()); //setting the saloon details
-                                    }
+
+                                    setSaloonDetails(reviewList); //setting the saloon details
+
 
                                     setUpViewPager();
 
@@ -191,22 +191,28 @@ public class VendorDetailsActivity extends BaseActivity implements PriceServiceI
     /**
      * this method sets the saloon name and address details.
      */
-    private void setSaloonDetails(int reviewsCount) {
+    private void setSaloonDetails(List<ReviewDTO> reviewsList) {
 
         if (HelpMe.isArabic(mActivity)) {
             setViewText(R.id.txt_vendor_name, saloonDetailsDTO.getStorename_ara());
         } else {
             setViewText(R.id.txt_vendor_name, saloonDetailsDTO.getStorename_eng());
         }
+
         setViewText(R.id.txt_vendor_address, saloonDetailsDTO.getAddress());
         setViewText(R.id.txt_vendor_distance, "(" + saloonDetailsDTO.getDistance() +
                 " " + getString(R.string.distance_unit_km) + " )");
-        setViewText(R.id.txt_vendor_rating, saloonDetailsDTO.getRating());
 
+        int ratingCount = Integer.parseInt(saloonDetailsDTO.getRating());
+        if (ratingCount != 0) {
+            setViewText(R.id.txt_vendor_rating, ratingCount + "");
+        } else {
+            setViewVisibility(R.id.img_rating_icon, View.GONE);
+        }
 
-        if (reviewsCount != 0) {
+        if (reviewsList != null && reviewsList.size() != 0) {
             setViewText(R.id.btn_reviews_tab,
-                    getViewText(R.id.btn_reviews_tab) + " (" + reviewsCount + ")");
+                    getViewText(R.id.btn_reviews_tab) + " (" + reviewsList.size() + ")");
         }
 
         ImageView img_fav = (ImageView) findViewById(R.id.img_fav);

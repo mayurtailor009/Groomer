@@ -53,31 +53,37 @@ public class CustomJsonRequest extends Request<JSONObject> {
         try {
             String jsonString = new String(response.data,
                     HttpHeaderParser.parseCharset(response.headers));
-            JSONObject jsonObject = new JSONObject(jsonString);
+            //JSONObject jsonObject = new JSONObject(jsonString);
 
 
             // force response to be cached
-            Map<String, String> headers = response.headers;
-            long cacheExpiration = 24 * 60 * 60 * 1000; // in 24 hours this cache entry expires completely
-            long now = System.currentTimeMillis();
-            Cache.Entry entry = new Cache.Entry();
-            entry.data = response.data;
-            entry.etag = headers.get("ETag");
-            entry.ttl = now + cacheExpiration;
-            entry.serverDate = HttpHeaderParser.parseDateAsEpoch(headers.get("Date"));
-            entry.responseHeaders = headers;
+            //Map<String, String> headers = response.headers;
+            //long cacheExpiration = 24 * 60 * 60 * 1000; // in 24 hours this cache entry expires completely
+            //long now = System.currentTimeMillis();
+            //Cache.Entry entry = new Cache.Entry();
+            //entry.data = response.data;
+            //entry.etag = headers.get("ETag");
+            //entry.ttl = now + cacheExpiration;
+            //entry.serverDate = HttpHeaderParser.parseDateAsEpoch(headers.get("Date"));
+            //entry.responseHeaders = headers;
+            //entry = HttpHeaderParser.parseCacheHeaders(response);
+            //GroomerApplication.getInstance().getRequestQueue().getCache().put(cacheKey, entry);
+            Cache.Entry entry = HttpHeaderParser.parseCacheHeaders(response);
             GroomerApplication.getInstance().getRequestQueue().getCache().put(cacheKey, entry);
-
-            return Response.success(jsonObject, entry);
+            return Response.success(new JSONObject(jsonString),
+                    entry);
+            //return Response.success(jsonObject, entry);
         } catch (UnsupportedEncodingException e) {
             return Response.error(new ParseError(e));
         } catch (JSONException je) {
+            je.printStackTrace();
             return Response.error(new ParseError(je));
         }
     }
 
     @Override
     protected void deliverResponse(JSONObject response) {
+
         listener.onResponse(response);
     }
 

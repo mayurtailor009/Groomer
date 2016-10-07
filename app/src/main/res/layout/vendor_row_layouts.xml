@@ -63,7 +63,6 @@
                         android:layout_marginBottom="@dimen/margin_1"
                         android:layout_marginLeft="@dimen/margin_10"
                         android:layout_toRightOf="@+id/txt_vendor_name"
-                        android:text="4.5"
                         android:textSize="12sp" />
 
                     <ImageView

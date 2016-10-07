@@ -3,6 +3,7 @@ package com.groomer.category.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,7 +34,7 @@ public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.De
 
     public static class DetailsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        ImageView thumbnail, img_fav;
+        ImageView thumbnail, img_fav, img_rating_icon;
         TextView txt_vendor_name, txt_vendor_rating, txt_vendor_address, txt_vendor_price, txt_vendor_price_unit, txt_vendor_distance;
 
 
@@ -42,6 +43,7 @@ public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.De
             super(itemView);
 
             thumbnail = (ImageView) itemView.findViewById(R.id.thumbnail);
+            img_rating_icon = (ImageView) itemView.findViewById(R.id.img_rating_icon);
             txt_vendor_rating = (TextView) itemView.findViewById(R.id.txt_vendor_rating);
             txt_vendor_name = (TextView) itemView.findViewById(R.id.txt_vendor_name);
             txt_vendor_address = (TextView) itemView.findViewById(R.id.txt_vendor_address);
@@ -109,7 +111,14 @@ public class VendorListAdapter extends RecyclerView.Adapter<VendorListAdapter.De
         }
         holder.txt_vendor_price.setText(vendorListDTO.getPrice());
         holder.txt_vendor_address.setText(vendorListDTO.getAddress());
-        holder.txt_vendor_rating.setText(vendorListDTO.getRating());
+
+        int ratingCount = Integer.parseInt(vendorListDTO.getRating());
+        if (ratingCount != 0) {
+            holder.txt_vendor_rating.setText(ratingCount + "");
+            holder.img_rating_icon.setVisibility(View.VISIBLE);
+        } else {
+            holder.img_rating_icon.setVisibility(View.GONE);
+        }
 
         holder.txt_vendor_distance.setText("(" + vendorListDTO.getDistance() + " " +
                 context.getString(R.string.distance_unit_km) + " )");

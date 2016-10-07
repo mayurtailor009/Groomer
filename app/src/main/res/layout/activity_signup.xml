@@ -100,8 +100,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
                     android:weightSum="1.3">
 
                     <com.groomer.customviews.CustomTextViewMarkNovaRegular
@@ -111,9 +111,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_weight=".3"
-                        android:text="+966"
                         android:drawableRight="@drawable/down_green"
-                        android:hint="@string/txt_select_country_code" />
+                        android:hint="@string/txt_select_country_code"
+                        android:text="+966" />
 
                     <View
                         android:layout_width="0dp"
@@ -125,9 +125,9 @@
                         style="@style/et_login_style"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:drawableRight="@drawable/phone_icon"
                         android:layout_marginTop="5dp"
                         android:layout_weight="0.85"
+                        android:drawableRight="@drawable/phone_icon"
                         android:hint="@string/hint_enter_here"
                         android:inputType="phone" />
                 </LinearLayout>
@@ -163,14 +163,6 @@
                     android:hint="@string/hint_enter_here"
                     android:inputType="textPassword"
                     android:typeface="monospace" />
-
-                <com.groomer.customviews.CustomTextViewMarkNovaRegular
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/txt_country_code"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
 
 
                 <Button
